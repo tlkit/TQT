@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="cloudzoom.css?v=3"/>
+    <script src="jquery-1.11.0.min.js"></script>
+    <script src="jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="cloudzoom.js?v=10"></script>
+
+</head>
+<body>
+<div class="text-center" id="i1">
+    <img class="cloudzoom" src="http://plaza10.vcmedia.vn/thumb_w/500/product/product/-0-15297.jpg"
+         data-cloudzoom="
+         zoomImage:'http://plaza10.vcmedia.vn/product/product/-0-15297.jpg',
+         zoomPosition:'inside',
+         zoomOffsetX:0 "
+         alt="Cloud Zoom small image" style="-webkit-user-select: none;">
+</div>
+<div class="text-center" id="i2">
+    <img class="cloudzoom" src="http://www.starplugins.com/sites/starplugins/images/jetzoom/small/image7.jpg" data-cloudzoom="zoomImage:'http://www.starplugins.com/sites/starplugins/images/jetzoom/large/image7.jpg',zoomPosition:'inside', zoomOffsetX:0 " alt="Cloud Zoom small image" style="-webkit-user-select: none;">
+</div>
+<button id="b1">b1</button>
+<button id="b2">b2</button>
+</body>
+<script type="text/javascript">
+
+    CloudZoom.quickStart();
+
+    $(function(){
+        $("#b1").click(function(){
+            $("#i1").show();
+            $("#i2").hide();
+        });
+        $("#b2").click(function(){
+            $("#i1").hide();
+            $("#i2").show();
+        });
+    });
+</script>
+
+</html>
+

@@ -1,0 +1,39 @@
+/*!
+ *   Author: admin*
+/*
+    Core: General style
+---------------------------*/
+
+.mrgTop20 {
+    margin-top: 20px!important;
+}
+.bgColor {
+    background-color: #5cb85c!important;
+    color: #fff;
+}
+.bgColor:hover { color: #fff!important; }
+.bgColor_f2dede {
+    background-color: #aaa!important;
+    color: #fff!important;
+}
+.fontSize18 { font-size: 18px!important; }
+.txtAlignR { text-align: right!important; }
+.clear {
+    clear: both!important;
+}
+.profile > a {
+    display: inline-block;
+    margin-bottom: 6px!important;
+}
+.profile > a:hover {
+    text-decoration: underline!important;
+    color: #3c8dbc!important;
+}
+.sidebar .sidebar-menu .treeview-menu > li > a {
+    font-size: 13px!important;
+}
+/*Quynhtm add*/
+.sidebar .sidebar-menu .treeview-menu > li > a.active, .sidebar .sidebar-menu .treeview-menu > li > a:hover{
+    color: #357CA5 !important;
+}
+.a_msg_error{color: red;}

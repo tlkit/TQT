@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Format tiền</title>
+    <script type="text/javascript" src="../../assets/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="autoNumeric.js"></script>
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $('.formatMoney').autoNumeric('init');
+        });
+    </script>
+    <style>
+        .formatMoney{
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" class="formatMoney" data-a-sep="." data-a-dec="," data-a-sign=" đ" data-p-sign="s" data-v-max="99999999999999999999" data-v-min="0">
+</body>
+</html>

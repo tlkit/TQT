@@ -1,0 +1,21 @@
+/**
+*******************************************************************/
+.lbl_format { padding: 0px; font-weight:normal; }
+ul.mnu_list_task { float: left; padding: 0; margin: 0; clear: both; }
+ul.mnu_list_task li { float: left; list-style: none; }
+ul.mnu_list_task li a { float: left; display: block; line-height: 32px; padding-right: 30px; color: #333;white-space: nowrap;}
+ul.mnu_list_task li a.active { color: #428bca }
+.ico-shop-add, .ico-shop-up { display: block; width: 24px; height: 24px; float: left; background: url("../images/icon-gold.png") no-repeat 0 0; margin-right: 3px }
+.ico-shop-up { width: 22px; height: 22px; background: url("../images/icon-up.png") no-repeat -1px -1px; }
+.format-runing, .format-waiting, .format-finish { font-weight: bold; color: green; }
+.format-waiting { color: #e96220;  }
+.format-finish { color: #970d00; }
+.deals_tab_title { background: none repeat scroll 0 0 #242634; border-bottom: 3px solid #f0ad4e; color: #fff; font-size: 16px; font-weight: bold; margin-bottom: 30px; padding: 8px 20px; margin: 0; }
+ul.deals_btn { margin-top: 10px; float: right;}
+ul.deals_btn li { float: left; list-style: none; margin-left: 10px; }
+ul.deals_btn li a { display: block; line-height: 28px; border: 1px solid #ddd; padding: 0 10px; border-radius: 6px; }
+ul.popup_list_product { float: left; width: 100%; list-style: none; margin-top: 20px; padding-left: 20px }
+ul.popup_list_product li { float: left; }
+ul.popup_list_product li input { width: 250px; line-height: 22px; }
+ul.popup_list_product li a { display:block; padding: 3px 16px; border-radius: 3px; border: 1px solid #ccc; }
+.hide-elem{display: none}

@@ -1,0 +1,23 @@
+.html_format code {
+	white-space: normal;
+	font-family: Menlo, Monaco, "Courier New", monospace;
+	color: #222;
+}
+
+.html_format pre code {
+	font-size: 12px;
+	display: block;
+	white-space: pre-wrap;
+	font-family: Menlo, Monaco, "Courier New", monospace;
+	padding: 1px 4px;
+	color: #222;
+	background-color: #F7F7F9;
+	border: 1px solid #E1E1E8;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.hidden{
+	display: none;
+}
