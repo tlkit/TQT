@@ -69,7 +69,7 @@ return array(
 
 	'memcached' => array(
 
-		array('host' => '10.2.21.117', 'port' => 14221, 'weight' => 100),
+		array('host' => '127.0.0.1', 'port' => 11211, 'weight' => 100),
 
 	),
 

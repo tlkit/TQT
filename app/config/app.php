@@ -1,7 +1,7 @@
 <?php
 
 return array(
-    'encoding' => 'UTF-8',
+
 	/*
 	|--------------------------------------------------------------------------
 	| Application Debug Mode
@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => true,
+	'debug' => false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://plaza.muachung.vn',
+	'url' => 'http://localhost',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'Asia/Bangkok',
+	'timezone' => 'UTC',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return array(
 	|
 	*/
 
-	'locale' => 'vi',
+	'locale' => 'en',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return array(
 	|
 	*/
 
-	'key' => 'JojIPx9lWOUQNxtJWdjvAdeaISdzhiJ7',
+	'key' => 'WLYycyU6iHpvbWAnjSVRqShzKCbFABUL',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 

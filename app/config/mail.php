@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'smtp.xone.vn',
+	'host' => 'smtp.mailgun.org',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-    'from' => array('address' => 'plaza@zamba.vn', 'name' => 'MuaChungPlaza'),
+	'from' => array('address' => null, 'name' => null),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -67,7 +67,7 @@ return array(
 	|
 	*/
 
-	'encryption' => '',
+	'encryption' => 'tls',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-    'username' => 'plaza@zamba.vn',
+	'username' => null,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-    'password' => 'R4tAQXlNtFYGpvhKwjKud3fQZUd1AlDkpqATjKG1WpIz',
+	'password' => null,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -106,7 +106,7 @@ return array(
 	|
 	*/
 
-    'sendmail' => '/usr/sbin/sendmail -bs',
+	'sendmail' => '/usr/sbin/sendmail -bs',
 
 	/*
 	|--------------------------------------------------------------------------

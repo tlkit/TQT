@@ -13,9 +13,6 @@ return array(
 	|
 	*/
 
-    'debug'=>false,
-    'res_on'=>false,
-    'demo'=>0,
-    'query_api'=>array()
+
 
 );
