@@ -21,7 +21,6 @@ class UserController extends BaseAdminController{
 //        if(!$this->is_root){
 //            return Redirect::route('admin.dashboard');
 //        }
-
         $page_no = Request::get('page_no',1);
         $dataSearch['user_status'] = Request::get('user_status',0);
         $dataSearch['user_email'] = Request::get('user_email','');
@@ -32,9 +31,7 @@ class UserController extends BaseAdminController{
         $limit = 30; $paging = '';$size = 0;
         $offset = ($page_no - 1) * $limit;
         $data = User::searchByCondition($dataSearch,$limit,$offset,$size);
-
         $arrGroupUser = GroupUser::getListGroupUser();
-
 
         $this->layout->content = View::make('admin.UserLayouts.view')
 

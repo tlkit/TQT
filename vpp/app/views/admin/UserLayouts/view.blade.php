@@ -43,108 +43,58 @@
         <div class="box-footer">
             <div class="text-right">
                 <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
-                {{--<a href="{{URL::route('admin.createUser')}}" class="btn bgColor">Tạo tài khoản</a>--}}
+                <a href="{{URL::route('admin.user_create')}}" class="btn btn-primary">Tạo tài khoản</a>
             </div>
         </div><!-- /.box-footer-->
         {{ Form::close() }}
     </div><!-- /.box -->
-    @if($data)
+    @if(sizeof($data) > 0)
         <div class="span"> @if($size >0) Có tổng số <b>{{$size}}</b> tài khoản  @endif </div>
         <br>
-        <table class="table-hover table table-bordered">
-            <thead>
-            <tr class="primary">
-                <th width="15%" class="text-center">STT</th>
-                <th width="40%" >Thông tin</th>
-                <th width="15%" class="text-center">Ngày tạo</th>
-                <th width="20%" class="text-center">Thao tác</th>
-                {{--<th width="20%">Email</th>--}}
-                {{--<th width="10%">Change Pass</th>--}}
-                {{--<th width="10%">Change Role</th>--}}
-                {{--<th width="10%">Action</th>--}}
-            </tr>
-            </thead>
-            <tbody>
-            @foreach ($data as $key => $item)
-                <tr @if($item['user_status'] == -1) class="warning" @endif>
-                    <td class="text-center">{{ $key+1 }}</td>
-                    <td>
-                        <div class="green"><b>Tài khoản : </b>{{ $item['user_name'] }}</div>
-                        <div><b>Tên nhân viên : </b>{{ $item['user_full_name'] }}</div>
-                        <div><b>Mã nhân sự : </b>{{ $item['user_employee_id'] }}</div>
-                        <div><b>Email : </b>{{ $item['user_email'] }}</div>
-                    </td>
-                    <td class="text-center">
-                        @if($item['user_created'])
-                            {{ date("d-m-Y",$item['user_created']) }}
-                        @endif
-                    </td>
-                    <td class="text-center">
-                        {{--@if($is_root)--}}
+        <div class="panel">
+            <table class="table-hover table table-bordered">
+                <thead>
+                <tr class="btn-primary">
+                    <th width="15%" class="text-center">STT</th>
+                    <th width="40%" >Thông tin</th>
+                    <th width="15%" class="text-center">Ngày tạo</th>
+                    <th width="20%" class="text-center">Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach ($data as $key => $item)
+                    <tr>
+                        <td class="text-center">{{ $key+1 }}</td>
+                        <td>
+                            <div class="green"><b>Tài khoản : </b>{{ $item['user_name'] }}</div>
+                            <div><b>Tên nhân viên : </b>{{ $item['user_full_name'] }}</div>
+                            <div><b>Số điện thoại : </b>{{ $item['user_phone'] }}</div>
+                            <div><b>Email : </b>{{ $item['user_email'] }}</div>
+                        </td>
+                        <td class="text-center">
+                            @if($item['user_created'])
+                                {{ date("d-m-Y",$item['user_created']) }}
+                            @endif
+                        </td>
+                        <td class="text-center">
+                            {{--@if($is_root)--}}
                             {{--<a href="{{URL::route('admin.getEditPass',array('id' => base64_encode('seo_admin_'.$item['user_id'])))}}" title="Sửa mật khẩu">Đổi mật khẩu</a>--}}
-                        {{--@endif--}}
-                        {{--<br/>--}}
-                        {{--@if($is_root)--}}
+                            {{--@endif--}}
+                            {{--<br/>--}}
+                            {{--@if($is_root)--}}
                             {{--<a href="{{URL::route('admin.getEditUser',array('id' => $item['user_id']))}}" title="Sửa thông tin tài khoản">Sửa</a>--}}
-                        {{--@endif--}}
-                    </td>
-                </tr>
-            @endforeach
-            @foreach ($data as $key => $item)
-                <tr @if($item['user_status'] == -1) class="warning" @endif>
-                    <td class="text-center">{{ $key+1 }}</td>
-                    <td>
-                        <div class="green"><b>Tài khoản : </b>{{ $item['user_name'] }}</div>
-                        <div><b>Tên nhân viên : </b>{{ $item['user_full_name'] }}</div>
-                        <div><b>Mã nhân sự : </b>{{ $item['user_employee_id'] }}</div>
-                        <div><b>Email : </b>{{ $item['user_email'] }}</div>
-                    </td>
-                    <td class="text-center">
-                        @if($item['user_created'])
-                            {{ date("d-m-Y",$item['user_created']) }}
-                        @endif
-                    </td>
-                    <td class="text-center">
-                        {{--@if($is_root)--}}
-                        {{--<a href="{{URL::route('admin.getEditPass',array('id' => base64_encode('seo_admin_'.$item['user_id'])))}}" title="Sửa mật khẩu">Đổi mật khẩu</a>--}}
-                        {{--@endif--}}
-                        {{--<br/>--}}
-                        {{--@if($is_root)--}}
-                        {{--<a href="{{URL::route('admin.getEditUser',array('id' => $item['user_id']))}}" title="Sửa thông tin tài khoản">Sửa</a>--}}
-                        {{--@endif--}}
-                    </td>
-                </tr>
-            @endforeach
-            @foreach ($data as $key => $item)
-                <tr @if($item['user_status'] == -1) class="warning" @endif>
-                    <td class="text-center">{{ $key+1 }}</td>
-                    <td>
-                        <div class="green"><b>Tài khoản : </b>{{ $item['user_name'] }}</div>
-                        <div><b>Tên nhân viên : </b>{{ $item['user_full_name'] }}</div>
-                        <div><b>Mã nhân sự : </b>{{ $item['user_employee_id'] }}</div>
-                        <div><b>Email : </b>{{ $item['user_email'] }}</div>
-                    </td>
-                    <td class="text-center">
-                        @if($item['user_created'])
-                            {{ date("d-m-Y",$item['user_created']) }}
-                        @endif
-                    </td>
-                    <td class="text-center">
-                        {{--@if($is_root)--}}
-                        {{--<a href="{{URL::route('admin.getEditPass',array('id' => base64_encode('seo_admin_'.$item['user_id'])))}}" title="Sửa mật khẩu">Đổi mật khẩu</a>--}}
-                        {{--@endif--}}
-                        {{--<br/>--}}
-                        {{--@if($is_root)--}}
-                        {{--<a href="{{URL::route('admin.getEditUser',array('id' => $item['user_id']))}}" title="Sửa thông tin tài khoản">Sửa</a>--}}
-                        {{--@endif--}}
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+                            {{--@endif--}}
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
         {{$paging}}
     @else
-        <h4> Không có dữ liệu</h4>
+        <div class="alert">
+            Không có dữ liệu
+        </div>
     @endif
 
 </section><!-- /.content -->

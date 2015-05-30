@@ -28,13 +28,13 @@
     <!--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
     <![endif]-->
 </head>
-<body class="skin-purple-light sidebar-mini">
+<body class="skin-blue-light sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
     <header class="main-header">
         <!-- Logo -->
-        <a href="../../index2.html" class="logo">
+        <a href="{{URL::route('admin.dashboard')}}" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini">VPP</span>
             <!-- logo for regular state and mobile devices -->
@@ -96,29 +96,10 @@
             <ul class="sidebar-menu">
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
+                        <i class="fa fa-user"></i> <span>Nhân viên</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="../../index.html"><i class="fa fa-angle-double-right"></i> Dashboard v1</a></li>
-                        <li><a href="../../index2.html"><i class="fa fa-angle-double-right"></i> Dashboard v2</a></li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="../../index.html"><i class="fa fa-angle-double-right"></i> Dashboard v1</a></li>
-                        <li><a href="../../index2.html"><i class="fa fa-angle-double-right"></i> Dashboard v2</a></li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="../../index.html"><i class="fa fa-angle-double-right"></i> Dashboard v1</a></li>
-                        <li><a href="../../index2.html"><i class="fa fa-angle-double-right"></i> Dashboard v2</a></li>
+                        <li><a href="{{URL::route('admin.user_view')}}"><i class="fa fa-angle-double-right"></i>Danh sách nhân viên</a></li>
                     </ul>
                 </li>
             </ul>
@@ -133,12 +114,12 @@
         {{$content}}
     </div><!-- /.content-wrapper -->
 
-    <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-            <b>Version</b> 2.0
-        </div>
-        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
-    </footer>
+    {{--<footer class="main-footer">--}}
+        {{--<div class="pull-right hidden-xs">--}}
+            {{--<b>Version</b> 2.0--}}
+        {{--</div>--}}
+        {{--<strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.--}}
+    {{--</footer>--}}
 
 </div><!-- ./wrapper -->
 

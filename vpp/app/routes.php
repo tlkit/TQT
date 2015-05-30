@@ -21,5 +21,7 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::post('login/{url?}', array('as' => 'admin.login','uses' => 'LoginController@login'));
     Route::get('logout', array('as' => 'admin.logout','uses' => 'LoginController@logout'));
     Route::get('dashboard', array('as' => 'admin.dashboard','uses' => 'DashBoardController@dashboard'));
-    Route::get('user',array('as' => 'admin.user_view','uses' => 'UserController@view'));
+    Route::get('user/view',array('as' => 'admin.user_view','uses' => 'UserController@view'));
+    Route::get('permission/view',array('as' => 'admin.permission_view','uses' => 'PermissionController@view'));
+    Route::get('user/create',array('as' => 'admin.user_create','uses' => 'UserController@createInfo'));
 });
