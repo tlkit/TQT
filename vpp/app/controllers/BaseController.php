@@ -15,4 +15,12 @@ class BaseController extends Controller {
 		}
 	}
 
+    protected static function buildUrlEncode($link = '') {
+        return ($link != '')? rtrim(strtr(base64_encode($link), '+/', '-_'), '=') : '';
+    }
+
+    protected static function buildUrlDecode($str_link = '') {
+        return ($str_link != '')? base64_decode(str_pad(strtr($str_link, '-_', '+/'), strlen($str_link) % 4, '=', STR_PAD_RIGHT)) : '';
+    }
+
 }

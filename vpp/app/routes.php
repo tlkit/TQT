@@ -17,6 +17,9 @@ Route::get('/', function()
 });
 Route::group(array('prefix' => 'admin', 'before' => ''), function()
 {
-    Route::any('login/{url?}', array('as' => 'admin.login','uses' => 'UsersController@login'));
+    Route::get('login/{url?}', array('as' => 'admin.loginInfo','uses' => 'LoginController@loginInfo'));
+    Route::post('login/{url?}', array('as' => 'admin.login','uses' => 'LoginController@login'));
+    Route::get('logout', array('as' => 'admin.logout','uses' => 'LoginController@logout'));
     Route::get('dashboard', array('as' => 'admin.dashboard','uses' => 'DashBoardController@dashboard'));
+    Route::get('user',array('as' => 'admin.user_view','uses' => 'UserController@view'));
 });

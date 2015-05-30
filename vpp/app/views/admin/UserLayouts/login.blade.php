@@ -3,14 +3,20 @@
         <a href="javascript:void(0)" style="font-family: 'Calligraffitti', cursive;">Admin VPP</a>
     </div><!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
-        <form action="../../index2.html" method="post">
+        <p class="login-box-msg">
+            @if(isset($error))
+                {{$error}}
+            @else
+                Sign in to start your session
+            @endif
+        </p>
+        {{ Form::open(array('class'=>'form-signin')) }}
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="User"/>
+                <input name="user_name" @if(isset($username)) value="{{$username}}" @endif type="text" class="form-control" placeholder="User"/>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Password"/>
+                <input name="user_password" type="password" class="form-control" placeholder="Password"/>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
@@ -25,7 +31,7 @@
                     <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
                 </div><!-- /.col -->
             </div>
-        </form>
+        {{Form::close()}}
 
         {{--<div class="social-auth-links text-center">--}}
             {{--<p>- OR -</p>--}}
