@@ -18,4 +18,5 @@ Route::get('/', function()
 Route::group(array('prefix' => 'admin', 'before' => ''), function()
 {
     Route::any('login/{url?}', array('as' => 'admin.login','uses' => 'UsersController@login'));
+    Route::get('dashboard', array('as' => 'admin.dashboard','uses' => 'DashBoardController@dashboard'));
 });

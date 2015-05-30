@@ -5,7 +5,7 @@
     <title></title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     {{--<link rel="shortcut icon" href="{{Config::get('config.WEB_ROOT')}}favicon.ico">--}}
-
+    <link href='http://fonts.googleapis.com/css?family=Calligraffitti|Lobster' rel='stylesheet' type='text/css'>
     {{ HTML::style('assets/lib/adminLTE/bootstrap/css/bootstrap.min.css'); }}
     {{ HTML::style('assets/lib/font-awesome/css/font-awesome.min.css'); }}
     {{ HTML::style('assets/lib/adminLTE/dist/css/AdminLTE.min.css'); }}

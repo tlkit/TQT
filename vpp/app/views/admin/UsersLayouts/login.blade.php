@@ -1,13 +1,13 @@
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html"><b>Admin</b>LTE</a>
+        <a href="javascript:void(0)" style="font-family: 'Calligraffitti', cursive;">Admin VPP</a>
     </div><!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
         <form action="../../index2.html" method="post">
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="Email"/>
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                <input type="email" class="form-control" placeholder="User"/>
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
                 <input type="password" class="form-control" placeholder="Password"/>
@@ -27,14 +27,14 @@
             </div>
         </form>
 
-        <div class="social-auth-links text-center">
-            <p>- OR -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using Facebook</a>
-            <a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>
-        </div><!-- /.social-auth-links -->
+        {{--<div class="social-auth-links text-center">--}}
+            {{--<p>- OR -</p>--}}
+            {{--<a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using Facebook</a>--}}
+            {{--<a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>--}}
+        {{--</div><!-- /.social-auth-links -->--}}
 
-        <a href="#">I forgot my password</a><br>
-        <a href="register.html" class="text-center">Register a new membership</a>
+        {{--<a href="#">I forgot my password</a><br>--}}
+        {{--<a href="register.html" class="text-center">Register a new membership</a>--}}
 
     </div><!-- /.login-box-body -->
 </div><!-- /.login-box -->
