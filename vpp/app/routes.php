@@ -46,5 +46,12 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
 
     //QuynhTM
     //Quản lý danh mục SP
-    Route::get('categories',array('as' => 'admin.categories_list','uses' => 'CategoriesController@view'));
+    Route::get('categories',array('as' => 'admin.categories_list','uses' => 'CategoriesController@index'));
+    Route::get('categories/getCreate/{id?}', array('as' => 'admin.categories_edit','uses' => 'CategoriesController@getCreate'));
+    Route::post('categories/getCreate/{id?}', array('as' => 'admin.categories_edit_post','uses' => 'CategoriesController@postCreate'));
+
+    //Quản lý Khách hàng
+    Route::get('customers',array('as' => 'admin.customers_list','uses' => 'CustomersController@index'));
+    Route::get('customers/getCreate/{id?}', array('as' => 'admin.customers_edit','uses' => 'CustomersController@getCreate'));
+    Route::post('customers/getCreate/{id?}', array('as' => 'admin.customers_edit_post','uses' => 'CustomersController@postCreate'));
 });
