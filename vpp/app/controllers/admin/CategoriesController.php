@@ -23,7 +23,7 @@ class CategoriesController extends BaseAdminController
     public function index() {
         //Check phan quyen.
         /*if(!in_array($this->permiss_view,$this->permission)){
-            return Redirect::route('admin.page_error');
+            return Redirect::route('admin.dashboard');
         }*/
         $pageNo = (int) Request::get('page_no',1);
         $limit = 30;
@@ -62,7 +62,7 @@ class CategoriesController extends BaseAdminController
 
     public function getCreate($id=0) {
         /*if(!in_array($this->permission_edit,$this->permission)){
-            return Redirect::route('admin.page_error');
+            return Redirect::route('admin.dashboard');
         }*/
         $data = array();
         if($id > 0) {
@@ -76,7 +76,7 @@ class CategoriesController extends BaseAdminController
 
     public function postCreate($id=0) {
         /*if(!in_array($this->permission_edit,$this->permission)){
-            return Redirect::route('admin.page_error');
+            return Redirect::route('admin.dashboard');
         }*/
 
         $dataSave['categories_Name'] = addslashes(Request::get('categories_Name'));

@@ -6,37 +6,37 @@
  * Time: 12:37 PM
  * To change this template use File | Settings | File Templates.
  */
-class Categories extends Eloquent
+class Customers extends Eloquent
 {
-    protected $table = 'categories';
-    protected $primaryKey = 'categories_id';
+    protected $table = 'customers';
+    protected $primaryKey = 'customers_id';
     public $timestamps = false;
-    protected $fillable = array('categories_id','categories_GroupID', 'categories_ParentID', 'categories_Name', 'categories_Alias', 'categories_Icon', 'categories_SortIndex', 'categories_Status', 'categories_TotalProduct');
+    protected $fillable = array('customers_id','customers_Type', 'customers_FirstName', 'customers_LastName', 'customers_Code', 'customers_ContractNo', 'customers_BizRegistrationNo', 'customers_IsNeededVAT', 'customers_TaxCode','customers_Phone', 'customers_Fax', 'customers_Email', 'customers_Website', 'customers_BizAddress', 'customers_ContactAddress', 'customers_Description', 'customers_ContactPhone','customers_ContactEmail', 'customers_ContactName', 'customers_TotalInvoice', 'customers_AmountOfCapital', 'customers_AmountOfRevenue', 'customers_NetProfit', 'customers_ManagedBy', 'customers_CreatedTime');
 
     public static function getByID($id) {
-        return Categories::where('categories_id', $id)->get();
+        return Customers::where('customers_id', $id)->get();
     }
 
-    public static function getCategoriessAll() {
-        $categories = Categories::where('categories_id', '>', 0)->where('book_status', '=', 1)->get();
+    public static function getCustomerssAll() {
+        $categories = Customers::where('customers_id', '>', 0)->where('book_status', '=', 1)->get();
         $data = array();
         foreach($categories as $itm) {
-            $data[$itm['categories_id']] = $itm['categories_Name'];
+            $data[$itm['customers_id']] = $itm['customers_FirstName'];
         }
         return $data;
     }
 
     public static function searchByCondition($dataSearch = array(), $limit =0, $offset=0, &$total){
         try{
-            $query = Categories::where('categories_id','>',0);
-            if (isset($dataSearch['categories_Name']) && $dataSearch['categories_Name'] != '') {
-                $query->where('categories_Name','LIKE', '%' . $dataSearch['categories_Name'] . '%');
+            $query = Customers::where('customers_id','>',0);
+            if (isset($dataSearch['customers_FirstName']) && $dataSearch['customers_FirstName'] != '') {
+                $query->where('customers_FirstName','LIKE', '%' . $dataSearch['customers_FirstName'] . '%');
             }
-            if (isset($dataSearch['categories_Status']) && $dataSearch['categories_Status'] != -1) {
-                $query->where('categories_Status', $dataSearch['categories_Status']);
+            if (isset($dataSearch['customers_Type']) && $dataSearch['customers_Type'] != -1) {
+                $query->where('customers_Type', $dataSearch['customers_Type']);
             }
             $total = $query->count();
-            $query->orderBy('categories_id', 'desc');
+            $query->orderBy('customers_id', 'desc');
             return ($offset == 0) ? $query->take($limit)->get() : $query->take($limit)->skip($offset)->get();
 
         }catch (PDOException $e){
@@ -54,7 +54,7 @@ class Categories extends Eloquent
     {
         try {
             DB::connection()->getPdo()->beginTransaction();
-            $data = new Categories();
+            $data = new Customers();
             if (is_array($dataInput) && count($dataInput) > 0) {
                 foreach ($dataInput as $k => $v) {
                     $data->$k = $v;
@@ -62,7 +62,7 @@ class Categories extends Eloquent
             }
             if ($data->save()) {
                 DB::connection()->getPdo()->commit();
-                return $data->categories_id;
+                return $data->customers_id;
             }
             DB::connection()->getPdo()->commit();
             return false;
@@ -83,7 +83,7 @@ class Categories extends Eloquent
     {
         try {
             DB::connection()->getPdo()->beginTransaction();
-            $dataSave = Categories::find($id);
+            $dataSave = Customers::find($id);
             if (!empty($dataInput)){
                 $dataSave->update($dataInput);
             }
@@ -105,7 +105,7 @@ class Categories extends Eloquent
     public static function updStatus($id,$status){
         try {
             DB::connection()->getPdo()->beginTransaction();
-            $dataSave = Categories::find($id);
+            $dataSave = Customers::find($id);
             $dataSave->categories_Status = $status;
             $dataSave->update();
             DB::connection()->getPdo()->commit();
@@ -126,7 +126,7 @@ class Categories extends Eloquent
     public static function delData($id){
         try {
             DB::connection()->getPdo()->beginTransaction();
-            $dataSave = Categories::find($id);
+            $dataSave = Customers::find($id);
             $dataSave->delete();
             DB::connection()->getPdo()->commit();
             return true;
