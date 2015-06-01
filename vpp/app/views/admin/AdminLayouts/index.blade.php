@@ -52,17 +52,17 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown active">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Xin chào, tech_tuanna <b class="caret"></b></a>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Xin chào, {{$user['user_full_name']}} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="http://report-dev.todo.vn/password.html">
+                                <a href="{{URL::route('admin.user_change',array('id' => base64_encode($user['user_id'])))}}">
                                     <i class="glyphicon glyphicon-cog"></i>
                                     Đổi mật khẩu
                                 </a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="http://report-dev.todo.vn/logout.html">
+                                <a href="{{URL::route('admin.logout')}}">
                                     <i class="glyphicon glyphicon-log-out"></i>
                                     Đăng xuất
                                 </a>
@@ -96,10 +96,20 @@
             <ul class="sidebar-menu">
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-user"></i> <span>Nhân viên</span> <i class="fa fa-angle-left pull-right"></i>
+                        <i class="fa fa-user"></i> <span>Quản trị</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{URL::route('admin.user_view')}}"><i class="fa fa-angle-double-right"></i>Danh sách nhân viên</a></li>
+                        <li><a href="{{URL::route('admin.permission_view')}}"><i class="fa fa-angle-double-right"></i>Danh sách quyền</a></li>
+                        <li><a href="{{URL::route('admin.groupUser_view')}}"><i class="fa fa-angle-double-right"></i>Danh sách nhóm quyền</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-bar-chart"></i> <span>Thống kê</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        {{--<li><a href="{{URL::route('admin.user_view')}}"><i class="fa fa-angle-double-right"></i>Danh sách nhân viên</a></li>--}}
                     </ul>
                 </li>
             </ul>

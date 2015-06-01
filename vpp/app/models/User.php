@@ -22,7 +22,7 @@ class User extends Eloquent {
     //Mass assignment
 
     // define which attributes are mass assignable (for security)
-    protected $fillable = array('user_name', 'user_password', 'user_full_name', 'user_email', 'user_birthday', 'user_status', 'user_group','user_last_login','user_last_ip','user_create_id','user_create_name','user_edit_id','user_edit_name','user_created','user_updated');
+    protected $fillable = array('user_name', 'user_password', 'user_full_name', 'user_email', 'user_phone', 'user_status', 'user_group','user_last_login','user_last_ip','user_create_id','user_create_name','user_edit_id','user_edit_name','user_created','user_updated');
 
 
     /**
@@ -133,12 +133,9 @@ class User extends Eloquent {
                 }
                 $user->user_password = self::encode_password($user->user_password);
             }
-            if ($user->save()) {
-                DB::connection()->getPdo()->commit();
-                return true;
-            }
+            $user->save();
             DB::connection()->getPdo()->commit();
-            return false;
+            return true;
         } catch (PDOException $e) {
             //var_dump($e->getMessage());die;
             DB::connection()->getPdo()->rollBack();
@@ -177,6 +174,15 @@ class User extends Eloquent {
             DB::connection()->getPdo()->rollBack();
             throw new PDOException();
         }
+    }
+
+    public static function isLogin()
+    {
+        $result = false;
+        if (Session::has('user')) {
+            $result = true;
+        }
+        return $result;
     }
 
 

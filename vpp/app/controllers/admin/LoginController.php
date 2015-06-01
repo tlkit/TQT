@@ -22,10 +22,10 @@ class LoginController extends BaseController
             if ($url === '' || $url === 'login') {
                 return Redirect::route('admin.dashboard');
             } else {
-                return Redirect::to(BaseController::buildUrlDecode($url));
+                return Redirect::to(self::buildUrlDecode($url));
             }
         } else {
-            $this->layout->content = View::make('admin.UsersLayouts.login');
+            $this->layout->content = View::make('admin.UserLayouts.login');
         }
     }
 
@@ -61,15 +61,15 @@ class LoginController extends BaseController
                                 'user_email' => $user->user_email,
                                 'user_employee_id' => $user->user_employee_id,
                                 'user_is_admin' => $user->user_is_admin,
-//                                'user_permission' => $permission_code
+                                'user_permission' => $permission_code
                             );
-                            Session::put('user', $data, 1000000);
+                            Session::put('user', $data, 60*24);
                             User::updateLogin($user);
                             //echo FunctionLib::buildUrlDecode($url); die('xxx');
                             if ($url === '' || $url === 'login') {
                                 return Redirect::route('admin.dashboard');
                             } else {
-                                return Redirect::to(BaseController::buildUrlDecode($url));
+                                return Redirect::to(self::buildUrlDecode($url));
                             }
                         } else {
                             $error = 'Mật khẩu không đúng!';
@@ -83,7 +83,7 @@ class LoginController extends BaseController
             $error = 'Chưa nhập thông tin đăng nhập!';
         }
 
-        $this->layout->content = View::make('admin.UsersLayouts.login')
+        $this->layout->content = View::make('admin.UserLayouts.login')
             ->with('error', $error)->with('username', $username);
     }
 
@@ -93,7 +93,7 @@ class LoginController extends BaseController
             // Session::forget('key');
             Session::forget('user');
         }
-        return Redirect::route('admin.login', array('url' => base64_encode(URL::previous())));
+        return Redirect::route('admin.login', array('url' => self::buildUrlEncode(URL::previous())));
     }
 
 }

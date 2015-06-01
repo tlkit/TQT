@@ -131,7 +131,7 @@ class GroupUser extends Eloquent
 
     public static function getListGroupUser()
     {
-        return GroupUser::where('group_user_status', '=', 1)->get();
+        return GroupUser::where('group_user_status', '=', 1)->lists('group_user_name','group_user_id');
     }
 
 

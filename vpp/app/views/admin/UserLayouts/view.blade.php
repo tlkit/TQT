@@ -4,8 +4,8 @@
         Danh sách nhân viên
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{URL::route('admin.dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Danh sách nhân viên</li>
+        <li><a href="{{URL::route('admin.dashboard')}}"><i class="fa fa-home"></i> Home</a></li>
+        <li class="active">Danh sách tài khoản</li>
     </ol>
 </section>
 
@@ -35,7 +35,7 @@
                 <select name="user_group" id="user_group" class="form-control input-sm" tabindex="12" data-placeholder="Chọn nhóm quyền">
                     <option value="0">--- Chọn nhóm quyền ---</option>
                     @foreach($arrGroupUser as $k => $v)
-                        <option value="{{$v['group_user_id']}}" @if($dataSearch['user_group'] == $v['group_user_id']) selected="selected" @endif>{{$v['group_user_name']}}</option>
+                        <option value="{{$k}}" @if($dataSearch['user_group'] == $k) selected="selected" @endif>{{$v}}</option>
                     @endforeach
                 </select>
             </div>
@@ -43,13 +43,20 @@
         <div class="box-footer">
             <div class="text-right">
                 <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
-                <a href="{{URL::route('admin.user_create')}}" class="btn btn-primary">Tạo tài khoản</a>
             </div>
         </div><!-- /.box-footer-->
         {{ Form::close() }}
     </div><!-- /.box -->
+    @if($permission_create)
+    <div class="span pull-right">
+        <a class="btn btn-app bg-orange" href="{{URL::route('admin.user_create')}}">
+            <i class="fa fa-plus-circle"></i>
+            Tạo tài khoản
+        </a>
+    </div>
+    @endif
     @if(sizeof($data) > 0)
-        <div class="span"> @if($size >0) Có tổng số <b>{{$size}}</b> tài khoản  @endif </div>
+        <div class="span clearfix"> @if($size >0) Có tổng số <b>{{$size}}</b> tài khoản  @endif </div>
         <br>
         <div class="panel">
             <table class="table-hover table table-bordered">
@@ -64,7 +71,7 @@
                 <tbody>
                 @foreach ($data as $key => $item)
                     <tr>
-                        <td class="text-center">{{ $key+1 }}</td>
+                        <td class="text-center">{{ $start+$key+1 }}</td>
                         <td>
                             <div class="green"><b>Tài khoản : </b>{{ $item['user_name'] }}</div>
                             <div><b>Tên nhân viên : </b>{{ $item['user_full_name'] }}</div>
@@ -77,13 +84,13 @@
                             @endif
                         </td>
                         <td class="text-center">
-                            {{--@if($is_root)--}}
-                            {{--<a href="{{URL::route('admin.getEditPass',array('id' => base64_encode('seo_admin_'.$item['user_id'])))}}" title="Sửa mật khẩu">Đổi mật khẩu</a>--}}
-                            {{--@endif--}}
+                            @if($permission_change_pass)
+                            <a href="{{URL::route('admin.user_change',array('id' => base64_encode($item['user_id'])))}}" title="Đổi mật khẩu" class="" style="margin-right: 10px"><i class="fa fa-lock fa-2x"></i></a>
+                            @endif
                             {{--<br/>--}}
-                            {{--@if($is_root)--}}
-                            {{--<a href="{{URL::route('admin.getEditUser',array('id' => $item['user_id']))}}" title="Sửa thông tin tài khoản">Sửa</a>--}}
-                            {{--@endif--}}
+                            @if($permission_edit)
+                            <a href="{{URL::route('admin.user_edit',array('id' => $item['user_id']))}}" title="Sửa thông tin tài khoản"><i class="fa fa-edit fa-2x"></i></a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
