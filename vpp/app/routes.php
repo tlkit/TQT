@@ -43,4 +43,8 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::post('groupUser/create',array('as' => 'admin.groupUser_create','uses' => 'GroupUserController@create'));
     Route::get('groupUser/edit/{id}',array('as' => 'admin.groupUser_edit','uses' => 'GroupUserController@editInfo'))->where('id', '[0-9]+');
     Route::post('groupUser/edit/{id}',array('as' => 'admin.groupUser_edit','uses' => 'GroupUserController@edit'))->where('id', '[0-9]+');
+
+    //QuynhTM
+    //Quản lý danh mục SP
+    Route::get('categories',array('as' => 'admin.categories_list','uses' => 'CategoriesController@view'));
 });
