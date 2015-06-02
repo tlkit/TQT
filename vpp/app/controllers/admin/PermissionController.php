@@ -21,9 +21,9 @@ class PermissionController extends BaseAdminController
 
     public function view()
     {
-        if (!in_array($this->permission_view, $this->permission)) {
-            return Redirect::route('admin.dashboard');
-        }
+//        if (!in_array($this->permission_view, $this->permission)) {
+//            return Redirect::route('admin.dashboard');
+//        }
 
         $dataSearch = $dataResponse = $data = array();
         $page_no = Request::get('page_no', 1);//phan trang
@@ -77,9 +77,9 @@ class PermissionController extends BaseAdminController
     public function createInfo()
     {
 //        CGlobal::$pageTitle = "Tạo mới quyền | Admin Seo";
-        if (!in_array($this->permission_create, $this->permission)) {
-            return Redirect::route('admin.dashboard');
-        }
+//        if (!in_array($this->permission_create, $this->permission)) {
+//            return Redirect::route('admin.dashboard');
+//        }
         //$optionStatus = FunctionLib::getOption($this->arrStatus, 1);
         // Show the page
 //        $arrGroupUser = GroupUser::getListGroupUser();
@@ -142,9 +142,9 @@ class PermissionController extends BaseAdminController
     public function editInfo($id)
     {
 //        CGlobal::$pageTitle = "Sửa quyền | Admin Seo";
-        if (!in_array($this->permission_edit, $this->permission)) {
-            return Redirect::route('admin.dashboard');
-        }
+//        if (!in_array($this->permission_edit, $this->permission)) {
+//            return Redirect::route('admin.dashboard');
+//        }
         $data = Permission::find($id);//lay dl permission theo id
 //        $groupPermission = new GroupUserPermission();
 //        $dataGroups = $groupPermission->getListGroupByPermissionId(array($id));

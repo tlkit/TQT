@@ -86,13 +86,14 @@
                                         {{ date("d-m-Y",$item['user_created']) }}
                                     @endif
                                 </td>
-                                <td class="text-center">
+                                <td class="text-center" align="center">
                                     @if($permission_change_pass)
+                                        <br/>
                                         <a href="{{URL::route('admin.user_change',array('id' => base64_encode($item['user_id'])))}}"
-                                           title="Đổi mật khẩu" class="" style="margin-right: 10px"><i
+                                           title="Đổi mật khẩu" class=""><i
                                                     class="fa fa-lock"></i></a>
                                     @endif
-                                    {{--<br/>--}}
+                                    <br/>
                                     @if($permission_edit)
                                         <a href="{{URL::route('admin.user_edit',array('id' => $item['user_id']))}}"
                                            title="Sửa thông tin tài khoản"><i class="fa fa-edit"></i></a>

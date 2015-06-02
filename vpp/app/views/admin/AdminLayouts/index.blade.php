@@ -60,7 +60,7 @@
         </button>
 
         <div class="navbar-header pull-left">
-            <a href="index.html" class="navbar-brand">
+            <a href="{{ URL::route('admin.dashboard') }}" class="navbar-brand">
                 <small>
                     <i class="fa fa-leaf"></i>
                     Vpp Admin
@@ -74,7 +74,7 @@
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
 								<span class="user-info">
 									<small>Xin chào,</small>
-									Jason
+                                    {{$user['user_full_name']}}
 								</span>
 
                         <i class="ace-icon fa fa-caret-down"></i>
@@ -82,25 +82,18 @@
 
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                         <li>
-                            <a href="#">
-                                <i class="ace-icon fa fa-cog"></i>
-                                Settings
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="profile.html">
-                                <i class="ace-icon fa fa-user"></i>
-                                Profile
+                            <a href="{{URL::route('admin.user_change',array('id' => base64_encode($user['user_id'])))}}">
+                                <i class="ace-icon fa fa-unlock"></i>
+                                Đổi mật khẩu
                             </a>
                         </li>
 
                         <li class="divider"></li>
 
                         <li>
-                            <a href="#">
+                            <a href="{{URL::route('admin.logout')}}">
                                 <i class="ace-icon fa fa-power-off"></i>
-                                Logout
+                                Đăng xuất
                             </a>
                         </li>
                     </ul>
@@ -206,25 +199,20 @@
             </li>
 
             <li class="">
-                <a href="#" class="dropdown-toggle">
+                <a href="{{URL::route('admin.customers_list')}}">
                     <i class="menu-icon fa fa-group"></i>
                     <span class="menu-text"> Quản trị khách hàng </span>
-
-                    <b class="arrow fa fa-angle-down"></b>
                 </a>
 
                 <b class="arrow"></b>
+            </li>
+            <li class="">
+                <a href="{{URL::route('admin.providers_list')}}">
+                    <i class="menu-icon fa fa-briefcase "></i>
+                    <span class="menu-text"> QTrị nhà cung cấp </span>
+                </a>
 
-                <ul class="submenu">
-                    <li class="">
-                        <a href="{{URL::route('admin.customers_list')}}">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Danh sách khách hàng
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
+                <b class="arrow"></b>
             </li>
         </ul><!-- /.nav-list -->
 
