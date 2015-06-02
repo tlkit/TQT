@@ -21,7 +21,7 @@ class Providers extends Eloquent
         $categories = Providers::where('providers_id', '>', 0)->where('book_status', '=', 1)->get();
         $data = array();
         foreach($categories as $itm) {
-            $data[$itm['providers_id']] = $itm['customers_FirstName'];
+            $data[$itm['providers_id']] = $itm['providers_Name'];
         }
         return $data;
     }
@@ -29,11 +29,11 @@ class Providers extends Eloquent
     public static function searchByCondition($dataSearch = array(), $limit =0, $offset=0, &$total){
         try{
             $query = Providers::where('providers_id','>',0);
-            if (isset($dataSearch['customers_FirstName']) && $dataSearch['customers_FirstName'] != '') {
-                $query->where('customers_FirstName','LIKE', '%' . $dataSearch['customers_FirstName'] . '%');
+            if (isset($dataSearch['providers_Name']) && $dataSearch['providers_Name'] != '') {
+                $query->where('providers_Name','LIKE', '%' . $dataSearch['providers_Name'] . '%');
             }
-            if (isset($dataSearch['customers_Type']) && $dataSearch['customers_Type'] != -1) {
-                $query->where('customers_Type', $dataSearch['customers_Type']);
+            if (isset($dataSearch['providers_Phone']) && $dataSearch['providers_Phone'] != '') {
+                $query->where('providers_Phone','LIKE', '%' . $dataSearch['providers_Phone'] . '%');
             }
             $total = $query->count();
             $query->orderBy('providers_id', 'desc');

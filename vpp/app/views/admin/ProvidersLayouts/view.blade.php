@@ -1,11 +1,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Danh sách khách hàng
+        Danh sách nhà cung cấp
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{URL::route('admin.dashboard')}}"><i class="fa fa-home"></i> Home</a></li>
-        <li class="active">Danh sách khách hàng</li>
+        <li class="active">Danh sách nhà cung cấp</li>
     </ol>
 </section>
 
@@ -14,17 +14,14 @@
         {{ Form::open(array('method' => 'GET', 'role'=>'form')) }}
         <div class="box-body">
             <div class="form-group col-lg-3">
-                <label for="customers_FirstName"><i>Tên khách hàng</i></label>
-                <input type="text" class="form-control input-sm" id="customers_FirstName" name="customers_FirstName" placeholder="Tên danh mục" @if(isset($search['customers_FirstName']) && $search['customers_FirstName'] != '')value="{{$search['customers_FirstName']}}"@endif>
+                <label for="providers_Name"><i>Tên nhà cung cấp</i></label>
+                <input type="text" class="form-control input-sm" id="providers_Name" name="providers_Name" placeholder="Tên nhà cung cấp" @if(isset($search['providers_Name']) && $search['providers_Name'] != '')value="{{$search['providers_Name']}}"@endif>
             </div>
             <div class="form-group col-lg-3">
-                <label for="customers_Type"><i>Loại khách</i></label>
-                <select name="customers_Type" id="customers_Type" class="form-control input-sm">
-                    @foreach($arrType as $k => $v)
-                        <option value="{{$k}}" @if($search['customers_Type'] == $k) selected="selected" @endif>{{$v}}</option>
-                    @endforeach
-                </select>
+                <label for="providers_Phone"><i>Số điện thoại</i></label>
+                <input type="text" class="form-control input-sm" id="providers_Phone" name="providers_Phone" placeholder="Số điện thoại" @if(isset($search['providers_Phone']) && $search['providers_Phone'] != '')value="{{$search['providers_Phone']}}"@endif>
             </div>
+
         </div>
         <div class="box-footer">
             <div class="text-right">
@@ -34,23 +31,23 @@
         {{ Form::close() }}
     </div><!-- /.box -->
     <div class="span pull-right">
-        <a class="btn btn-app bg-orange" href="{{URL::route('admin.customers_edit')}}">
+        <a class="btn btn-app bg-orange" href="{{URL::route('admin.providers_edit')}}">
             <i class="fa fa-plus-circle"></i>
             Thêm khách hàng
         </a>
     </div>
     @if(sizeof($data) > 0)
-        <div class="span clearfix"> @if($total >0) Có tổng số <b>{{$total}}</b> khách hàng @endif </div>
+        <div class="span clearfix"> @if($total >0) Có tổng số <b>{{$total}}</b> nhà cung cấp @endif </div>
         <br>
         <div class="panel">
             <table class="table table-bordered table-hover dataTable">
                 <thead>
                 <tr class="btn-primary">
                     <th width="5%" class="text-center">STT</th>
-                    <th width="35%">Tên khách hàng</th>
-                    <th width="8%">Loại KH</th>
-                    <th width="15%">Email - Số ĐT</th>
-                    <th width="30%">Đ/c thực tế</th>
+                    <th width="30%">Tên nhà cung cấp</th>
+                    <th width="15%">Số điện thoại</th>
+                    <th width="15%">Địa chỉ</th>
+                    <th width="30%">Địa chỉ kho</th>
                     <th width="5%" class="text-center">Thao tác</th>
                 </tr>
                 </thead>
@@ -58,16 +55,13 @@
                 @foreach ($data as $key => $item)
                     <tr>
                         <td class="text-center">{{ $stt + $key+1 }}</td>
-                        <td>{{ $item['customers_FirstName'] }}</td>
-                        <td>{{ $item['customers_Type'] }}</td>
-                        <td>
-                            @if($item['customers_ContactEmail'] != '')E: {{ $item['customers_ContactEmail'] }} <br/>@endif
-                            @if($item['customers_Phone'] != '')ĐT: {{ $item['customers_Phone'] }}@endif
-                        </td>
-                        <td>{{ $item['customers_ContactAddress'] }}</td>
+                        <td>{{ $item['providers_Name'] }}</td>
+                        <td>{{ $item['providers_Phone'] }}</td>
+                        <td>{{ $item['providers_Address'] }}</td>
+                        <td>{{ $item['providers_StoreAddress'] }}</td>
                         <td class="text-center">
                             @if($permission_edit ==1)
-                                <a href="{{URL::route('admin.customers_edit',array('id' => $item['customers_id']))}}" title="Sửa item"><i class="fa fa-edit"></i></a>
+                                <a href="{{URL::route('admin.providers_edit',array('id' => $item['providers_id']))}}" title="Sửa item"><i class="fa fa-edit"></i></a>
                             @endif
                         </td>
                     </tr>
