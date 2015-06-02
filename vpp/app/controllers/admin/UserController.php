@@ -24,9 +24,9 @@ class UserController extends BaseAdminController
         $this->layout->title = "Quản trị tài khoản";
         //check permission
 
-        if (!in_array($this->permission_view, $this->permission)) {
-            return Redirect::route('admin.dashboard');
-        }
+//        if (!in_array($this->permission_view, $this->permission)) {
+//            return Redirect::route('admin.dashboard');
+//        }
         $page_no = Request::get('page_no', 1);
         $dataSearch['user_status'] = Request::get('user_status', 0);
         $dataSearch['user_email'] = Request::get('user_email', '');
@@ -59,9 +59,9 @@ class UserController extends BaseAdminController
     {
 //        CGlobal::$pageTitle = "Tạo mới User | Admin Seo";
 //        //check permission
-        if(!in_array($this->permission_create, $this->permission)){
-            return Redirect::route('admin.dashboard');
-        }
+//        if(!in_array($this->permission_create, $this->permission)){
+//            return Redirect::route('admin.dashboard');
+//        }
         $arrGroupUser = GroupUser::getListGroupUser();
         $this->layout->content = View::make('admin.UserLayouts.create')
             ->with('arrGroupUser', $arrGroupUser);

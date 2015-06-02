@@ -22,9 +22,9 @@ class GroupUserController extends BaseAdminController
     public function view()
     {
         //check permission
-        if (!in_array($this->permission_view, $this->permission)) {
-            return Redirect::route('admin.dashboard');
-        }
+//        if (!in_array($this->permission_view, $this->permission)) {
+//            return Redirect::route('admin.dashboard');
+//        }
 
         $page_no = Request::get('page_no', 1);//phan trang
         $dataSearch['group_user_name'] = Request::get('group_user_name', '');
@@ -80,9 +80,9 @@ class GroupUserController extends BaseAdminController
     public function createInfo()
     {
 //        CGlobal::$pageTitle = "Tạo nhóm User | Admin Seo";
-        if (!in_array($this->permission_create, $this->permission)) {
-            return Redirect::route('admin.dashboard');
-        }
+//        if (!in_array($this->permission_create, $this->permission)) {
+//            return Redirect::route('admin.dashboard');
+//        }
         // Show the page
         $listPermission = Permission::getListPermission();
         $arrPermissionByController = $this->buildArrayPermissionByController($listPermission);
