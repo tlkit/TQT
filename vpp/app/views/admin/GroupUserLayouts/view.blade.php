@@ -106,18 +106,3 @@
         <!-- /.row -->
     </div><!-- /.page-content -->
 </div>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#tree1').ace_tree({
-            dataSource: sampleData['dataSource1'],
-            multiSelect: true,
-            cacheItems: true,
-            'open-icon' : 'ace-icon tree-minus',
-            'close-icon' : 'ace-icon tree-plus',
-            'selectable' : true,
-            'selected-icon' : 'ace-icon fa fa-check',
-            'unselected-icon' : 'ace-icon fa fa-times',
-            loadingHTML : '<div class="tree-loading"><i class="ace-icon fa fa-refresh fa-spin blue"></i></div>'
-        });
-    })
-</script>

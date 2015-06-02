@@ -44,6 +44,34 @@
     {{ HTML::script('assets/js/html5shiv.min.js'); }}
     {{ HTML::script('assets/js/respond.min.js'); }}
     <![endif]-->
+    <!-- basic scripts -->
+
+    <!--[if !IE]> -->
+    {{ HTML::script('assets/js/jquery.2.1.1.min.js'); }}
+
+    <!-- <![endif]-->
+
+    <!--[if IE]>
+    {{ HTML::script('assets/js/jquery.1.11.1.min.js'); }}
+    <![endif]-->
+
+    {{ HTML::script('assets/js/bootstrap.min.js'); }}
+
+    <!-- page specific plugin scripts -->
+
+    <!--[if lte IE 8]>
+    <![endif]-->
+    {{--{{ HTML::script('assets/js/jquery-ui.custom.min.js'); }}--}}
+    {{--{{ HTML::script('assets/js/jquery.ui.touch-punch.min.js'); }}--}}
+    {{--{{ HTML::script('assets/js/jquery.easypiechart.min.js'); }}--}}
+    {{--{{ HTML::script('assets/js/jquery.sparkline.min.js'); }}--}}
+    {{--{{ HTML::script('assets/js/jquery.flot.min.js'); }}--}}
+    {{--{{ HTML::script('assets/js/jquery.flot.pie.min.js'); }}--}}
+    {{--{{ HTML::script('assets/js/jquery.flot.resize.min.js'); }}--}}
+
+    <!-- ace scripts -->
+    {{ HTML::script('assets/js/ace-elements.min.js'); }}
+    {{ HTML::script('assets/js/ace.min.js'); }}
 </head>
 
 <body class="no-skin">
@@ -81,17 +109,11 @@
                     </a>
 
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                        <li>
-                            <a href="#">
-                                <i class="ace-icon fa fa-cog"></i>
-                                Settings
-                            </a>
-                        </li>
 
                         <li>
                             <a href="profile.html">
-                                <i class="ace-icon fa fa-user"></i>
-                                Profile
+                                <i class="ace-icon fa fa-lock"></i>
+                                Đổi mật khẩu
                             </a>
                         </li>
 
@@ -100,7 +122,7 @@
                         <li>
                             <a href="#">
                                 <i class="ace-icon fa fa-power-off"></i>
-                                Logout
+                                Đăng xuất
                             </a>
                         </li>
                     </ul>
@@ -226,6 +248,29 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-briefcase"></i>
+                    <span class="menu-text"> QTrị nhà cung cấp </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="{{URL::route('admin.providers_list')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            DSách nhà cung cấp
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+
         </ul><!-- /.nav-list -->
 
         <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
@@ -245,35 +290,6 @@
         <i class="ace-icon fa fa-angle-double-up icon-only bigger-300"></i>
     </a>
 </div><!-- /.main-container -->
-
-<!-- basic scripts -->
-
-<!--[if !IE]> -->
-{{ HTML::script('assets/js/jquery.2.1.1.min.js'); }}
-
-<!-- <![endif]-->
-
-<!--[if IE]>
-{{ HTML::script('assets/js/jquery.1.11.1.min.js'); }}
-<![endif]-->
-
-{{ HTML::script('assets/js/bootstrap.min.js'); }}
-
-<!-- page specific plugin scripts -->
-
-<!--[if lte IE 8]>
-<![endif]-->
-{{--{{ HTML::script('assets/js/jquery-ui.custom.min.js'); }}--}}
-{{--{{ HTML::script('assets/js/jquery.ui.touch-punch.min.js'); }}--}}
-{{--{{ HTML::script('assets/js/jquery.easypiechart.min.js'); }}--}}
-{{--{{ HTML::script('assets/js/jquery.sparkline.min.js'); }}--}}
-{{--{{ HTML::script('assets/js/jquery.flot.min.js'); }}--}}
-{{--{{ HTML::script('assets/js/jquery.flot.pie.min.js'); }}--}}
-{{--{{ HTML::script('assets/js/jquery.flot.resize.min.js'); }}--}}
-
-<!-- ace scripts -->
-{{ HTML::script('assets/js/ace-elements.min.js'); }}
-{{ HTML::script('assets/js/ace.min.js'); }}
 
 <!-- inline scripts related to this page -->
 </body>

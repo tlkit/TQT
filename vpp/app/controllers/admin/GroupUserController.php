@@ -147,9 +147,9 @@ class GroupUserController extends BaseAdminController
     public function editInfo($id)
     {
 //        CGlobal::$pageTitle = "Sửa nhóm User | Admin Seo";
-        if (!in_array($this->permission_edit, $this->permission)) {
-            return Redirect::route('admin.dashboard');
-        }
+//        if (!in_array($this->permission_edit, $this->permission)) {
+//            return Redirect::route('admin.dashboard');
+//        }
 
         $data = GroupUser::find($id);//lay dl permission theo id
         $dataPermission = GroupUserPermission::getListPermissionByGroupId(array($id));

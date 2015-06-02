@@ -44,19 +44,18 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('groupUser/edit/{id}',array('as' => 'admin.groupUser_edit','uses' => 'GroupUserController@editInfo'))->where('id', '[0-9]+');
     Route::post('groupUser/edit/{id}',array('as' => 'admin.groupUser_edit','uses' => 'GroupUserController@edit'))->where('id', '[0-9]+');
 
-    //QuynhTM
-    //Quản lý danh mục SP
+    /*Quản lý danh mục SP*/
     Route::get('categories/view',array('as' => 'admin.categories_list','uses' => 'CategoriesController@view'));
     Route::get('categories/getCreate/{id?}', array('as' => 'admin.categories_edit','uses' => 'CategoriesController@createInfo'));
     Route::post('categories/getCreate/{id?}', array('as' => 'admin.categories_edit_post','uses' => 'CategoriesController@create'));
 
-    //Quản lý Khách hàng
-    Route::get('customers',array('as' => 'admin.customers_list','uses' => 'CustomersController@index'));
+    /*Quản lý Khách hàng*/
+    Route::get('customers/view',array('as' => 'admin.customers_list','uses' => 'CustomersController@index'));
     Route::get('customers/getCreate/{id?}', array('as' => 'admin.customers_edit','uses' => 'CustomersController@getCreate'));
     Route::post('customers/getCreate/{id?}', array('as' => 'admin.customers_edit_post','uses' => 'CustomersController@postCreate'));
 
-    //Quản lý nhà cung cấp
-    Route::get('providers',array('as' => 'admin.providers_list','uses' => 'ProvidersController@index'));
+    /*Quản lý nhà cung cấp*/
+    Route::get('providers/view',array('as' => 'admin.providers_list','uses' => 'ProvidersController@index'));
     Route::get('providers/getCreate/{id?}', array('as' => 'admin.providers_edit','uses' => 'ProvidersController@getCreate'));
     Route::post('providers/getCreate/{id?}', array('as' => 'admin.providers_edit_post','uses' => 'ProvidersController@postCreate'));
 });

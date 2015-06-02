@@ -208,6 +208,8 @@ return array(
     'PclZip' => $baseDir . '/app/library/class_phpexcel/PHPExcel/Shared/PCLZip/pclzip.lib.php',
     'Permission' => $baseDir . '/app/models/Permission.php',
     'PermissionController' => $baseDir . '/app/controllers/admin/PermissionController.php',
+    'Providers' => $baseDir . '/app/models/Providers.php',
+    'ProvidersController' => $baseDir . '/app/controllers/admin/ProvidersController.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
     'SingularValueDecomposition' => $baseDir . '/app/library/class_phpexcel/PHPExcel/Shared/JAMA/SingularValueDecomposition.php',
     'TestCase' => $baseDir . '/app/tests/TestCase.php',
