@@ -10,7 +10,6 @@ class CategoriesController extends BaseAdminController
 {
 
     private $permission_view = 'categories_view';
-    private $permiss_delete = 'categories_view';
     private $permission_create = 'categories_create';
     private $permission_edit = 'categories_edit';
     private $arrStatus = array(-1 => 'Chọn trạng thái', 0 => 'Ẩn', 1 => 'Hiện');
@@ -20,7 +19,7 @@ class CategoriesController extends BaseAdminController
         parent::__construct();
     }
 
-    public function index() {
+    public function view() {
         //Check phan quyen.
         /*if(!in_array($this->permiss_view,$this->permission)){
             return Redirect::route('admin.dashboard');
@@ -35,7 +34,7 @@ class CategoriesController extends BaseAdminController
         $search['categories_Status'] = (int)Request::get('categories_Status',-1);
 
         $dataSearch = Categories::searchByCondition($search, $limit, $offset,$total);
-        $pagging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
+        $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
 
         if(!empty($dataSearch)){
             foreach($dataSearch as $k=> $val){
@@ -49,7 +48,7 @@ class CategoriesController extends BaseAdminController
         /*echo '<pre>';  print_r($data); echo '</pre>'; die;*/
 
         $this->layout->content = View::make('admin.CategoriesLayouts.view')
-            ->with('pagging', $pagging)
+            ->with('paging', $paging)
             ->with('stt', ($pageNo-1)*$limit)
             ->with('total', $total)
             ->with('sizeShow', count($data))
@@ -60,7 +59,7 @@ class CategoriesController extends BaseAdminController
             ->with('arrStatus', $this->arrStatus);
     }
 
-    public function getCreate($id=0) {
+    public function createInfo($id=0) {
         /*if(!in_array($this->permission_edit,$this->permission)){
             return Redirect::route('admin.dashboard');
         }*/
@@ -74,7 +73,7 @@ class CategoriesController extends BaseAdminController
             ->with('arrStatus', $this->arrStatus);
     }
 
-    public function postCreate($id=0) {
+    public function create($id=0) {
         /*if(!in_array($this->permission_edit,$this->permission)){
             return Redirect::route('admin.dashboard');
         }*/
@@ -89,11 +88,11 @@ class CategoriesController extends BaseAdminController
         if($this->valid($dataSave) && empty($this->error)) {
             if($id > 0) {
                 if(Categories::updData($id, $dataSave)) {
-                    return Redirect::route('admin.categories_list',array('url'=>base64_encode(URL::current())));
+                    return Redirect::route('admin.categories_list');
                 }
             } else {
                 if(Categories::add($dataSave)) {
-                    return Redirect::route('admin.categories_list',array('url'=>base64_encode(URL::current())));
+                    return Redirect::route('admin.categories_list');
                 }
             }
         }
@@ -104,31 +103,6 @@ class CategoriesController extends BaseAdminController
             ->with('arrStatus', $this->arrStatus);
     }
 
-    public function deleteItem() {
-        $data = array('error' => 1);
-        if(!$this->is_root && !in_array($this->permiss_delete,$this->permission)){
-            return Response::json($data);
-        }
-        $id = (int)Request::get('id', 0);
-        if($id > 0 && SeoBook::delData($id)) {
-            $data['error'] = 0;
-        }
-        return Response::json($data);
-    }
-
-    public function updateStatus() {
-        $data = array('error' => 1);
-        if(!$this->is_root && !in_array($this->permiss_update,$this->permission)){
-            return Response::json($data);
-        }
-        $id = (int)Request::get('id', 0);
-        $status = (int)Request::get('status', 1);
-        $val_status = ($status == 1)? 0: 1;
-        if($id > 0 && SeoBook::updStatus($id,$val_status)) {
-            $data['error'] = 0;
-        }
-        return Response::json($data);
-    }
 
     private function valid($data=array()) {
         if(!empty($data)) {

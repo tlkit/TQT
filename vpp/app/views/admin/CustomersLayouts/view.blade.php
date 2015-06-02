@@ -14,28 +14,33 @@
         {{ Form::open(array('method' => 'GET', 'role'=>'form')) }}
         <div class="box-body">
             <div class="form-group col-lg-3">
-                <label for="group_user_name">Tên khách hàng</label>
+                <label for="customers_FirstName"><i>Tên khách hàng</i></label>
                 <input type="text" class="form-control input-sm" id="customers_FirstName" name="customers_FirstName" placeholder="Tên danh mục" @if(isset($search['customers_FirstName']) && $search['customers_FirstName'] != '')value="{{$search['customers_FirstName']}}"@endif>
             </div>
             <div class="form-group col-lg-3">
-                <label for="group_user_status">Loại khách</label>
+                <label for="customers_Type"><i>Loại khách</i></label>
                 <select name="customers_Type" id="customers_Type" class="form-control input-sm">
                     @foreach($arrType as $k => $v)
                         <option value="{{$k}}" @if($search['customers_Type'] == $k) selected="selected" @endif>{{$v}}</option>
                     @endforeach
                 </select>
             </div>
-            <div class="form-group col-lg-6 text-right">
-                <label for="group_user_status" class="col-lg-12">&nbsp;</label>
+        </div>
+        <div class="box-footer">
+            <div class="text-right">
                 <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
-                <a href="{{URL::route('admin.customers_edit')}}" class="btn btn-warning">Tạo mới</a>
             </div>
         </div>
         {{ Form::close() }}
     </div><!-- /.box -->
-
+    <div class="span pull-right">
+        <a class="btn btn-app bg-orange" href="{{URL::route('admin.customers_edit')}}">
+            <i class="fa fa-plus-circle"></i>
+            Thêm khách hàng
+        </a>
+    </div>
     @if(sizeof($data) > 0)
-        <div class="span clearfix"> @if($total >0) Có tổng số <b>{{$total}}</b> item @endif </div>
+        <div class="span clearfix"> @if($total >0) Có tổng số <b>{{$total}}</b> khách hàng @endif </div>
         <br>
         <div class="panel">
             <table class="table table-bordered table-hover dataTable">
@@ -44,9 +49,9 @@
                     <th width="5%" class="text-center">STT</th>
                     <th width="35%">Tên khách hàng</th>
                     <th width="8%">Loại KH</th>
-                    <th width="20%">Email - Số ĐT</th>
-                    <th width="25%">Đ/c thực tế</th>
-                    <th width="6%" class="text-center">Thao tác</th>
+                    <th width="15%">Email - Số ĐT</th>
+                    <th width="30%">Đ/c thực tế</th>
+                    <th width="5%" class="text-center">Thao tác</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -62,7 +67,7 @@
                         <td>{{ $item['customers_ContactAddress'] }}</td>
                         <td class="text-center">
                             @if($permission_edit ==1)
-                                <a href="{{URL::route('admin.customers_edit',array('id' => $item['customers_id']))}}" title="Sửa item"><i class="fa fa-edit fa-2x"></i></a>
+                                <a href="{{URL::route('admin.customers_edit',array('id' => $item['customers_id']))}}" title="Sửa item"><i class="fa fa-edit"></i></a>
                             @endif
                         </td>
                     </tr>
@@ -70,8 +75,8 @@
                 </tbody>
             </table>
         </div>
-        <div class="pull-right">
-            {{$pagging}}
+        <div class="text-right">
+            {{$paging}}
         </div>
     @else
         <div class="alert">

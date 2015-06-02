@@ -24,7 +24,7 @@
         <div class="box-body">
             <div class="col-sm-2">
                 <div class="form-group">
-                    <b>Tên đăng nhập</b>
+                    <i>Tên đăng nhập</i>
                 </div>
             </div>
             <div class="col-sm-4">
@@ -36,7 +36,7 @@
             <div class="clearfix"></div>
             <div class="col-sm-2">
                 <div class="form-group">
-                    <b>Tên nhân viên</b>
+                    <i>Tên nhân viên</i>
                 </div>
             </div>
             <div class="col-sm-4">
@@ -48,7 +48,7 @@
             <div class="clearfix"></div>
             <div class="col-sm-2">
                 <div class="form-group">
-                    <b>Số di động</b>
+                    <i>Số di động</i>
                 </div>
             </div>
             <div class="col-sm-4">
@@ -60,7 +60,7 @@
             <div class="clearfix"></div>
             <div class="col-sm-2">
                 <div class="form-group">
-                    <b>Email</b>
+                    <i>Email</i>
                 </div>
             </div>
             <div class="col-sm-4">
@@ -72,7 +72,7 @@
             <div class="clearfix"></div>
             <div class="col-sm-2">
                 <div class="form-group">
-                    <b>Trạng thái</b>
+                    <i>Trạng thái</i>
                 </div>
             </div>
             <div class="col-sm-4">

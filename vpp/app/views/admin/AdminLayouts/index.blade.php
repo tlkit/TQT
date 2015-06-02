@@ -107,7 +107,7 @@
 
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-sitemap"></i> <span>Quản trị Sản phẩm</span> <i class="fa fa-angle-left pull-right"></i>
+                        <i class="fa fa-archive"></i> <span>Quản trị Sản phẩm</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{URL::route('admin.categories_list')}}"><i class="fa fa-angle-double-right"></i>Danh mục sản phẩm</a></li>
@@ -116,7 +116,7 @@
 
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-male"></i> <span>Quản lý khách hàng</span> <i class="fa fa-angle-left pull-right"></i>
+                        <i class="fa fa-user-md"></i> <span>Quản lý khách hàng</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{URL::route('admin.customers_list')}}"><i class="fa fa-angle-double-right"></i>Danh sách khách hàng</a></li>

@@ -19,15 +19,15 @@
         {{ Form::open(array('method' => 'GET', 'role'=>'form')) }}
         <div class="box-body">
             <div class="form-group col-lg-3">
-                <label for="permission_code">Mã quyền</label>
+                <label for="permission_code"><i>Mã quyền</i></label>
                 <input type="text" class="form-control input-sm" id="permission_code" name="permission_code" placeholder="Mã quyền" @if(isset($dataSearch['permission_code']) && $dataSearch['permission_code'] != '')value="{{$dataSearch['permission_code']}}"@endif>
             </div>
             <div class="form-group col-lg-3">
-                <label for="permission_name">Tên quyền</label>
+                <label for="permission_name"><i>Tên quyền</i></label>
                 <input type="text" class="form-control input-sm" id="permission_name" name="permission_name" placeholder="Tên quyền" @if(isset($dataSearch['permission_name']) && $dataSearch['permission_name'] != '')value="{{$dataSearch['permission_name']}}"@endif>
             </div>
             <div class="form-group col-lg-3">
-                <label for="permission_status">Trạng thái</label>
+                <label for="permission_status"><i>Trạng thái</i></label>
                 <select name="permission_status" id="permission_status" class="form-control input-sm" tabindex="12">
                     @foreach($arrStatus as $k => $v)
                         <option value="{{$k}}" @if($dataSearch['permission_status'] == $k) selected="selected" @endif>{{$v}}</option>
@@ -83,7 +83,7 @@
                         </td>
                         <td class="text-center">
                             @if($permission_edit)
-                                <a href="{{URL::route('admin.permission_edit',array('id' => $item['permission_id']))}}" title="Sửa quyền"><i class="fa fa-edit fa-2x"></i></a>
+                                <a href="{{URL::route('admin.permission_edit',array('id' => $item['permission_id']))}}" title="Sửa quyền"><i class="fa fa-edit"></i></a>
                             @endif
                         </td>
                     </tr>
@@ -91,7 +91,9 @@
                 </tbody>
             </table>
         </div>
-        {{$paging}}
+        <div class="text-right">
+            {{$paging}}
+        </div>
     @else
         <div class="alert">
             Không có dữ liệu

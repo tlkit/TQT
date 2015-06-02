@@ -19,19 +19,19 @@
         {{ Form::open(array('method' => 'GET', 'role'=>'form')) }}
         <div class="box-body">
             <div class="form-group col-lg-3">
-                <label for="user_name">Tên đăng nhập</label>
+                <label for="user_name"><i>Tên đăng nhập</i></label>
                 <input type="text" class="form-control input-sm" id="user_name" name="user_name" autocomplete="off" placeholder="Tên đăng nhập" @if(isset($dataSearch['user_name']))value="{{$dataSearch['user_name']}}"@endif>
             </div>
             <div class="form-group col-lg-3">
-                <label for="user_email">Email</label>
+                <label for="user_email"><i>Email</i></label>
                 <input type="text" class="form-control input-sm" id="user_email" name="user_email" autocomplete="off" placeholder="Địa chỉ email" @if(isset($dataSearch['user_email']))value="{{$dataSearch['user_email']}}"@endif>
             </div>
             <div class="form-group col-lg-3">
-                <label for="user_phone">Di động</label>
+                <label for="user_phone"><i>Di động</i></label>
                 <input type="text" class="form-control input-sm" id="user_phone" name="user_phone" autocomplete="off" placeholder="Số di động" @if(isset($dataSearch['user_phone']))value="{{$dataSearch['user_phone']}}"@endif>
             </div>
             <div class="form-group col-lg-3">
-                <label for="user_group">Nhóm quyền</label>
+                <label for="user_group"><i>Nhóm quyền</i></label>
                 <select name="user_group" id="user_group" class="form-control input-sm" tabindex="12" data-placeholder="Chọn nhóm quyền">
                     <option value="0">--- Chọn nhóm quyền ---</option>
                     @foreach($arrGroupUser as $k => $v)
@@ -85,11 +85,11 @@
                         </td>
                         <td class="text-center">
                             @if($permission_change_pass)
-                            <a href="{{URL::route('admin.user_change',array('id' => base64_encode($item['user_id'])))}}" title="Đổi mật khẩu" class="" style="margin-right: 10px"><i class="fa fa-lock fa-2x"></i></a>
+                            <a href="{{URL::route('admin.user_change',array('id' => base64_encode($item['user_id'])))}}" title="Đổi mật khẩu" class="" style="margin-right: 10px"><i class="fa fa-lock"></i></a>
                             @endif
                             {{--<br/>--}}
                             @if($permission_edit)
-                            <a href="{{URL::route('admin.user_edit',array('id' => $item['user_id']))}}" title="Sửa thông tin tài khoản"><i class="fa fa-edit fa-2x"></i></a>
+                            <a href="{{URL::route('admin.user_edit',array('id' => $item['user_id']))}}" title="Sửa thông tin tài khoản"><i class="fa fa-edit"></i></a>
                             @endif
                         </td>
                     </tr>
@@ -97,7 +97,9 @@
                 </tbody>
             </table>
         </div>
-        {{$paging}}
+        <div class="text-right">
+            {{$paging}}
+        </div>
     @else
         <div class="alert">
             Không có dữ liệu

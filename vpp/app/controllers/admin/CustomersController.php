@@ -35,7 +35,7 @@ class CustomersController extends BaseAdminController
         $search['customers_Type'] = (int)Request::get('customers_Type',-1);
 
         $dataSearch = Customers::searchByCondition($search, $limit, $offset,$total);
-        $pagging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
+        $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
 
         if(!empty($dataSearch)){
             foreach($dataSearch as $k=> $val){
@@ -51,7 +51,7 @@ class CustomersController extends BaseAdminController
 
         //echo '<pre>';  print_r($dataSearch); echo '</pre>'; die;
         $this->layout->content = View::make('admin.CustomersLayouts.view')
-            ->with('pagging', $pagging)
+            ->with('paging', $paging)
             ->with('stt', ($pageNo-1)*$limit)
             ->with('total', $total)
             ->with('sizeShow', count($data))
@@ -129,17 +129,6 @@ class CustomersController extends BaseAdminController
             ->with('arrStatus', $this->arrStatus);
     }
 
-    public function deleteItem() {
-        $data = array('error' => 1);
-        if(!$this->is_root && !in_array($this->permiss_delete,$this->permission)){
-            return Response::json($data);
-        }
-        $id = (int)Request::get('id', 0);
-        if($id > 0 && Customers::delData($id)) {
-            $data['error'] = 0;
-        }
-        return Response::json($data);
-    }
 
     private function valid($data=array()) {
         if(!empty($data)) {

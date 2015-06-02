@@ -19,11 +19,11 @@
         {{ Form::open(array('method' => 'GET', 'role'=>'form')) }}
         <div class="box-body">
             <div class="form-group col-lg-3">
-                <label for="group_user_name">Tên nhóm</label>
+                <label for="group_user_name"><i>Tên nhóm</i></label>
                 <input type="text" class="form-control input-sm" id="group_user_name" name="group_user_name" placeholder="Nhóm người dùng" @if(isset($dataSearch['group_user_name']) && $dataSearch['group_user_name'] != '')value="{{$dataSearch['group_user_name']}}"@endif>
             </div>
             <div class="form-group col-lg-3">
-                <label for="group_user_status">Trạng thái</label>
+                <label for="group_user_status"><i>Trạng thái</i></label>
                 <select name="group_user_status" id="group_user_status" class="form-control input-sm">
                     @foreach($arrStatus as $k => $v)
                         <option value="{{$k}}" @if($dataSearch['group_user_status'] == $k) selected="selected" @endif>{{$v}}</option>
@@ -80,7 +80,7 @@
                         </td>
                         <td class="text-center">
                             @if($permission_edit)
-                                <a href="{{URL::route('admin.groupUser_edit',array('id' => $item['group_user_id']))}}" title="Sửa nhóm"><i class="fa fa-edit fa-2x"></i></a>
+                                <a href="{{URL::route('admin.groupUser_edit',array('id' => $item['group_user_id']))}}" title="Sửa nhóm"><i class="fa fa-edit"></i></a>
                             @endif
                         </td>
                     </tr>
@@ -88,7 +88,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="pull-right">
+        <div class="text-right">
             {{$paging}}
         </div>
     @else

@@ -19,50 +19,44 @@
     @endif
     <div class="box box-info">
         <div class="box-header">
-            <h3 class="box-title">Nhập thông tin quyền</h3>
+            {{--<h3 class="box-title">Nhập thông tin quyền</h3>--}}
         </div>
         <div class="box-body">
-            <table width="100%">
-                <tr>
-                    <td class="col-sm-2">
-                        <div class="form-group">
-                            <b>Mã quyền</b>
-                        </div>
-                    </td>
-                    <td class="col-sm-4">
-                        <div class="form-group">
-                            <input type="text" class="form-control input-sm" name="permission_code" value="@if(isset($data['permission_code'])){{$data['permission_code']}}@endif">
-                        </div>
-                    </td>
-                    <td class="col-sm-6"></td>
-                </tr>
-                <tr>
-                    <td class="col-sm-2">
-                        <div class="form-group">
-                            <b>Tên quyền</b>
-                        </div>
-                    </td>
-                    <td class="col-sm-4">
-                        <div class="form-group">
-                            <input type="text" class="form-control input-sm" name="permission_name" value="@if(isset($data['permission_name'])){{$data['permission_name']}}@endif">
-                        </div>
-                    </td>
-                    <td class="col-sm-6"></td>
-                </tr>
-                <tr>
-                    <td  class="col-sm-2">
-                        <div class="form-group">
-                            <b>Danh mục</b>
-                        </div>
-                    </td>
-                    <td class="col-sm-4">
-                        <div class="form-group">
-                            <input type="text" class="form-control input-sm" name="permission_group_name" value="@if(isset($data['permission_group_name'])){{$data['permission_group_name']}}@endif">
-                        </div>
-                    </td>
-                    <td class="col-sm-6"></td>
-                </tr>
-            </table>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <i>Mã quyền</i>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" name="permission_code"
+                           value="@if(isset($data['permission_code'])){{$data['permission_code']}}@endif">
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <i>Tên quyền</i>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" name="permission_name"
+                           value="@if(isset($data['permission_name'])){{$data['permission_name']}}@endif">
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <i>Danh mục</i>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" name="permission_group_name"
+                           value="@if(isset($data['permission_group_name'])){{$data['permission_group_name']}}@endif">
+                </div>
+            </div>
         </div>
     </div>
     <div class="form-group">

@@ -20,11 +20,12 @@
         </div>
     @endif
     <div class="box box-info">
+        <div class="box-header"></div>
         <div class="box-body">
             @if(!$permission_change_pass)
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <b>Mật khẩu hiện tại</b>
+                        <i>Mật khẩu hiện tại</i>
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -37,7 +38,7 @@
             <div class="clearfix"></div>
             <div class="col-sm-2">
                 <div class="form-group">
-                    <b>Mật khẩu mới</b>
+                    <i>Mật khẩu mới</i>
                 </div>
             </div>
             <div class="col-sm-4">
@@ -49,7 +50,7 @@
             <div class="clearfix"></div>
             <div class="col-sm-2">
                 <div class="form-group">
-                    <b>Xác nhận mật khẩu</b>
+                    <i>Xác nhận mật khẩu</i>
                 </div>
             </div>
             <div class="col-sm-4">
