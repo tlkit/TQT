@@ -6,7 +6,7 @@
  * Date: 30/05/2015
  * Time: 8:20 CH
  */
-class CustomersController extends BaseAdminController
+class ProvidersController extends BaseAdminController
 {
 
     private $permission_view = 'customers_view';
@@ -34,7 +34,7 @@ class CustomersController extends BaseAdminController
         $search['customers_FirstName'] = addslashes(Request::get('customers_FirstName',''));
         $search['customers_Type'] = (int)Request::get('customers_Type',-1);
 
-        $dataSearch = Customers::searchByCondition($search, $limit, $offset,$total);
+        $dataSearch = Providers::searchByCondition($search, $limit, $offset,$total);
         $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
 
         if(!empty($dataSearch)){
@@ -50,7 +50,7 @@ class CustomersController extends BaseAdminController
         }
 
         //echo '<pre>';  print_r($dataSearch); echo '</pre>'; die;
-        $this->layout->content = View::make('admin.CustomersLayouts.view')
+        $this->layout->content = View::make('admin.ProvidersLayouts.view')
             ->with('paging', $paging)
             ->with('stt', ($pageNo-1)*$limit)
             ->with('total', $total)
@@ -68,13 +68,13 @@ class CustomersController extends BaseAdminController
         }*/
         $data = array();
         if($id > 0) {
-            $data = Customers::find($id);
+            $data = Providers::find($id);
         }
 
         //người tạo
         $user = User::getListAllUser();
         //echo '<pre>';  print_r($user); echo '</pre>'; die;
-        $this->layout->content = View::make('admin.CustomersLayouts.add')
+        $this->layout->content = View::make('admin.ProvidersLayouts.add')
             ->with('id', $id)
             ->with('data', $data)
             ->with('arrTypeVat', $this->arrTypeVat)
@@ -115,18 +115,18 @@ class CustomersController extends BaseAdminController
 
         if($this->valid($dataSave) && empty($this->error)) {
             if($id > 0) {
-                if(Customers::updData($id, $dataSave)) {
+                if(Providers::updData($id, $dataSave)) {
                     return Redirect::route('admin.customers_list',array('url'=>base64_encode(URL::current())));
                 }
             } else {
                 $dataSave['customers_CreatedTime'] = time();
-                if(Customers::add($dataSave)) {
+                if(Providers::add($dataSave)) {
                     return Redirect::route('admin.customers_list',array('url'=>base64_encode(URL::current())));
                 }
             }
         }
         $user = User::getListAllUser();
-        $this->layout->content =  View::make('admin.CustomersLayouts.add')
+        $this->layout->content =  View::make('admin.ProvidersLayouts.add')
             ->with('id', $id)
             ->with('data', $dataSave)
             ->with('error', $this->error)
