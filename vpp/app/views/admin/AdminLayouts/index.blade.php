@@ -1,175 +1,306 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>@if(isset($title)) {{$title}} @else Quản trị văn phòng phẩm @endif</title>
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>Dashboard - Ace Admin</title>
 
-    <link href='http://fonts.googleapis.com/css?family=Calligraffitti|Lobster' rel='stylesheet' type='text/css'>
-    <!-- Bootstrap 3.3.4 -->
-    {{ HTML::style('assets/lib/adminLTE/bootstrap/css/bootstrap.min.css'); }}
-    {{--<link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />--}}
-    <!-- Font Awesome Icons -->
-    {{ HTML::style('assets/lib/font-awesome/css/font-awesome.min.css'); }}
-    {{--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />--}}
-    {{--<!-- Ionicons -->--}}
-    {{--<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />--}}
-    <!-- Theme style -->
-    {{ HTML::style('assets/lib/adminLTE/dist/css/AdminLTE.min.css'); }}
-    {{--<link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />--}}
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-    {{--<link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />--}}
-    {{ HTML::style('assets/lib/adminLTE/dist/css/skins/_all-skins.min.css'); }}
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->
-    <!--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
+    <meta name="description" content="overview &amp; stats" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!-- bootstrap & fontawesome -->
+    {{ HTML::style('assets/css/bootstrap.min.css'); }}
+    {{--<link rel="stylesheet" href="assets/css/bootstrap.min.css" />--}}
+    {{ HTML::style('assets/font-awesome/4.2.0/css/font-awesome.min.css'); }}
+    {{--<link rel="stylesheet" href="assets/font-awesome/4.2.0/css/font-awesome.min.css" />--}}
+
+    <!-- page specific plugin styles -->
+
+    <!-- text fonts -->
+    {{ HTML::style('assets/fonts/fonts.googleapis.com.css'); }}
+    {{--<link rel="stylesheet" href="assets/fonts/fonts.googleapis.com.css" />--}}
+
+    <!-- ace styles -->
+    {{ HTML::style('assets/css/ace.min.css'); }}
+    {{--<link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />--}}
+
+    <!--[if lte IE 9]>
+    {{ HTML::style('assets/css/ace-part2.min.css'); }}
+    <![endif]-->
+
+    <!--[if lte IE 9]>
+    {{ HTML::style('assets/css/ace-ie.min.css'); }}
+    <![endif]-->
+
+    <!-- inline styles related to this page -->
+
+    <!-- ace settings handler -->
+    {{ HTML::script('assets/js/ace-extra.min.js'); }}
+    {{--<script src="assets/js/ace-extra.min.js"></script>--}}
+
+    <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+    <!--[if lte IE 8]>
+    {{ HTML::script('assets/js/html5shiv.min.js'); }}
+    {{ HTML::script('assets/js/respond.min.js'); }}
     <![endif]-->
 </head>
-<body class="skin-blue-light sidebar-mini">
-<!-- Site wrapper -->
-<div class="wrapper">
 
-    <header class="main-header">
-        <!-- Logo -->
-        <a href="{{URL::route('admin.dashboard')}}" class="logo">
-            <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini">VPP</span>
-            <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg">Admin VPP</span>
-        </a>
-        <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top" role="navigation">
-            <!-- Sidebar toggle button-->
-            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+<body class="no-skin">
+<div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-container" id="navbar-container">
+        <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+            <span class="sr-only">Toggle sidebar</span>
+
+            <span class="icon-bar"></span>
+
+            <span class="icon-bar"></span>
+
+            <span class="icon-bar"></span>
+        </button>
+
+        <div class="navbar-header pull-left">
+            <a href="index.html" class="navbar-brand">
+                <small>
+                    <i class="fa fa-leaf"></i>
+                    Vpp Admin
+                </small>
             </a>
-            <div class="navbar-custom-menu">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown active">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Xin chào, {{$user['user_full_name']}} <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="{{URL::route('admin.user_change',array('id' => base64_encode($user['user_id'])))}}">
-                                    <i class="glyphicon glyphicon-cog"></i>
-                                    Đổi mật khẩu
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="{{URL::route('admin.logout')}}">
-                                    <i class="glyphicon glyphicon-log-out"></i>
-                                    Đăng xuất
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+        </div>
 
-        </nav>
-    </header>
+        <div class="navbar-buttons navbar-header pull-right" role="navigation">
+            <ul class="nav ace-nav">
+                <li class="light-blue">
+                    <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+								<span class="user-info">
+									<small>Xin chào,</small>
+									Jason
+								</span>
 
-    <!-- =============================================== -->
-
-    <!-- Left side column. contains the sidebar -->
-    <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-            <!-- Sidebar user panel -->
-            {{--<div class="user-panel">--}}
-                {{--<div class="pull-left image">--}}
-                    {{--<img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />--}}
-                {{--</div>--}}
-                {{--<div class="pull-left info">--}}
-                    {{--<p>Alexander Pierce</p>--}}
-
-                    {{--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            <!-- sidebar menu: : style can be found in sidebar.less -->
-            <ul class="sidebar-menu">
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-user"></i> <span>Quản trị</span> <i class="fa fa-angle-left pull-right"></i>
+                        <i class="ace-icon fa fa-caret-down"></i>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{URL::route('admin.user_view')}}"><i class="fa fa-angle-double-right"></i>Danh sách nhân viên</a></li>
-                        <li><a href="{{URL::route('admin.permission_view')}}"><i class="fa fa-angle-double-right"></i>Danh sách quyền</a></li>
-                        <li><a href="{{URL::route('admin.groupUser_view')}}"><i class="fa fa-angle-double-right"></i>Danh sách nhóm quyền</a></li>
-                    </ul>
-                </li>
 
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-archive"></i> <span>Quản trị Sản phẩm</span> <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{URL::route('admin.categories_list')}}"><i class="fa fa-angle-double-right"></i>Danh mục sản phẩm</a></li>
-                    </ul>
-                </li>
+                    <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                        <li>
+                            <a href="#">
+                                <i class="ace-icon fa fa-cog"></i>
+                                Settings
+                            </a>
+                        </li>
 
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-user-md"></i> <span>Quản lý khách hàng</span> <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{URL::route('admin.customers_list')}}"><i class="fa fa-angle-double-right"></i>Danh sách khách hàng</a></li>
-                    </ul>
-                </li>
+                        <li>
+                            <a href="profile.html">
+                                <i class="ace-icon fa fa-user"></i>
+                                Profile
+                            </a>
+                        </li>
 
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-bar-chart"></i> <span>Thống kê</span> <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        {{--<li><a href="{{URL::route('admin.user_view')}}"><i class="fa fa-angle-double-right"></i>Danh sách nhân viên</a></li>--}}
+                        <li class="divider"></li>
+
+                        <li>
+                            <a href="#">
+                                <i class="ace-icon fa fa-power-off"></i>
+                                Logout
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
-        </section>
-        <!-- /.sidebar -->
-    </aside>
+        </div>
+    </div><!-- /.navbar-container -->
+</div>
 
-    <!-- =============================================== -->
+<div class="main-container" id="main-container">
+    <div id="sidebar" class="sidebar sidebar-fixed sidebar-scroll responsive">
+        <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+            <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+                <button class="btn btn-success">
+                    <i class="ace-icon fa fa-signal"></i>
+                </button>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+                <button class="btn btn-info">
+                    <i class="ace-icon fa fa-pencil"></i>
+                </button>
+
+                <button class="btn btn-warning">
+                    <i class="ace-icon fa fa-users"></i>
+                </button>
+
+                <button class="btn btn-danger">
+                    <i class="ace-icon fa fa-cogs"></i>
+                </button>
+            </div>
+
+            <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+                <span class="btn btn-success"></span>
+
+                <span class="btn btn-info"></span>
+
+                <span class="btn btn-warning"></span>
+
+                <span class="btn btn-danger"></span>
+            </div>
+        </div><!-- /.sidebar-shortcuts -->
+
+        <ul class="nav nav-list">
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-user"></i>
+                    <span class="menu-text"> Quản trị </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="{{URL::route('admin.user_view')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Danh sách nhân viên
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+
+                    <li class="">
+                        <a href="{{URL::route('admin.permission_view')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Danh sách quyền
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+
+                    <li class="">
+                        <a href="{{URL::route('admin.groupUser_view')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Danh sách nhóm quyền
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-user"></i>
+                    <span class="menu-text"> Quản trị </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="">
+                        <a href="{{URL::route('admin.user_view')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Danh sách nhân viên
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+
+                    <li class="">
+                        <a href="{{URL::route('admin.permission_view')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Danh sách quyền
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+
+                    <li class="">
+                        <a href="{{URL::route('admin.groupUser_view')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Danh sách nhóm quyền
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
+
+
+
+
+
+            <li class="">
+                <a href="#">
+                    <i class="fa fa-sitemap"></i> <span>Quản trị Sản phẩm</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{URL::route('admin.categories_list')}}"><i class="fa fa-angle-double-right"></i>Danh mục sản phẩm</a></li>
+                </ul>
+            </li>
+
+            <li class="">
+                <a href="#">
+                    <i class="fa fa-male"></i> <span>Quản lý khách hàng</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{URL::route('admin.customers_list')}}"><i class="fa fa-angle-double-right"></i>Danh sách khách hàng</a></li>
+                </ul>
+            </li>
+
+            <li class="">
+                <a href="#">
+                    <i class="fa fa-bar-chart"></i> <span>Thống kê</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    {{--<li><a href="{{URL::route('admin.user_view')}}"><i class="fa fa-angle-double-right"></i>Danh sách nhân viên</a></li>--}}
+                </ul>
+            </li>
+        </ul><!-- /.nav-list -->
+
+        <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+            <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+        </div>
+
+        <script type="text/javascript">
+            try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+        </script>
+    </div>
+
+    <div class="main-content">
         {{$content}}
-    </div><!-- /.content-wrapper -->
+    </div><!-- /.main-content -->
 
-    {{--<footer class="main-footer">--}}
-        {{--<div class="pull-right hidden-xs">--}}
-            {{--<b>Version</b> 2.0--}}
-        {{--</div>--}}
-        {{--<strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.--}}
-    {{--</footer>--}}
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-info">
+        <i class="ace-icon fa fa-angle-double-up icon-only bigger-300"></i>
+    </a>
+</div><!-- /.main-container -->
 
-</div><!-- ./wrapper -->
+<!-- basic scripts -->
 
-<!-- jQuery 2.1.4 -->
-{{ HTML::script('assets/lib/adminLTE/plugins/jQuery/jQuery-2.1.4.min.js'); }}
-{{--<script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>--}}
-<!-- Bootstrap 3.3.2 JS -->
-{{ HTML::script('assets/lib/adminLTE/bootstrap/js/bootstrap.min.js'); }}
-{{--<script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>--}}
-<!-- SlimScroll -->
-{{--{{ HTML::script('assets/lib/adminLTE/plugins/slimScroll/jquery.slimscroll.min.js'); }}--}}
-{{--<script src="../../plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>--}}
-<!-- FastClick -->
-{{--{{ HTML::script('assets/lib/adminLTE/plugins/fastclick/fastclick.min.js'); }}--}}
-{{--<script src='../../plugins/fastclick/fastclick.min.js'></script>--}}
-<!-- AdminLTE App -->
-{{ HTML::script('assets/lib/adminLTE/dist/js/app.min.js'); }}
-{{--<script src="../../dist/js/app.min.js" type="text/javascript"></script>--}}
+<!--[if !IE]> -->
+{{ HTML::script('assets/js/jquery.2.1.1.min.js'); }}
 
-<!-- Demo -->
-{{--{{ HTML::script('assets/lib/adminLTE/dist/js/demo.js'); }}--}}
-{{--<script src="../../dist/js/demo.js" type="text/javascript"></script>--}}
+<!-- <![endif]-->
+
+<!--[if IE]>
+{{ HTML::script('assets/js/jquery.1.11.1.min.js'); }}
+<![endif]-->
+
+{{ HTML::script('assets/js/bootstrap.min.js'); }}
+
+<!-- page specific plugin scripts -->
+
+<!--[if lte IE 8]>
+<![endif]-->
+{{--{{ HTML::script('assets/js/jquery-ui.custom.min.js'); }}--}}
+{{--{{ HTML::script('assets/js/jquery.ui.touch-punch.min.js'); }}--}}
+{{--{{ HTML::script('assets/js/jquery.easypiechart.min.js'); }}--}}
+{{--{{ HTML::script('assets/js/jquery.sparkline.min.js'); }}--}}
+{{--{{ HTML::script('assets/js/jquery.flot.min.js'); }}--}}
+{{--{{ HTML::script('assets/js/jquery.flot.pie.min.js'); }}--}}
+{{--{{ HTML::script('assets/js/jquery.flot.resize.min.js'); }}--}}
+
+<!-- ace scripts -->
+{{ HTML::script('assets/js/ace-elements.min.js'); }}
+{{ HTML::script('assets/js/ace.min.js'); }}
+
+<!-- inline scripts related to this page -->
 </body>
 </html>
