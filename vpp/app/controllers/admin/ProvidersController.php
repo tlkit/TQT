@@ -6,13 +6,13 @@
  * Date: 30/05/2015
  * Time: 8:20 CH
  */
-class CustomersController extends BaseAdminController
+class ProvidersController extends BaseAdminController
 {
 
-    private $permission_view = 'customers_view';
-    private $permiss_delete = 'customers_view';
-    private $permission_create = 'customers_create';
-    private $permission_edit = 'customers_edit';
+    private $permission_view = 'providers_view';
+    private $permiss_delete = 'providers_view';
+    private $permission_create = 'providers_create';
+    private $permission_edit = 'providers_edit';
     private $arrType = array(-1 => 'Kiểu khách hàng', 1 => 'Mua buôn', 2 => 'Mua lẻ');
     private $arrTypeVat = array(1 => 'Có VAT', 0 => 'Không có VAT');
 
@@ -31,35 +31,22 @@ class CustomersController extends BaseAdminController
         $offset = ($pageNo - 1) * $limit;
         $search = $data = array();
         $total = 0;
-        $search['customers_FirstName'] = addslashes(Request::get('customers_FirstName',''));
-        $search['customers_Type'] = (int)Request::get('customers_Type',-1);
+        $search['providers_Name'] = addslashes(Request::get('providers_Name',''));
+        $search['providers_Phone'] = addslashes(Request::get('providers_Phone',''));
 
-        $dataSearch = Customers::searchByCondition($search, $limit, $offset,$total);
+        $dataSearch = Providers::searchByCondition($search, $limit, $offset,$total);
         $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
 
-        if(!empty($dataSearch)){
-            foreach($dataSearch as $k=> $val){
-                $data[] = array('customers_id'=>$val->customers_id,
-                    'customers_FirstName'=>$val->customers_FirstName,
-                    'customers_Phone'=>$val->customers_Phone,
-                    'customers_ContactEmail'=>$val->customers_ContactEmail,
-                    'customers_ContactAddress'=>$val->customers_ContactAddress,
-                    'customers_Type'=>isset($this->arrType[$val->customers_Type])? $this->arrType[$val->customers_Type] :'---',
-                );
-            }
-        }
-
         //echo '<pre>';  print_r($dataSearch); echo '</pre>'; die;
-        $this->layout->content = View::make('admin.CustomersLayouts.view')
+        $this->layout->content = View::make('admin.ProvidersLayouts.view')
             ->with('paging', $paging)
             ->with('stt', ($pageNo-1)*$limit)
             ->with('total', $total)
             ->with('sizeShow', count($data))
-            ->with('data', $data)
+            ->with('data', $dataSearch)
             ->with('search', $search)
             //->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
-            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1)
-            ->with('arrType', $this->arrType);
+            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1);
     }
 
     public function getCreate($id=0) {
@@ -68,13 +55,13 @@ class CustomersController extends BaseAdminController
         }*/
         $data = array();
         if($id > 0) {
-            $data = Customers::find($id);
+            $data = Providers::find($id);
         }
 
         //người tạo
         $user = User::getListAllUser();
         //echo '<pre>';  print_r($user); echo '</pre>'; die;
-        $this->layout->content = View::make('admin.CustomersLayouts.add')
+        $this->layout->content = View::make('admin.ProvidersLayouts.add')
             ->with('id', $id)
             ->with('data', $data)
             ->with('arrTypeVat', $this->arrTypeVat)
@@ -115,18 +102,18 @@ class CustomersController extends BaseAdminController
 
         if($this->valid($dataSave) && empty($this->error)) {
             if($id > 0) {
-                if(Customers::updData($id, $dataSave)) {
+                if(Providers::updData($id, $dataSave)) {
                     return Redirect::route('admin.customers_list',array('url'=>base64_encode(URL::current())));
                 }
             } else {
                 $dataSave['customers_CreatedTime'] = time();
-                if(Customers::add($dataSave)) {
+                if(Providers::add($dataSave)) {
                     return Redirect::route('admin.customers_list',array('url'=>base64_encode(URL::current())));
                 }
             }
         }
         $user = User::getListAllUser();
-        $this->layout->content =  View::make('admin.CustomersLayouts.add')
+        $this->layout->content =  View::make('admin.ProvidersLayouts.add')
             ->with('id', $id)
             ->with('data', $dataSave)
             ->with('error', $this->error)

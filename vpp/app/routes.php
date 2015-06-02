@@ -54,4 +54,9 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('customers',array('as' => 'admin.customers_list','uses' => 'CustomersController@index'));
     Route::get('customers/getCreate/{id?}', array('as' => 'admin.customers_edit','uses' => 'CustomersController@getCreate'));
     Route::post('customers/getCreate/{id?}', array('as' => 'admin.customers_edit_post','uses' => 'CustomersController@postCreate'));
+
+    //Quản lý nhà cung cấp
+    Route::get('providers',array('as' => 'admin.providers_list','uses' => 'ProvidersController@index'));
+    Route::get('providers/getCreate/{id?}', array('as' => 'admin.providers_edit','uses' => 'ProvidersController@getCreate'));
+    Route::post('providers/getCreate/{id?}', array('as' => 'admin.providers_edit_post','uses' => 'ProvidersController@postCreate'));
 });
