@@ -65,7 +65,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="form-group col-sm-12 text-right">
-                    <button class="btn btn-primary"><i class="glyphicon glyphicon-floppy-saved"></i> Lưu lại</button>
+                    <button  class="btn btn-primary"><i class="glyphicon glyphicon-floppy-saved"></i> Lưu lại</button>
                 </div>
                 {{ Form::close() }}
                 <!-- PAGE CONTENT ENDS -->
@@ -73,6 +73,5 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
-    </div>
-    <!-- /.page-content -->
+    </div><!-- /.page-content -->
 </div>

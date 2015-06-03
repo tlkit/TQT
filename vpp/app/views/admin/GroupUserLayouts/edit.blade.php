@@ -7,8 +7,12 @@
             </li>
             <li><a href="{{URL::route('admin.groupUser_view')}}"> Danh sách nhóm quyền</a></li>
             <li class="active">Sửa nhóm quyền</li>
+<<<<<<< HEAD
+        </ul><!-- /.breadcrumb -->
+=======
         </ul>
         <!-- /.breadcrumb -->
+>>>>>>> 29f0f89a12dd86c9a07e091e6cb84a8a2ef0f92e
     </div>
 
     <div class="page-content">
@@ -90,6 +94,5 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
-    </div>
-    <!-- /.page-content -->
+    </div><!-- /.page-content -->
 </div>
