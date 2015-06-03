@@ -14,10 +14,10 @@ class BaseAdminController extends BaseController
 
     public function __construct()
     {
-//        if (!User::isLogin()) {
-//
-//            Redirect::route('admin.login',array('url'=>self::buildUrlEncode(URL::current())))->send();
-//        }
+        if (!User::isLogin()) {
+
+            Redirect::route('admin.login',array('url'=>self::buildUrlEncode(URL::current())))->send();
+        }
 
         $this->user = User::user_login();
         if($this->user && sizeof($this->user['user_permission']) > 0){

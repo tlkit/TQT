@@ -59,40 +59,38 @@
                         @if($total >0) Có tổng số <b>{{$total}}</b> quyền  @endif
                     </div>
                     <br>
-                    <div class="panel">
-                        <table class="table-hover table table-bordered">
-                            <thead>
-                            <tr class="btn-primary">
-                                <th width="10%" class="text-center">STT</th>
-                                <th width="20%" class="">Mã quyền</th>
-                                <th width="40%" >Tên quyền</th>
-                                <th width="20%" >Danh mục</th>
-                                <th width="10%" class="text-center">Thao tác</th>
+                    <table class="table-hover table table-bordered">
+                        <thead>
+                        <tr class="">
+                            <th width="10%" class="text-center">STT</th>
+                            <th width="20%" class="">Mã quyền</th>
+                            <th width="40%" >Tên quyền</th>
+                            <th width="20%" >Danh mục</th>
+                            <th width="10%" class="text-center">Thao tác</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($data as $key => $item)
+                            <tr @if($item['permission_status'] == -1) class="warning" @endif>
+                                <td class="text-center">{{ $start + $key+1 }}</td>
+                                <td>
+                                    {{ $item['permission_code'] }}
+                                </td>
+                                <td class="">
+                                    {{ $item['permission_name'] }}
+                                </td>
+                                <td>
+                                    {{ $item['permission_group_name'] }}
+                                </td>
+                                <td class="text-center">
+                                    @if($permission_edit)
+                                        <a href="{{URL::route('admin.permission_edit',array('id' => $item['permission_id']))}}" title="Sửa quyền"><i class="fa fa-edit"></i></a>
+                                    @endif
+                                </td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($data as $key => $item)
-                                <tr @if($item['permission_status'] == -1) class="warning" @endif>
-                                    <td class="text-center">{{ $start + $key+1 }}</td>
-                                    <td>
-                                        {{ $item['permission_code'] }}
-                                    </td>
-                                    <td class="">
-                                        {{ $item['permission_name'] }}
-                                    </td>
-                                    <td>
-                                        {{ $item['permission_group_name'] }}
-                                    </td>
-                                    <td class="text-center">
-                                        @if($permission_edit)
-                                            <a href="{{URL::route('admin.permission_edit',array('id' => $item['permission_id']))}}" title="Sửa quyền"><i class="fa fa-edit"></i></a>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                        @endforeach
+                        </tbody>
+                    </table>
                     <div class="text-right">
                         {{$paging}}
                     </div>

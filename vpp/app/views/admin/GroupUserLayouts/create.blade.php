@@ -7,7 +7,8 @@
             </li>
             <li><a href="{{URL::route('admin.groupUser_view')}}"> Danh sách nhóm quyền</a></li>
             <li class="active">Tạo nhóm quyền</li>
-        </ul><!-- /.breadcrumb -->
+        </ul>
+        <!-- /.breadcrumb -->
     </div>
 
     <div class="page-content">
@@ -32,7 +33,7 @@
                 @endif
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <i>Tên nhóm nhóm</i>
+                        <i>Tên nhóm</i>
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -51,15 +52,15 @@
                 <div class="col-sm-10">
                     @foreach($arrPermissionByController as $key => $val)
                         <h4 class="header">@if($key || $key != ''){{$key}}@else Khac @endif</h4>
-                        <div class="checkbox checkbox-inline">
-                            @foreach($val as $k => $v)
-                                <label class="middle">
-                                    <input name="permission_id[]" id="id-disable-check" class="ace" type="checkbox" @if(isset($data['strPermission'])) @if(in_array($v['permission_id'],$data['strPermission']))
-                                           checked @endif @endif>
-                                    <span class="lbl"> {{$v['permission_name']}}</span>
-                                </label>
-                            @endforeach
-                        </div>
+                        @foreach($val as $k => $v)
+                            <label class="middle col-sm-2">
+                                <input type="checkbox" name="permission_id[]" value="{{$v['permission_id']}}"
+                                       class="ace" @if(isset($data['strPermission'])) @if(in_array($v['permission_id'],$data['strPermission']))
+                                       checked @endif @endif>
+                                <span class="lbl"> {{$v['permission_name']}}</span>
+                            </label>
+                        @endforeach
+                        <div class="clearfix"></div>
                     @endforeach
                 </div>
                 <div class="clearfix"></div>

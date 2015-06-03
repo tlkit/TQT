@@ -1,55 +1,71 @@
-<div class="login-box">
-    <div class="login-logo">
-        <a href="javascript:void(0)" style="font-family: 'Calligraffitti', cursive;">Admin VPP</a>
-    </div><!-- /.login-logo -->
-    <div class="login-box-body">
-        <p class="login-box-msg">
-            @if(isset($error))
-                {{$error}}
-            @else
-                Sign in to start your session
-            @endif
-        </p>
-        {{ Form::open(array('class'=>'form-signin')) }}
-            <div class="form-group has-feedback">
-                <input name="user_name" @if(isset($username)) value="{{$username}}" @endif type="text" class="form-control" placeholder="User"/>
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                <input name="user_password" type="password" class="form-control" placeholder="Password"/>
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox"> Remember Me
-                        </label>
+<div class="main-container">
+    <div class="main-content">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="login-container">
+                    <div class="center">
+                        <h1>
+                            <i class="ace-icon fa fa-leaf green"></i>
+                            <span class="red">Ace</span>
+                            <span class="white" id="id-text2">Application</span>
+                        </h1>
+                        <h4 class="blue" id="id-company-text">&copy; Company Name</h4>
                     </div>
-                </div><!-- /.col -->
-                <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-                </div><!-- /.col -->
-            </div>
-        {{Form::close()}}
 
-        {{--<div class="social-auth-links text-center">--}}
-            {{--<p>- OR -</p>--}}
-            {{--<a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using Facebook</a>--}}
-            {{--<a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>--}}
-        {{--</div><!-- /.social-auth-links -->--}}
+                    <div class="space-6"></div>
 
-        {{--<a href="#">I forgot my password</a><br>--}}
-        {{--<a href="register.html" class="text-center">Register a new membership</a>--}}
+                    <div class="position-relative">
+                        <div id="login-box" class="login-box visible widget-box no-border">
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <h4 class="header blue lighter bigger">
+                                        <i class="ace-icon fa fa-coffee green"></i>
+                                        Please Enter Your Information
+                                    </h4>
 
-    </div><!-- /.login-box-body -->
-</div><!-- /.login-box -->
-<script>
-    $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' // optional
-        });
-    });
-</script>
+                                    <div class="space-6"></div>
+                                    @if(isset($error))
+                                        <div class="alert alert-danger">{{$error}}</div>
+                                    @endif
+                                    {{ Form::open(array('class'=>'form-signin')) }}
+                                        <fieldset>
+                                            <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="text" class="form-control" name="user_name" placeholder="User"  @if(isset($username)) value="{{$username}}" @endif/>
+															<i class="ace-icon fa fa-user"></i>
+														</span>
+                                            </label>
+
+                                            <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password" class="form-control" name="user_password" placeholder="Password" />
+															<i class="ace-icon fa fa-lock"></i>
+														</span>
+                                            </label>
+
+                                            <div class="space"></div>
+
+                                            <div class="clearfix">
+                                                <label class="inline">
+                                                    <input type="checkbox" class="ace" />
+                                                    <span class="lbl"> Remember Me</span>
+                                                </label>
+
+                                                <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+                                                    <i class="ace-icon fa fa-key"></i>
+                                                    <span class="bigger-110">Login</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="space-4"></div>
+                                        </fieldset>
+                                    {{ Form::close() }}
+                                </div><!-- /.widget-main -->
+                            </div><!-- /.widget-body -->
+                        </div><!-- /.login-box -->
+                    </div><!-- /.position-relative -->
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.main-content -->
+</div><!-- /.main-container -->

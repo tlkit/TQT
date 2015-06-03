@@ -1,39 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    {{--<link rel="shortcut icon" href="{{Config::get('config.WEB_ROOT')}}favicon.ico">--}}
-    <link href='http://fonts.googleapis.com/css?family=Calligraffitti|Lobster' rel='stylesheet' type='text/css'>
-    {{ HTML::style('assets/lib/adminLTE/bootstrap/css/bootstrap.min.css'); }}
-    {{ HTML::style('assets/lib/font-awesome/css/font-awesome.min.css'); }}
-    {{ HTML::style('assets/lib/adminLTE/dist/css/AdminLTE.min.css'); }}
-    {{ HTML::style('assets/lib/adminLTE/plugins/iCheck/square/blue.css'); }}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>Login Page - Ace Admin</title>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->
-    <!--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
+    <meta name="description" content="User login page" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!-- bootstrap & fontawesome -->
+    {{ HTML::style('assets/css/bootstrap.min.css'); }}
+    {{--<link rel="stylesheet" href="assets/css/bootstrap.min.css" />--}}
+    {{ HTML::style('assets/font-awesome/4.2.0/css/font-awesome.min.css'); }}
+    {{--<link rel="stylesheet" href="assets/font-awesome/4.2.0/css/font-awesome.min.css" />--}}
+
+    <!-- page specific plugin styles -->
+
+    <!-- text fonts -->
+    {{ HTML::style('assets/fonts/fonts.googleapis.com.css'); }}
+    {{--<link rel="stylesheet" href="assets/fonts/fonts.googleapis.com.css" />--}}
+
+    <!-- ace styles -->
+    {{ HTML::style('assets/css/ace.min.css'); }}
+    {{--<link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />--}}
+
+    <!--[if lte IE 9]>
+    {{ HTML::style('assets/css/ace-part2.min.css'); }}
     <![endif]-->
 
-    <!-- jQuery 2.1.4 -->
-    {{ HTML::script('assets/lib/adminLTE/plugins/jQuery/jQuery-2.1.4.min.js'); }}
-    {{--<script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>--}}
-    <!-- Bootstrap 3.3.2 JS -->
-    {{ HTML::script('assets/lib/adminLTE/bootstrap/js/bootstrap.min.js'); }}
-    {{--<script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>--}}
-    <!-- iCheck -->
-    {{ HTML::script('assets/lib/adminLTE/plugins/iCheck/icheck.min.js'); }}
-    {{--<script src="../../plugins/iCheck/icheck.min.js" type="text/javascript"></script>--}}
+    <!--[if lte IE 9]>
+    {{ HTML::style('assets/css/ace-ie.min.css'); }}
+    <![endif]-->
 
-    {{--{{CGlobal::$extraHeaderCSS}}--}}
-    {{--{{CGlobal::$extraHeaderJS}}--}}
+    <!-- inline styles related to this page -->
+
+    <!-- ace settings handler -->
+    {{ HTML::script('assets/js/ace-extra.min.js'); }}
+    {{--<script src="assets/js/ace-extra.min.js"></script>--}}
+
+    <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+    <!--[if lte IE 8]>
+    {{ HTML::script('assets/js/html5shiv.min.js'); }}
+    {{ HTML::script('assets/js/respond.min.js'); }}
+    <![endif]-->
 </head>
-<body class="login-page">
+
+<body class="login-layout">
 {{$content}}
-{{--{{CGlobal::$extraFooterCSS}}--}}
-{{--{{CGlobal::$extraFooterJS}}--}}
 </body>
 </html>

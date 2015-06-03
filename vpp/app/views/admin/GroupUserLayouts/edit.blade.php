@@ -7,7 +7,12 @@
             </li>
             <li><a href="{{URL::route('admin.groupUser_view')}}"> Danh sách nhóm quyền</a></li>
             <li class="active">Sửa nhóm quyền</li>
+<<<<<<< HEAD
         </ul><!-- /.breadcrumb -->
+=======
+        </ul>
+        <!-- /.breadcrumb -->
+>>>>>>> 29f0f89a12dd86c9a07e091e6cb84a8a2ef0f92e
     </div>
 
     <div class="page-content">
@@ -32,7 +37,7 @@
                 @endif
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <i>Mã nhóm</i>
+                        <i>Tên nhóm</i>
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -65,27 +70,23 @@
                         <i>Danh sách quyền</i>
                     </div>
                 </div>
-                <div colspan="2" class="col-sm-10">
+                <div class="col-sm-10">
                     @foreach($arrPermissionByController as $key => $val)
-                        <div class="panel panel-default">
-                            <div class="panel-heading"><b>@if($key || $key != ''){{$key}}@else Khac @endif</b></div>
-                            <div class="panel-body">
-                                <div class="checkbox checkbox-inline">
-                                    @foreach($val as $k => $v)
-                                        <label class="middle">
-                                            <input name="permission_id[]" id="id-disable-check" class="ace" type="checkbox" @if(isset($data['strPermission'])) @if(in_array($v['permission_id'],$data['strPermission']))
-                                                   checked @endif @endif>
-                                            <span class="lbl"> {{$v['permission_name']}}</span>
-                                        </label>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
+                        <h4 class="header">@if($key || $key != ''){{$key}}@else Khac @endif</h4>
+                        @foreach($val as $k => $v)
+                            <label class="middle col-sm-2">
+                                <input type="checkbox" name="permission_id[]" value="{{$v['permission_id']}}"
+                                       class="ace" @if(isset($data['strPermission'])) @if(in_array($v['permission_id'],$data['strPermission']))
+                                       checked @endif @endif>
+                                <span class="lbl"> {{$v['permission_name']}}</span>
+                            </label>
+                        @endforeach
+                        <div class="clearfix"></div>
                     @endforeach
                 </div>
                 <div class="clearfix"></div>
                 <div class="form-group col-sm-12 text-right">
-                    <button  class="btn btn-primary"><i class="glyphicon glyphicon-floppy-saved"></i> Lưu lại</button>
+                    <button class="btn btn-primary"><i class="glyphicon glyphicon-floppy-saved"></i> Lưu lại</button>
                 </div>
                 {{ Form::close() }}
                 <!-- PAGE CONTENT ENDS -->
