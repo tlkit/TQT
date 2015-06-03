@@ -59,4 +59,10 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('providers/getCreate/{id?}', array('as' => 'admin.providers_edit','uses' => 'ProvidersController@getCreate'));
     Route::post('providers/getCreate/{id?}', array('as' => 'admin.providers_edit_post','uses' => 'ProvidersController@postCreate'));
     Route::post('providers/deleteItem', array('as' => 'admin.deltete_post','uses' => 'ProvidersController@deleteItem'));
+
+    /*Quản lý Sản Phẩm*/
+    Route::get('product/view',array('as' => 'admin.product_list','uses' => 'ProductController@index'));
+    Route::get('product/getCreate/{id?}', array('as' => 'admin.product_edit','uses' => 'ProductController@getCreate'));
+    Route::post('product/getCreate/{id?}', array('as' => 'admin.product_edit_post','uses' => 'ProductController@postCreate'));
+    Route::post('product/deleteItem', array('as' => 'admin.deltete_product_post','uses' => 'ProductController@deleteItem'));
 });

@@ -18,7 +18,7 @@ class Providers extends Eloquent
     }
 
     public static function getProviderssAll() {
-        $categories = Providers::where('providers_id', '>', 0)->where('book_status', '=', 1)->get();
+        $categories = Providers::where('providers_id', '>', 0)->get();
         $data = array();
         foreach($categories as $itm) {
             $data[$itm['providers_id']] = $itm['providers_Name'];
