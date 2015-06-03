@@ -18,7 +18,7 @@ class Customers extends Eloquent
     }
 
     public static function getCustomerssAll() {
-        $categories = Customers::where('customers_id', '>', 0)->where('book_status', '=', 1)->get();
+        $categories = Customers::where('customers_id', '>', 0)->get();
         $data = array();
         foreach($categories as $itm) {
             $data[$itm['customers_id']] = $itm['customers_FirstName'];

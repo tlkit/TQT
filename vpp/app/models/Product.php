@@ -6,37 +6,37 @@
  * Time: 12:37 PM
  * To change this template use File | Settings | File Templates.
  */
-class Categories extends Eloquent
+class Product extends Eloquent
 {
-    protected $table = 'categories';
-    protected $primaryKey = 'categories_id';
+    protected $table = 'product';
+    protected $primaryKey = 'product_id';
     public $timestamps = false;
-    protected $fillable = array('categories_id','categories_GroupID', 'categories_ParentID', 'categories_Name', 'categories_Alias', 'categories_Icon', 'categories_SortIndex', 'categories_Status', 'categories_TotalProduct');
+    protected $fillable = array('product_id','product_Code', 'product_Name','product_Category', 'product_CategoryName', 'product_Alias', 'product_OriginID', 'product_UnitID', 'product_PackedWayID', 'product_Price', 'product_Description','product_Image', 'product_Thumbnail', 'product_Quantity', 'product_MinimumQuantity', 'product_IsAvailable','product_CreatorID', 'product_CreatedTime', 'product_ModifiedTime','product_Status');
 
     public static function getByID($id) {
-        return Categories::where('categories_id', $id)->get();
+        return Product::where('product_id', $id)->get();
     }
 
-    public static function getCategoriessAll() {
-        $categories = Categories::where('categories_id', '>', 0)->get();
+    public static function getProductsAll() {
+        $categories = Product::where('product_id', '>', 0)->get();
         $data = array();
         foreach($categories as $itm) {
-            $data[$itm['categories_id']] = $itm['categories_Name'];
+            $data[$itm['product_id']] = $itm['providers_Name'];
         }
         return $data;
     }
 
     public static function searchByCondition($dataSearch = array(), $limit =0, $offset=0, &$total){
         try{
-            $query = Categories::where('categories_id','>',0);
-            if (isset($dataSearch['categories_Name']) && $dataSearch['categories_Name'] != '') {
-                $query->where('categories_Name','LIKE', '%' . $dataSearch['categories_Name'] . '%');
+            $query = Product::where('product_id','>',0);
+            if (isset($dataSearch['product_Name']) && $dataSearch['product_Name'] != '') {
+                $query->where('product_Name','LIKE', '%' . $dataSearch['product_Name'] . '%');
             }
-            if (isset($dataSearch['categories_Status']) && $dataSearch['categories_Status'] != -1) {
-                $query->where('categories_Status', $dataSearch['categories_Status']);
+            if (isset($dataSearch['product_Category']) && $dataSearch['product_Category'] != 0) {
+                $query->where('product_Category', '=', $dataSearch['product_Category']);
             }
             $total = $query->count();
-            $query->orderBy('categories_id', 'desc');
+            $query->orderBy('product_id', 'desc');
             return ($offset == 0) ? $query->take($limit)->get() : $query->take($limit)->skip($offset)->get();
 
         }catch (PDOException $e){
@@ -54,7 +54,7 @@ class Categories extends Eloquent
     {
         try {
             DB::connection()->getPdo()->beginTransaction();
-            $data = new Categories();
+            $data = new Product();
             if (is_array($dataInput) && count($dataInput) > 0) {
                 foreach ($dataInput as $k => $v) {
                     $data->$k = $v;
@@ -62,7 +62,7 @@ class Categories extends Eloquent
             }
             if ($data->save()) {
                 DB::connection()->getPdo()->commit();
-                return $data->categories_id;
+                return $data->product_id;
             }
             DB::connection()->getPdo()->commit();
             return false;
@@ -83,7 +83,7 @@ class Categories extends Eloquent
     {
         try {
             DB::connection()->getPdo()->beginTransaction();
-            $dataSave = Categories::find($id);
+            $dataSave = Product::find($id);
             if (!empty($dataInput)){
                 $dataSave->update($dataInput);
             }
@@ -102,31 +102,10 @@ class Categories extends Eloquent
      * @return bool
      * @throws PDOException
      */
-    public static function updStatus($id,$status){
-        try {
-            DB::connection()->getPdo()->beginTransaction();
-            $dataSave = Categories::find($id);
-            $dataSave->categories_Status = $status;
-            $dataSave->update();
-            DB::connection()->getPdo()->commit();
-            return true;
-        } catch (PDOException $e) {
-            DB::connection()->getPdo()->rollBack();
-            throw new PDOException();
-        }
-    }
-
-    /**
-     * @desc: Update trang thai website.
-     * @param $id
-     * @param $status
-     * @return bool
-     * @throws PDOException
-     */
     public static function delData($id){
         try {
             DB::connection()->getPdo()->beginTransaction();
-            $dataSave = Categories::find($id);
+            $dataSave = Product::find($id);
             $dataSave->delete();
             DB::connection()->getPdo()->commit();
             return true;
