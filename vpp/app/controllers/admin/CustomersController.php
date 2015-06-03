@@ -116,12 +116,12 @@ class CustomersController extends BaseAdminController
         if($this->valid($dataSave) && empty($this->error)) {
             if($id > 0) {
                 if(Customers::updData($id, $dataSave)) {
-                    return Redirect::route('admin.customers_list',array('url'=>base64_encode(URL::current())));
+                    return Redirect::route('admin.customers_list');
                 }
             } else {
                 $dataSave['customers_CreatedTime'] = time();
                 if(Customers::add($dataSave)) {
-                    return Redirect::route('admin.customers_list',array('url'=>base64_encode(URL::current())));
+                    return Redirect::route('admin.customers_list');
                 }
             }
         }

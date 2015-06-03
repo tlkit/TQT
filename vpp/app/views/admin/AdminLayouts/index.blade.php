@@ -44,6 +44,9 @@
     {{ HTML::script('assets/js/html5shiv.min.js'); }}
     {{ HTML::script('assets/js/respond.min.js'); }}
     <![endif]-->
+    <script type="text/javascript">
+            var WEB_ROOT = "{{ URL::to('/')}}";
+        </script>
 </head>
 
 <body class="no-skin">

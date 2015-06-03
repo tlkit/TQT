@@ -61,7 +61,7 @@
                             <th width="15%">Số điện thoại</th>
                             <th width="15%">Địa chỉ</th>
                             <th width="30%">Địa chỉ kho</th>
-                            <th width="5%" class="text-center">Thao tác</th>
+                            <th width="5%" class="text-center"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -74,9 +74,10 @@
                                 <td>{{ $item['providers_StoreAddress'] }}</td>
                                 <td class="text-center">
                                     @if($permission_edit ==1)
-                                        <a href="{{URL::route('admin.providers_edit',array('id' => $item['providers_id']))}}"
-                                           title="Sửa item"><i class="fa fa-edit"></i></a>
+                                        <a href="{{URL::route('admin.providers_edit',array('id' => $item['providers_id']))}}" title="Sửa item"><i class="fa fa-edit"></i></a>
+                                        <a href="javascript:void(0);" onclick="Admin.deleteItem({{$item['providers_id']}},1)" title="Xóa Item"><i class="fa fa-trash"></i></a>
                                     @endif
+                                    <span class="img_loading" id="img_loading_{{$item['providers_id']}}"></span>
                                 </td>
                             </tr>
                         @endforeach
@@ -97,4 +98,6 @@
         <!-- /.row -->
     </div><!-- /.page-content -->
 </div>
+{{ HTML::style('assets/admin/css/admin_css.css'); }}
+{{ HTML::script('assets/admin/js/admin.js'); }}
 
