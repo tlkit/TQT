@@ -13,8 +13,6 @@ class ProvidersController extends BaseAdminController
     private $permiss_delete = 'providers_view';
     private $permission_create = 'providers_create';
     private $permission_edit = 'providers_edit';
-    private $arrType = array(-1 => 'Kiểu khách hàng', 1 => 'Mua buôn', 2 => 'Mua lẻ');
-    private $arrTypeVat = array(1 => 'Có VAT', 0 => 'Không có VAT');
 
     public function __construct()
     {
@@ -64,51 +62,32 @@ class ProvidersController extends BaseAdminController
         $this->layout->content = View::make('admin.ProvidersLayouts.add')
             ->with('id', $id)
             ->with('data', $data)
-            ->with('arrTypeVat', $this->arrTypeVat)
-            ->with('user', $user)
-            ->with('arrType', $this->arrType);
+            ->with('user', $user);
     }
 
     public function postCreate($id=0) {
         /*if(!in_array($this->permission_edit,$this->permission)){
             return Redirect::route('admin.dashboard');
         }*/
-        $dataSave['customers_FirstName'] = Request::get('customers_FirstName');
-        $dataSave['customers_Code'] = Request::get('customers_Code');
-        $dataSave['customers_ContractNo'] = Request::get('customers_ContractNo');
-        $dataSave['customers_BizRegistrationNo'] = Request::get('customers_BizRegistrationNo');
-        $dataSave['customers_IsNeededVAT'] = Request::get('customers_IsNeededVAT');
-        $dataSave['customers_TaxCode'] = Request::get('customers_TaxCode');
-        $dataSave['customers_Fax'] = Request::get('customers_Fax');
-        $dataSave['customers_Phone'] = Request::get('customers_Phone');
 
-        $dataSave['customers_Email'] = Request::get('customers_Email');
-        $dataSave['customers_Website'] = Request::get('customers_Website');
-        $dataSave['customers_BizAddress'] = Request::get('customers_BizAddress');
-        $dataSave['customers_ContactAddress'] = Request::get('customers_ContactAddress');
-        $dataSave['customers_Description'] = Request::get('customers_Description');
-        $dataSave['customers_ContactPhone'] = Request::get('customers_ContactPhone');
-        $dataSave['customers_ContactEmail'] = Request::get('customers_ContactEmail');
-
-        $dataSave['customers_ContactEmail'] = Request::get('customers_ContactEmail');
-        $dataSave['customers_ContactName'] = Request::get('customers_ContactName');
-        $dataSave['customers_TotalInvoice'] = Request::get('customers_TotalInvoice');
-        $dataSave['customers_AmountOfCapital'] = Request::get('customers_AmountOfCapital');
-        $dataSave['customers_AmountOfRevenue'] = Request::get('customers_AmountOfRevenue');
-        $dataSave['customers_NetProfit'] = Request::get('customers_NetProfit');
-        $dataSave['customers_ManagedBy'] = Request::get('customers_ManagedBy');
-
-        $dataSave['customers_Type'] = (int)Request::get('customers_Type', 0);
+        $dataSave['providers_Code'] = Request::get('providers_Code');
+        $dataSave['providers_Name'] = Request::get('providers_Name');
+        $dataSave['providers_Address'] = Request::get('providers_Address');
+        $dataSave['providers_StoreAddress'] = Request::get('providers_StoreAddress');
+        $dataSave['providers_Phone'] = Request::get('providers_Phone');
+        $dataSave['providers_Website'] = Request::get('providers_Website');
+        $dataSave['providers_Description'] = Request::get('providers_Description');
+        $dataSave['providers_TotalImport'] = Request::get('providers_TotalImport');
+        $dataSave['providers_TotalExport'] = Request::get('providers_TotalExport');
 
         if($this->valid($dataSave) && empty($this->error)) {
             if($id > 0) {
                 if(Providers::updData($id, $dataSave)) {
-                    return Redirect::route('admin.customers_list',array('url'=>base64_encode(URL::current())));
+                    return Redirect::route('admin.providers_list');
                 }
             } else {
-                $dataSave['customers_CreatedTime'] = time();
                 if(Providers::add($dataSave)) {
-                    return Redirect::route('admin.customers_list',array('url'=>base64_encode(URL::current())));
+                    return Redirect::route('admin.providers_list');
                 }
             }
         }
@@ -117,9 +96,19 @@ class ProvidersController extends BaseAdminController
             ->with('id', $id)
             ->with('data', $dataSave)
             ->with('error', $this->error)
-            ->with('arrTypeVat', $this->arrTypeVat)
-            ->with('user', $user)
-            ->with('arrType', $this->arrType);
+            ->with('user', $user);
+    }
+
+    public function deleteItem() {
+        $data = array('isIntOk' => 0);
+        /*if(!$this->is_root && !in_array($this->permiss_delete,$this->permission)){
+            return Response::json($data);
+        }*/
+        $id = (int)Request::get('id', 0);
+        if($id > 0 && Providers::delData($id)) {
+            $data['isIntOk'] = 1;
+        }
+        return Response::json($data);
     }
 
     private function valid($data=array()) {
