@@ -48,7 +48,7 @@
                     <div class="span clearfix"> @if($total >0) Có tổng số <b>{{$total}}</b> sản phẩm @endif </div>
                     <br>
                     <table class="table table-bordered table-hover dataTable">
-                        <thead>
+                        <thead class="thin-border-bottom">
                         <tr class="">
                             <th width="5%" class="text-center">STT</th>
                             <th width="40%">Tên sản phẩm</th>

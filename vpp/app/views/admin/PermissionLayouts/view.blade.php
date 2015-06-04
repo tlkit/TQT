@@ -60,7 +60,7 @@
                     </div>
                     <br>
                     <table class="table-hover table table-bordered">
-                        <thead>
+                        <thead class="thin-border-bottom">
                         <tr class="">
                             <th width="10%" class="text-center">STT</th>
                             <th width="20%" class="">Mã quyền</th>

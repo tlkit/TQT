@@ -115,4 +115,9 @@ class Product extends Eloquent
         }
     }
 
+    public static function getByName($name){
+        $data = Product::where('product_id','>',0)->take(10)->lists('product_Name');
+        return $data;
+    }
+
 }

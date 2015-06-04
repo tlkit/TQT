@@ -17,13 +17,9 @@ class Providers extends Eloquent
         return Providers::where('providers_id', $id)->get();
     }
 
-    public static function getProviderssAll() {
-        $categories = Providers::where('providers_id', '>', 0)->get();
-        $data = array();
-        foreach($categories as $itm) {
-            $data[$itm['providers_id']] = $itm['providers_Name'];
-        }
-        return $data;
+    public static function getListAll() {
+        $categories = Providers::where('providers_id', '>', 0)->lists('providers_Name','providers_id');
+        return $categories ? $categories : array();
     }
 
     public static function searchByCondition($dataSearch = array(), $limit =0, $offset=0, &$total){

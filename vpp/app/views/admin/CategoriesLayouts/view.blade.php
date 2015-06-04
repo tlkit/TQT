@@ -54,7 +54,7 @@
                     <div class="span clearfix"> @if($total >0) Có tổng số <b>{{$total}}</b> danh mục @endif </div>
                     <br>
                     <table class="table table-bordered table-hover">
-                        <thead>
+                        <thead class="thin-border-bottom">
                         <tr class="">
                             <th width="10%" class="text-center">STT</th>
                             <th width="70%">Danh mục</th>
