@@ -29,7 +29,7 @@
                            value="@if(isset($data['product_Name'])){{$data['product_Name']}}@endif">
                 </div>
                 <div class="form-group col-sm-6">
-                    <label for="customers_Code"><i>Mã sản phẩm</i></label>
+                    <label for="customers_Code"><i>Mã sản phẩm</i><span style="color: red"> *</span></label>
                     <input type="text" id="product_Code" name="product_Code" class="form-control input-sm"
                            value="@if(isset($data['product_Code'])){{$data['product_Code']}}@endif">
                 </div>
@@ -42,11 +42,17 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-3">
                     <label for="customers_Code"><i>Giá</i></label>
                     <input type="text" id="product_Price" name="product_Price" class="form-control input-sm"
                            value="@if(isset($data['product_Price'])){{$data['product_Price']}}@endif">
                 </div>
+                <div class="form-group col-sm-3">
+                    <label for="customers_Code"><i>SL tối thiểu</i></label>
+                    <input type="text" id="product_MinimumQuantity" name="product_MinimumQuantity" class="form-control input-sm"
+                           value="@if(isset($data['product_MinimumQuantity'])){{$data['product_MinimumQuantity']}}@endif">
+                </div>
+
                 <div class="form-group col-sm-6">
                     <label for="customers_Code"><i>Xuất xứ</i></label>
                     <select name="product_OriginID" id="product_OriginID" class="form-control input-sm">
@@ -61,7 +67,7 @@
                     <select name="product_UnitID" id="product_UnitID" class="form-control input-sm">
                         <option value="0">--- Chọn danh mục ---</option>
                         @foreach($arrDonViTinh as $k2 => $v2)
-                            <option value="{{$k2}}" @if(isset($data['product_UnitID']) && $data['product_UnitID'] == $k1)selected="selected" @endif>{{$v2}}</option>
+                            <option value="{{$k2}}" @if(isset($data['product_UnitID']) && $data['product_UnitID'] == $k2)selected="selected" @endif>{{$v2}}</option>
                         @endforeach
                     </select>
                 </div>

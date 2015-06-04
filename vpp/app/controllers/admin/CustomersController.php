@@ -113,7 +113,7 @@ class CustomersController extends BaseAdminController
 
         $dataSave['customers_Type'] = (int)Request::get('customers_Type', 0);
 
-        if($this->valid($dataSave) && empty($this->error)) {
+        if($this->valid($dataSave,$id) && empty($this->error)) {
             if($id > 0) {
                 if(Customers::updData($id, $dataSave)) {
                     return Redirect::route('admin.customers_list');
@@ -135,10 +135,18 @@ class CustomersController extends BaseAdminController
             ->with('arrType', $this->arrType);
     }
 
-    private function valid($data=array()) {
+    private function valid($data=array(),$id = 0) {
         if(!empty($data)) {
             if(isset($data['customers_FirstName']) && $data['customers_FirstName'] == '') {
                 $this->error[] = 'Tên khách hàng không được trống';
+            }
+            if(isset($data['customers_Code']) && $data['customers_Code'] == '') {
+                $this->error[] = 'Mã khách hàng không được trống';
+            }elseif(isset($data['customers_Code']) && $data['customers_Code'] != ''){
+                $customers_Code = Customers::getCustomersByCustomersCode($data['customers_Code']);
+                if(!empty($customers_Code) && !isset($customers_Code[$id])){
+                    $this->error[] = 'Mã khách hàng này đã tồn tại, hãy nhập mã khác';
+                }
             }
             return true;
         }

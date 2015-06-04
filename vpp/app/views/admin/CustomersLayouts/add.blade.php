@@ -37,7 +37,7 @@
                            value="@if(isset($data['customers_FirstName'])){{$data['customers_FirstName']}}@endif">
                 </div>
                 <div class="form-group col-sm-4">
-                    <label for="customers_Code"><i>Mã khách hàng</i></label>
+                    <label for="customers_Code"><i>Mã khách hàng</i><span style="color: red"> *</span></label>
                     <input type="text" id="customers_Code" name="customers_Code" class="form-control input-sm"
                            value="@if(isset($data['customers_Code'])){{$data['customers_Code']}}@endif">
                 </div>
