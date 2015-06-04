@@ -42,7 +42,9 @@ $(document).ready(function(){
                 dataType: 'json',
                 type: 'GET',
                 url: WEB_ROOT + '/admin/getProductByName',
-                data: {},
+                data: {
+                    product_name: $("#product_name").val()
+                },
                 beforeSend: function () {
                     //$('#sys_product_group_create').removeAttr('onclick');
                 },
@@ -54,7 +56,7 @@ $(document).ready(function(){
                 success: function (data) {
                     if (data.success) {
                         console.log(data.product);
-                        response(data.product);;
+                        response(data.product);
                         //response($.map(data.product, function(item) {
                         //
                         //    return {
@@ -70,7 +72,26 @@ $(document).ready(function(){
     });
 
     $("#sys_add_product").on('click',function(){
-        console.log($("#product_name").val());
+        var name = $("#product_name").val();
+        var price = $("#input_import_product_price").val();
+        var num = $("#import_product_num").val();
+        $.ajax({
+            dataType: 'json',
+            type: 'POST',
+            url: WEB_ROOT + '/admin/import/addProduct',
+            data: {
+                name: name,
+                price: price,
+                num: num
+            },
+            beforeSend: function () {
+            },
+            error: function () {
+            },
+            success: function (data) {
+                $("#sys_product_info").html(data.html);
+            }
+        });
     })
 
 });

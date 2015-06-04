@@ -70,4 +70,5 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('import',array('as' => 'admin.import','uses' => 'ImportController@import'));
     Route::get('getProductByName', array('as' => 'admin.getProductByName','uses' => 'ProductController@getProductByName'));
     Route::get('getProviderInfo', array('as' => 'admin.getProviderInfo','uses' => 'ProvidersController@getProviderInfo'));
+    Route::post('import/addProduct', array('as' => 'admin.import_addProduct','uses' => 'ImportController@addProduct'));
 });
