@@ -63,7 +63,7 @@
                     <div class="span clearfix"> @if($size >0) Có tổng số <b>{{$size}}</b> tài khoản  @endif </div>
                     <br>
                     <table class="table-hover table table-bordered">
-                        <thead>
+                        <thead class="thin-border-bottom">
                         <tr class="">
                             <th width="15%" class="text-center">STT</th>
                             <th width="40%">Thông tin</th>

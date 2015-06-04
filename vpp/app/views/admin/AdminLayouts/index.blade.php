@@ -20,6 +20,7 @@
     {{ HTML::style('assets/fonts/fonts.googleapis.com.css'); }}
     {{--<link rel="stylesheet" href="assets/fonts/fonts.googleapis.com.css" />--}}
 
+    {{ HTML::style('assets/css/chosen.min.css'); }}
     <!-- ace styles -->
     {{ HTML::style('assets/css/ace.min.css'); }}
     {{--<link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />--}}
@@ -32,6 +33,9 @@
     {{ HTML::style('assets/css/ace-ie.min.css'); }}
     <![endif]-->
 
+
+    {{ HTML::style('assets/css/datepicker.min.css'); }}
+    {{ HTML::style('assets/admin/css/admin_css.css'); }}
     <!-- inline styles related to this page -->
 
     <!-- ace settings handler -->
@@ -74,9 +78,16 @@
 
     <!-- ace scripts -->
     {{ HTML::script('assets/js/ace-elements.min.js'); }}
+    {{ HTML::script('assets/js/chosen.jquery.min.js'); }}
+    {{ HTML::script('assets/js/jquery-ui.min.js'); }}
+    {{ HTML::script('assets/js/jquery.ui.touch-punch.min.js'); }}
     {{ HTML::script('assets/js/ace.min.js'); }}
-    {{ HTML::style('assets/admin/css/admin_css.css'); }}
+    {{ HTML::script('assets/js/ace-elements.min.js'); }}
+    {{ HTML::script('assets/js/bootstrap-datepicker.min.js'); }}
+    {{ HTML::script('assets/js/bootstrap-timepicker.min.js'); }}
+    {{ HTML::script('assets/js/moment.min.js'); }}
     {{ HTML::script('assets/admin/js/admin.js'); }}
+    {{ HTML::script('assets/admin/js/format.js'); }}
 </head>
 
 <body class="no-skin">
@@ -249,21 +260,12 @@
             </li>
 
             <li class="">
-                <a href="#" class="dropdown-toggle">
+                <a href="{{URL::route('admin.providers_list')}}">
                     <i class="menu-icon fa fa-briefcase"></i>
-                    <span class="menu-text"> QTrị nhà cung cấp </span>
-                    <b class="arrow fa fa-angle-down"></b>
+                    <span class="menu-text"> Quản trị nhà cung cấp </span>
                 </a>
+
                 <b class="arrow"></b>
-                <ul class="submenu">
-                    <li class="">
-                        <a href="{{URL::route('admin.providers_list')}}">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            DSách nhà cung cấp
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
             </li>
 
         </ul><!-- /.nav-list -->

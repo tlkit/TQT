@@ -173,4 +173,12 @@ class ProductController extends BaseAdminController
         echo '<pre>';  print_r($product_categories); echo '</pre>'; die;
     }
 
+    public function getProductByName(){
+        $name = Request::get('product_name','');
+        $product = Product::getByName($name);
+        $data['success'] = 1;
+        $data['product'] = $product;
+        return Response::json($data);
+    }
+
 }

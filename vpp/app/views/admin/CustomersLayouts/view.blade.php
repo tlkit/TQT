@@ -57,7 +57,7 @@
                     <div class="span"> @if($total >0) Có tổng số <b>{{$total}}</b> khách hàng @endif </div>
                     <br/>
                     <table class="table table-bordered table-hover">
-                        <thead>
+                        <thead class="thin-border-bottom">
                         <tr class="">
                             <th width="5%" class="text-center">STT</th>
                             <th width="35%">Tên khách hàng</th>

@@ -65,4 +65,8 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('product/getCreate/{id?}', array('as' => 'admin.product_edit','uses' => 'ProductController@getCreate'));
     Route::post('product/getCreate/{id?}', array('as' => 'admin.product_edit_post','uses' => 'ProductController@postCreate'));
     Route::post('product/deleteItem', array('as' => 'admin.deltete_product_post','uses' => 'ProductController@deleteItem'));
+
+    /*Xuất nhập kho*/
+    Route::get('import',array('as' => 'admin.import','uses' => 'ImportController@import'));
+    Route::get('getProductByName', array('as' => 'admin.getProductByName','uses' => 'ProductController@getProductByName'));
 });
