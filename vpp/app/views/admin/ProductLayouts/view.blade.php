@@ -68,7 +68,7 @@
                                 <td class="text-right">{{ $item['product_Price'] }} đ</td>
                                 <td class="text-center">
                                     @if($permission_edit ==1)
-                                        <a href="{{URL::route('admin.providers_edit',array('id' => $item['product_id']))}}" title="Sửa item"><i class="fa fa-edit"></i></a>
+                                        <a href="{{URL::route('admin.product_edit',array('id' => $item['product_id']))}}" title="Sửa item"><i class="fa fa-edit"></i></a>
                                         &nbsp;&nbsp;&nbsp;
                                         <a href="javascript:void(0);" onclick="Admin.deleteItem({{$item['product_id']}},2)" title="Xóa Item"><i class="fa fa-trash"></i></a>
                                     @endif

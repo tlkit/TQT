@@ -116,69 +116,41 @@
                             {{Form::open(array('method' => 'POST', 'role'=>'form', 'class'=>'form-horizontal'))}}
                             <div class="widget-body">
                                 <div class="widget-main">
+
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="row">
-                                                <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right" style="text-align: left">
-                                                    <b>Bước 1 : Chọn nhà cung cấp</b>
-                                                </div>
-                                            </div>
-
-                                            <div class="space"></div>
-
-                                            <div>
-                                                <div class="col-sm-2">
-                                                    <b>Nhà cung cấp</b>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <select class="chosen-select form-control" id="providers_id" name="providers_id" data-placeholder="Chọn nhà cung cấp">
-                                                        <option value="0">  </option>
-                                                        @foreach($providers as $key => $value)
-                                                            <option value="{{$key}}">{{$value}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                                <ul class="list-unstyled spaced">
-                                                    {{--<li>--}}
-                                                        {{--<i class="ace-icon fa fa-caret-right blue"></i>Street, City--}}
-                                                    {{--</li>--}}
-
-                                                    {{--<li>--}}
-                                                        {{--<i class="ace-icon fa fa-caret-right blue"></i>Zip Code--}}
-                                                    {{--</li>--}}
-
-                                                    {{--<li>--}}
-                                                        {{--<i class="ace-icon fa fa-caret-right blue"></i>State, Country--}}
-                                                    {{--</li>--}}
-
-                                                    {{--<li>--}}
-                                                        {{--<i class="ace-icon fa fa-caret-right blue"></i>--}}
-                                                        {{--Phone:--}}
-                                                        {{--<b class="red">111-111-111</b>--}}
-                                                    {{--</li>--}}
-
-                                                    {{--<li class="divider"></li>--}}
-
-                                                    {{--<li>--}}
-                                                        {{--<i class="ace-icon fa fa-caret-right blue"></i>--}}
-                                                        {{--Paymant Info--}}
-                                                    {{--</li>--}}
-                                                </ul>
-                                            </div>
-                                        </div><!-- /.col -->
-                                    </div><!-- /.row -->
-
+                                        <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right" style="text-align: left">
+                                            <b>Bước 1 : Chọn nhà cung cấp</b>
+                                        </div>
+                                    </div>
                                     <div class="space"></div>
+                                    <div class="row">
+                                        <div class="col-sm-2" style="padding-top: 5px">
+                                            <b>Nhà cung cấp</b>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <select class="chosen-select form-control" id="providers_id" name="providers_id" data-placeholder="Chọn nhà cung cấp">
+                                                <option value="0">  </option>
+                                                @foreach($providers as $key => $value)
+                                                    <option value="{{$key}}">{{$value}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="col-sm-12 text-center" id="sys_load" style="padding: 28px;display: none;">
+                                            <i class="ace-icon fa fa-spinner fa-spin bigger-300"></i>
+                                        </div>
+                                        <ul class="list-unstyled spaced" id="sys_provider_info">
 
+                                        </ul>
+                                    </div>
+                                    <div class="space"></div>
                                     <div class="row">
                                         <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right" style="text-align: left">
                                             <b>Bước 2 : Chọn sản phẩm</b>
                                         </div>
                                     </div>
-
                                     <div class="space"></div>
-                                    <div>
+                                    <div class="row">
                                         <div class="col-sm-5">
                                             <label for="product_name"><i>Tên sản phẩm</i></label>
                                             <input type="text" id="product_name" name="product_name"
@@ -190,6 +162,9 @@
                                             <input type="text" id="import_product_price" name="import_product_price"
                                                    class="form-control text-right"
                                                    value="">
+                                            <input type="hidden" id="input_import_product_price" name="import_product_price"
+                                                   class="form-control text-right"
+                                                   value="0">
                                         </div>
                                         <div class="col-sm-2">
                                             <label for="import_product_num"><i>Số lượng</i></label>
@@ -201,82 +176,11 @@
                                             <div class="space"></div>
                                             <input type="button" class="btn btn-sm btn-primary" id="sys_add_product" value="Thêm sản phẩm"/>
                                         </div>
-                                        <div class="clearfix"></div>
-                                        <div class="space"></div>
-                                        <table class="table table-striped table-bordered">
-                                            <thead>
-                                            <tr>
-                                                <th class="center">#</th>
-                                                <th>Product</th>
-                                                <th class="hidden-xs">Description</th>
-                                                <th class="hidden-480">Discount</th>
-                                                <th>Total</th>
-                                            </tr>
-                                            </thead>
-
-                                            <tbody>
-                                            <tr>
-                                                <td class="center">1</td>
-
-                                                <td>
-                                                    <a href="#">google.com</a>
-                                                </td>
-                                                <td class="hidden-xs">
-                                                    1 year domain registration
-                                                </td>
-                                                <td class="hidden-480"> --- </td>
-                                                <td>$10</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="center">2</td>
-
-                                                <td>
-                                                    <a href="#">yahoo.com</a>
-                                                </td>
-                                                <td class="hidden-xs">
-                                                    5 year domain registration
-                                                </td>
-                                                <td class="hidden-480"> 5% </td>
-                                                <td>$45</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="center">3</td>
-                                                <td>Hosting</td>
-                                                <td class="hidden-xs"> 1 year basic hosting </td>
-                                                <td class="hidden-480"> 10% </td>
-                                                <td>$90</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="center">4</td>
-                                                <td>Design</td>
-                                                <td class="hidden-xs"> Theme customization </td>
-                                                <td class="hidden-480"> 50% </td>
-                                                <td>$250</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
                                     </div>
-
-                                    <div class="hr hr8 hr-double hr-dotted"></div>
-
-                                    <div class="row">
-                                        <div class="col-sm-5 pull-right">
-                                            <h4 class="pull-right">
-                                                Total amount :
-                                                <span class="red">$395</span>
-                                            </h4>
-                                        </div>
-                                        <div class="col-sm-7 pull-left"> Extra Information </div>
+                                    <div class="space"></div>
+                                    <div class="row" id="sys_product_info">
                                     </div>
-
                                     <div class="space-6"></div>
-                                    <div class="well">
-                                        Thank you for choosing Ace Company products.
-                                        We believe you will be satisfied by our services.
-                                    </div>
                                 </div>
                             </div>
                             {{Form::close()}}

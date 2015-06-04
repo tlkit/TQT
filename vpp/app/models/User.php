@@ -134,8 +134,9 @@ class User extends Eloquent {
                 $user->user_password = self::encode_password($user->user_password);
             }
             $user->save();
+
             DB::connection()->getPdo()->commit();
-            return true;
+            return $user->user_id;
         } catch (PDOException $e) {
             //var_dump($e->getMessage());die;
             DB::connection()->getPdo()->rollBack();

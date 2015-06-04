@@ -86,6 +86,7 @@
     {{ HTML::script('assets/js/bootstrap-datepicker.min.js'); }}
     {{ HTML::script('assets/js/bootstrap-timepicker.min.js'); }}
     {{ HTML::script('assets/js/moment.min.js'); }}
+
     {{ HTML::script('assets/admin/js/admin.js'); }}
     {{ HTML::script('assets/admin/js/format.js'); }}
 </head>
@@ -195,6 +196,14 @@
                         <a href="{{URL::route('admin.user_view')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Danh sách tài khoản
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="">
+                        <a href="{{URL::route('admin.personnel_list')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Danh sách nhân viên
                         </a>
 
                         <b class="arrow"></b>

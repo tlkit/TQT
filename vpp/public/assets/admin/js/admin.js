@@ -5,6 +5,8 @@ var Admin = {
             //xoa NCC
             if(type == 1){
                var url_ajax = WEB_ROOT + '/admin/providers/deleteItem';
+            }else if(type == 2){ //xoa san pham
+                var url_ajax = WEB_ROOT + '/admin/product/deleteItem';
             }
             $.ajax({
                 type: "post",

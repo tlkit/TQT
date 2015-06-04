@@ -40,7 +40,7 @@ var number = {
         if(s != 0)
         jQuery("#"+textId).val(s);
         else
-        jQuery("#"+textId).val();
+        jQuery("#"+textId).val('');
         if(cursor == 1)
             setCaretPosition(document.getElementById(textId),no);
     }

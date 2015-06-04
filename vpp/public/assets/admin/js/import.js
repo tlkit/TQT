@@ -4,8 +4,33 @@
 $(document).ready(function(){
     $('.chosen-select').chosen({allow_single_deselect:true});
 
-    $("#providers_id").on('change',function(){
-        console.log($(this).val());
+    $("#providers_id").on('change', function () {
+        var providers_id = $(this).val();
+        if (parseInt(providers_id) > 0)
+            $.ajax({
+                dataType: 'json',
+                type: 'GET',
+                url: WEB_ROOT + '/admin/getProviderInfo',
+                data: {
+                    providers_id: providers_id
+                },
+                beforeSend: function () {
+                    //$("#sys_provider_info").addClass('hidden');
+                    $("#sys_provider_info").hide();
+                    $("#sys_load").show();
+                },
+                error: function () {
+                    $("#sys_provider_info").html('');
+                },
+                success: function (data) {
+                    $("#sys_load").fadeOut(555, function () {
+                        $("#sys_provider_info").html(data.html);
+                        $("#sys_provider_info").fadeIn(1111);
+                    });
+                }
+            });
+        else
+            $("#sys_provider_info").hide(1111);
     });
     $("#import_product_price").on('keyup', function (event) {
         Import.fomatNumber('import_product_price');
@@ -17,7 +42,9 @@ $(document).ready(function(){
                 dataType: 'json',
                 type: 'GET',
                 url: WEB_ROOT + '/admin/getProductByName',
-                data: {},
+                data: {
+                    product_name: $("#product_name").val()
+                },
                 beforeSend: function () {
                     //$('#sys_product_group_create').removeAttr('onclick');
                 },
@@ -29,7 +56,7 @@ $(document).ready(function(){
                 success: function (data) {
                     if (data.success) {
                         console.log(data.product);
-                        response(data.product);;
+                        response(data.product);
                         //response($.map(data.product, function(item) {
                         //
                         //    return {
@@ -45,7 +72,26 @@ $(document).ready(function(){
     });
 
     $("#sys_add_product").on('click',function(){
-        console.log($("#product_name").val());
+        var name = $("#product_name").val();
+        var price = $("#input_import_product_price").val();
+        var num = $("#import_product_num").val();
+        $.ajax({
+            dataType: 'json',
+            type: 'POST',
+            url: WEB_ROOT + '/admin/import/addProduct',
+            data: {
+                name: name,
+                price: price,
+                num: num
+            },
+            beforeSend: function () {
+            },
+            error: function () {
+            },
+            success: function (data) {
+                $("#sys_product_info").html(data.html);
+            }
+        });
     })
 
 });
