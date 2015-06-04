@@ -83,6 +83,7 @@ class ProductController extends BaseAdminController
         $this->layout->content = View::make('admin.ProductLayouts.add')
             ->with('id', $id)
             ->with('data', $data)
+            ->with('arrCategory', $this->arrCategory)
             ->with('arrXuatXu', $this->arrXuatXu)
             ->with('arrDonViTinh', $this->arrDonViTinh);
     }
@@ -92,23 +93,35 @@ class ProductController extends BaseAdminController
             return Redirect::route('admin.dashboard');
         }*/
 
-        $dataSave['providers_Code'] = Request::get('providers_Code');
-        $dataSave['providers_Name'] = Request::get('providers_Name');
-        $dataSave['providers_Address'] = Request::get('providers_Address');
-        $dataSave['providers_StoreAddress'] = Request::get('providers_StoreAddress');
-        $dataSave['providers_Phone'] = Request::get('providers_Phone');
-        $dataSave['providers_Website'] = Request::get('providers_Website');
-        $dataSave['providers_Description'] = Request::get('providers_Description');
-        $dataSave['providers_TotalImport'] = Request::get('providers_TotalImport');
-        $dataSave['providers_TotalExport'] = Request::get('providers_TotalExport');
+        $dataSave['product_Code'] = Request::get('product_Code');
+        $dataSave['product_Name'] = Request::get('product_Name');
+        $dataSave['product_Category'] = Request::get('product_Category');
+        $dataSave['product_CategoryName'] = Request::get('product_CategoryName');
+        $dataSave['product_Alias'] = Request::get('product_Alias');
+        $dataSave['product_OriginID'] = Request::get('product_OriginID');
+        $dataSave['product_UnitID'] = Request::get('product_UnitID');
+        $dataSave['product_PackedWayID'] = Request::get('product_PackedWayID');
 
+        $dataSave['product_Price'] = Request::get('product_Price');
+        $dataSave['product_Description'] = Request::get('product_Description');
+        $dataSave['product_Image'] = Request::get('product_Image');
+        $dataSave['product_Thumbnail'] = Request::get('product_Thumbnail');
+        $dataSave['product_Quantity'] = Request::get('product_Quantity');
+        $dataSave['product_MinimumQuantity'] = Request::get('product_MinimumQuantity');
+        $dataSave['product_IsAvailable'] = Request::get('product_IsAvailable');
+        $dataSave['product_CreatorID'] = Request::get('product_CreatorID');
+
+        $dataSave['product_Status'] = Request::get('product_Status');
         if($this->valid($dataSave) && empty($this->error)) {
             if($id > 0) {
                 if(Product::updData($id, $dataSave)) {
+                    $dataSave['product_CreatedTime'] = time();
+
                     return Redirect::route('admin.product_list');
                 }
             } else {
                 if(Product::add($dataSave)) {
+                    $dataSave['product_ModifiedTime'] = time();
                     return Redirect::route('admin.product_list');
                 }
             }
@@ -118,7 +131,9 @@ class ProductController extends BaseAdminController
             ->with('id', $id)
             ->with('data', $dataSave)
             ->with('error', $this->error)
-            ->with('user', $user);
+            ->with('arrCategory', $this->arrCategory)
+            ->with('arrXuatXu', $this->arrXuatXu)
+            ->with('arrDonViTinh', $this->arrDonViTinh);
     }
 
     public function deleteItem() {
