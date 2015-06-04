@@ -111,6 +111,20 @@ class ProvidersController extends BaseAdminController
         return Response::json($data);
     }
 
+    public function getProviderInfo(){
+        $providers_id = Request::get('providers_id',0);
+        $data['success'] = 0;
+        $data['html'] = '';
+        if($providers_id > 0){
+            $provider = Providers::find($providers_id);
+            if($provider){
+                $data['success'] = 1;
+                $data['html'] = View::make('admin.ImportLayouts.provider_info')->with('provider',$provider)->render();
+            }
+        }
+        return Response::json($data);
+    }
+
     private function valid($data=array()) {
         if(!empty($data)) {
             if(isset($data['customers_FirstName']) && $data['customers_FirstName'] == '') {

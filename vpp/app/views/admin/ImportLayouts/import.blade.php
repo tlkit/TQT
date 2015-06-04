@@ -125,8 +125,7 @@
                                             </div>
 
                                             <div class="space"></div>
-
-                                            <div>
+                                            <div class="">
                                                 <div class="col-sm-2">
                                                     <b>Nhà cung cấp</b>
                                                 </div>
@@ -139,31 +138,11 @@
                                                     </select>
                                                 </div>
                                                 <div class="clearfix"></div>
-                                                <ul class="list-unstyled spaced">
-                                                    {{--<li>--}}
-                                                        {{--<i class="ace-icon fa fa-caret-right blue"></i>Street, City--}}
-                                                    {{--</li>--}}
+                                                <div class="col-sm-12 text-center" id="sys_load" style="padding: 28px;display: none;">
+                                                    <i class="ace-icon fa fa-spinner fa-spin bigger-300"></i>
+                                                </div>
+                                                <ul class="list-unstyled spaced" id="sys_provider_info">
 
-                                                    {{--<li>--}}
-                                                        {{--<i class="ace-icon fa fa-caret-right blue"></i>Zip Code--}}
-                                                    {{--</li>--}}
-
-                                                    {{--<li>--}}
-                                                        {{--<i class="ace-icon fa fa-caret-right blue"></i>State, Country--}}
-                                                    {{--</li>--}}
-
-                                                    {{--<li>--}}
-                                                        {{--<i class="ace-icon fa fa-caret-right blue"></i>--}}
-                                                        {{--Phone:--}}
-                                                        {{--<b class="red">111-111-111</b>--}}
-                                                    {{--</li>--}}
-
-                                                    {{--<li class="divider"></li>--}}
-
-                                                    {{--<li>--}}
-                                                        {{--<i class="ace-icon fa fa-caret-right blue"></i>--}}
-                                                        {{--Paymant Info--}}
-                                                    {{--</li>--}}
                                                 </ul>
                                             </div>
                                         </div><!-- /.col -->

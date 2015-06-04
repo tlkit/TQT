@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by JetBrains PhpStorm.
  * User: Quynhtm
@@ -9,28 +10,34 @@
 class Product extends Eloquent
 {
     protected $table = 'product';
-    protected $primaryKey = 'product_id';
-    public $timestamps = false;
-    protected $fillable = array('product_id','product_Code', 'product_Name','product_Category', 'product_CategoryName', 'product_Alias', 'product_OriginID', 'product_UnitID', 'product_PackedWayID', 'product_Price', 'product_Description','product_Image', 'product_Thumbnail', 'product_Quantity', 'product_MinimumQuantity', 'product_IsAvailable','product_CreatorID', 'product_CreatedTime', 'product_ModifiedTime','product_Status');
 
-    public static function getByID($id) {
+    protected $primaryKey = 'product_id';
+
+    public $timestamps = false;
+
+    protected $fillable = array('product_id', 'product_Code', 'product_Name', 'product_Category', 'product_CategoryName', 'product_Alias', 'product_OriginID', 'product_UnitID', 'product_PackedWayID', 'product_Price', 'product_Description', 'product_Image', 'product_Thumbnail', 'product_Quantity', 'product_MinimumQuantity', 'product_IsAvailable', 'product_CreatorID', 'product_CreatedTime', 'product_ModifiedTime', 'product_Status');
+
+    public static function getByID($id)
+    {
         return Product::where('product_id', $id)->get();
     }
 
-    public static function getProductsAll() {
+    public static function getProductsAll()
+    {
         $categories = Product::where('product_id', '>', 0)->get();
         $data = array();
-        foreach($categories as $itm) {
+        foreach ($categories as $itm) {
             $data[$itm['product_id']] = $itm['providers_Name'];
         }
         return $data;
     }
 
-    public static function searchByCondition($dataSearch = array(), $limit =0, $offset=0, &$total){
-        try{
-            $query = Product::where('product_id','>',0);
+    public static function searchByCondition($dataSearch = array(), $limit = 0, $offset = 0, &$total)
+    {
+        try {
+            $query = Product::where('product_id', '>', 0);
             if (isset($dataSearch['product_Name']) && $dataSearch['product_Name'] != '') {
-                $query->where('product_Name','LIKE', '%' . $dataSearch['product_Name'] . '%');
+                $query->where('product_Name', 'LIKE', '%' . $dataSearch['product_Name'] . '%');
             }
             if (isset($dataSearch['product_Category']) && $dataSearch['product_Category'] != 0) {
                 $query->where('product_Category', '=', $dataSearch['product_Category']);
@@ -39,17 +46,12 @@ class Product extends Eloquent
             $query->orderBy('product_id', 'desc');
             return ($offset == 0) ? $query->take($limit)->get() : $query->take($limit)->skip($offset)->get();
 
-        }catch (PDOException $e){
+        } catch (PDOException $e) {
             throw new PDOException();
         }
     }
 
-    /**
-     * @desc: Tao website.
-     * @param $data
-     * @return bool
-     * @throws PDOException
-     */
+
     public static function add($dataInput)
     {
         try {
@@ -72,19 +74,13 @@ class Product extends Eloquent
         }
     }
 
-    /**
-     * @desc: Update du lieu
-     * @param $id
-     * @param $data
-     * @return bool
-     * @throws PDOException
-     */
-    public static  function updData($id, $dataInput)
+
+    public static function updData($id, $dataInput)
     {
         try {
             DB::connection()->getPdo()->beginTransaction();
             $dataSave = Product::find($id);
-            if (!empty($dataInput)){
+            if (!empty($dataInput)) {
                 $dataSave->update($dataInput);
             }
             DB::connection()->getPdo()->commit();
@@ -95,14 +91,9 @@ class Product extends Eloquent
         }
     }
 
-    /**
-     * @desc: Update trang thai website.
-     * @param $id
-     * @param $status
-     * @return bool
-     * @throws PDOException
-     */
-    public static function delData($id){
+
+    public static function delData($id)
+    {
         try {
             DB::connection()->getPdo()->beginTransaction();
             $dataSave = Product::find($id);
@@ -115,9 +106,17 @@ class Product extends Eloquent
         }
     }
 
-    public static function getByName($name){
-        $data = Product::where('product_id','>',0)->take(10)->lists('product_Name');
+    public static function getListByName($name)
+    {
+        $data = Product::where('product_Name', 'LIKE', '%' . $name . '%')->take(30)->lists('product_Name');
+        return $data ? $data : array();
+    }
+
+    public static function getByName($name)
+    {
+        $data = Product::where('product_Name',$name)->first();
         return $data;
     }
+
 
 }
