@@ -26,6 +26,17 @@ class Customers extends Eloquent
         return $data;
     }
 
+    public static function getCustomersByCustomersCode($customers_Code) {
+        $customers_Code = Customers::where('customers_Code','=', $customers_Code)->get();
+        $data = array();
+        foreach($customers_Code as $itm) {
+            if(isset($itm['customers_id'])){
+                $data[$itm['customers_id']] = $itm['customers_Code'];
+            }
+        }
+        return $data;
+    }
+
     public static function searchByCondition($dataSearch = array(), $limit =0, $offset=0, &$total){
         try{
             $query = Customers::where('customers_id','>',0);

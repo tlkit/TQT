@@ -112,7 +112,10 @@ class ProductController extends BaseAdminController
         $dataSave['product_CreatorID'] = Request::get('product_CreatorID');
 
         $dataSave['product_Status'] = Request::get('product_Status');
-        if($this->valid($dataSave) && empty($this->error)) {
+
+
+
+        if($this->valid($dataSave,$id) && empty($this->error)) {
             if($id > 0) {
                 if(Product::updData($id, $dataSave)) {
                     $dataSave['product_CreatedTime'] = time();
@@ -151,10 +154,21 @@ class ProductController extends BaseAdminController
     public function getCategoryProduct(){
         return Categories::getCategoriessAll();
     }
-    private function valid($data=array()) {
+
+    private function valid($data=array(),$id =0) {
         if(!empty($data)) {
-            if(isset($data['customers_FirstName']) && $data['customers_FirstName'] == '') {
-                $this->error[] = 'Tên khách hàng không được trống';
+            if(isset($data['product_Name']) && $data['product_Name'] == '') {
+                $this->error[] = 'Tên sản phẩm không được trống';
+            }
+
+            if(isset($data['product_Code']) && $data['product_Code'] == '') {
+                $this->error[] = 'Mã sản phẩm không được trống';
+            }elseif(isset($data['product_Code']) && $data['product_Code'] != ''){
+                $product_Code = Product::getProductsByProductCode($data['product_Code']);
+                //echo '<pre>';  print_r($product_Code); echo '</pre>'; die;
+                if(!empty($product_Code) && !isset($product_Code[$id])){
+                    $this->error[] = 'Mã sản phẩm này đã tồn tại, hãy nhập mã khác';
+                }
             }
             return true;
         }
@@ -169,7 +183,6 @@ class ProductController extends BaseAdminController
                 ->where('product_id', $va->product_id)
                 ->update(['product_Category' => $va->category_id]);
         }
-
         echo '<pre>';  print_r($product_categories); echo '</pre>'; die;
     }
 

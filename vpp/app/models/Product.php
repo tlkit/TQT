@@ -26,6 +26,17 @@ class Product extends Eloquent
         return $data;
     }
 
+    public static function getProductsByProductCode($product_Code) {
+        $product_Code = Product::where('product_Code','=', $product_Code)->get();
+        $data = array();
+        foreach($product_Code as $itm) {
+            if(isset($itm['product_id'])){
+                $data[$itm['product_id']] = $itm['product_Code'];
+            }
+        }
+        return $data;
+    }
+
     public static function searchByCondition($dataSearch = array(), $limit =0, $offset=0, &$total){
         try{
             $query = Product::where('product_id','>',0);
