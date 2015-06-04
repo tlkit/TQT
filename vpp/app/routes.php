@@ -69,6 +69,13 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     /*Xuất nhập kho*/
     Route::get('import',array('as' => 'admin.import','uses' => 'ImportController@import'));
     Route::get('getProductByName', array('as' => 'admin.getProductByName','uses' => 'ProductController@getProductByName'));
+
     Route::get('getProviderInfo', array('as' => 'admin.getProviderInfo','uses' => 'ProvidersController@getProviderInfo'));
     Route::post('import/addProduct', array('as' => 'admin.import_addProduct','uses' => 'ImportController@addProduct'));
+
+    /*Quản lý nhân viên*/
+    Route::get('personnel/view',array('as' => 'admin.personnel_list','uses' => 'PersonnelController@index'));
+    Route::get('personnel/getCreate/{id?}', array('as' => 'admin.personnel_edit','uses' => 'PersonnelController@getCreate'));
+    Route::post('personnel/getCreate/{id?}', array('as' => 'admin.personnel_edit_post','uses' => 'PersonnelController@postCreate'));
+
 });
