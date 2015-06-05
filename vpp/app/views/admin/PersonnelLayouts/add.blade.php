@@ -73,12 +73,12 @@
                            value="@if(isset($data['personnel_adress_2'])){{$data['personnel_adress_2']}}@endif">
                 </div>
 
-                <input type="hidden" id="personnel_user_id" name="personnel_user_id" @if(isset($data['personnel_user_id']))value="{{$data['personnel_user_id']}}" @else value="0" @endif>
+                <input type="hidden" id="personnel_user_id" name="personnel_user_id" @if(isset($personnel_user_id))value="{{$personnel_user_id}}" @else value="0" @endif>
 
-                @if(isset($data['personnel_user_name']) && $data['personnel_user_name'] == '')
+                @if(isset($personnel_user_id) && $personnel_user_id == 0)
                 <div class="form-group col-sm-6">
                    <label for="personnel_status"><i>Có tạo tài khoản đăng nhập?</i></label>
-                   <select name="personnel_check_creater" id="personnel_check_creater" class="form-control input-sm">
+                   <select name="personnel_check_creater" id="personnel_check_creater" class="form-control input-sm" onchange="Admin.changeOptionPersonnel()">
                        @foreach($arrCheckCreater as $k => $v)
                            <option value="{{$k}}" @if(isset($data['personnel_check_creater']) && $data['personnel_check_creater'] == $k)selected="selected" @endif>{{$v}}</option>
                        @endforeach
@@ -87,7 +87,7 @@
                 @endif
 
                 @if(isset($data['personnel_user_id']) && $data['personnel_user_id'] > 0 && isset($data['personnel_user_name']) && $data['personnel_user_name'] != '')
-                    <div class="form-group col-sm-6">
+                    <div class="form-group col-sm-6" >
                         <label for="customers_Code"><i>Tài khoản đăng nhập</i></label><br/>
                         <label for="customers_Code">
                             <a href="{{URL::route('admin.user_view',array('user_name' => $data['personnel_user_name']))}}" title="Tìm {{$data['personnel_user_name']}}" target="_blank">
@@ -96,7 +96,7 @@
                         </label>
                     </div>
                 @else
-                    <div class="form-group col-sm-6">
+                    <div class="form-group col-sm-6" id="show_personnel_user_name" style="display: none">
                         <label for="customers_Code"><i>User_name đăng nhập hệ thống</i></label>
                         <input type="text" id="personnel_user_name" name="personnel_user_name" class="form-control input-sm"
                                value="@if(isset($data['personnel_user_name'])){{$data['personnel_user_name']}}@endif">

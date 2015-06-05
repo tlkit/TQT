@@ -11,6 +11,7 @@ class CategoriesController extends BaseAdminController
 
     private $permission_view = 'categories_view';
     private $permission_create = 'categories_create';
+    private $permiss_delete = 'categories_delete';
     private $permission_edit = 'categories_edit';
     private $arrStatus = array(-1 => 'Chọn trạng thái', 0 => 'Ẩn', 1 => 'Hiện');
 
@@ -103,6 +104,18 @@ class CategoriesController extends BaseAdminController
             ->with('arrStatus', $this->arrStatus);
     }
 
+    public function deleteItem()
+    {
+        $data = array('isIntOk' => 0);
+        /*if(!$this->is_root && !in_array($this->permiss_delete,$this->permission)){
+            return Response::json($data);
+        }*/
+        $id = (int)Request::get('id', 0);
+        if ($id > 0 && Categories::delData($id)) {
+            $data['isIntOk'] = 1;
+        }
+        return Response::json($data);
+    }
 
     private function valid($data=array()) {
         if(!empty($data)) {

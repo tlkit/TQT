@@ -48,6 +48,7 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('categories/view',array('as' => 'admin.categories_list','uses' => 'CategoriesController@view'));
     Route::get('categories/getCreate/{id?}', array('as' => 'admin.categories_edit','uses' => 'CategoriesController@createInfo'));
     Route::post('categories/getCreate/{id?}', array('as' => 'admin.categories_edit_post','uses' => 'CategoriesController@create'));
+    Route::post('categories/deleteItem', array('as' => 'admin.deltete_categories_post','uses' => 'CategoriesController@deleteItem'));
 
     /*Quản lý Khách hàng*/
     Route::get('customers/view',array('as' => 'admin.customers_list','uses' => 'CustomersController@index'));
