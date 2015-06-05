@@ -192,7 +192,7 @@
                 <b class="arrow"></b>
 
                 <ul class="submenu  nav-show ">
-                    <li class="">
+                    <li class="@if(Route::currentRouteName() == 'admin.user_view')active @endif">
                         <a href="{{URL::route('admin.user_view')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Danh sách tài khoản
@@ -200,7 +200,7 @@
 
                         <b class="arrow"></b>
                     </li>
-                    <li class="">
+                    <li class="@if(Route::currentRouteName() == 'admin.personnel_list')active @endif">
                         <a href="{{URL::route('admin.personnel_list')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Danh sách nhân viên
@@ -209,7 +209,7 @@
                         <b class="arrow"></b>
                     </li>
 
-                    <li class="">
+                    <li class="@if(Route::currentRouteName() == 'admin.permission_view')active @endif">
                         <a href="{{URL::route('admin.permission_view')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Danh sách quyền
@@ -218,7 +218,7 @@
                         <b class="arrow"></b>
                     </li>
 
-                    <li class="">
+                    <li class="@if(Route::currentRouteName() == 'admin.groupUser_view')active @endif">
                         <a href="{{URL::route('admin.groupUser_view')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Danh sách nhóm quyền
@@ -240,7 +240,7 @@
                 <b class="arrow"></b>
 
                 <ul class="submenu">
-                    <li class="">
+                    <li class="@if(Route::currentRouteName() == 'admin.categories_list')active @endif">
                         <a href="{{URL::route('admin.categories_list')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Danh mục sản phẩm
@@ -248,7 +248,7 @@
 
                         <b class="arrow"></b>
                     </li>
-                    <li class="">
+                    <li class="@if(Route::currentRouteName() == 'admin.product_list')active @endif">
                         <a href="{{URL::route('admin.product_list')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Quản lý sản phẩm
@@ -259,7 +259,7 @@
                 </ul>
             </li>
 
-            <li class="@if(Route::currentRouteName() == 'admin.customers_list')open @endif">
+            <li class="@if(Route::currentRouteName() == 'admin.customers_list')open active @endif">
                 <a href="{{URL::route('admin.customers_list')}}">
                     <i class="menu-icon fa fa-group"></i>
                     <span class="menu-text"> Quản trị khách hàng </span>
@@ -268,10 +268,10 @@
                 <b class="arrow"></b>
             </li>
 
-            <li class="@if(Route::currentRouteName() == 'admin.providers_list')open @endif">
+            <li class="@if(Route::currentRouteName() == 'admin.providers_list')open active @endif">
                 <a href="{{URL::route('admin.providers_list')}}">
                     <i class="menu-icon fa fa-briefcase"></i>
-                    <span class="menu-text"> Quản trị nhà cung cấp </span>
+                    <span class="menu-text"> QL nhà cung cấp </span>
                 </a>
 
                 <b class="arrow"></b>
