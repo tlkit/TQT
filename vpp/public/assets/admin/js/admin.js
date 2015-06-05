@@ -2,11 +2,15 @@ var Admin = {
     deleteItem: function(id,type) {
         if(confirm('Bạn có muốn xóa Item này không?')) {
             $('#img_loading_'+id).show();
-            //xoa NCC
-            if(type == 1){
+
+            if(type == 1){ //xoa NCC
                var url_ajax = WEB_ROOT + '/admin/providers/deleteItem';
-            }else if(type == 2){ //xoa san pham
+            }
+            else if(type == 2){ //xoa san pham
                 var url_ajax = WEB_ROOT + '/admin/product/deleteItem';
+            }
+            else if(type == 3){ //xoa danh mục
+                var url_ajax = WEB_ROOT + '/admin/categories/deleteItem';
             }
             $.ajax({
                 type: "post",

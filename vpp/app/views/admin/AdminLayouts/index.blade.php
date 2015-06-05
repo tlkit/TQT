@@ -181,7 +181,7 @@
         </div><!-- /.sidebar-shortcuts -->
 
         <ul class="nav nav-list">
-            <li class="">
+            <li class="@if(Route::currentRouteName() == 'admin.user_view' || Route::currentRouteName() == 'admin.personnel_list'|| Route::currentRouteName() == 'admin.permission_view'|| Route::currentRouteName() == 'admin.groupUser_view')open @endif">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-user"></i>
                     <span class="menu-text"> Quản trị tài khoản</span>
@@ -191,7 +191,7 @@
 
                 <b class="arrow"></b>
 
-                <ul class="submenu">
+                <ul class="submenu  nav-show ">
                     <li class="">
                         <a href="{{URL::route('admin.user_view')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
@@ -229,7 +229,7 @@
                 </ul>
             </li>
 
-            <li class="">
+            <li class="@if(Route::currentRouteName() == 'admin.categories_list' || Route::currentRouteName() == 'admin.product_list')open @endif">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-book"></i>
                     <span class="menu-text"> Quản trị sản phẩm </span>
@@ -259,7 +259,7 @@
                 </ul>
             </li>
 
-            <li class="">
+            <li class="@if(Route::currentRouteName() == 'admin.customers_list')open @endif">
                 <a href="{{URL::route('admin.customers_list')}}">
                     <i class="menu-icon fa fa-group"></i>
                     <span class="menu-text"> Quản trị khách hàng </span>
@@ -268,7 +268,7 @@
                 <b class="arrow"></b>
             </li>
 
-            <li class="">
+            <li class="@if(Route::currentRouteName() == 'admin.providers_list')open @endif">
                 <a href="{{URL::route('admin.providers_list')}}">
                     <i class="menu-icon fa fa-briefcase"></i>
                     <span class="menu-text"> Quản trị nhà cung cấp </span>

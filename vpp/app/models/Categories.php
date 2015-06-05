@@ -102,27 +102,6 @@ class Categories extends Eloquent
      * @return bool
      * @throws PDOException
      */
-    public static function updStatus($id,$status){
-        try {
-            DB::connection()->getPdo()->beginTransaction();
-            $dataSave = Categories::find($id);
-            $dataSave->categories_Status = $status;
-            $dataSave->update();
-            DB::connection()->getPdo()->commit();
-            return true;
-        } catch (PDOException $e) {
-            DB::connection()->getPdo()->rollBack();
-            throw new PDOException();
-        }
-    }
-
-    /**
-     * @desc: Update trang thai website.
-     * @param $id
-     * @param $status
-     * @return bool
-     * @throws PDOException
-     */
     public static function delData($id){
         try {
             DB::connection()->getPdo()->beginTransaction();
