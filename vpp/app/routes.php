@@ -70,6 +70,7 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('import',array('as' => 'admin.import','uses' => 'ImportController@importInfo'));
     Route::post('import',array('as' => 'admin.import','uses' => 'ImportController@import'));
     Route::get('import/detail/{id}',array('as' => 'admin.import_detail','uses' => 'ImportController@detail'));
+    Route::get('import/exportPdf/{id}',array('as' => 'admin.import_exportPdf','uses' => 'ImportController@exportPdf'));
     Route::post('import/addProduct', array('as' => 'admin.import_addProduct','uses' => 'ImportController@addProduct'));
     Route::get('getProductByName', array('as' => 'admin.getProductByName','uses' => 'ProductController@getProductByName'));
     Route::get('getProviderInfo', array('as' => 'admin.getProviderInfo','uses' => 'ProvidersController@getProviderInfo'));

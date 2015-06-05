@@ -8,8 +8,15 @@
 
 class ImportController extends BaseAdminController{
 
+    private $filename = '';
+
     public function __construct(){
         parent::__construct();
+    }
+
+
+    public function view(){
+        
     }
 
     public function importInfo(){
@@ -35,6 +42,7 @@ class ImportController extends BaseAdminController{
             $total = 0;
             foreach ($import as $k => $v) {
                 $aryImportProduct[$k]['product_id'] = $v['product_id'];
+                $aryImportProduct[$k]['providers_id'] = $providers_id;
                 $aryImportProduct[$k]['import_product_price'] = $v['import_product_price'];
                 $aryImportProduct[$k]['import_product_num'] = $v['import_product_num'];
                 $aryImportProduct[$k]['import_product_total'] = $v['import_product_num'] * $v['import_product_price'];
@@ -120,7 +128,64 @@ class ImportController extends BaseAdminController{
     }
 
     public function detail($ids){
-        $this->layout->content = View::make('admin.ImportLayouts.detail');
+        $id = base64_decode($ids);
+        $import = Import::find($id);
+        $providers = Providers::find($import->providers_id);
+        $importProduct = $import->importproduct;
+        foreach($importProduct as $product){
+            $product->product;
+        }
+        $this->layout->content = View::make('admin.ImportLayouts.detail')->with('import',$import)->with('importProduct',$importProduct)->with('providers',$providers);
+    }
+
+    public function exportPdf($ids)
+    {
+        $id = base64_decode($ids);
+        $import = Import::find($id);
+        $providers = Providers::find($import->providers_id);
+        $importProduct = $import->importproduct;
+        foreach($importProduct as $product){
+            $product->product;
+        }
+        $html = View::make('admin.ImportLayouts.export')->with('import',$import)->with('importProduct',$importProduct)->with('providers',$providers)->render();
+        $signature = false;
+        $this->filename = "import_" . $import->import_code . ".pdf";
+        $this->pdfOutput($html, $this->filename, 'I', $signature);
+    }
+
+    function pdfOutput($html, $filename, $outputType = 'I', $signature = false){
+        $pdf = new MYPDF(PDF_PAGE_ORIENTATION, 'px', PDF_PAGE_FORMAT, true, 'UTF-8', false, false, $signature);
+        // set document information
+        $pdf->SetCreator('System');
+        $pdf->SetAuthor('TQT');
+        $pdf->SetTitle('');
+        $pdf->SetSubject('');
+        $pdf->SetKeywords('TQT, import');
+        $pdf->setPrintFooter(false);
+
+        // set default monospaced font
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+        $pdf->setFontSubsetting(false);
+        $pdf->SetMargins(30, 15, 30);
+        $pdf->SetHeaderMargin(0);
+        $pdf->SetFooterMargin(0);
+
+        $pdf->SetCellPaddings(0);
+
+        //set auto page breaks
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setFormDefaultProp(array('lineWidth'=>0, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 255), 'strokeColor'=>array(255, 255, 255)));
+        // set font
+        $pdf->SetFont('freeserif', '', 10);
+        // add a page
+        $pdf->AddPage();
+        // output the HTML content
+        $pdf->writeHTML($html, true, false, true, false, '');
+        // reset pointer to the last page
+        $pdf->lastPage();
+        //Close and output PDF document
+        $pdf->Output($filename, $outputType);
     }
 
 }
