@@ -24,5 +24,13 @@ var Admin = {
                 }
             });
         }
+    },
+    changeOptionPersonnel: function(){
+        var personnel_check_creater = $('#personnel_check_creater').val();
+        if(parseInt(personnel_check_creater) == 1){
+            $('#show_personnel_user_name').show();
+        }else{
+            $('#show_personnel_user_name').hide();
+        }
     }
 }

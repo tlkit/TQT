@@ -55,8 +55,12 @@ class PersonnelController extends BaseAdminController
             return Redirect::route('admin.dashboard');
         }*/
         $data = array();
+        $personnel_user_id = 0;
         if($id > 0) {
             $data = Personnel::find($id);
+            if($data){
+                $personnel_user_id = $data['personnel_user_id'];
+            }
         }
 
         //người tạo
@@ -64,6 +68,7 @@ class PersonnelController extends BaseAdminController
         $this->layout->content = View::make('admin.PersonnelLayouts.add')
             ->with('id', $id)
             ->with('data', $data)
+            ->with('personnel_user_id', $personnel_user_id)
             ->with('arrCheckCreater', $this->arrCheckCreater)
             ->with('arrStatus', $this->arrStatus);
     }
@@ -86,7 +91,9 @@ class PersonnelController extends BaseAdminController
 
         $dataSave['personnel_check_creater'] = Request::get('personnel_check_creater',0);
         $dataSave['personnel_user_id'] = Request::get('personnel_user_id');
-        $dataSave['personnel_user_name'] = Request::get('personnel_user_name');
+        if($dataSave['personnel_check_creater'] ==1){
+            $dataSave['personnel_user_name'] = Request::get('personnel_user_name');
+        }
 
         if($personnel_brithday != ''){
             $dataSave['personnel_brithday'] = strtotime($personnel_brithday);
@@ -97,8 +104,9 @@ class PersonnelController extends BaseAdminController
 
         //echo '<pre>';  print_r($dataSave); echo '</pre>'; die;
         if($this->valid($dataSave) && empty($this->error)) {
+            unset($dataSave['personnel_check_creater']);
             //nếu tạo user/pass đăng nhập luôn
-            if($dataSave['personnel_user_name'] != ''){
+            if(isset($dataSave['personnel_user_id']) && $dataSave['personnel_user_id'] == 0 && isset($dataSave['personnel_user_name']) && $dataSave['personnel_user_name'] != ''){
                 $user['user_name'] = $dataSave['personnel_user_name'];
                 $user['user_email'] = $dataSave['personnel_email'];
                 $user['user_phone'] = $dataSave['personnel_phone'];
@@ -117,6 +125,7 @@ class PersonnelController extends BaseAdminController
                     return Redirect::route('admin.personnel_list');
                 }
             } else {
+                //echo '<pre>';  print_r($dataSave); echo '</pre>'; die;
                 if(Personnel::add($dataSave)) {
                     return Redirect::route('admin.personnel_list');
                 }
