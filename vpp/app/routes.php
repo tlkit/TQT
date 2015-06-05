@@ -67,11 +67,12 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::post('product/deleteItem', array('as' => 'admin.deltete_product_post','uses' => 'ProductController@deleteItem'));
 
     /*Xuất nhập kho*/
-    Route::get('import',array('as' => 'admin.import','uses' => 'ImportController@import'));
-    Route::get('getProductByName', array('as' => 'admin.getProductByName','uses' => 'ProductController@getProductByName'));
-
-    Route::get('getProviderInfo', array('as' => 'admin.getProviderInfo','uses' => 'ProvidersController@getProviderInfo'));
+    Route::get('import',array('as' => 'admin.import','uses' => 'ImportController@importInfo'));
+    Route::post('import',array('as' => 'admin.import','uses' => 'ImportController@import'));
+    Route::get('import/detail/{id}',array('as' => 'admin.import_detail','uses' => 'ImportController@detail'));
     Route::post('import/addProduct', array('as' => 'admin.import_addProduct','uses' => 'ImportController@addProduct'));
+    Route::get('getProductByName', array('as' => 'admin.getProductByName','uses' => 'ProductController@getProductByName'));
+    Route::get('getProviderInfo', array('as' => 'admin.getProviderInfo','uses' => 'ProvidersController@getProviderInfo'));
 
     /*Quản lý nhân viên*/
     Route::get('personnel/view',array('as' => 'admin.personnel_list','uses' => 'PersonnelController@index'));

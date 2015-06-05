@@ -55,7 +55,6 @@ $(document).ready(function(){
                 },
                 success: function (data) {
                     if (data.success) {
-                        console.log(data.product);
                         response(data.product);
                         //response($.map(data.product, function(item) {
                         //
@@ -89,7 +88,15 @@ $(document).ready(function(){
             error: function () {
             },
             success: function (data) {
+
                 $("#sys_product_info").html(data.html);
+                if (data.success == 1) {
+                    $("#product_name").val('');
+                    $("#input_import_product_price").val(0);
+                    $("#import_product_price").val('');
+                    $("#import_product_num").val('');
+
+                }
             }
         });
     })
