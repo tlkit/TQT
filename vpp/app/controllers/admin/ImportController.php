@@ -16,7 +16,18 @@ class ImportController extends BaseAdminController{
 
 
     public function view(){
-        
+        $dataSearch['import_create_id'] = Request::get('import_create_id', 0);
+        $dataSearch['import_code'] = Request::get('import_code', '');
+        $dataSearch['import_status'] = Request::get('import_status', 0);
+        $dataSearch['providers_id'] = Request::get('providers_id', 0);
+        $dataSearch['import_create_start'] = Request::get('import_create_start', '');
+        $dataSearch['import_create_end'] = Request::get('import_create_end', '');
+        $page_no = Request::get('page_no', 1);
+        $limit = 30;
+        $size = 0;
+        $offset = ($page_no - 1) * $limit;
+        //$data = User::searchByCondition($dataSearch, $limit, $offset, $size);
+        $this->layout->content = View::make('admin.ImportLayouts.view');
     }
 
     public function importInfo(){
