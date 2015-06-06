@@ -10,20 +10,17 @@
 
     <!-- bootstrap & fontawesome -->
     {{ HTML::style('assets/css/bootstrap.min.css'); }}
-    {{--<link rel="stylesheet" href="assets/css/bootstrap.min.css" />--}}
     {{ HTML::style('assets/font-awesome/4.2.0/css/font-awesome.min.css'); }}
-    {{--<link rel="stylesheet" href="assets/font-awesome/4.2.0/css/font-awesome.min.css" />--}}
 
     <!-- page specific plugin styles -->
 
+    {{ HTML::style('assets/css/jquery-ui.min.css'); }}
     <!-- text fonts -->
     {{ HTML::style('assets/fonts/fonts.googleapis.com.css'); }}
-    {{--<link rel="stylesheet" href="assets/fonts/fonts.googleapis.com.css" />--}}
 
     {{ HTML::style('assets/css/chosen.min.css'); }}
     <!-- ace styles -->
     {{ HTML::style('assets/css/ace.min.css'); }}
-    {{--<link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />--}}
 
     <!--[if lte IE 9]>
     {{ HTML::style('assets/css/ace-part2.min.css'); }}
@@ -40,7 +37,6 @@
 
     <!-- ace settings handler -->
     {{ HTML::script('assets/js/ace-extra.min.js'); }}
-    {{--<script src="assets/js/ace-extra.min.js"></script>--}}
 
     <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
@@ -86,6 +82,7 @@
     {{ HTML::script('assets/js/bootstrap-datepicker.min.js'); }}
     {{ HTML::script('assets/js/bootstrap-timepicker.min.js'); }}
     {{ HTML::script('assets/js/moment.min.js'); }}
+    {{ HTML::script('assets/js/bootbox.min.js'); }}
 
     {{ HTML::script('assets/admin/js/admin.js'); }}
     {{ HTML::script('assets/admin/js/format.js'); }}

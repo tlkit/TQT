@@ -21,4 +21,5 @@ class ImportProduct extends Eloquent{
         return $this->belongsTo('Product', 'product_id');
     }
 
+
 }

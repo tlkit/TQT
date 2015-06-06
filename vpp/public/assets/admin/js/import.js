@@ -101,6 +101,42 @@ $(document).ready(function(){
         });
     })
 
+    $(".sys_delete_import").on('click',function(){
+        var $this = $(this);
+        var import_id = $(this).attr('data-id');
+        var import_code = $(this).attr('data-code');
+        var import_note = $("#import_note_" + import_code).val();
+        var import_status = $("#import_status").val();
+        $.ajax({
+            dataType: 'json',
+            type: 'POST',
+            url: WEB_ROOT + '/admin/import/remove',
+            data: {
+                import_id: import_id,
+                import_note: import_note
+            },
+            beforeSend: function () {
+                $('.modal').modal('hide')
+            },
+            error: function () {
+                bootbox.alert('Lỗi hệ thống');
+            },
+            success: function (data) {
+                if(data.success == 1){
+                    if(import_status == 1){
+                        $this.parents('tr').html('');
+                    }else{
+                        console.log($this);
+                        $this.parents('tr').addClass('orange bg-warning');
+                        $this.parents('td').html('');
+
+                    }
+                }
+                bootbox.alert(data.html);
+            }
+        });
+    })
+
 });
 
 var Import = {

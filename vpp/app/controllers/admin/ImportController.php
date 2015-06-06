@@ -9,25 +9,44 @@
 class ImportController extends BaseAdminController{
 
     private $filename = '';
+    private $aryStatus = array(-1 => 'Chọn trạng thái', 0 => 'Hóa đơn hủy', 1 => 'Hóa đơn bình thường');
 
     public function __construct(){
         parent::__construct();
+
     }
 
 
     public function view(){
+
         $dataSearch['import_create_id'] = Request::get('import_create_id', 0);
         $dataSearch['import_code'] = Request::get('import_code', '');
-        $dataSearch['import_status'] = Request::get('import_status', 0);
+        $dataSearch['import_status'] = Request::get('import_status', -1);
         $dataSearch['providers_id'] = Request::get('providers_id', 0);
         $dataSearch['import_create_start'] = Request::get('import_create_start', '');
         $dataSearch['import_create_end'] = Request::get('import_create_end', '');
         $page_no = Request::get('page_no', 1);
         $limit = 30;
-        $size = 0;
+        $total = 0;
         $offset = ($page_no - 1) * $limit;
-        //$data = User::searchByCondition($dataSearch, $limit, $offset, $size);
-        $this->layout->content = View::make('admin.ImportLayouts.view');
+        $param = $dataSearch;
+        $admin = User::getListAllUser();
+        $providers = Providers::getListAll();
+        $param['import_create_start'] = ($param['import_create_start'] != '') ? strtotime($param['import_create_start']) : 0;
+        $param['import_create_end'] = ($param['import_create_end'] != '') ? strtotime($param['import_create_end']) : 0;
+//        echo '<pre>';
+//        print_r($param);die;
+        $data = Import::search($param, $limit, $offset, $total);
+        $paging = $total > 0 ? Pagging::getNewPager(3, $page_no, $total, $limit, $dataSearch) : '';
+        $this->layout->content = View::make('admin.ImportLayouts.view')
+            ->with('param',$dataSearch)
+            ->with('data',$data)
+            ->with('total', $total)
+            ->with('aryStatus', $this->aryStatus)
+            ->with('admin', $admin)
+            ->with('providers', $providers)
+            ->with('start', ($page_no - 1) * $limit)
+            ->with('paging',$paging);
     }
 
     public function importInfo(){
@@ -197,6 +216,33 @@ class ImportController extends BaseAdminController{
         $pdf->lastPage();
         //Close and output PDF document
         $pdf->Output($filename, $outputType);
+    }
+
+    public function remove(){
+        $import_id = Request::get('import_id',0);
+        $import_note = Request::get('import_note','');
+        if($import_id == 0){
+            $data['success'] = 0;
+            $data['html'] = 'Không tìm thấy hóa đơn cần hủy';
+            return Response::json($data);
+        }
+        $import = Import::find($import_id);
+        $import->import_note = $import_note;
+        if($import->import_status != 1){
+            $data['success'] = 0;
+            $data['html'] = 'Hóa đơn này đã bị hủy trước đó';
+            return Response::json($data);
+        }
+        if(Import::remove($import)){
+            $data['success'] = 1;
+            $data['html'] = 'Hủy hóa đơn thành công';
+            return Response::json($data);
+        }else{
+            $data['success'] = 0;
+            $data['html'] = 'Lỗi cập nhật hệ thống. Vui lòng thử lại';
+            return Response::json($data);
+        }
+
     }
 
 }

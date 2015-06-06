@@ -68,8 +68,10 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::post('product/deleteItem', array('as' => 'admin.deltete_product_post','uses' => 'ProductController@deleteItem'));
 
     /*Xuất nhập kho*/
+    Route::get('import/view',array('as' => 'admin.import_view','uses' => 'ImportController@view'));
     Route::get('import',array('as' => 'admin.import','uses' => 'ImportController@importInfo'));
     Route::post('import',array('as' => 'admin.import','uses' => 'ImportController@import'));
+    Route::post('import/remove',array('as' => 'admin.import_remove','uses' => 'ImportController@remove'));
     Route::get('import/detail/{id}',array('as' => 'admin.import_detail','uses' => 'ImportController@detail'));
     Route::get('import/exportPdf/{id}',array('as' => 'admin.import_exportPdf','uses' => 'ImportController@exportPdf'));
     Route::post('import/addProduct', array('as' => 'admin.import_addProduct','uses' => 'ImportController@addProduct'));

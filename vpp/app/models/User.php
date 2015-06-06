@@ -187,12 +187,8 @@ class User extends Eloquent {
     }
 
     public static function getListAllUser() {
-        $user = User::where('user_id', '>', 0)->get();
-        $data = array();
-        foreach($user as $itm) {
-            $data[$itm['user_id']] = $itm['user_name'];
-        }
-        return $data;
+        $user = User::where('user_status', '>', 0)->lists('user_name','user_id');
+        return $user ? $user : array();
     }
 
 
