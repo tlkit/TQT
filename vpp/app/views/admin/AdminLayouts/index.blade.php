@@ -31,7 +31,7 @@
     <![endif]-->
 
 
-    {{ HTML::style('assets/css/datepicker.min.css'); }}
+    {{--{{ HTML::style('assets/css/datepicker.min.css'); }}--}}
     {{ HTML::style('assets/admin/css/admin_css.css'); }}
     <!-- inline styles related to this page -->
 
@@ -79,8 +79,8 @@
     {{ HTML::script('assets/js/jquery.ui.touch-punch.min.js'); }}
     {{ HTML::script('assets/js/ace.min.js'); }}
     {{ HTML::script('assets/js/ace-elements.min.js'); }}
-    {{ HTML::script('assets/js/bootstrap-datepicker.min.js'); }}
-    {{ HTML::script('assets/js/bootstrap-timepicker.min.js'); }}
+    {{--{{ HTML::script('assets/js/bootstrap-datepicker.min.js'); }}--}}
+    {{--{{ HTML::script('assets/js/bootstrap-timepicker.min.js'); }}--}}
     {{ HTML::script('assets/js/moment.min.js'); }}
     {{ HTML::script('assets/js/bootbox.min.js'); }}
 
@@ -272,6 +272,35 @@
                 </a>
 
                 <b class="arrow"></b>
+            </li>
+            <li class="@if(Route::currentRouteName() == 'admin.import_view' || Route::currentRouteName() == 'admin.import_detail' || Route::currentRouteName() == 'admin.import'|| Route::currentRouteName() == 'admin.import_restore') active @endif">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-book"></i>
+                    <span class="menu-text"> Quản lý xuất nhập </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="@if(Route::currentRouteName() == 'admin.import_view')active @endif">
+                        <a href="{{URL::route('admin.import_view')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Danh sách nhập kho
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.import' || Route::currentRouteName() == 'admin.import_restore')active @endif">
+                        <a href="{{URL::route('admin.import')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Nhập kho
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
             </li>
 
         </ul><!-- /.nav-list -->

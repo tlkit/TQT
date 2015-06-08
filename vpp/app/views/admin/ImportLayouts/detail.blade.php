@@ -5,6 +5,9 @@
                 <i class="ace-icon fa fa-home home-icon"></i>
                 <a href="{{URL::route('admin.dashboard')}}">Home</a>
             </li>
+            <li>
+                <a href="{{URL::route('admin.import_view')}}">Danh sách nhập kho</a>
+            </li>
             <li class="active">Nhập kho</li>
         </ul><!-- /.breadcrumb -->
     </div>

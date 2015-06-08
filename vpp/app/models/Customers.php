@@ -147,4 +147,10 @@ class Customers extends Eloquent
         }
     }
 
+    public static function getListByName($name)
+    {
+        $data = Product::where('customers_FirstName', 'LIKE', '%' . $name . '%')->take(30)->lists('customers_FirstName');
+        return $data ? $data : array();
+    }
+
 }

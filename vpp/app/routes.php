@@ -67,16 +67,20 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::post('product/getCreate/{id?}', array('as' => 'admin.product_edit_post','uses' => 'ProductController@postCreate'));
     Route::post('product/deleteItem', array('as' => 'admin.deltete_product_post','uses' => 'ProductController@deleteItem'));
 
-    /*Xuất nhập kho*/
+    /*nhập kho*/
     Route::get('import/view',array('as' => 'admin.import_view','uses' => 'ImportController@view'));
     Route::get('import',array('as' => 'admin.import','uses' => 'ImportController@importInfo'));
+    Route::get('import/restore/{id}',array('as' => 'admin.import_restore','uses' => 'ImportController@restore'));
     Route::post('import',array('as' => 'admin.import','uses' => 'ImportController@import'));
     Route::post('import/remove',array('as' => 'admin.import_remove','uses' => 'ImportController@remove'));
     Route::get('import/detail/{id}',array('as' => 'admin.import_detail','uses' => 'ImportController@detail'));
     Route::get('import/exportPdf/{id}',array('as' => 'admin.import_exportPdf','uses' => 'ImportController@exportPdf'));
     Route::post('import/addProduct', array('as' => 'admin.import_addProduct','uses' => 'ImportController@addProduct'));
+    Route::post('import/removeProduct', array('as' => 'admin.import_removeProduct','uses' => 'ImportController@removeProduct'));
     Route::get('getProductByName', array('as' => 'admin.getProductByName','uses' => 'ProductController@getProductByName'));
     Route::get('getProviderInfo', array('as' => 'admin.getProviderInfo','uses' => 'ProvidersController@getProviderInfo'));
+    /*Xuất kho*/
+    Route::get('export',array('as' => 'admin.export','uses' => 'ExportController@exportInfo'));
 
     /*Quản lý nhân viên*/
     Route::get('personnel/view',array('as' => 'admin.personnel_list','uses' => 'PersonnelController@index'));

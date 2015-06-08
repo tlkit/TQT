@@ -54,7 +54,7 @@ class ImportController extends BaseAdminController{
         Session::forget('import');
         $providers = Providers::getListAll();
         $this->layout->content = View::make('admin.ImportLayouts.import')
-            ->with('providers',$providers);
+            ->with('providers',$providers)->with('providers_id',0);
     }
 
     public function import(){
@@ -110,7 +110,7 @@ class ImportController extends BaseAdminController{
         if($error != ''){
             $providers = Providers::getListAll();
             $this->layout->content = View::make('admin.ImportLayouts.import')
-                ->with('providers',$providers)->with('error',$error);
+                ->with('providers',$providers)->with('providers_id',$providers_id)->with('error',$error);
             $provider = Providers::find($providers_id);
             $this->layout->content->provider_info = View::make('admin.ImportLayouts.provider_info')->with('provider',$provider);
             $this->layout->content->product_info = View::make('admin.ImportLayouts.product_info')->with('import',$import);
@@ -155,6 +155,18 @@ class ImportController extends BaseAdminController{
 
         return Response::json($data);
 
+    }
+
+    public function removeProduct(){
+        $product_id = Request::get('product_id',0);
+        $import = Session::has('import') ? Session::get('import') : array();
+        if(isset($import[$product_id])){
+            unset($import[$product_id]);
+        }
+        Session::put('import', $import);
+        $data['success'] = 1;
+        $data['html'] = View::make('admin.ImportLayouts.product_info')->with('import',$import)->render();
+        return Response::json($data);
     }
 
     public function detail($ids){
@@ -221,6 +233,7 @@ class ImportController extends BaseAdminController{
     public function remove(){
         $import_id = Request::get('import_id',0);
         $import_note = Request::get('import_note','');
+        $restore = Request::get('restore',0);
         if($import_id == 0){
             $data['success'] = 0;
             $data['html'] = 'Không tìm thấy hóa đơn cần hủy';
@@ -234,6 +247,9 @@ class ImportController extends BaseAdminController{
             return Response::json($data);
         }
         if(Import::remove($import)){
+            if($restore == 1){
+                $data['link'] = URL::route('admin.import_restore',array('id' => base64_encode($import_id)));
+            }
             $data['success'] = 1;
             $data['html'] = 'Hủy hóa đơn thành công';
             return Response::json($data);
@@ -243,6 +259,32 @@ class ImportController extends BaseAdminController{
             return Response::json($data);
         }
 
+    }
+
+    public function restore($ids){
+        $id = base64_decode($ids);
+        $import = Import::find($id);
+        $provider = Providers::find($import->providers_id);
+        $importProduct = $import->importproduct;
+        $aryImport = array();
+        foreach($importProduct as $product){
+            $p = $product->product;
+            $aryImport[$product->product_id] = array(
+                'product_id' => $p->product_id,
+                'product_Code' => $p->product_Code,
+                'product_Name' => $p->product_Name,
+                'product_OriginID' => $p->product_OriginID,
+                'product_UnitID' => $p->product_UnitID,
+                'import_product_price' => $product->import_product_price,
+                'import_product_num' => $product->import_product_num,
+            );
+        }
+        Session::put('import', $aryImport);
+        $providers = Providers::getListAll();
+        $this->layout->content = View::make('admin.ImportLayouts.import')
+            ->with('providers',$providers)->with('providers_id',$import->providers_id);
+        $this->layout->content->provider_info = View::make('admin.ImportLayouts.provider_info')->with('provider',$provider);
+        $this->layout->content->product_info = View::make('admin.ImportLayouts.product_info')->with('import',$aryImport);
     }
 
 }

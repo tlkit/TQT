@@ -46,12 +46,23 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group col-lg-4">
+                        <div class="col-lg-4 sys_time">
                             <label for="import_create_start">Ngày tạo từ </label>
-                            <input type="text" class="form-control input-sm" id="import_create_start" name="import_create_start" placeholder="" @if(isset($param['import_create_start']) && $param['import_create_start'] != '')value="{{$param['import_create_start']}}"@endif>
-                        </div><div class="form-group col-lg-4">
-                            <label for="import_create_end">Đến</label>
-                            <input type="text" class="form-control input-sm" id="import_create_end" name="import_create_end" placeholder="" @if(isset($param['import_create_end']) && $param['import_create_end'] != '')value="{{$param['import_create_end']}}"@endif>
+                            <div class="input-group input-group-sm">
+                                <input type="text" id="import_create_start" name="import_create_start" class="form-control" @if(isset($param['import_create_start']) && $param['import_create_start'] != '')value="{{$param['import_create_start']}}"@endif/>
+                                <span class="input-group-addon">
+                                    <i class="ace-icon fa fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 sys_time">
+                            <label for="import_create_end">Đến </label>
+                            <div class="input-group input-group-sm">
+                                <input type="text" id="import_create_end" name="import_create_end" class="form-control" @if(isset($param['import_create_end']) && $param['import_create_end'] != '')value="{{$param['import_create_end']}}"@endif/>
+                                <span class="input-group-addon">
+                                    <i class="ace-icon fa fa-calendar"></i>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class="panel-footer text-right">
@@ -74,7 +85,7 @@
                         <thead class="thin-border-bottom">
                             <tr class="">
                                 <th class="center" width="5%">STT</th>
-                                <th class="center" width="10%">Mã HD</th>
+                                <th class="center" width="10%">Mã HĐ</th>
                                 <th class="center" width="10%">Nhà cung cấp</th>
                                 <th class="center" width="10%">Nhân viên</th>
                                 <th class="center" width="10%">Tổng tiền</th>
@@ -93,10 +104,10 @@
                                 <td class="center">{{date('d-m-Y H:i',$item['import_create_time'])}}</td>
                                 <td>
                                     @if($item['import_status'] == 1)
-                                    <div class="col-sm-3"><a href="" title="Chi tiết hóa đơn"><i class="fa fa-file-text-o fa-2x"></i></a></div>
-                                    <div class="col-sm-3"><a href="" title="Xuất pdf"><i class="fa fa-file-pdf-o fa-2x"></i></a></div>
-                                    <div class="col-sm-3"><a href="javascript:void(0)" title="Hủy hóa đơn" data-target="#import_{{$item['import_code']}}" data-toggle="modal"><i class="fa fa-trash-o fa-2x"></i></a></div>
-                                    <div class="col-sm-3"><a href="javascript:void(0)" title="Hủy hóa đơn và tạo lại" class="sys_restore_import" data-id="{{$item['import_id']}}" data-code="{{$item['import_code']}}"><i class="fa fa-history fa-2x"></i></a></div>
+                                    <div class="col-sm-3"><a href="{{URL::route('admin.import_detail',array('id' => base64_encode($item['import_id'])))}}" title="Chi tiết hóa đơn"><i class="fa fa-file-text-o fa-2x"></i></a></div>
+                                    <div class="col-sm-3"><a href="{{URL::route('admin.import_exportPdf',array('id' => base64_encode($item['import_id'])))}}" target="_blank" title="Xuất pdf"><i class="fa fa-file-pdf-o fa-2x"></i></a></div>
+                                    <div class="col-sm-3"><a href="javascript:void(0)" title="Hủy hóa đơn" class="sys_open_delete" data-code="{{$item['import_code']}}"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                                    <div class="col-sm-3"><a href="javascript:void(0)" title="Hủy hóa đơn và tạo lại" class="sys_open_restore" data-code="{{$item['import_code']}}"><i class="fa fa-history fa-2x"></i></a></div>
                                     {{--modal--}}
                                     <div class="modal fade" role="dialog" id="import_{{$item['import_code']}}" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -156,3 +167,21 @@
     </div><!-- /.page-content -->
 </div>
 {{HTML::script('assets/admin/js/import.js');}}
+<script type="text/javascript">
+    $( "#import_create_start" ).datepicker({
+        showOtherMonths: true,
+        selectOtherMonths: false,
+        dateFormat: 'dd-mm-yy',
+//        numberOfMonths: 2,
+        onClose: function(selectedDate) {
+            $("#import_create_end").datepicker("option", "minDate", selectedDate);
+            $(this).parents('.sys_time').next().children().find('#import_create_end').focus();
+        }
+    });
+    $( "#import_create_end" ).datepicker({
+        showOtherMonths: true,
+        selectOtherMonths: false,
+//        numberOfMonths: 2,
+        dateFormat: 'dd-mm-yy'
+    });
+</script>

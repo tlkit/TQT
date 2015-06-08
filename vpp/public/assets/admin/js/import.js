@@ -1,7 +1,9 @@
 /**
  * Created by Tuan on 03/06/2015.
  */
+var restore = 0;
 $(document).ready(function(){
+
     $('.chosen-select').chosen({allow_single_deselect:true});
 
     $("#providers_id").on('change', function () {
@@ -101,6 +103,17 @@ $(document).ready(function(){
         });
     })
 
+
+    $(".sys_open_delete").on('click', function () {
+        restore = 0;
+        var import_code = $(this).attr('data-code');
+        $("#import_" + import_code).modal('show');
+    });
+    $(".sys_open_restore").on('click', function () {
+        restore = 1;
+        var import_code = $(this).attr('data-code');
+        $("#import_" + import_code).modal('show');
+    });
     $(".sys_delete_import").on('click',function(){
         var $this = $(this);
         var import_id = $(this).attr('data-id');
@@ -113,7 +126,8 @@ $(document).ready(function(){
             url: WEB_ROOT + '/admin/import/remove',
             data: {
                 import_id: import_id,
-                import_note: import_note
+                import_note: import_note,
+                restore: restore
             },
             beforeSend: function () {
                 $('.modal').modal('hide')
@@ -131,6 +145,10 @@ $(document).ready(function(){
                         $this.parents('td').html('');
 
                     }
+                    if(restore == 1){
+                        window.location.href = data.link;
+                        return false;
+                    }
                 }
                 bootbox.alert(data.html);
             }
@@ -147,5 +165,23 @@ var Import = {
         }
         jQuery('#input_' + id).val(re);
         number.numberFormatNew(re, id);
+    },
+    removeItem:function(product_id){
+
+        $.ajax({
+            dataType: 'json',
+            type: 'POST',
+            url: WEB_ROOT + '/admin/import/removeProduct',
+            data: {
+                product_id: product_id
+            },
+            beforeSend: function () {
+            },
+            error: function () {
+            },
+            success: function (data) {
+                $("#sys_product_info").html(data.html);
+            }
+        });
     }
 }

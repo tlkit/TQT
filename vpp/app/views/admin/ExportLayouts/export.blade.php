@@ -21,7 +21,7 @@
                             <div class="widget-header widget-header-large">
                                 <h3 class="widget-title blue lighter">
                                     <i class="ace-icon fa fa-file-text"></i>
-                                    Lập phiếu nhập kho
+                                    Lập phiếu xuất kho
                                 </h3>
                                 <div class="widget-toolbar no-border invoice-info">
                                     <br/>
@@ -38,36 +38,33 @@
                                     @endif
 
                                     <div class="row">
-                                        <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right" style="text-align: left">
-                                            <b>Bước 1 : Chọn nhà cung cấp</b>
+                                        <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right" style="text-align: left">
+                                            <b>Bước 1 : Chọn khách hàng</b>
                                         </div>
                                     </div>
                                     <div class="space"></div>
                                     <div class="row">
                                         <div class="col-sm-2" style="padding-top: 5px">
-                                            <b>Nhà cung cấp</b>
+                                            <b>Tên khách hàng</b>
                                         </div>
                                         <div class="col-sm-6">
-                                            <select class="chosen-select form-control" id="providers_id" name="providers_id" data-placeholder="Chọn nhà cung cấp">
-                                                <option value="0" selected>  </option>
-                                                @foreach($providers as $key => $value)
-                                                    <option value="{{$key}}" @if($key == $providers_id) selected @endif>{{$value}}</option>
-                                                @endforeach
-                                            </select>
+                                            <input type="text" id="customers_name" name="customers_name"
+                                                   class="form-control"
+                                                   value="">
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="col-sm-12 text-center" id="sys_load" style="padding: 28px;display: none;">
                                             <i class="ace-icon fa fa-spinner fa-spin bigger-300"></i>
                                         </div>
                                         <ul class="list-unstyled spaced" id="sys_provider_info">
-                                            @if(isset($provider_info))
-                                                {{$provider_info}}
+                                            @if(isset($customer_info))
+                                                {{$customer_info}}
                                             @endif
                                         </ul>
                                     </div>
                                     <div class="space"></div>
                                     <div class="row">
-                                        <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right" style="text-align: left">
+                                        <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right" style="text-align: left">
                                             <b>Bước 2 : Chọn sản phẩm</b>
                                         </div>
                                     </div>
@@ -121,4 +118,4 @@
         </div><!-- /.row -->
     </div><!-- /.page-content -->
 </div>
-{{HTML::script('assets/admin/js/import.js');}}
+{{HTML::script('assets/admin/js/export.js');}}
