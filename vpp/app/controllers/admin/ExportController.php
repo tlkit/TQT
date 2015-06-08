@@ -15,7 +15,14 @@ class ExportController extends BaseAdminController{
 
     public function exportInfo(){
         Session::forget('export');
-        $this->layout->content = View::make('admin.ExportLayouts.export');
+        $customers = Customers::getListAll();
+        $this->layout->content = View::make('admin.ExportLayouts.export')
+            ->with('customers',$customers)->with('customers_id',0);
+    }
+
+    public function export(){
+        $customers_id = Request::get('customers_id');
+        echo $customers_id;die;
     }
 
 }

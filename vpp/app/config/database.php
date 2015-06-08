@@ -52,7 +52,7 @@ return array(
 			'prefix'   => '',
 		),
 
-		/*'mysql' => array(
+		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => '103.56.157.141',
 			'database'  => 'vppbanbuon',
@@ -61,17 +61,17 @@ return array(
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
-		),*/
-        'mysql' => array(
-			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'db_vpp',
-			'username'  => 'root',
-			'password'  => '',
-			'charset'   => 'utf8',
-			'collation' => 'utf8_unicode_ci',
-			'prefix'    => '',
 		),
+//        'mysql' => array(
+//			'driver'    => 'mysql',
+//			'host'      => 'localhost',
+//			'database'  => 'db_vpp',
+//			'username'  => 'root',
+//			'password'  => '',
+//			'charset'   => 'utf8',
+//			'collation' => 'utf8_unicode_ci',
+//			'prefix'    => '',
+//		),
 
 		'pgsql' => array(
 			'driver'   => 'pgsql',

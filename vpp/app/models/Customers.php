@@ -11,7 +11,7 @@ class Customers extends Eloquent
     protected $table = 'customers';
     protected $primaryKey = 'customers_id';
     public $timestamps = false;
-    protected $fillable = array('customers_id','customers_Type', 'customers_FirstName', 'customers_LastName', 'customers_Code', 'customers_ContractNo', 'customers_BizRegistrationNo', 'customers_IsNeededVAT', 'customers_TaxCode','customers_Phone', 'customers_Fax', 'customers_Email', 'customers_Website', 'customers_BizAddress', 'customers_ContactAddress', 'customers_Description', 'customers_ContactPhone','customers_ContactEmail', 'customers_ContactName', 'customers_TotalInvoice', 'customers_AmountOfCapital', 'customers_AmountOfRevenue', 'customers_NetProfit', 'customers_ManagedBy', 'customers_CreatedTime');
+    protected $fillable = array('customers_Type', 'customers_FirstName', 'customers_LastName', 'customers_Code', 'customers_ContractNo', 'customers_BizRegistrationNo', 'customers_IsNeededVAT', 'customers_TaxCode','customers_Phone', 'customers_Fax', 'customers_Email', 'customers_Website', 'customers_BizAddress', 'customers_ContactAddress', 'customers_Description', 'customers_ContactPhone','customers_ContactEmail', 'customers_ContactName', 'customers_TotalInvoice', 'customers_AmountOfCapital', 'customers_AmountOfRevenue', 'customers_NetProfit', 'customers_ManagedBy', 'customers_CreatedTime');
 
     public static function getByID($id) {
         return Customers::where('customers_id', $id)->get();
@@ -147,10 +147,9 @@ class Customers extends Eloquent
         }
     }
 
-    public static function getListByName($name)
-    {
-        $data = Product::where('customers_FirstName', 'LIKE', '%' . $name . '%')->take(30)->lists('customers_FirstName');
-        return $data ? $data : array();
+    public static function getListAll() {
+        $categories = Customers::where('customers_id', '>', 0)->orderBy('customers_FirstName')->lists('customers_FirstName','customers_id');
+        return $categories ? $categories : array();
     }
 
 }

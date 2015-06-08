@@ -18,7 +18,7 @@ class Providers extends Eloquent
     }
 
     public static function getListAll() {
-        $categories = Providers::where('providers_id', '>', 0)->lists('providers_Name','providers_id');
+        $categories = Providers::where('providers_id', '>', 0)->orderBy('providers_Name')->lists('providers_Name','providers_id');
         return $categories ? $categories : array();
     }
 

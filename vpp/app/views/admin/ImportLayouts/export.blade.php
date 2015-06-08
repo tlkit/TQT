@@ -8,7 +8,7 @@
     <tr style="">
         <td width="70" valign="top">
             <br/>
-            <span style=""><img src="/assets/admin/img/logo.png" alt="" width="60px" height="90px"/></span>
+            <span style=""><img src="/assets/admin/img/logo.jpg" alt="" width="60px" height="90px"/></span>
         </td>
         <td width="530" valign="top" style="text-align: left">
             <br/>

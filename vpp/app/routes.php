@@ -81,6 +81,8 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('getProviderInfo', array('as' => 'admin.getProviderInfo','uses' => 'ProvidersController@getProviderInfo'));
     /*Xuất kho*/
     Route::get('export',array('as' => 'admin.export','uses' => 'ExportController@exportInfo'));
+    Route::post('export',array('as' => 'admin.export','uses' => 'ExportController@export'));
+//    Route::get('getCustomersByName', array('as' => 'admin.getCustomersByName','uses' => 'CustomersController@getCustomersByName'));
 
     /*Quản lý nhân viên*/
     Route::get('personnel/view',array('as' => 'admin.personnel_list','uses' => 'PersonnelController@index'));

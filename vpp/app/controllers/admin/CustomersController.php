@@ -153,5 +153,12 @@ class CustomersController extends BaseAdminController
         return false;
     }
 
+    public function getCustomersByName(){
+        $name = Request::get('customers_name', '');
+        $product = Customers::getListByName($name);
+        $data['success'] = 1;
+        $data['product'] = $product;
+        return Response::json($data);
+    }
 
 }

@@ -1,3 +1,6 @@
+<style type="text/css">
+    .ui-autocomplete { height: 200px; overflow-y: scroll; overflow-x: hidden;}
+</style>
 <div class="main-content-inner">
     <div class="breadcrumbs" id="breadcrumbs">
         <ul class="breadcrumb">

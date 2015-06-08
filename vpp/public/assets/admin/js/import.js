@@ -4,7 +4,7 @@
 var restore = 0;
 $(document).ready(function(){
 
-    $('.chosen-select').chosen({allow_single_deselect:true});
+    $('#providers_id').chosen({allow_single_deselect:true,no_results_text:'Từ khóa : '});
 
     $("#providers_id").on('change', function () {
         var providers_id = $(this).val();

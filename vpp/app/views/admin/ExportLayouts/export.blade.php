@@ -29,7 +29,7 @@
                                     <span class="blue">{{date('d/m/Y',time())}}</span>
                                 </div>
                             </div>
-                            {{Form::open(array('method' => 'POST', 'role'=>'form', 'class'=>'form-horizontal', 'route' => 'admin.import'))}}
+                            {{Form::open(array('method' => 'POST', 'role'=>'form', 'class'=>'form-horizontal', 'route' => 'admin.export'))}}
                             <div class="widget-body">
                                 <div class="widget-main">
 
@@ -48,9 +48,12 @@
                                             <b>Tên khách hàng</b>
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="text" id="customers_name" name="customers_name"
-                                                   class="form-control"
-                                                   value="">
+                                            <select class="chosen-select form-control" id="customers_id" name="customers_id" data-placeholder="Chọn khách hàng">
+                                                <option value="0" selected>  </option>
+                                                @foreach($customers as $key => $value)
+                                                    <option value="{{$key}}" @if($key == $customers_id) selected @endif>{{$value}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="col-sm-12 text-center" id="sys_load" style="padding: 28px;display: none;">
@@ -118,4 +121,5 @@
         </div><!-- /.row -->
     </div><!-- /.page-content -->
 </div>
+{{HTML::script('assets/admin/js/ajax-chosen.js');}}
 {{HTML::script('assets/admin/js/export.js');}}
