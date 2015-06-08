@@ -16,10 +16,10 @@
         <div class="row" id="sys_import_content">
             <div class="col-xs-12">
                 <div class="row">
-                    <div class="col-sm-1 text-left">
-                        <img src="/assets/admin/img/logo.png" alt="" width="80px" height="110px"/>
+                    <div class="col-sm-1 text-left col-xs-2">
+                        <img src="/assets/admin/img/logo.png" alt=""/>
                     </div>
-                    <div class="col-sm-11">
+                    <div class="col-sm-11 col-xs-10">
                         <div><b>CÔNG TY TNHH THƯƠNG MẠI & VÀ DỊCH VỤ THIỀU SƠN</b></div>
                         <div><b>Trụ sở : Số 64, Phố Yên Bái II, Phường Phố Huế, Quận Hai Bà Trưng, Hà Nội</b></div>
                         <div><b>Cơ sở 1 : CC2 - Bắc Linh Đàm - Hoàng Mai - Hà Nội</b></div>
@@ -86,15 +86,15 @@
                     </tbody>
                 </table>
                 <div class="space-6"></div>
-                <div class="col-sm-4 text-center">
+                <div class="col-sm-4 col-xs-4 text-center">
                     <p>Thủ kho</p>
                     <p>(Kí, họ tên)</p>
                 </div>
-                <div class="col-sm-4 text-center">
+                <div class="col-sm-4 col-xs-4 text-center">
                     <p>Người giao hàng</p>
                     <p>(Kí, họ tên)</p>
                 </div>
-                <div class="col-sm-4 text-center">
+                <div class="col-sm-4 col-xs-4 text-center">
                     <p>Người nhận hàng</p>
                     <p>(Kí, họ tên)</p>
                 </div>
