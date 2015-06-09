@@ -14,7 +14,8 @@ class Categories extends Eloquent
     protected $fillable = array('categories_id','categories_GroupID', 'categories_ParentID', 'categories_Name', 'categories_Alias', 'categories_Icon', 'categories_SortIndex', 'categories_Status', 'categories_TotalProduct');
 
     public static function getByID($id) {
-        return Categories::where('categories_id', $id)->get();
+        $admin = Categories::where('categories_id', $id)->first();
+        return $admin;
     }
 
     public static function getCategoriessAll() {

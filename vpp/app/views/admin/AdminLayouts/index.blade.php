@@ -256,7 +256,7 @@
                 </ul>
             </li>
 
-            <li class="@if(Route::currentRouteName() == 'admin.customers_list')open active @endif">
+            <li class="@if(Route::currentRouteName() == 'admin.customers_list' || Route::currentRouteName() == 'admin.discountCategory'|| Route::currentRouteName() == 'admin.discountProduct')open active @endif">
                 <a href="{{URL::route('admin.customers_list')}}">
                     <i class="menu-icon fa fa-group"></i>
                     <span class="menu-text"> Quản trị khách hàng </span>

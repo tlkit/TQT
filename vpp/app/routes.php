@@ -89,4 +89,12 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('personnel/getCreate/{id?}', array('as' => 'admin.personnel_edit','uses' => 'PersonnelController@getCreate'));
     Route::post('personnel/getCreate/{id?}', array('as' => 'admin.personnel_edit_post','uses' => 'PersonnelController@postCreate'));
 
+    /*Quản lý Triết khấu % danh mục*/
+    Route::get('discountCustomers/discountCategory/{customer_id?}',array('as' => 'admin.discountCategory','uses' => 'DiscountCustomersController@discountCategory'));
+    Route::post('discountCustomers/updateCategory', array('as' => 'admin.updateCategoryDiscount','uses' => 'DiscountCustomersController@updateCategory'));
+
+    /*Quản lý Triết khấu % sản phẩm*/
+    Route::get('discountCustomers/discountProduct/{customer_id?}',array('as' => 'admin.discountProduct','uses' => 'DiscountCustomersController@discountProduct'));
+    Route::post('discountCustomers/updateProduct', array('as' => 'admin.updateProductDiscount','uses' => 'DiscountCustomersController@updateProduct'));
+
 });

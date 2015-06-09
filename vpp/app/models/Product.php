@@ -15,11 +15,12 @@ class Product extends Eloquent
 
     public $timestamps = false;
 
-    protected $fillable = array('product_id', 'product_Code', 'product_Name', 'product_Category', 'product_CategoryName', 'product_Alias', 'product_OriginID', 'product_UnitID', 'product_PackedWayID', 'product_Price', 'product_Description', 'product_Image', 'product_Thumbnail', 'product_Quantity', 'product_MinimumQuantity', 'product_IsAvailable', 'product_CreatorID', 'product_CreatedTime', 'product_ModifiedTime', 'product_Status');
+    protected $fillable = array('product_id', 'product_Code', 'product_Name', 'product_Category', 'product_CategoryName', 'product_Alias', 'product_OriginID', 'product_NameOrigin', 'product_UnitID', 'product_NameUnit', 'product_PackedWayID', 'product_NamePackedWay', 'product_Price', 'product_Description', 'product_Image', 'product_Thumbnail', 'product_Quantity', 'product_MinimumQuantity', 'product_IsAvailable', 'product_CreatorID', 'product_CreatedTime', 'product_ModifiedTime', 'product_Status');
 
     public static function getByID($id)
     {
-        return Product::where('product_id', $id)->get();
+        $product = Product::where('product_id', $id)->first();
+        return $product;
     }
 
     public static function getProductsAll()
@@ -27,7 +28,7 @@ class Product extends Eloquent
         $categories = Product::where('product_id', '>', 0)->get();
         $data = array();
         foreach ($categories as $itm) {
-            $data[$itm['product_id']] = $itm['providers_Name'];
+            $data[$itm['product_id']] = array('product_Name'=>$itm['product_Name'],'product_Price'=>$itm['product_Price']);
         }
         return $data;
     }

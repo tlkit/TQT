@@ -82,8 +82,10 @@
                                 <td class="text-center">
                                     @if($permission_edit ==1)
                                         <a href="{{URL::route('admin.customers_edit',array('id' => $item['customers_id']))}}"
-                                           title="Sửa item"><i class="fa fa-edit"></i></a>
+                                           title="Sửa item"><i class="fa fa-edit"></i></a> <br/>
                                     @endif
+                                    <a href="{{URL::route('admin.discountProduct',array('' => $item['customers_id']))}}" target="_blank"  title="Triết khấu theo sản phẩm"><i class="fa fa-cubes"></i></a>
+                                    <a href="{{URL::route('admin.discountCategory',array('' => $item['customers_id']))}}" target="_blank"  title="Triết khấu theo danh mục"><i class="fa fa-building"></i></a>
                                 </td>
                             </tr>
                         @endforeach
