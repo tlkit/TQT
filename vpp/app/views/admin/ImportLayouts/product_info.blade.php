@@ -27,8 +27,8 @@
         <td class="center">{{$i}}</td>
         <td class="center">{{$v['product_Code']}}</td>
         <td class="hidden-480"><a href="#">{{$v['product_Name']}}</a></td>
-        <td class="center hidden-xs">{{$v['product_OriginID']}}</td>
-        <td class="center hidden-480">{{$v['product_UnitID']}}</td>
+        <td class="center hidden-xs">{{$v['product_NameOrigin']}}</td>
+        <td class="center hidden-480">{{$v['product_NameUnit']}}</td>
         <td class="text-right hidden-480">{{number_format($v['import_product_price'], 0, ',', '.');}}</td>
         <td class="center hidden-480">{{$v['import_product_num']}}</td>
         <td class="text-right hidden-480"><b>{{number_format($total_item, 0, ',', '.');}}</b></td>

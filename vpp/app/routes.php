@@ -82,6 +82,8 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     /*Xuất kho*/
     Route::get('export',array('as' => 'admin.export','uses' => 'ExportController@exportInfo'));
     Route::post('export',array('as' => 'admin.export','uses' => 'ExportController@export'));
+    Route::post('export/addProduct', array('as' => 'admin.export_addProduct','uses' => 'ExportController@addProduct'));
+    Route::get('getCustomerInfo', array('as' => 'admin.getCustomerInfo','uses' => 'CustomersController@getCustomerInfo'));
 //    Route::get('getCustomersByName', array('as' => 'admin.getCustomersByName','uses' => 'CustomersController@getCustomersByName'));
 
     /*Quản lý nhân viên*/

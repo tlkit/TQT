@@ -56,8 +56,8 @@
             <td width="5%" style="text-align: center;">{{$key+1}}</td>
             <td width="15%" style="text-align: center;"><b>{{$value['product']['product_Code']}}</b></td>
             <td width="30%" style=""><div style="margin-left: 5px">{{$value['product']['product_Name']}}</div></td>
-            <td width="10%" style="text-align: center;">{{$value['product']['product_OriginID']}}</td>
-            <td width="10%" style="text-align: center;">{{$value['product']['product_UnitID']}}</td>
+            <td width="10%" style="text-align: center;">{{$value['product']['product_NameOrigin']}}</td>
+            <td width="10%" style="text-align: center;">{{$value['product']['product_NameUnit']}}</td>
             <td width="10%" style="text-align: right;">{{number_format($value['import_product_price'], 0, ',', '.');}}</td>
             <td width="10%" style="text-align: center;">{{$value['import_product_num']}}</td>
             <td width="10%" style="text-align: right;"><b>{{number_format($value['import_product_total'], 0, ',', '.');}}</b></td>

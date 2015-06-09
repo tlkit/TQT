@@ -140,8 +140,8 @@ class ImportController extends BaseAdminController{
                     'product_id' => $product->product_id,
                     'product_Code' => $product->product_Code,
                     'product_Name' => $product->product_Name,
-                    'product_OriginID' => $product->product_OriginID,
-                    'product_UnitID' => $product->product_UnitID,
+                    'product_NameOrigin' => $product->product_NameOrigin,
+                    'product_NameUnit' => $product->product_NameUnit,
                     'import_product_price' => $price,
                     'import_product_num' => $num,
                 );

@@ -161,4 +161,19 @@ class CustomersController extends BaseAdminController
         return Response::json($data);
     }
 
+    public function getCustomerInfo(){
+        $customers_id = Request::get('customers_id',0);
+        $data['success'] = 0;
+        $data['html'] = '';
+        if($customers_id > 0){
+            $admin = User::getListAllUser();
+            $customers = Customers::find($customers_id);
+            if($customers){
+                $data['success'] = 1;
+                $data['html'] = View::make('admin.ExportLayouts.customer_info')->with('customers',$customers)->with('admin',$admin)->render();
+            }
+        }
+        return Response::json($data);
+    }
+
 }

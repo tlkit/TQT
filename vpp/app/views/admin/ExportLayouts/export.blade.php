@@ -1,3 +1,6 @@
+<style type="text/css">
+    .ui-autocomplete { max-height: 200px; overflow-y: scroll; overflow-x: hidden;}
+</style>
 <div class="main-content-inner">
     <div class="breadcrumbs" id="breadcrumbs">
         <ul class="breadcrumb">
@@ -5,7 +8,7 @@
                 <i class="ace-icon fa fa-home home-icon"></i>
                 <a href="{{URL::route('admin.dashboard')}}">Home</a>
             </li>
-            <li class="active">Nhập kho</li>
+            <li class="active">Xuất kho</li>
         </ul><!-- /.breadcrumb -->
     </div>
 
@@ -56,14 +59,15 @@
                                             </select>
                                         </div>
                                         <div class="clearfix"></div>
-                                        <div class="col-sm-12 text-center" id="sys_load" style="padding: 28px;display: none;">
+                                        <div class="col-sm-12 text-center" id="sys_load" style="padding: 71px;display: none;">
                                             <i class="ace-icon fa fa-spinner fa-spin bigger-300"></i>
                                         </div>
-                                        <ul class="list-unstyled spaced" id="sys_provider_info">
+                                        <div class="clearfix"></div>
+                                        <div class="row" id="sys_customer_info">
                                             @if(isset($customer_info))
                                                 {{$customer_info}}
                                             @endif
-                                        </ul>
+                                        </div>
                                     </div>
                                     <div class="space"></div>
                                     <div class="row">
@@ -80,17 +84,14 @@
                                                    value="">
                                         </div>
                                         <div class="col-sm-3">
-                                            <label for="import_product_price"><i>Giá nhập</i></label>
-                                            <input type="text" id="import_product_price" name="import_product_price"
-                                                   class="form-control text-right"
-                                                   value="">
-                                            <input type="hidden" id="input_import_product_price" name="import_product_price"
-                                                   class="form-control text-right"
-                                                   value="0">
+                                            <label for="product_Quantity"><i>Tồn kho</i></label>
+                                            <input type="text" id="product_Quantity" name="product_Quantity"
+                                                   class="form-control text-center"
+                                                   value="" readonly>
                                         </div>
                                         <div class="col-sm-2">
-                                            <label for="import_product_num"><i>Số lượng</i></label>
-                                            <input type="text" id="import_product_num" name="import_product_num"
+                                            <label for="export_product_num"><i>Số lượng</i></label>
+                                            <input type="text" id="export_product_num" name="export_product_num"
                                                    class="form-control text-center"
                                                    value="">
                                         </div>
@@ -121,5 +122,4 @@
         </div><!-- /.row -->
     </div><!-- /.page-content -->
 </div>
-{{HTML::script('assets/admin/js/ajax-chosen.js');}}
 {{HTML::script('assets/admin/js/export.js');}}
