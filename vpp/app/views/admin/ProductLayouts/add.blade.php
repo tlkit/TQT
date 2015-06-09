@@ -53,10 +53,26 @@
                            value="@if(isset($data['product_MinimumQuantity'])){{$data['product_MinimumQuantity']}}@endif">
                 </div>
 
+                 <div class="form-group col-sm-6">
+                    <label for="product_NameOrigin"><i>Xuất xứ</i></label>
+                    <input type="text" id="product_NameOrigin" name="product_NameOrigin" class="form-control input-sm"
+                           value="@if(isset($data['product_NameOrigin'])){{$data['product_NameOrigin']}}@endif">
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="product_NameUnit"><i>Đơn vị tính</i></label>
+                    <input type="text" id="product_NameUnit" name="product_NameUnit" class="form-control input-sm"
+                           value="@if(isset($data['product_NameUnit'])){{$data['product_NameUnit']}}@endif">
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="product_NamePackedWay"><i>Kiểu đóng gói</i></label>
+                    <input type="text" id="product_NamePackedWay" name="product_NamePackedWay" class="form-control input-sm"
+                           value="@if(isset($data['product_NamePackedWay'])){{$data['product_NamePackedWay']}}@endif">
+                </div>
+                <!--
                 <div class="form-group col-sm-6">
                     <label for="customers_Code"><i>Xuất xứ</i></label>
                     <select name="product_OriginID" id="product_OriginID" class="form-control input-sm">
-                        <option value="0">--- Chọn danh mục ---</option>
+                        <option value="0">--- Chọn xuất xứ ---</option>
                         @foreach($arrXuatXu as $k1 => $v1)
                             <option value="{{$k1}}" @if(isset($data['product_OriginID']) && $data['product_OriginID'] == $k1)selected="selected" @endif>{{$v1}}</option>
                         @endforeach
@@ -65,12 +81,13 @@
                 <div class="form-group col-sm-6">
                     <label for="customers_Code"><i>Đơn vị tính</i></label>
                     <select name="product_UnitID" id="product_UnitID" class="form-control input-sm">
-                        <option value="0">--- Chọn danh mục ---</option>
+                        <option value="0">--- Chọn đơn vị tính ---</option>
                         @foreach($arrDonViTinh as $k2 => $v2)
                             <option value="{{$k2}}" @if(isset($data['product_UnitID']) && $data['product_UnitID'] == $k2)selected="selected" @endif>{{$v2}}</option>
                         @endforeach
                     </select>
                 </div>
+                -->
 
                 <div class="form-group col-sm-12">
                     <label for="customers_Description"><i>Mô tả</i></label>

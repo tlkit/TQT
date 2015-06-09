@@ -102,8 +102,11 @@ class ProductController extends BaseAdminController
         $dataSave['product_CategoryName'] = Request::get('product_CategoryName');
         $dataSave['product_Alias'] = Request::get('product_Alias');
         $dataSave['product_OriginID'] = Request::get('product_OriginID');
+        $dataSave['product_NameOrigin'] = Request::get('product_NameOrigin');
         $dataSave['product_UnitID'] = Request::get('product_UnitID');
+        $dataSave['product_NameUnit'] = Request::get('product_NameUnit');
         $dataSave['product_PackedWayID'] = Request::get('product_PackedWayID');
+        $dataSave['product_NamePackedWay'] = Request::get('product_NamePackedWay');
 
         $dataSave['product_Price'] = Request::get('product_Price');
         $dataSave['product_Description'] = Request::get('product_Description');
@@ -181,17 +184,19 @@ class ProductController extends BaseAdminController
     function updatecConvernt()
     {
         die;
-        $product_categories = DB::table('product_categories')->get();;
-        foreach ($product_categories as $k => $va) {
+        $product = DB::table('product')->get();;
+        foreach ($product as $k => $va) {
             DB::table('product')
                 ->where('product_id', $va->product_id)
-                ->update(['product_Category' => $va->category_id]);
+                ->update(['product_NameOrigin' => isset($this->arrXuatXu[$va->product_OriginID]) ? $this->arrXuatXu[$va->product_OriginID] : '',
+                    'product_NameUnit' => isset($this->arrDonViTinh[$va->product_UnitID]) ? $this->arrDonViTinh[$va->product_UnitID] : '']);
         }
+        die('xong');
 
-        echo '<pre>';
+        /*echo '<pre>';
         print_r($product_categories);
         echo '</pre>';
-        die;
+        die;*/
     }
 
     public function getProductByName()
