@@ -2,7 +2,7 @@
  * Created by Tuan on 07/06/2015.
  */
 $(document).ready(function(){
-    $('#customers_id').chosen({allow_single_deselect:true,no_results_text:'Từ khóa : '});
+    $('#customers_id').chosen({allow_single_deselect:true,no_results_text:'Từ khóa : ',search_contains: true});
     //$('#customers_id').on('chosen:showing_dropdown', function(evt, params) {
     //    var customer_id = $('#customers_id').val();
     //    var customer_text = $('#customers_id option:selected').attr('data-name');

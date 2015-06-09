@@ -74,7 +74,7 @@
 
     <!-- ace scripts -->
     {{ HTML::script('assets/js/ace-elements.min.js'); }}
-    {{ HTML::script('assets/js/chosen.jquery.min.js'); }}
+    {{ HTML::script('assets/js/chosen.jquery.js'); }}
     {{ HTML::script('assets/js/jquery-ui.min.js'); }}
     {{ HTML::script('assets/js/jquery.ui.touch-punch.min.js'); }}
     {{ HTML::script('assets/js/ace.min.js'); }}
