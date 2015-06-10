@@ -120,7 +120,8 @@ class Product extends Eloquent
 
     public static function getListByName($name)
     {
-        $data = Product::where('product_Name', 'LIKE', '%' . $name . '%')->take(30)->lists('product_Name');
+
+        $data = Product::where('product_Name', 'LIKE', '%' . $name . '%')->take(30)->get(array('product_id','product_Name','product_Quantity'));
         return $data ? $data : array();
     }
 

@@ -62,8 +62,8 @@
                             <td class="center">{{$key+1}}</td>
                             <td class="center">{{$value['product']['product_Code']}}</td>
                             <td>{{$value['product']['product_Name']}}</td>
-                            <td class="center">{{$value['product']['product_OriginID']}}</td>
-                            <td class="center">{{$value['product']['product_UnitID']}}</td>
+                            <td class="center">{{$value['product']['product_NameOrigin']}}</td>
+                            <td class="center">{{$value['product']['product_NameUnit']}}</td>
                             <td class="text-right">{{number_format($value['import_product_price'], 0, ',', '.');}}</td>
                             <td class="center">{{$value['import_product_num']}}</td>
                             <td class="text-right">

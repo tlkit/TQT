@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2015-06-08 07:56:53
+Date: 2015-06-09 23:20:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,6 +25,8 @@ CREATE TABLE `export` (
   `customers_id` int(11) NOT NULL DEFAULT '0',
   `export_customers_address` text COMMENT 'Địa chỉ nhận hàng',
   `export_customers_name` varchar(255) DEFAULT NULL COMMENT 'Người nhận hàng',
+  `export_customer_phone` varchar(255) DEFAULT NULL,
+  `export_customers_note` text,
   `export_delivery_time` int(11) DEFAULT '0' COMMENT 'Ngày giao hang',
   `export_user_store` int(11) DEFAULT '0' COMMENT 'Nhân viên thủ kho',
   `export_user_cod` int(11) DEFAULT '0' COMMENT 'Nhân viên giao hàng',
