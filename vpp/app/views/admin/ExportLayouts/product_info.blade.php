@@ -20,9 +20,12 @@
         </thead>
 
         <tbody>
-        <?php $i = 1;$total = 0;?>
+        <?php $i = 1;$total = 0;$total_discount = 0;?>
         @foreach($export as $k => $v)
-            <?php $total_item = $v['export_product_price'] * $v['export_product_num'];?>
+            <?php
+            $total_item = $v['export_product_price'] * $v['export_product_num'];
+            $discount_item =  $v['export_product_price'] * $v['export_product_num'] * $v['export_product_discount']
+            ?>
             <tr>
                 <td class="center">{{$i}}</td>
                 <td class="center">{{$v['product_Code']}}</td>
@@ -34,7 +37,7 @@
                 <td class="text-right hidden-480"><b>{{number_format($total_item, 0, ',', '.');}}</b></td>
                 <td class="center"><a href="javascript:void(0)" class="sys_remove_item" onclick="Export.removeItem({{$k}})"><i class="fa fa-trash-o"></i></a></td>
             </tr>
-            <?php $i ++;$total += $total_item;?>
+            <?php $i ++;$total += $total_item;$total_discount += $discount_item?>
         @endforeach
         </tbody>
     </table>
@@ -46,15 +49,22 @@
             <div class="col-sm-6 col-xs-6"><b>Tổng tiền</b></div>
             <div class="col-sm-6 col-xs-6 text-right"><b class="">{{number_format($total, 0, ',', '.');}} VNĐ</b></div>
             <div class="clearfix"></div>
+            @if($total_discount > 0)
             <div class="col-sm-6 col-xs-6"><b>Chiết khấu</b></div>
-            <div class="col-sm-6 col-xs-6 text-right"><b class="">{{number_format($total, 0, ',', '.');}} VNĐ</b></div>
+            <div class="col-sm-6 col-xs-6 text-right"><b class="">{{number_format($total_discount, 0, ',', '.');}} VNĐ</b></div>
             <div class="clearfix"></div>
+            @endif
+            @if($vat)
+                <?php $total_vat = (int)(($total-$total_discount)*10/100);?>
             <div class="col-sm-6 col-xs-6"><b>Thuế VAT</b></div>
-            <div class="col-sm-6 col-xs-6 text-right"><b class="">{{number_format($total, 0, ',', '.');}} VNĐ</b></div>
+            <div class="col-sm-6 col-xs-6 text-right"><b class="">{{number_format($total_vat, 0, ',', '.');}} VNĐ</b></div>
             <div class="clearfix"></div>
+            @else
+                <?php $total_vat = 0;?>
+            @endif
             <div class="hr hr8 hr-double hr-dotted"></div>
             <div class="col-sm-6 col-xs-6"><b>Tổng thanh toán</b></div>
-            <div class="col-sm-6 col-xs-6 text-right"><b class="red">{{number_format($total, 0, ',', '.');}} VNĐ</b></div>
+            <div class="col-sm-6 col-xs-6 text-right"><b class="red">{{number_format($total-$total_discount+$total_vat, 0, ',', '.');}} VNĐ</b></div>
             <div class="clearfix"></div>
             {{--<h4 class="pull-right">--}}
                 {{--Tổng tiền trước thuế :--}}

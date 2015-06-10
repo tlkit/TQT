@@ -7,8 +7,8 @@
                value="{{$customers['customers_FirstName']}}">
     </div>
     <div class="col-sm-4">
-        <label for="cus"><i>Mã số thuế</i></label>
-        <input type="text" id="customers_TaxCode" name="customers_TaxCode"
+        <label for="export_customers_code"><i>Mã số thuế</i></label>
+        <input type="text" id="export_customers_code" name="export_customers_code"
                class="form-control input-sm"
                value="{{$customers['customers_TaxCode']}}" readonly>
     </div>
