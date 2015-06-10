@@ -49,6 +49,7 @@ $(document).ready(function(){
     //});
     $('#customers_id').on('change',function(){
         var customers_id = $(this).val();
+        $("#sys_product_info").html('');
         if (parseInt(customers_id) > 0)
             $.ajax({
                 dataType: 'json',
@@ -146,4 +147,26 @@ $(document).ready(function(){
         });
     })
 
-})
+});
+var Export = {
+
+    removeItem:function(product_id){
+        var customers_id = $("#customers_id").val();
+        $.ajax({
+            dataType: 'json',
+            type: 'POST',
+            url: WEB_ROOT + '/admin/export/removeProduct',
+            data: {
+                product_id: product_id,
+                customers_id: customers_id
+            },
+            beforeSend: function () {
+            },
+            error: function () {
+            },
+            success: function (data) {
+                $("#sys_product_info").html(data.html);
+            }
+        });
+    }
+}

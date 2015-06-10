@@ -83,6 +83,7 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('export',array('as' => 'admin.export','uses' => 'ExportController@exportInfo'));
     Route::post('export',array('as' => 'admin.export','uses' => 'ExportController@export'));
     Route::post('export/addProduct', array('as' => 'admin.export_addProduct','uses' => 'ExportController@addProduct'));
+    Route::post('export/removeProduct', array('as' => 'admin.export_removeProduct','uses' => 'ExportController@removeProduct'));
     Route::get('getCustomerInfo', array('as' => 'admin.getCustomerInfo','uses' => 'CustomersController@getCustomerInfo'));
 //    Route::get('getCustomersByName', array('as' => 'admin.getCustomersByName','uses' => 'CustomersController@getCustomersByName'));
 

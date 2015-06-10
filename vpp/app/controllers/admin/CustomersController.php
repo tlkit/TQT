@@ -163,6 +163,7 @@ class CustomersController extends BaseAdminController
 
     public function getCustomerInfo(){
         $customers_id = Request::get('customers_id',0);
+        Session::forget('export');
         $data['success'] = 0;
         $data['html'] = '';
         if($customers_id > 0){
