@@ -37,11 +37,12 @@ class DiscountCustomersController extends BaseAdminController
                     'category_name'=>$val,
                     'customer_id'=>$customer_id,
                     'category_price_discount'=>isset($dataCategoryCustomer[$categories_id])? $dataCategoryCustomer[$categories_id]['category_price_discount']:0,
+                    'category_price_hide_discount'=>isset($dataCategoryCustomer[$categories_id])? $dataCategoryCustomer[$categories_id]['category_price_hide_discount']:0,
                 );
             }
         }
 
-        //echo '<pre>';  print_r($data); echo '</pre>'; die;
+        ///echo '<pre>';  print_r($data); echo '</pre>'; die;
         $this->layout->content = View::make('admin.DiscountCustomersLayouts.discountCategory')
             ->with('data', $data)
             ->with('inforCust', $inforCust)
@@ -58,8 +59,10 @@ class DiscountCustomersController extends BaseAdminController
 
         $customer_id = (int)Request::get('customer_id', 0);
         $category_id = (int)Request::get('category_id', 0);
-        $price_discount = Request::get('category_price_discount', 0);
-        $category_price_discount =  str_replace('.','',$price_discount);
+
+        $category_price_discount = Request::get('category_price_discount', 0);
+        $category_price_hide_discount = Request::get('category_price_hide_discount', 0);
+        //$category_price_hide_discount =  str_replace('.','',$price_hide_discount);
 
         //danh sách danh mục đã có giá triết khấu
         $dataCategoryCustomer = CategoriesCustomers::getCategoriesByCustomersId($customer_id);
@@ -68,6 +71,7 @@ class DiscountCustomersController extends BaseAdminController
         if(isset($dataCategoryCustomer[$category_id])){
             $id = $dataCategoryCustomer[$category_id]['id'];
             $dataSave['category_price_discount'] = $category_price_discount;
+            $dataSave['category_price_hide_discount'] = $category_price_hide_discount;
             if(CategoriesCustomers::updData($id, $dataSave)) {
                 $data['isIntOk'] = 1;
             }
@@ -75,12 +79,12 @@ class DiscountCustomersController extends BaseAdminController
         //insert mới
         else{
             $inforCate = Categories::getByID($category_id);
-            //echo '<pre>';  print_r($inforCate); echo '</pre>'; die;
             $inforCust = Customers::getByID($customer_id);
 
             $dataSave['category_id'] = $category_id;
             $dataSave['category_name'] = $inforCate['categories_Name'];
             $dataSave['category_price_discount'] = $category_price_discount;
+            $dataSave['category_price_hide_discount'] = $category_price_hide_discount;
             $dataSave['customer_id'] = $customer_id;
             $dataSave['customer_name'] = $inforCust['customers_FirstName'];
             //echo '<pre>';  print_r($dataSave); echo '</pre>'; die;

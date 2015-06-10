@@ -11,7 +11,7 @@ class CategoriesCustomers extends Eloquent
     protected $table = 'categories_discount_customers';
     protected $primaryKey = 'id';
     public $timestamps = false;
-    protected $fillable = array('id','category_id', 'category_name', 'category_price_discount', 'customer_id', 'customer_name');
+    protected $fillable = array('id','category_id', 'category_name', 'category_price_discount', 'category_price_hide_discount', 'customer_id', 'customer_name');
 
     public static function getCategoriesByCustomersId($customer_id) {
         if($customer_id == 0) return array();
@@ -19,7 +19,8 @@ class CategoriesCustomers extends Eloquent
         $data = array();
         foreach($categories as $itm) {
             $data[$itm['category_id']] = array('category_price_discount'=>$itm['category_price_discount'],
-                'id'=>$itm['id']);
+                                                'category_price_hide_discount'=>$itm['category_price_hide_discount'],
+                                                'id'=>$itm['id']);
         }
         return $data;
     }

@@ -40,10 +40,11 @@ var Admin = {
     updateCategoryCustomer: function(customer_id,category_id){
         $('#img_loading_'+category_id).show();
         var category_price_discount = $('#category_price_discount_id_'+category_id).val();
+        var category_price_hide_discount = $('#category_price_hide_discount_id_'+category_id).val();
         $.ajax({
             type: "post",
             url: WEB_ROOT + '/admin/discountCustomers/updateCategory',
-            data: {customer_id : customer_id, category_id:category_id, category_price_discount : category_price_discount},
+            data: {customer_id : customer_id, category_id:category_id, category_price_discount : category_price_discount, category_price_hide_discount : category_price_hide_discount},
             dataType: 'json',
             success: function(res) {
                 $('#img_loading_'+category_id).hide();
