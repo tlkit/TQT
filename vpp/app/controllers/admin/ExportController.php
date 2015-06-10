@@ -22,18 +22,26 @@ class ExportController extends BaseAdminController{
 
     public function export(){
         $customers_id = Request::get('customers_id');
+        $param['export_customers_name'] = Request::get('export_customers_name','');
+        $param['export_customers_address'] = Request::get('export_customers_address','');
+        $param['export_user_store'] = Request::get('export_user_store',0);
+        $param['export_user_cod'] = Request::get('export_user_cod',0);
+        $param['export_delivery_time'] = Request::get('export_delivery_time','');
+        $param['export_user_customer'] = Request::get('export_user_customer','');
+        $param['export_customer_phone'] = Request::get('export_customer_phone','');
+        $param['export_customers_note'] = Request::get('export_customers_note','');
         $export = Session::has('export') ? Session::get('export') : array();
         $error = array();
         if(!$export){
             $error[] = 'Chưa chọn sản phẩm cần xuất';
         }
         if($customers_id == 0){
-            $error = 'Chưa chọn khách hàng';
+            $error[] = 'Chưa chọn khách hàng';
         }
-        if($error == ''){
+        if(!$error){
             $aryImport = $aryImportProduct = array();
             $total = 0;
-            foreach ($import as $k => $v) {
+            foreach ($export as $k => $v) {
                 $aryImportProduct[$k]['product_id'] = $v['product_id'];
                 $aryImportProduct[$k]['providers_id'] = $providers_id;
                 $aryImportProduct[$k]['import_product_price'] = $v['import_product_price'];
@@ -86,6 +94,13 @@ class ExportController extends BaseAdminController{
         $num = (int)Request::get('num',0);
         $vat = 0;
         $product = Product::getByName($name);
+        if($customers_id && $product){
+            $product_customer = ProductsCustomers::getByProductAndCustomerId($product->product_id,$customers_id);
+            if(isset($product_customer->product_price_discount) && $product_customer->product_price_discount > 0){
+                $product->product_Price = $product_customer->product_price_discount;
+            }
+            $category_customer = CategoriesCustomers::
+        }
         $customers = Customers::find($customers_id);
         $export = Session::has('export') ? Session::get('export') : array();
         $error = '';

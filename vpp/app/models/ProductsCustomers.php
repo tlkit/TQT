@@ -76,4 +76,10 @@ class ProductsCustomers extends Eloquent
         }
     }
 
+    public static function getByProductAndCustomerId($product_id, $customer_id)
+    {
+        $data = ProductsCustomers::where('product_id', $product_id)->where('customer_id', $customer_id)->first();
+        return $data;
+    }
+
 }

@@ -47,11 +47,12 @@
             <div class="col-sm-6 col-xs-6 text-right"><b class="">{{number_format($total, 0, ',', '.');}} VNĐ</b></div>
             <div class="clearfix"></div>
             <div class="col-sm-6 col-xs-6"><b>Chiết khấu</b></div>
-            <div class="col-sm-6 col-xs-6 text-right"><b class="green">{{number_format($total, 0, ',', '.');}} VNĐ</b></div>
+            <div class="col-sm-6 col-xs-6 text-right"><b class="">{{number_format($total, 0, ',', '.');}} VNĐ</b></div>
             <div class="clearfix"></div>
             <div class="col-sm-6 col-xs-6"><b>Thuế VAT</b></div>
             <div class="col-sm-6 col-xs-6 text-right"><b class="">{{number_format($total, 0, ',', '.');}} VNĐ</b></div>
             <div class="clearfix"></div>
+            <div class="hr hr8 hr-double hr-dotted"></div>
             <div class="col-sm-6 col-xs-6"><b>Tổng thanh toán</b></div>
             <div class="col-sm-6 col-xs-6 text-right"><b class="red">{{number_format($total, 0, ',', '.');}} VNĐ</b></div>
             <div class="clearfix"></div>

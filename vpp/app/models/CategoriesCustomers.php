@@ -77,4 +77,10 @@ class CategoriesCustomers extends Eloquent
         }
     }
 
+    public static function getByCategoryAndCustomerId($category_id, $customer_id)
+    {
+        $data = CategoriesCustomers::where('category_id', $category_id)->where('customer_id', $customer_id)->first();
+        return $data;
+    }
+
 }
