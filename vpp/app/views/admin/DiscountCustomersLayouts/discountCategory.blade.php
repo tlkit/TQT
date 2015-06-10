@@ -19,8 +19,9 @@
                         <thead class="thin-border-bottom">
                         <tr class="">
                             <th width="5%" class="text-center">STT</th>
-                            <th width="60%">Danh mục</th>
-                            <th width="30%">Giá triết khấu</th>
+                            <th width="50%">Danh mục</th>
+                            <th width="20%">Triết khấu cá nhân (%)</th>
+                            <th width="20%">Triết khấu doanh nghiệp (%)</th>
                             <th width="5%" class="text-center">Thao tác</th>
                         </tr>
                         </thead>
@@ -35,6 +36,9 @@
                                     <input type="text" class="form-control input-sm" id="category_price_discount_id_{{$item['category_id']}}" name="category_price_discount" value="{{$item['category_price_discount']}}">
                                 </td>
                                 <td class="text-center">
+                                    <input type="text" class="form-control input-sm" id="category_price_hide_discount_id_{{$item['category_id']}}" name="category_price_hide_discount" value="{{$item['category_price_hide_discount']}}">
+                                </td>
+                                <td class="text-center">
                                     @if($permission_edit ==1)
                                         <a href="javascript:void(0);" onclick="Admin.updateCategoryCustomer({{$item['customer_id']}},{{$item['category_id']}})"
                                            title="Sửa item"><i class="fa fa-floppy-o fa-2x"></i></a>
@@ -42,12 +46,6 @@
                                     <span class="img_loading" id="img_loading_{{$item['category_id']}}"></span>
                                 </td>
                             </tr>
-
-                            <script>
-                                $("#category_price_discount_id_{{$item['category_id']}}").on('keyup', function (event) {
-                                        Import.fomatNumber('category_price_discount_id_{{$item['category_id']}}');
-                                    });
-                            </script>
                         @endforeach
                         </tbody>
                     </table>
