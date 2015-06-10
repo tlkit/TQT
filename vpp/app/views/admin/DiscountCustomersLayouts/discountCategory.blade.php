@@ -5,7 +5,7 @@
                 <i class="ace-icon fa fa-home home-icon"></i>
                 <a href="{{URL::route('admin.dashboard')}}">Home</a>
             </li>
-            <li class="active">Danh mục sản phẩm triết khấu cho khách hàng: <b>{{$inforCust['customers_FirstName']}}</b></li>
+            <li class="active">Danh mục sản phẩm chiết khấu cho khách hàng: <b>{{$inforCust['customers_FirstName']}}</b></li>
         </ul><!-- /.breadcrumb -->
     </div>
 
@@ -20,8 +20,8 @@
                         <tr class="">
                             <th width="5%" class="text-center">STT</th>
                             <th width="50%">Danh mục</th>
-                            <th width="20%">Triết khấu cá nhân (%)</th>
-                            <th width="20%">Triết khấu doanh nghiệp (%)</th>
+                            <th width="20%">Chiết khấu cá nhân (%)</th>
+                            <th width="20%">Chiết khấu doanh nghiệp (%)</th>
                             <th width="5%" class="text-center">Thao tác</th>
                         </tr>
                         </thead>
