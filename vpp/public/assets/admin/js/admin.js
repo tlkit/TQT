@@ -75,5 +75,32 @@ var Admin = {
                 }
             }
         });
-    }
+    },
+
+    uploadImagesCategory: function() {
+        $('#sys_PopupUploadImg').modal('show');
+        $('.ajax-upload-dragdrop').remove();
+        var id_hiden = $('#id_hiden').val();
+        var settings = {
+            url: WEB_ROOT + '/admin/categories/uploadImage',
+            method: "POST",
+            allowedTypes:"jpg,png,jpeg",
+            fileName: "multipleFile",
+            formData: {id: id_hiden},
+            multiple: false,
+            onSuccess:function(files,xhr,data){
+                if(xhr.intIsOK === 1){
+                    $('#sys_PopupUploadImg').modal('hide');
+                    //thanh cong
+                    $("#status").html("<font color='green'>Upload is success</font>");
+                    setTimeout( "jQuery('.ajax-file-upload-statusbar').hide();",5000 );
+                    setTimeout( "jQuery('#status').hide();",5000 );
+                }
+            },
+            onError: function(files,status,errMsg){
+                $("#status").html("<font color='red'>Upload is Failed</font>");
+            }
+        }
+        $("#sys_mulitplefileuploader").uploadFile(settings);
+    },
 }
