@@ -52,7 +52,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                        <input name="image" type="file"/>
-                      <input name="categories_Icon" type="hidden" id="categories_Icon" value="{{$data['categories_Icon']}}">
+                      <input name="categories_Icon" type="hidden" id="categories_Icon" @if(isset($data['categories_Name']))value="{{$data['categories_Icon']}}"@else value="" @endif>
                     </div>
                     @if(isset($data['url_src_icon']))
                     <div class="form-group">
