@@ -67,6 +67,9 @@ class CategoriesController extends BaseAdminController
         $data = array();
         if($id > 0) {
             $data = Categories::find($id);
+            if(isset($data['categories_Icon']) && $data['categories_Icon'] != ''){
+                $data['url_src_icon'] = URL::to('/').'/images/category/'.$data['categories_Icon'];
+            }
         }
         $this->layout->content = View::make('admin.CategoriesLayouts.add')
             ->with('id', $id)
@@ -85,6 +88,17 @@ class CategoriesController extends BaseAdminController
         $dataSave['categories_SortIndex'] = 1;
         $dataSave['categories_ParentID'] = 0;
         $dataSave['categories_TotalProduct'] = 0;
+        $file = Input::file('image');
+        if($file){
+            $destinationPath = public_path().'/images/category/';
+            $filename = $file->getClientOriginalName();
+            $upload  = Input::file('image')->move($destinationPath, $filename);
+            //echo $upload['fileName'];
+            //echo '<pre>';  print_r($filename); echo '</pre>'; die;
+            $dataSave['categories_Icon'] = $filename;
+        }else{
+            $dataSave['categories_Icon'] = Request::get('categories_Icon', '');
+        }
 
         if($this->valid($dataSave) && empty($this->error)) {
             if($id > 0) {

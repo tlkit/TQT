@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <!-- PAGE CONTENT BEGINS -->
-                {{Form::open(array('method' => 'POST', 'role'=>'form'))}}
+                {{Form::open(array('method' => 'POST', 'role'=>'form','files' => true))}}
                 @if(isset($error))
                     <div class="alert alert-danger" role="alert">
                         @foreach($error as $itmError)
@@ -42,7 +42,26 @@
                                value="@if(isset($data['categories_Name'])){{$data['categories_Name']}}@endif">
                     </div>
                 </div>
+
                 <div class="clearfix"></div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <i>Upload Icon </i>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                       <input name="image" type="file"/>
+                      <input name="categories_Icon" type="hidden" id="categories_Icon" value="{{$data['categories_Icon']}}">
+                    </div>
+                    @if(isset($data['url_src_icon']))
+                    <div class="form-group">
+                       <img src="{{$data['url_src_icon']}}" height="50" width="50">
+                    </div>
+                    @endif
+                </div>
+                <div class="clearfix"></div>
+
                 <div class="col-sm-2">
                     <div class="form-group">
                         <i>Trạng thái</i>
@@ -70,3 +89,31 @@
         <!-- /.row -->
     </div><!-- /.page-content -->
 </div>
+
+{{HTML::style('assets/admin/lib/upload/cssUpload.css'); }}
+{{HTML::script('assets/admin/lib/upload/jquery.uploadfile.js');}}
+<!--Popup upload ảnh-->
+<div class="modal fade" id="sys_PopupUploadImg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Upload ảnh</h4>
+            </div>
+            <div class="modal-body">
+                <form name="uploadImage" method="post" action="#" enctype="multipart/form-data">
+                <div class="form_group">
+                    <div id="sys_mulitplefileuploader" class="btn btn-primary">Upload ảnh</div>
+                    <div id="status"></div>
+
+                    <div class="clearfix"></div>
+                    <div class="clearfix" style='margin: 5px 10px; width:100%;'>
+                        <div id="div_image"></div>
+                    </div>
+                </div>
+               </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Popup upload ảnh-->
