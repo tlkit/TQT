@@ -78,11 +78,12 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    @if($permission_edit ==1)
-                                        <a href="{{URL::route('admin.categories_edit',array('id' => $item['categories_id']))}}"
-                                           title="Sửa item"><i class="fa fa-edit"></i></a>
-                                           &nbsp;&nbsp;&nbsp;
-                                           <a href="javascript:void(0);" onclick="Admin.deleteItem({{$item['categories_id']}},3)" title="Xóa Item"><i class="fa fa-trash"></i></a>
+                                    @if($permission_edit ==1 )
+                                        <a href="{{URL::route('admin.categories_edit',array('id' => $item['categories_id']))}}" title="Sửa item"><i class="fa fa-edit"></i></a>
+                                    @endif
+                                    @if($permission_delete == 1)
+                                       &nbsp;&nbsp;&nbsp;
+                                       <a href="javascript:void(0);" onclick="Admin.deleteItem({{$item['categories_id']}},3)" title="Xóa Item"><i class="fa fa-trash"></i></a>
                                     @endif
                                     <span class="img_loading" id="img_loading_{{$item['categories_id']}}"></span>
                                 </td>
