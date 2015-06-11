@@ -178,7 +178,7 @@
         </div><!-- /.sidebar-shortcuts -->
 
         <ul class="nav nav-list">
-            <li class="@if(Route::currentRouteName() == 'admin.user_view' || Route::currentRouteName() == 'admin.personnel_list'|| Route::currentRouteName() == 'admin.permission_view'|| Route::currentRouteName() == 'admin.groupUser_view')open @endif">
+            <li class="@if(Route::currentRouteName() == 'admin.user_view' || Route::currentRouteName() == 'admin.personnel_list'|| Route::currentRouteName() == 'admin.permission_view'|| Route::currentRouteName() == 'admin.groupUser_view')active @endif">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-user"></i>
                     <span class="menu-text"> Quản trị tài khoản</span>
@@ -226,7 +226,7 @@
                 </ul>
             </li>
 
-            <li class="@if(Route::currentRouteName() == 'admin.categories_list' || Route::currentRouteName() == 'admin.product_list')open @endif">
+            <li class="@if(Route::currentRouteName() == 'admin.categories_list' || Route::currentRouteName() == 'admin.product_list')active @endif">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-book"></i>
                     <span class="menu-text"> Quản trị sản phẩm </span>
@@ -256,7 +256,7 @@
                 </ul>
             </li>
 
-            <li class="@if(Route::currentRouteName() == 'admin.customers_list' || Route::currentRouteName() == 'admin.discountCategory'|| Route::currentRouteName() == 'admin.discountProduct')open active @endif">
+            <li class="@if(Route::currentRouteName() == 'admin.customers_list' || Route::currentRouteName() == 'admin.discountCategory'|| Route::currentRouteName() == 'admin.discountProduct') active @endif">
                 <a href="{{URL::route('admin.customers_list')}}">
                     <i class="menu-icon fa fa-group"></i>
                     <span class="menu-text"> Quản trị khách hàng </span>
@@ -265,7 +265,7 @@
                 <b class="arrow"></b>
             </li>
 
-            <li class="@if(Route::currentRouteName() == 'admin.providers_list')open active @endif">
+            <li class="@if(Route::currentRouteName() == 'admin.providers_list') active @endif">
                 <a href="{{URL::route('admin.providers_list')}}">
                     <i class="menu-icon fa fa-briefcase"></i>
                     <span class="menu-text"> QL nhà cung cấp </span>
@@ -273,7 +273,7 @@
 
                 <b class="arrow"></b>
             </li>
-            <li class="@if(Route::currentRouteName() == 'admin.import_view' || Route::currentRouteName() == 'admin.import_detail' || Route::currentRouteName() == 'admin.import'|| Route::currentRouteName() == 'admin.import_restore') active @endif">
+            <li class="@if(Route::currentRouteName() == 'admin.import_view' || Route::currentRouteName() == 'admin.import_detail' || Route::currentRouteName() == 'admin.import'|| Route::currentRouteName() == 'admin.import_restore' || Route::currentRouteName() == 'admin.export_view' || Route::currentRouteName() == 'admin.export_detail' || Route::currentRouteName() == 'admin.export'|| Route::currentRouteName() == 'admin.export_restore') active @endif">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-book"></i>
                     <span class="menu-text"> Quản lý xuất nhập </span>
@@ -292,10 +292,26 @@
 
                         <b class="arrow"></b>
                     </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.export_view')active @endif">
+                        <a href="{{URL::route('admin.export_view')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Danh sách xuất kho
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
                     <li class="@if(Route::currentRouteName() == 'admin.import' || Route::currentRouteName() == 'admin.import_restore')active @endif">
                         <a href="{{URL::route('admin.import')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Nhập kho
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.export' || Route::currentRouteName() == 'admin.export_restore')active @endif">
+                        <a href="{{URL::route('admin.export')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Xuất kho
                         </a>
 
                         <b class="arrow"></b>
