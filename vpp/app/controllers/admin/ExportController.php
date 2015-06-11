@@ -10,6 +10,9 @@ class ExportController extends BaseAdminController{
 
     private $filename = '';
     private $aryStatus = array(-1 => 'Chọn trạng thái', 0 => 'Hóa đơn hủy', 1 => 'Hóa đơn bình thường');
+    private $permission_view = 'export_view';
+    private $permission_create = 'export_create';
+    private $permission_edit = 'export_edit';
 
     public function __construct(){
         parent::__construct();

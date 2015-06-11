@@ -53,7 +53,7 @@
                     @foreach($arrPermissionByController as $key => $val)
                         <h4 class="header">@if($key || $key != ''){{$key}}@else Khac @endif</h4>
                         @foreach($val as $k => $v)
-                            <label class="middle col-sm-2">
+                            <label class="middle col-sm-3">
                                 <input type="checkbox" name="permission_id[]" value="{{$v['permission_id']}}"
                                        class="ace" @if(isset($data['strPermission'])) @if(in_array($v['permission_id'],$data['strPermission']))
                                        checked @endif @endif>

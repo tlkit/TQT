@@ -10,6 +10,9 @@ class ImportController extends BaseAdminController{
 
     private $filename = '';
     private $aryStatus = array(-1 => 'Chọn trạng thái', 0 => 'Hóa đơn hủy', 1 => 'Hóa đơn bình thường');
+    private $permission_view = 'import_view';
+    private $permission_create = 'import_create';
+    private $permission_edit = 'import_edit';
 
     public function __construct(){
         parent::__construct();
@@ -19,6 +22,9 @@ class ImportController extends BaseAdminController{
 
     public function view(){
 
+        if (!in_array($this->permission_view, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $dataSearch['import_create_id'] = Request::get('import_create_id', 0);
         $dataSearch['import_code'] = Request::get('import_code', '');
         $dataSearch['import_status'] = Request::get('import_status', -1);
@@ -34,8 +40,6 @@ class ImportController extends BaseAdminController{
         $providers = Providers::getListAll();
         $param['import_create_start'] = ($param['import_create_start'] != '') ? strtotime($param['import_create_start']) : 0;
         $param['import_create_end'] = ($param['import_create_end'] != '') ? strtotime($param['import_create_end']) : 0;
-//        echo '<pre>';
-//        print_r($param);die;
         $data = Import::search($param, $limit, $offset, $total);
         $paging = $total > 0 ? Pagging::getNewPager(3, $page_no, $total, $limit, $dataSearch) : '';
         $this->layout->content = View::make('admin.ImportLayouts.view')
@@ -46,7 +50,9 @@ class ImportController extends BaseAdminController{
             ->with('admin', $admin)
             ->with('providers', $providers)
             ->with('start', ($page_no - 1) * $limit)
-            ->with('paging',$paging);
+            ->with('paging',$paging)
+            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1)
+            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 1);
     }
 
     public function importInfo(){

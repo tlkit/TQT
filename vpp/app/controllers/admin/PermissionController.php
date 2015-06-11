@@ -68,8 +68,8 @@ class PermissionController extends BaseAdminController
             ->with('dataSearch', $dataSearch)
             ->with('total', $total)
             ->with('paging', $paging)
-            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
-            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0)
+            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1)
+            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 1)
             ->with('start', ($page_no - 1) * $limit)
             ->with('arrStatus', $this->arrStatus);
     }
@@ -90,9 +90,9 @@ class PermissionController extends BaseAdminController
     public function create()
     {
 //        //check permission
-        if (!in_array($this->permission_create, $this->permission)) {
-            return Redirect::route('admin.dashboard');
-        }
+//        if (!in_array($this->permission_create, $this->permission)) {
+//            return Redirect::route('admin.dashboard');
+//        }
         $error = array();
         $data['permission_code'] = htmlspecialchars(trim(Request::get('permission_code', '')));
         $data['permission_name'] = htmlspecialchars(trim(Request::get('permission_name', '')));
@@ -166,9 +166,9 @@ class PermissionController extends BaseAdminController
     public function edit($id)
     {
         //check permission
-        if (!in_array($this->permission_edit, $this->permission)) {
-            return Redirect::route('admin.dashboard');
-        }
+//        if (!in_array($this->permission_edit, $this->permission)) {
+//            return Redirect::route('admin.dashboard');
+//        }
         $error = array();
         $data['permission_code'] = htmlspecialchars(trim(Request::get('permission_code', '')));
         $data['permission_name'] = htmlspecialchars(trim(Request::get('permission_name', '')));
