@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2015-06-09 23:20:33
+Date: 2015-06-11 09:04:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,12 +30,13 @@ CREATE TABLE `export` (
   `export_delivery_time` int(11) DEFAULT '0' COMMENT 'Ngày giao hang',
   `export_user_store` int(11) DEFAULT '0' COMMENT 'Nhân viên thủ kho',
   `export_user_cod` int(11) DEFAULT '0' COMMENT 'Nhân viên giao hàng',
+  `export_user_customer` varchar(255) DEFAULT NULL,
   `export_subtotal` int(11) DEFAULT '0' COMMENT 'Giá sản phẩm chưa triết khấu',
   `export_total` int(11) DEFAULT '0' COMMENT 'Giá đa chiết khấu',
   `export_total_pay` int(11) DEFAULT NULL COMMENT 'Gia thanh toan , sau khi co vat',
   `export_discount` int(11) DEFAULT '0' COMMENT 'Chiết khấu công ty',
   `export_discount_customer` int(11) DEFAULT '0' COMMENT 'Chiết khấu khách hàng',
-  `export_vat` int(11) DEFAULT '0' COMMENT '0 : ko Vat ; 1 : có vat',
+  `export_vat` int(11) DEFAULT '0' COMMENT 'Phi VAT',
   `export_status` int(11) DEFAULT '1',
   `export_note` varchar(255) DEFAULT NULL,
   `export_create_id` int(11) DEFAULT NULL,
@@ -43,4 +44,4 @@ CREATE TABLE `export` (
   `export_update_id` int(11) DEFAULT NULL,
   `export_update_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`export_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
