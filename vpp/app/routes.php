@@ -80,12 +80,16 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('getProductByName', array('as' => 'admin.getProductByName','uses' => 'ProductController@getProductByName'));
     Route::get('getProviderInfo', array('as' => 'admin.getProviderInfo','uses' => 'ProvidersController@getProviderInfo'));
     /*Xuất kho*/
+    Route::get('export/view',array('as' => 'admin.export_view','uses' => 'ExportController@view'));
     Route::get('export',array('as' => 'admin.export','uses' => 'ExportController@exportInfo'));
     Route::post('export',array('as' => 'admin.export','uses' => 'ExportController@export'));
     Route::post('export/addProduct', array('as' => 'admin.export_addProduct','uses' => 'ExportController@addProduct'));
     Route::post('export/removeProduct', array('as' => 'admin.export_removeProduct','uses' => 'ExportController@removeProduct'));
     Route::get('getCustomerInfo', array('as' => 'admin.getCustomerInfo','uses' => 'CustomersController@getCustomerInfo'));
     Route::get('export/detail/{id}',array('as' => 'admin.export_detail','uses' => 'ExportController@detail'));
+    Route::get('export/exportPdf/{id}',array('as' => 'admin.export_exportPdf','uses' => 'ExportController@exportPdf'));
+    Route::post('export/remove',array('as' => 'admin.export_remove','uses' => 'ExportController@remove'));
+    Route::get('export/restore/{id}',array('as' => 'admin.export_restore','uses' => 'ExportController@restore'));
 //    Route::get('getCustomersByName', array('as' => 'admin.getCustomersByName','uses' => 'CustomersController@getCustomersByName'));
 
     /*Quản lý nhân viên*/

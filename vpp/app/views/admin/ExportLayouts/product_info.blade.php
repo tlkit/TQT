@@ -56,12 +56,12 @@
             @endif
             @if($vat)
                 <?php $total_vat = (int)(($total-$total_discount)*10/100);?>
-            <div class="col-sm-6 col-xs-6"><b>Thuế VAT</b></div>
-            <div class="col-sm-6 col-xs-6 text-right"><b class="">{{number_format($total_vat, 0, ',', '.');}} VNĐ</b></div>
-            <div class="clearfix"></div>
             @else
                 <?php $total_vat = 0;?>
             @endif
+            <div class="col-sm-6 col-xs-6"><b>Thuế VAT</b></div>
+            <div class="col-sm-6 col-xs-6 text-right"><b class="">{{number_format($total_vat, 0, ',', '.');}} VNĐ</b></div>
+            <div class="clearfix"></div>
             <div class="hr hr8 hr-double hr-dotted"></div>
             <div class="col-sm-6 col-xs-6"><b>Tổng thanh toán</b></div>
             <div class="col-sm-6 col-xs-6 text-right"><b class="red">{{number_format($total-$total_discount+$total_vat, 0, ',', '.');}} VNĐ</b></div>

@@ -171,7 +171,16 @@ class CustomersController extends BaseAdminController
             $customers = Customers::find($customers_id);
             if($customers){
                 $data['success'] = 1;
-                $data['html'] = View::make('admin.ExportLayouts.customer_info')->with('customers',$customers)->with('admin',$admin)->render();
+                $param['export_customers_name'] = $customers['customers_FirstName'];
+                $param['export_customers_code'] = $customers['customers_TaxCode'];
+                $param['export_customers_address'] = $customers['customers_ContactAddress'];
+                $param['export_user_store'] = User::user_id();
+                $param['export_user_cod'] = User::user_id();
+                $param['export_delivery_time'] = date('d-m-Y',time());
+                $param['export_user_customer'] = $customers['customers_ContactName'];
+                $param['export_customer_phone'] = $customers['customers_ContactPhone'];
+                $param['export_customers_note'] = '';
+                $data['html'] = View::make('admin.ExportLayouts.customer_info')->with('customers',$param)->with('admin',$admin)->render();
             }
         }
         return Response::json($data);

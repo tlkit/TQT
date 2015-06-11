@@ -8,9 +8,46 @@
 
 class ExportController extends BaseAdminController{
 
+    private $filename = '';
+    private $aryStatus = array(-1 => 'Chọn trạng thái', 0 => 'Hóa đơn hủy', 1 => 'Hóa đơn bình thường');
+
     public function __construct(){
         parent::__construct();
 
+    }
+
+    public function view(){
+
+        $dataSearch['export_create_id'] = Request::get('export_create_id', 0);
+        $dataSearch['export_code'] = Request::get('export_code', '');
+        $dataSearch['export_status'] = Request::get('export_status', -1);
+        $dataSearch['customers_id'] = Request::get('customers_id', 0);
+        $dataSearch['export_user_store'] = Request::get('export_user_store', 0);
+        $dataSearch['export_user_cod'] = Request::get('export_user_cod', 0);
+        $dataSearch['export_create_start'] = Request::get('export_create_start', '');
+        $dataSearch['export_create_end'] = Request::get('export_create_end', '');
+        $page_no = Request::get('page_no', 1);
+        $limit = 30;
+        $total = 0;
+        $offset = ($page_no - 1) * $limit;
+        $param = $dataSearch;
+        $admin = User::getListAllUser();
+        $customers = Customers::getListAll();
+        $param['export_create_start'] = ($param['export_create_start'] != '') ? strtotime($param['export_create_start']) : 0;
+        $param['export_create_end'] = ($param['export_create_end'] != '') ? strtotime($param['export_create_end']) : 0;
+//        echo '<pre>';
+//        print_r($param);die;
+        $data = Export::search($param, $limit, $offset, $total);
+        $paging = $total > 0 ? Pagging::getNewPager(3, $page_no, $total, $limit, $dataSearch) : '';
+        $this->layout->content = View::make('admin.ExportLayouts.view')
+            ->with('param',$dataSearch)
+            ->with('data',$data)
+            ->with('total', $total)
+            ->with('aryStatus', $this->aryStatus)
+            ->with('admin', $admin)
+            ->with('customers', $customers)
+            ->with('start', ($page_no - 1) * $limit)
+            ->with('paging',$paging);
     }
 
     public function exportInfo(){
@@ -39,12 +76,12 @@ class ExportController extends BaseAdminController{
         if($customers_id == 0){
             $error = 'Chưa chọn khách hàng';
         }
+        $vat = 0;
         if($customers_id > 0){
             $customer = Customers::find($customers_id);
             $vat = $customer->customers_IsNeededVAT ? 10 : 0;
         }
         if($error == ''){
-
             $aryExport = $aryExportProduct = array();
             $total = $total_discount = $total_discount_customer = 0;
             foreach ($export as $k => $v) {
@@ -85,10 +122,10 @@ class ExportController extends BaseAdminController{
             $aryExport['export_user_customer'] = $param['export_user_customer'];
             $aryExport['export_subtotal'] = $total;
             $aryExport['export_total'] = $total - $total_discount;
-            $aryExport['export_total_pay'] = $aryExport['export_total'] + $aryExport['export_total']*$vat/100;
+            $aryExport['export_total_pay'] = $aryExport['export_total'] + $aryExport['export_total']*($vat/100);
             $aryExport['export_discount'] = $total_discount;
             $aryExport['export_discount_customer'] = $total_discount_customer;
-            $aryExport['export_vat'] = $aryExport['export_total']*$vat/100;
+            $aryExport['export_vat'] = $aryExport['export_total']*($vat/100);
             $aryExport['export_status'] = 1;
             $aryExport['export_create_id'] = User::user_id();
             $aryExport['export_create_time'] = time();
@@ -106,10 +143,10 @@ class ExportController extends BaseAdminController{
             $this->layout->content = View::make('admin.ExportLayouts.export')
                 ->with('customers',$customers)->with('customers_id',$customers_id);
             $admin = User::getListAllUser();
-//            if($customers_id > 0){
-//                $this->layout->content->customer_info = View::make('admin.ExportLayouts.customer_info')->with('customers',$param)->with('admin',$admin);
-//                $this->layout->content->product_info = View::make('admin.ExportLayouts.product_info')->with('export',$export)->with('vat',$vat);
-//            }
+            if($customers_id > 0){
+                $this->layout->content->customer_info = View::make('admin.ExportLayouts.customer_info')->with('customers',$param)->with('admin',$admin);
+                $this->layout->content->product_info = View::make('admin.ExportLayouts.product_info')->with('export',$export)->with('vat',$vat);
+            }
         }
     }
 
@@ -145,10 +182,10 @@ class ExportController extends BaseAdminController{
             }
             $category_customer = CategoriesCustomers::getByCategoryAndCustomerId($product->product_Category,$customers_id);
             if(isset($category_customer->category_price_hide_discount) && $category_customer->category_price_hide_discount > 0){
-                $category_price_hide_discount = $product_customer->category_price_hide_discount;
+                $category_price_hide_discount = $category_customer->category_price_hide_discount;
             }
             if(isset($category_customer->category_price_discount) && $category_customer->category_price_discount > 0){
-                $category_price_discount = $product_customer->category_price_discount;
+                $category_price_discount = $category_customer->category_price_discount;
             }
             $vat = $customers->customers_IsNeededVAT ? 10 : 0;
             $export[$product->product_id] = array(
@@ -188,14 +225,141 @@ class ExportController extends BaseAdminController{
 
     public function detail($ids){
         $id = base64_decode($ids);
-        echo $id;die;
-//        $import = Import::find($id);
+        $export = Export::find($id);
 //        $providers = Providers::find($import->providers_id);
-//        $importProduct = $import->importproduct;
-//        foreach($importProduct as $product){
-//            $product->product;
-//        }
-//        $this->layout->content = View::make('admin.ImportLayouts.detail')->with('import',$import)->with('importProduct',$importProduct)->with('providers',$providers);
+        $exportProduct = $export->exportproduct;
+        foreach($exportProduct as $product){
+            $product->product;
+        }
+        $this->layout->content = View::make('admin.ExportLayouts.detail')->with('export',$export)->with('exportProduct',$exportProduct);
+    }
+
+    public function exportPdf($ids)
+    {
+        $id = base64_decode($ids);
+        $export = Export::find($id);
+//        $providers = Providers::find($import->providers_id);
+        $exportProduct = $export->exportproduct;
+        foreach($exportProduct as $product){
+            $product->product;
+        }
+        $html = View::make('admin.ExportLayouts.exportpdf')->with('export',$export)->with('exportProduct',$exportProduct)->render();
+        $signature = false;
+        $this->filename = "export" . $export->export_code . ".pdf";
+        $this->pdfOutput($html, $this->filename, 'I', $signature);
+    }
+
+    function pdfOutput($html, $filename, $outputType = 'I', $signature = false){
+        $pdf = new MYPDF(PDF_PAGE_ORIENTATION, 'px', PDF_PAGE_FORMAT, true, 'UTF-8', false, false, $signature);
+        // set document information
+        $pdf->SetCreator('System');
+        $pdf->SetAuthor('TQT');
+        $pdf->SetTitle('');
+        $pdf->SetSubject('');
+        $pdf->SetKeywords('TQT, export');
+        $pdf->setPrintFooter(false);
+
+        // set default monospaced font
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+        $pdf->setFontSubsetting(false);
+        $pdf->SetMargins(30, 15, 30);
+        $pdf->SetHeaderMargin(0);
+        $pdf->SetFooterMargin(0);
+
+        $pdf->SetCellPaddings(0);
+
+        //set auto page breaks
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setFormDefaultProp(array('lineWidth'=>0, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 255), 'strokeColor'=>array(255, 255, 255)));
+        // set font
+        $pdf->SetFont('freeserif', '', 10);
+        // add a page
+        $pdf->AddPage();
+        // output the HTML content
+        $pdf->writeHTML($html, true, false, true, false, '');
+        // reset pointer to the last page
+        $pdf->lastPage();
+        //Close and output PDF document
+        $pdf->Output($filename, $outputType);
+    }
+
+    public function remove(){
+        $export_id = Request::get('export_id',0);
+        $export_note = Request::get('export_note','');
+        $restore = Request::get('restore',0);
+        if($export_id == 0){
+            $data['success'] = 0;
+            $data['html'] = 'Không tìm thấy hóa đơn cần hủy';
+            return Response::json($data);
+        }
+        $export = Export::find($export_id);
+        $export->export_note = $export_note;
+        if($export->export_status != 1){
+            $data['success'] = 0;
+            $data['html'] = 'Hóa đơn này đã bị hủy trước đó';
+            return Response::json($data);
+        }
+        if(Export::remove($export)){
+            if($restore == 1){
+                $data['link'] = URL::route('admin.export_restore',array('id' => base64_encode($export_id)));
+            }
+            $data['success'] = 1;
+            $data['html'] = 'Hủy hóa đơn thành công';
+            return Response::json($data);
+        }else{
+            $data['success'] = 0;
+            $data['html'] = 'Lỗi cập nhật hệ thống. Vui lòng thử lại';
+            return Response::json($data);
+        }
+
+    }
+
+    public function restore($ids){
+        $id = base64_decode($ids);
+        $export = Export::find($id);
+        $customer = Customers::find($export->customers_id);
+        $exportProduct = $export->exportproduct;
+        $aryExport = array();
+        $vat = 0;
+        foreach($exportProduct as $product){
+            $p = $product->product;
+            $category_price_hide_discount = $category_price_discount = 0;
+            $product_customer = ProductsCustomers::getByProductAndCustomerId($product->product_id,$export->customers_id);
+            if(isset($product_customer->product_price_discount) && $product_customer->product_price_discount > 0){
+                $p->product_Price = $product_customer->product_price_discount;
+            }
+            $category_customer = CategoriesCustomers::getByCategoryAndCustomerId($product->product_Category,$export->customers_id);
+            if(isset($category_customer->category_price_hide_discount) && $category_customer->category_price_hide_discount > 0){
+                $category_price_hide_discount = $category_customer->category_price_hide_discount;
+            }
+            if(isset($category_customer->category_price_discount) && $category_customer->category_price_discount > 0){
+                $category_price_discount = $category_customer->category_price_discount;
+            }
+            $vat = $customer->customers_IsNeededVAT ? 10 : 0;
+            $aryExport[$product->product_id] = array(
+                'product_id' => $p->product_id,
+                'export_product_price' => $p->product_Price,
+                'export_product_num' => $product->export_product_num,
+                'export_product_discount' => (int)($p->product_Price * $product->export_product_num * $category_price_discount),
+                'export_product_discount_customer' => (int)($p->product_Price * $product->export_product_num * $category_price_hide_discount),
+                'product_Name' => $p->product_Name,
+                'product_Code' => $p->product_Code,
+                'product_NameOrigin' => $p->product_NameOrigin,
+                'product_NameUnit' => $p->product_NameUnit,
+            );
+        }
+        Session::put('export', $aryExport);
+        $customers = Customers::getListAll();
+        $this->layout->content = View::make('admin.ExportLayouts.export')
+            ->with('customers',$customers)->with('customers_id',$export->customers_id);
+        $admin = User::getListAllUser();
+        $this->layout->content->customer_info = View::make('admin.ExportLayouts.customer_info')->with('customers',$export)->with('admin',$admin);
+        $this->layout->content->product_info = View::make('admin.ExportLayouts.product_info')->with('export',$aryExport)->with('vat',$vat);
+//        $this->layout->content = View::make('admin.ImportLayouts.import')
+//            ->with('providers',$providers)->with('providers_id',$import->providers_id);
+//        $this->layout->content->provider_info = View::make('admin.ImportLayouts.provider_info')->with('provider',$provider);
+//        $this->layout->content->product_info = View::make('admin.ImportLayouts.product_info')->with('import',$aryImport);
     }
 
 }

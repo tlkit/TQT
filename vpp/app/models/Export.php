@@ -27,6 +27,43 @@ class Export extends Eloquent{
         return $count;
     }
 
+    public static function search($dataSearch = array(), $limit = 50, $offset = 0, &$total)
+    {
+        try {
+            $query = Export::where('export_id', '>', 0);
+            if (isset($dataSearch['export_code']) && $dataSearch['export_code'] != '') {
+                $query->where('export_code', $dataSearch['export_code']);
+            }
+            if (isset($dataSearch['export_create_id']) && $dataSearch['export_create_id'] != 0) {
+                $query->where('export_create_id', $dataSearch['export_create_id']);
+            }
+            if (isset($dataSearch['customers_id']) && $dataSearch['customers_id'] != 0) {
+                $query->where('customers_id', $dataSearch['customers_id']);
+            }
+            if (isset($dataSearch['export_user_store']) && $dataSearch['export_user_store'] != 0) {
+                $query->where('export_user_store', $dataSearch['export_user_store']);
+            }
+            if (isset($dataSearch['export_user_cod']) && $dataSearch['export_user_cod'] != 0) {
+                $query->where('export_user_cod', $dataSearch['export_user_cod']);
+            }
+            if (isset($dataSearch['export_status']) && $dataSearch['export_status'] != -1) {
+                $query->where('export_status', $dataSearch['export_status']);
+            }
+            if (isset($dataSearch['export_create_start']) && $dataSearch['export_create_start'] != 0) {
+                $query->where('export_create_time','>=', $dataSearch['export_create_start']);
+            }
+            if (isset($dataSearch['export_create_end']) && $dataSearch['export_create_end'] != 0) {
+                $query->where('export_create_time','<=', $dataSearch['export_create_end']);
+            }
+            $total = $query->count();
+            $query->orderBy('export_id', 'desc');
+            return ($offset == 0) ? $query->take($limit)->get() : $query->take($limit)->skip($offset)->get();
+
+        } catch (PDOException $e) {
+            throw new PDOException();
+        }
+    }
+
     public static function add($aryExport, $aryExportProduct)
     {
         try {
@@ -65,5 +102,36 @@ class Export extends Eloquent{
             return false;
         }
 
+    }
+
+    public static function remove($export){
+        try {
+            DB::connection()->getPdo()->beginTransaction();
+            $export->export_status = 0;
+            $export->export_update_id = User::user_id();
+            $export->export_update_time = time();
+            $export->save();
+            $exportProduct = $export->exportproduct;
+            foreach($exportProduct as $key => $value){
+                if($value['export_product_status'] == 1){
+                    $exportP = ExportProduct::find($value['export_product_id']);
+                    $exportP->export_product_status = 0;
+                    $exportP->export_product_update_id = User::user_id();
+                    $exportP->export_product_update_time = time();
+                    $exportP->export_product_status = 0;
+                    $exportP->save();
+                    $product = Product::find($value['product_id']);
+                    $product->product_Quantity = $product->product_Quantity + $exportP->export_product_num;
+                    $product->save();
+                }
+            }
+            DB::connection()->getPdo()->commit();
+            return true;
+        } catch (\PDOException $e) {
+            var_dump($e->getMessage());die;
+            DB::connection()->getPdo()->rollBack();
+            //throw new PDOException();
+            return false;
+        }
     }
 }

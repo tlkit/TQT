@@ -1,6 +1,7 @@
 /**
  * Created by Tuan on 07/06/2015.
  */
+var restore = 0;
 $(document).ready(function(){
     $('#customers_id').chosen({allow_single_deselect:true,no_results_text:'Từ khóa : ',search_contains: true});
     //$('#customers_id').on('chosen:showing_dropdown', function(evt, params) {
@@ -145,7 +146,57 @@ $(document).ready(function(){
                 }
             }
         });
-    })
+    });
+    $(".sys_open_delete").on('click', function () {
+        restore = 0;
+        var export_code = $(this).attr('data-code');
+        $("#export_" + export_code).modal('show');
+    });
+    $(".sys_open_restore").on('click', function () {
+        restore = 1;
+        var export_code = $(this).attr('data-code');
+        $("#export_" + export_code).modal('show');
+    });
+    $(".sys_delete_export").on('click',function(){
+        var $this = $(this);
+        var export_id = $(this).attr('data-id');
+        var export_code = $(this).attr('data-code');
+        var export_note = $("#export_note_" + export_code).val();
+        var export_status = $("#export_status").val();
+        $.ajax({
+            dataType: 'json',
+            type: 'POST',
+            url: WEB_ROOT + '/admin/export/remove',
+            data: {
+                export_id: export_id,
+                export_note: export_note,
+                restore: restore
+            },
+            beforeSend: function () {
+                $('.modal').modal('hide')
+            },
+            error: function () {
+                bootbox.alert('Lỗi hệ thống');
+            },
+            success: function (data) {
+                if(data.success == 1){
+                    if(export_status == 1){
+                        $this.parents('tr').html('');
+                    }else{
+                        console.log($this);
+                        $this.parents('tr').addClass('orange bg-warning');
+                        $this.parents('td').html('');
+
+                    }
+                    if(restore == 1){
+                        window.location.href = data.link;
+                        return false;
+                    }
+                }
+                bootbox.alert(data.html);
+            }
+        });
+    });
 
 });
 var Export = {
