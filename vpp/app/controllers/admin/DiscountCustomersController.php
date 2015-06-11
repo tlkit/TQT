@@ -8,8 +8,8 @@
  */
 class DiscountCustomersController extends BaseAdminController
 {
+    private $permission_view = 'discountCustomer_view';
     private $permission_edit = 'discountCustomer_edit';
-    private $permiss_view = 'discountCustomer_view';
 
     public function __construct()
     {
@@ -18,9 +18,9 @@ class DiscountCustomersController extends BaseAdminController
 
     public function discountCategory($customer_id) {
         //Check phan quyen.
-        /*if(!in_array($this->permiss_view,$this->permission)){
+        if(!in_array($this->permission_view,$this->permission)){
             return Redirect::route('admin.dashboard');
-        }*/
+        }
 
         $data = array();
         $inforCust = Customers::getByID($customer_id);
@@ -46,16 +46,15 @@ class DiscountCustomersController extends BaseAdminController
         $this->layout->content = View::make('admin.DiscountCustomersLayouts.discountCategory')
             ->with('data', $data)
             ->with('inforCust', $inforCust)
-            //->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
-            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1);
+            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0);
     }
 
     public function updateCategory()
     {
         $data = array('isIntOk' => 0);
-        /*if(!$this->is_root && !in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission)){
             return Response::json($data);
-        }*/
+        }
 
         $customer_id = (int)Request::get('customer_id', 0);
         $category_id = (int)Request::get('category_id', 0);
@@ -98,9 +97,9 @@ class DiscountCustomersController extends BaseAdminController
 
     public function discountProduct($customer_id) {
         //Check phan quyen.
-        /*if(!in_array($this->permiss_view,$this->permission)){
+        if(!in_array($this->permission_view,$this->permission)){
             return Redirect::route('admin.dashboard');
-        }*/
+        }
 
         $data = array();
         $inforCust = Customers::getByID($customer_id);
@@ -127,16 +126,15 @@ class DiscountCustomersController extends BaseAdminController
         $this->layout->content = View::make('admin.DiscountCustomersLayouts.discountProduct')
             ->with('data', $data)
             ->with('inforCust', $inforCust)
-            //->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
-            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1);
+            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0);
     }
 
     public function updateProduct()
     {
         $data = array('isIntOk' => 0);
-        /*if(!$this->is_root && !in_array($this->permission_edit,$this->permission)){
+        if( !in_array($this->permission_edit,$this->permission)){
             return Response::json($data);
-        }*/
+        }
 
         $customer_id = (int)Request::get('customer_id', 0);
         $product_id = (int)Request::get('product_id', 0);

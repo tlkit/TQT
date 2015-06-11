@@ -8,11 +8,10 @@
  */
 class ProductController extends BaseAdminController
 {
+    private $permission_view = 'product_view';
+    private $permission_delete = 'product_delete';
+    private $permission_edit = 'product_edit';
 
-    private $permission_view = 'providers_view';
-    private $permiss_delete = 'providers_view';
-    private $permission_create = 'providers_create';
-    private $permission_edit = 'providers_edit';
     private $arrXuatXu = array(14 => 'Việt Nam',
         15 => 'Thái Lan',
         16 => 'Trung Quốc',
@@ -44,9 +43,9 @@ class ProductController extends BaseAdminController
     public function index()
     {
         //Check phan quyen.
-        /*if(!in_array($this->permiss_view,$this->permission)){
+        if(!in_array($this->permission_view,$this->permission)){
             return Redirect::route('admin.dashboard');
-        }*/
+        }
         $pageNo = (int)Request::get('page_no', 1);
         $limit = 30;
         $offset = ($pageNo - 1) * $limit;
@@ -59,7 +58,6 @@ class ProductController extends BaseAdminController
         $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
 
         //echo '<pre>';  print_r($dataSearch); echo '</pre>'; die;
-
         $this->layout->content = View::make('admin.ProductLayouts.view')
             ->with('paging', $paging)
             ->with('stt', ($pageNo - 1) * $limit)
@@ -68,15 +66,15 @@ class ProductController extends BaseAdminController
             ->with('data', $dataSearch)
             ->with('search', $search)
             ->with('arrCategory', $this->arrCategory)
-            //->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
-            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1);
+            ->with('permission_delete', in_array($this->permission_delete, $this->permission) ? 1 : 0)
+            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0);
     }
 
     public function getCreate($id = 0)
     {
-        /*if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission)){
             return Redirect::route('admin.dashboard');
-        }*/
+        }
         $data = array();
         if ($id > 0) {
             $data = Product::find($id);
@@ -92,9 +90,9 @@ class ProductController extends BaseAdminController
 
     public function postCreate($id = 0)
     {
-        /*if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission)){
             return Redirect::route('admin.dashboard');
-        }*/
+        }
 
         $dataSave['product_Code'] = Request::get('product_Code');
         $dataSave['product_Name'] = Request::get('product_Name');
@@ -132,7 +130,6 @@ class ProductController extends BaseAdminController
                 }
             }
         }
-        $user = User::getListAllUser();
         $this->layout->content = View::make('admin.ProductLayouts.add')
             ->with('id', $id)
             ->with('data', $dataSave)
@@ -145,9 +142,9 @@ class ProductController extends BaseAdminController
     public function deleteItem()
     {
         $data = array('isIntOk' => 0);
-        /*if(!$this->is_root && !in_array($this->permiss_delete,$this->permission)){
+        if(!in_array($this->permission_delete,$this->permission)){
             return Response::json($data);
-        }*/
+        }
         $id = (int)Request::get('id', 0);
         if ($id > 0 && Product::delData($id)) {
             $data['isIntOk'] = 1;
@@ -171,7 +168,6 @@ class ProductController extends BaseAdminController
                 $this->error[] = 'Mã sản phẩm không được trống';
             } elseif (isset($data['product_Code']) && $data['product_Code'] != '') {
                 $product_Code = Product::getProductsByProductCode($data['product_Code']);
-                //echo '<pre>';  print_r($product_Code); echo '</pre>'; die;
                 if (!empty($product_Code) && !isset($product_Code[$id])) {
                     $this->error[] = 'Mã sản phẩm này đã tồn tại, hãy nhập mã khác';
                 }
@@ -181,8 +177,7 @@ class ProductController extends BaseAdminController
         return false;
     }
 
-    function updatecConvernt()
-    {
+    function updatecConvernt(){
         die;
         $product = DB::table('product')->get();;
         foreach ($product as $k => $va) {

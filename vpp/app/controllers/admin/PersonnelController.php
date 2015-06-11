@@ -8,10 +8,8 @@
  */
 class PersonnelController extends BaseAdminController
 {
-
     private $permission_view = 'personnel_view';
-    private $permiss_delete = 'personnel_view';
-    private $permission_create = 'personnel_create';
+    private $permission_delete = 'personnel_delete';
     private $permission_edit = 'personnel_edit';
     private $arrStatus = array(1=>'Đang làm việc', 2=>'Đang thử việc',3=>'Đã nghỉ việc');
     private $arrCheckCreater = array(0=>'Không tạo', 1=>'Có tạo');
@@ -23,9 +21,9 @@ class PersonnelController extends BaseAdminController
 
     public function index() {
         //Check phan quyen.
-        /*if(!in_array($this->permiss_view,$this->permission)){
+        if(!in_array($this->permission_view,$this->permission)){
             return Redirect::route('admin.dashboard');
-        }*/
+        }
         $pageNo = (int) Request::get('page_no',1);
         $limit = 30;
         $offset = ($pageNo - 1) * $limit;
@@ -46,14 +44,14 @@ class PersonnelController extends BaseAdminController
             ->with('data', $dataSearch)
             ->with('search', $search)
             ->with('arrStatus', $this->arrStatus)
-            //->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
-            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1);
+            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0);
+
     }
 
     public function getCreate($id=0) {
-        /*if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission)){
             return Redirect::route('admin.dashboard');
-        }*/
+        }
         $data = array();
         $personnel_user_id = 0;
         if($id > 0) {
@@ -63,7 +61,6 @@ class PersonnelController extends BaseAdminController
             }
         }
 
-        //người tạo
         ///echo '<pre>';  print_r($data); echo '</pre>'; die;
         $this->layout->content = View::make('admin.PersonnelLayouts.add')
             ->with('id', $id)
@@ -74,9 +71,9 @@ class PersonnelController extends BaseAdminController
     }
 
     public function postCreate($id=0) {
-        /*if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission)){
             return Redirect::route('admin.dashboard');
-        }*/
+        }
         $dataSave['personnel_name'] = Request::get('personnel_name');
         $dataSave['personnel_village'] = Request::get('personnel_village');
         $dataSave['personnel_adress_1'] = Request::get('personnel_adress_1');
@@ -105,6 +102,7 @@ class PersonnelController extends BaseAdminController
         //echo '<pre>';  print_r($dataSave); echo '</pre>'; die;
         if($this->valid($dataSave) && empty($this->error)) {
             unset($dataSave['personnel_check_creater']);
+
             //nếu tạo user/pass đăng nhập luôn
             if(isset($dataSave['personnel_user_id']) && $dataSave['personnel_user_id'] == 0 && isset($dataSave['personnel_user_name']) && $dataSave['personnel_user_name'] != ''){
                 $user['user_name'] = $dataSave['personnel_user_name'];
@@ -119,7 +117,6 @@ class PersonnelController extends BaseAdminController
                 $dataSave['personnel_user_id'] = User::createNew($user);
             }
 
-            //echo '<pre>';  print_r($dataSave); echo '</pre>'; die;
             if($id > 0) {
                 if(Personnel::updData($id, $dataSave)) {
                     return Redirect::route('admin.personnel_list');
@@ -141,9 +138,9 @@ class PersonnelController extends BaseAdminController
 
     public function deleteItem() {
         $data = array('isIntOk' => 0);
-        /*if(!$this->is_root && !in_array($this->permiss_delete,$this->permission)){
+        if(!in_array($this->permission_delete,$this->permission)){
             return Response::json($data);
-        }*/
+        }
         $id = (int)Request::get('id', 0);
         if($id > 0 && Personnel::delData($id)) {
             $data['isIntOk'] = 1;

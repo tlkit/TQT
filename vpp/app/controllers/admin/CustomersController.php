@@ -8,10 +8,7 @@
  */
 class CustomersController extends BaseAdminController
 {
-
     private $permission_view = 'customers_view';
-    private $permiss_delete = 'customers_view';
-    private $permission_create = 'customers_create';
     private $permission_edit = 'customers_edit';
     private $arrType = array(-1 => 'Kiểu khách hàng', 1 => 'Mua buôn', 2 => 'Mua lẻ');
     private $arrTypeVat = array(1 => 'Có VAT', 0 => 'Không có VAT');
@@ -23,9 +20,9 @@ class CustomersController extends BaseAdminController
 
     public function index() {
         //Check phan quyen.
-        /*if(!in_array($this->permiss_view,$this->permission)){
+        if(!in_array($this->permission_view,$this->permission)){
             return Redirect::route('admin.dashboard');
-        }*/
+        }
         $pageNo = (int) Request::get('page_no',1);
         $limit = 30;
         $offset = ($pageNo - 1) * $limit;
@@ -57,20 +54,18 @@ class CustomersController extends BaseAdminController
             ->with('sizeShow', count($data))
             ->with('data', $data)
             ->with('search', $search)
-            //->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
-            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1)
+            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
             ->with('arrType', $this->arrType);
     }
 
     public function getCreate($id=0) {
-        /*if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission)){
             return Redirect::route('admin.dashboard');
-        }*/
+        }
         $data = array();
         if($id > 0) {
             $data = Customers::find($id);
         }
-
         //người tạo
         $user = User::getListAllUser();
         //echo '<pre>';  print_r($user); echo '</pre>'; die;
@@ -83,9 +78,9 @@ class CustomersController extends BaseAdminController
     }
 
     public function postCreate($id=0) {
-        /*if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission)){
             return Redirect::route('admin.dashboard');
-        }*/
+        }
         $dataSave['customers_FirstName'] = Request::get('customers_FirstName');
         $dataSave['customers_Code'] = Request::get('customers_Code');
         $dataSave['customers_ContractNo'] = Request::get('customers_ContractNo');

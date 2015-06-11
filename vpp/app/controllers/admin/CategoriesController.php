@@ -8,10 +8,8 @@
  */
 class CategoriesController extends BaseAdminController
 {
-
     private $permission_view = 'categories_view';
-    private $permission_create = 'categories_create';
-    private $permiss_delete = 'categories_delete';
+    private $permission_delete = 'categories_delete';
     private $permission_edit = 'categories_edit';
     private $arrStatus = array(-1 => 'Chọn trạng thái', 0 => 'Ẩn', 1 => 'Hiện');
 
@@ -22,9 +20,9 @@ class CategoriesController extends BaseAdminController
 
     public function view() {
         //Check phan quyen.
-        /*if(!in_array($this->permiss_view,$this->permission)){
+        if(!in_array($this->permission_view,$this->permission)){
             return Redirect::route('admin.dashboard');
-        }*/
+        }
         $pageNo = (int) Request::get('page_no',1);
         $limit = 30;
         $offset = ($pageNo - 1) * $limit;
@@ -55,15 +53,15 @@ class CategoriesController extends BaseAdminController
             ->with('sizeShow', count($data))
             ->with('data', $data)
             ->with('search', $search)
-            //->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
-            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1)
+            ->with('permission_delete', in_array($this->permission_delete, $this->permission) ? 1 : 0)
+            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
             ->with('arrStatus', $this->arrStatus);
     }
 
     public function createInfo($id=0) {
-        /*if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission)){
             return Redirect::route('admin.dashboard');
-        }*/
+        }
         $data = array();
         if($id > 0) {
             $data = Categories::find($id);
@@ -78,9 +76,9 @@ class CategoriesController extends BaseAdminController
     }
 
     public function create($id=0) {
-        /*if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission)){
             return Redirect::route('admin.dashboard');
-        }*/
+        }
 
         $dataSave['categories_Name'] = addslashes(Request::get('categories_Name'));
         $dataSave['categories_Status'] = (int)Request::get('categories_Status', 0);
@@ -93,7 +91,6 @@ class CategoriesController extends BaseAdminController
             $destinationPath = public_path().'/images/category/';
             $filename = $file->getClientOriginalName();
             $upload  = Input::file('image')->move($destinationPath, $filename);
-            //echo $upload['fileName'];
             //echo '<pre>';  print_r($filename); echo '</pre>'; die;
             $dataSave['categories_Icon'] = $filename;
         }else{
@@ -121,9 +118,9 @@ class CategoriesController extends BaseAdminController
     public function deleteItem()
     {
         $data = array('isIntOk' => 0);
-        /*if(!$this->is_root && !in_array($this->permiss_delete,$this->permission)){
+        if(!in_array($this->permiss_delete,$this->permission)){
             return Response::json($data);
-        }*/
+        }
         $id = (int)Request::get('id', 0);
         if ($id > 0 && Categories::delData($id)) {
             $data['isIntOk'] = 1;

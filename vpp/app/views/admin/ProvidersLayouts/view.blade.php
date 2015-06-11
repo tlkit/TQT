@@ -73,8 +73,10 @@
                                 <td>{{ $item['providers_Address'] }}</td>
                                 <td>{{ $item['providers_StoreAddress'] }}</td>
                                 <td class="text-center">
-                                    @if($permission_edit ==1)
+                                    @if($permission_edit == 1)
                                         <a href="{{URL::route('admin.providers_edit',array('id' => $item['providers_id']))}}" title="Sửa item"><i class="fa fa-edit"></i></a>
+                                    @endif
+                                    @if($permission_delete == 1)
                                         <a href="javascript:void(0);" onclick="Admin.deleteItem({{$item['providers_id']}},1)" title="Xóa Item"><i class="fa fa-trash"></i></a>
                                     @endif
                                     <span class="img_loading" id="img_loading_{{$item['providers_id']}}"></span>
