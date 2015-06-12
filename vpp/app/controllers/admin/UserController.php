@@ -24,9 +24,9 @@ class UserController extends BaseAdminController
         $this->layout->title = "Quản trị tài khoản";
         //check permission
 
-//        if (!in_array($this->permission_view, $this->permission)) {
-//            return Redirect::route('admin.dashboard');
-//        }
+        if (!in_array($this->permission_view, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $page_no = Request::get('page_no', 1);
         $dataSearch['user_status'] = Request::get('user_status', 0);
         $dataSearch['user_email'] = Request::get('user_email', '');
@@ -49,9 +49,9 @@ class UserController extends BaseAdminController
             ->with('size', $size)
             ->with('start', ($page_no - 1) * $limit)
             ->with('paging', $paging)
-            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1)
-            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 1)
-            ->with('permission_change_pass', in_array($this->permission_change_pass, $this->permission) ? 1 : 1);
+            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
+            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0)
+            ->with('permission_change_pass', in_array($this->permission_change_pass, $this->permission) ? 1 : 0);
 
     }
 
@@ -62,6 +62,9 @@ class UserController extends BaseAdminController
 //        if(!in_array($this->permission_create, $this->permission)){
 //            return Redirect::route('admin.dashboard');
 //        }
+        if (!in_array($this->permission_create, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $arrGroupUser = GroupUser::getListGroupUser();
         $this->layout->content = View::make('admin.UserLayouts.create')
             ->with('arrGroupUser', $arrGroupUser);
@@ -208,9 +211,9 @@ class UserController extends BaseAdminController
     {
 //        CGlobal::$pageTitle = "Sửa nhóm User | Admin Seo";
 //        //check permission
-//        if (!in_array($this->permission_edit, $this->permission)) {
-//            return Redirect::route('admin.dashboard');
-//        }
+        if (!in_array($this->permission_edit, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
 
         $data = User::getUserById($id);
         $data['user_group'] = explode(',', $data['user_group']);

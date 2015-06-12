@@ -22,9 +22,9 @@ class GroupUserController extends BaseAdminController
     public function view()
     {
         //check permission
-//        if (!in_array($this->permission_view, $this->permission)) {
-//            return Redirect::route('admin.dashboard');
-//        }
+        if (!in_array($this->permission_view, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
 
         $page_no = Request::get('page_no', 1);//phan trang
         $dataSearch['group_user_name'] = Request::get('group_user_name', '');
@@ -80,9 +80,9 @@ class GroupUserController extends BaseAdminController
     public function createInfo()
     {
 //        CGlobal::$pageTitle = "Tạo nhóm User | Admin Seo";
-//        if (!in_array($this->permission_create, $this->permission)) {
-//            return Redirect::route('admin.dashboard');
-//        }
+        if (!in_array($this->permission_create, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         // Show the page
         $listPermission = Permission::getListPermission();
         $arrPermissionByController = $this->buildArrayPermissionByController($listPermission);
@@ -94,9 +94,9 @@ class GroupUserController extends BaseAdminController
     public function create()
     {
         //check permission
-//        if (!in_array($this->permission_create, $this->permission)) {
-//            return Redirect::route('admin.dashboard');
-//        }
+        if (!in_array($this->permission_create, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
 
         $error = array();
         $data['group_user_name'] = htmlspecialchars(trim(Request::get('group_user_name', '')));
@@ -147,9 +147,9 @@ class GroupUserController extends BaseAdminController
     public function editInfo($id)
     {
 //        CGlobal::$pageTitle = "Sửa nhóm User | Admin Seo";
-//        if (!in_array($this->permission_edit, $this->permission)) {
-//            return Redirect::route('admin.dashboard');
-//        }
+        if (!in_array($this->permission_edit, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
 
         $data = GroupUser::find($id);//lay dl permission theo id
         $dataPermission = GroupUserPermission::getListPermissionByGroupId(array($id));
