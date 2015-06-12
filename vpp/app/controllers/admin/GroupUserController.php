@@ -94,9 +94,9 @@ class GroupUserController extends BaseAdminController
     public function create()
     {
         //check permission
-        if (!in_array($this->permission_create, $this->permission)) {
-            return Redirect::route('admin.dashboard');
-        }
+//        if (!in_array($this->permission_create, $this->permission)) {
+//            return Redirect::route('admin.dashboard');
+//        }
 
         $error = array();
         $data['group_user_name'] = htmlspecialchars(trim(Request::get('group_user_name', '')));

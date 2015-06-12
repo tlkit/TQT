@@ -66,12 +66,14 @@
                         </div>
                     </div>
                     <div class="panel-footer text-right">
+                        @if($permission_create)
                         <span class="">
                             <a class="btn btn-danger btn-sm" href="{{URL::route('admin.import')}}">
                                 <i class="ace-icon fa fa-plus-circle"></i>
                                 Nhập kho
                             </a>
                         </span>
+                        @endif
                         <span class="">
                             <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
                         </span>
@@ -106,8 +108,11 @@
                                     @if($item['import_status'] == 1)
                                     <div class="col-sm-3"><a href="{{URL::route('admin.import_detail',array('id' => base64_encode($item['import_id'])))}}" title="Chi tiết hóa đơn"><i class="fa fa-file-text-o fa-2x"></i></a></div>
                                     <div class="col-sm-3"><a href="{{URL::route('admin.import_exportPdf',array('id' => base64_encode($item['import_id'])))}}" target="_blank" title="Xuất pdf"><i class="fa fa-file-pdf-o fa-2x"></i></a></div>
+                                    @if($permission_edit)
                                     <div class="col-sm-3"><a href="javascript:void(0)" title="Hủy hóa đơn" class="sys_open_delete" data-code="{{$item['import_code']}}"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                                    @if($permission_create)
                                     <div class="col-sm-3"><a href="javascript:void(0)" title="Hủy hóa đơn và tạo lại" class="sys_open_restore" data-code="{{$item['import_code']}}"><i class="fa fa-history fa-2x"></i></a></div>
+                                    @endif
                                     {{--modal--}}
                                     <div class="modal fade" role="dialog" id="import_{{$item['import_code']}}" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -126,6 +131,7 @@
                                             </div><!-- /.modal-content -->
                                         </div><!-- /.modal-dialog -->
                                     </div><!-- /.modal -->
+                                    @endif
                                     @else
                                         <div class="col-sm-3"><a href="javascript:void(0)" title="Ghi chú" data-target="#note_{{$item['import_code']}}" data-toggle="modal"><i class="fa fa-bookmark-o fa-2x"></i></a></div>
                                         {{--modal--}}

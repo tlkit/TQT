@@ -57,6 +57,9 @@ class ImportController extends BaseAdminController{
 
     public function importInfo(){
 
+        if (!in_array($this->permission_create, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         Session::forget('import');
         $providers = Providers::getListAll();
         $this->layout->content = View::make('admin.ImportLayouts.import')
@@ -64,6 +67,9 @@ class ImportController extends BaseAdminController{
     }
 
     public function import(){
+        if (!in_array($this->permission_create, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $providers_id = Request::get('providers_id',0);
         $import = Session::has('import') ? Session::get('import') : array();
         $error = '';
@@ -176,6 +182,9 @@ class ImportController extends BaseAdminController{
     }
 
     public function detail($ids){
+        if (!in_array($this->permission_view, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $id = base64_decode($ids);
         $import = Import::find($id);
         $providers = Providers::find($import->providers_id);
@@ -188,6 +197,9 @@ class ImportController extends BaseAdminController{
 
     public function exportPdf($ids)
     {
+        if (!in_array($this->permission_view, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $id = base64_decode($ids);
         $import = Import::find($id);
         $providers = Providers::find($import->providers_id);
@@ -237,6 +249,9 @@ class ImportController extends BaseAdminController{
     }
 
     public function remove(){
+        if (!in_array($this->permission_edit, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $import_id = Request::get('import_id',0);
         $import_note = Request::get('import_note','');
         $restore = Request::get('restore',0);
@@ -268,6 +283,9 @@ class ImportController extends BaseAdminController{
     }
 
     public function restore($ids){
+        if (!in_array($this->permission_edit, $this->permission) && !in_array($this->permission_create, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $id = base64_decode($ids);
         $import = Import::find($id);
         $provider = Providers::find($import->providers_id);

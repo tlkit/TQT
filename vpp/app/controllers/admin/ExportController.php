@@ -21,6 +21,9 @@ class ExportController extends BaseAdminController{
 
     public function view(){
 
+        if (!in_array($this->permission_view, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $dataSearch['export_create_id'] = Request::get('export_create_id', 0);
         $dataSearch['export_code'] = Request::get('export_code', '');
         $dataSearch['export_status'] = Request::get('export_status', -1);
@@ -50,10 +53,15 @@ class ExportController extends BaseAdminController{
             ->with('admin', $admin)
             ->with('customers', $customers)
             ->with('start', ($page_no - 1) * $limit)
-            ->with('paging',$paging);
+            ->with('paging',$paging)
+            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1)
+            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 1);
     }
 
     public function exportInfo(){
+        if (!in_array($this->permission_create, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         Session::forget('export');
         $customers = Customers::getListAll();
         $this->layout->content = View::make('admin.ExportLayouts.export')
@@ -61,6 +69,9 @@ class ExportController extends BaseAdminController{
     }
 
     public function export(){
+        if (!in_array($this->permission_create, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $customers_id = (int)Request::get('customers_id');
         $param['export_customers_name'] = Request::get('export_customers_name','');
         $param['export_customers_code'] = Request::get('export_customers_code','');
@@ -227,6 +238,9 @@ class ExportController extends BaseAdminController{
     }
 
     public function detail($ids){
+        if (!in_array($this->permission_view, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $id = base64_decode($ids);
         $export = Export::find($id);
 //        $providers = Providers::find($import->providers_id);
@@ -239,6 +253,9 @@ class ExportController extends BaseAdminController{
 
     public function exportPdf($ids)
     {
+        if (!in_array($this->permission_view, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $id = base64_decode($ids);
         $export = Export::find($id);
 //        $providers = Providers::find($import->providers_id);
@@ -288,6 +305,9 @@ class ExportController extends BaseAdminController{
     }
 
     public function remove(){
+        if (!in_array($this->permission_edit, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $export_id = Request::get('export_id',0);
         $export_note = Request::get('export_note','');
         $restore = Request::get('restore',0);
@@ -319,6 +339,9 @@ class ExportController extends BaseAdminController{
     }
 
     public function restore($ids){
+        if (!in_array($this->permission_create, $this->permission) && !in_array($this->permission_edit, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $id = base64_decode($ids);
         $export = Export::find($id);
         $customer = Customers::find($export->customers_id);
