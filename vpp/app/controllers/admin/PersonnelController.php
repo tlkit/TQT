@@ -9,7 +9,7 @@
 class PersonnelController extends BaseAdminController
 {
     private $permission_view = 'personnel_view';
-    private $permission_delete = 'personnel_delete';
+    private $permission_create = 'personnel_create';
     private $permission_edit = 'personnel_edit';
     private $arrStatus = array(1=>'Đang làm việc', 2=>'Đang thử việc',3=>'Đã nghỉ việc');
     private $arrCheckCreater = array(0=>'Không tạo', 1=>'Có tạo');
@@ -44,12 +44,13 @@ class PersonnelController extends BaseAdminController
             ->with('data', $dataSearch)
             ->with('search', $search)
             ->with('arrStatus', $this->arrStatus)
+            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0)
             ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0);
 
     }
 
     public function getCreate($id=0) {
-        if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
             return Redirect::route('admin.dashboard');
         }
         $data = array();
@@ -71,7 +72,7 @@ class PersonnelController extends BaseAdminController
     }
 
     public function postCreate($id=0) {
-        if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
             return Redirect::route('admin.dashboard');
         }
         $dataSave['personnel_name'] = Request::get('personnel_name');
@@ -134,18 +135,6 @@ class PersonnelController extends BaseAdminController
             ->with('error', $this->error)
             ->with('arrCheckCreater', $this->arrCheckCreater)
             ->with('arrStatus', $this->arrStatus);
-    }
-
-    public function deleteItem() {
-        $data = array('isIntOk' => 0);
-        if(!in_array($this->permission_delete,$this->permission)){
-            return Response::json($data);
-        }
-        $id = (int)Request::get('id', 0);
-        if($id > 0 && Personnel::delData($id)) {
-            $data['isIntOk'] = 1;
-        }
-        return Response::json($data);
     }
 
     private function valid($data=array()) {

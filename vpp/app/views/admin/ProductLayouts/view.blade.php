@@ -32,12 +32,14 @@
                         </div>
                     </div>
                     <div class="panel-footer text-right">
+                        @if($permission_create == 1)
                         <span class="">
                             <a class="btn btn-danger btn-sm" href="{{URL::route('admin.product_edit')}}">
                                 <i class="ace-icon fa fa-plus-circle"></i>
                                 Thêm mới
                             </a>
                         </span>
+                        @endif
                         <span class="">
                             <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
                         </span>

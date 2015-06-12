@@ -10,6 +10,7 @@ class ProvidersController extends BaseAdminController
 {
     private $permission_view = 'providers_view';
     private $permission_delete = 'providers_delete';
+    private $permission_create = 'providers_create';
     private $permission_edit = 'providers_edit';
 
     public function __construct()
@@ -42,11 +43,12 @@ class ProvidersController extends BaseAdminController
             ->with('data', $dataSearch)
             ->with('search', $search)
             ->with('permission_delete', in_array($this->permission_delete, $this->permission) ? 1 : 0)
+            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0)
             ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0);
     }
 
     public function getCreate($id=0) {
-        if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
             return Redirect::route('admin.dashboard');
         }
         $data = array();
@@ -62,7 +64,7 @@ class ProvidersController extends BaseAdminController
     }
 
     public function postCreate($id=0) {
-        if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
             return Redirect::route('admin.dashboard');
         }
 

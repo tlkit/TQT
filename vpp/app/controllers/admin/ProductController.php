@@ -10,6 +10,7 @@ class ProductController extends BaseAdminController
 {
     private $permission_view = 'product_view';
     private $permission_delete = 'product_delete';
+    private $permission_create = 'product_create';
     private $permission_edit = 'product_edit';
 
     private $arrXuatXu = array(14 => 'Việt Nam',
@@ -67,12 +68,13 @@ class ProductController extends BaseAdminController
             ->with('search', $search)
             ->with('arrCategory', $this->arrCategory)
             ->with('permission_delete', in_array($this->permission_delete, $this->permission) ? 1 : 0)
+            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0)
             ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0);
     }
 
     public function getCreate($id = 0)
     {
-        if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
             return Redirect::route('admin.dashboard');
         }
         $data = array();
@@ -90,7 +92,7 @@ class ProductController extends BaseAdminController
 
     public function postCreate($id = 0)
     {
-        if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
             return Redirect::route('admin.dashboard');
         }
 
