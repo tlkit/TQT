@@ -206,14 +206,14 @@
                         <b class="arrow"></b>
                     </li>
 
-                    <li class="@if(Route::currentRouteName() == 'admin.permission_view')active @endif">
-                        <a href="{{URL::route('admin.permission_view')}}">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Danh sách quyền
-                        </a>
+                    {{--<li class="@if(Route::currentRouteName() == 'admin.permission_view')active @endif">--}}
+                        {{--<a href="{{URL::route('admin.permission_view')}}">--}}
+                            {{--<i class="menu-icon fa fa-caret-right"></i>--}}
+                            {{--Danh sách quyền--}}
+                        {{--</a>--}}
 
-                        <b class="arrow"></b>
-                    </li>
+                        {{--<b class="arrow"></b>--}}
+                    {{--</li>--}}
 
                     <li class="@if(Route::currentRouteName() == 'admin.groupUser_view')active @endif">
                         <a href="{{URL::route('admin.groupUser_view')}}">
@@ -275,7 +275,7 @@
             </li>
             <li class="@if(Route::currentRouteName() == 'admin.import_view' || Route::currentRouteName() == 'admin.import_detail' || Route::currentRouteName() == 'admin.import'|| Route::currentRouteName() == 'admin.import_restore' || Route::currentRouteName() == 'admin.export_view' || Route::currentRouteName() == 'admin.export_detail' || Route::currentRouteName() == 'admin.export'|| Route::currentRouteName() == 'admin.export_restore') active @endif">
                 <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-book"></i>
+                    <i class="menu-icon fa fa-gears"></i>
                     <span class="menu-text"> Quản lý xuất nhập </span>
 
                     <b class="arrow fa fa-angle-down"></b>
