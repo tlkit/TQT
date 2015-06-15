@@ -131,5 +131,27 @@ class Product extends Eloquent
         return $data;
     }
 
+    public static function reportProductHot($param){
+        $tbl_product = with(new Product())->getTable();
+        $tbl_export_product = with(new ExportProduct())->getTable();
+        $query = DB::table($tbl_product);
+        $query->join($tbl_export_product, $tbl_product . '.product_id', '=', $tbl_export_product . '.customers_id');
+        $query->where($tbl_export_product . '.export_product_status', 1);
+//        if ($param['customers_id'] > 0) {
+//            $query->where($tbl_customers . '.customers_id', $param['customers_id']);
+//        }
+        if ($param['export_product_create_start'] > 0) {
+            $query->where($tbl_export_product . '.export_product_create_time', '>=', $param['export_product_create_start']);
+        }
+        if ($param['export_product_create_end'] > 0) {
+            $query->where($tbl_export_product . '.export_product_create_time', '<=', $param['export_product_create_end']);
+        }
+        $query->select(DB::raw($tbl_product.'.*,SUM('.$tbl_export_product.'.export_product_num) as sum_product'));
+        $query->orderBy(DB::raw('SUM('.$tbl_export_product.'.export_product_num)'),'desc');
+        $query->groupBy($tbl_export_product.'.product_id');
+        $data = $query->get();
+        return $data;
+    }
+
 
 }

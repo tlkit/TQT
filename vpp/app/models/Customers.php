@@ -153,4 +153,26 @@ class Customers extends Eloquent
         return $categories ? $categories : array();
     }
 
+    public static function reportCustomer($param){
+        $tbl_customers = with(new Customers())->getTable();
+        $tbl_export = with(new Export())->getTable();
+        $query = DB::table($tbl_customers);
+        $query->join($tbl_export, $tbl_customers . '.customers_id', '=', $tbl_export . '.customers_id');
+        $query->where($tbl_export . '.export_status', 1);
+        if ($param['customers_id'] > 0) {
+            $query->where($tbl_customers . '.customers_id', $param['customers_id']);
+        }
+        if ($param['export_create_start'] > 0) {
+            $query->where($tbl_export . '.export_create_time', '>=', $param['export_create_start']);
+        }
+        if ($param['export_create_end'] > 0) {
+            $query->where($tbl_export . '.export_create_time', '<=', $param['export_create_end']);
+        }
+        $query->select(DB::raw($tbl_customers.'.*,COUNT('.$tbl_export.'.export_id) as count_export, SUM('.$tbl_export.'.export_total_pay) as sum_export'));
+        $query->orderBy(DB::raw('SUM('.$tbl_export.'.export_total_pay)'),'desc');
+        $query->groupBy($tbl_export.'.customers_id');
+        $data = $query->get();
+        return $data;
+    }
+
 }

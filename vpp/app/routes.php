@@ -105,4 +105,9 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('discountCustomers/discountProduct/{customer_id?}',array('as' => 'admin.discountProduct','uses' => 'DiscountCustomersController@discountProduct'));
     Route::post('discountCustomers/updateProduct', array('as' => 'admin.updateProductDiscount','uses' => 'DiscountCustomersController@updateProduct'));
 
+    /*Thống kê*/
+    Route::get('report/customer',array('as' => 'admin.report_customer','uses' => 'ReportController@reportCustomer'));
+    Route::get('report/productHot',array('as' => 'admin.report_productHot','uses' => 'ReportController@reportProductHot'));
+
+
 });

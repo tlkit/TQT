@@ -228,6 +228,7 @@ return array(
     'Providers' => $baseDir . '/app/models/Providers.php',
     'ProvidersController' => $baseDir . '/app/controllers/admin/ProvidersController.php',
     'QRcode' => $baseDir . '/app/library/PDF/qrcode.php',
+    'ReportController' => $baseDir . '/app/controllers/admin/ReportController.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
     'SingularValueDecomposition' => $baseDir . '/app/library/class_phpexcel/PHPExcel/Shared/JAMA/SingularValueDecomposition.php',
     'TCPDF' => $baseDir . '/app/library/PDF/tcpdf.php',
