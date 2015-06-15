@@ -10,6 +10,7 @@ class CategoriesController extends BaseAdminController
 {
     private $permission_view = 'categories_view';
     private $permission_delete = 'categories_delete';
+    private $permission_create = 'categories_create';
     private $permission_edit = 'categories_edit';
     private $arrStatus = array(-1 => 'Chọn trạng thái', 0 => 'Ẩn', 1 => 'Hiện');
 
@@ -54,12 +55,13 @@ class CategoriesController extends BaseAdminController
             ->with('data', $data)
             ->with('search', $search)
             ->with('permission_delete', in_array($this->permission_delete, $this->permission) ? 1 : 0)
+            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0)
             ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
             ->with('arrStatus', $this->arrStatus);
     }
 
     public function createInfo($id=0) {
-        if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
             return Redirect::route('admin.dashboard');
         }
         $data = array();
@@ -76,7 +78,7 @@ class CategoriesController extends BaseAdminController
     }
 
     public function create($id=0) {
-        if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
             return Redirect::route('admin.dashboard');
         }
 
@@ -118,7 +120,7 @@ class CategoriesController extends BaseAdminController
     public function deleteItem()
     {
         $data = array('isIntOk' => 0);
-        if(!in_array($this->permiss_delete,$this->permission)){
+        if(!in_array($this->permission_delete,$this->permission)){
             return Response::json($data);
         }
         $id = (int)Request::get('id', 0);

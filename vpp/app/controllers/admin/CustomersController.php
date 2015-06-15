@@ -9,6 +9,7 @@
 class CustomersController extends BaseAdminController
 {
     private $permission_view = 'customers_view';
+    private $permission_create = 'customers_create';
     private $permission_edit = 'customers_edit';
     private $arrType = array(-1 => 'Kiểu khách hàng', 1 => 'Mua buôn', 2 => 'Mua lẻ');
     private $arrTypeVat = array(1 => 'Có VAT', 0 => 'Không có VAT');
@@ -55,11 +56,12 @@ class CustomersController extends BaseAdminController
             ->with('data', $data)
             ->with('search', $search)
             ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
+            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0)
             ->with('arrType', $this->arrType);
     }
 
     public function getCreate($id=0) {
-        if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
             return Redirect::route('admin.dashboard');
         }
         $data = array();
@@ -78,7 +80,7 @@ class CustomersController extends BaseAdminController
     }
 
     public function postCreate($id=0) {
-        if(!in_array($this->permission_edit,$this->permission)){
+        if(!in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
             return Redirect::route('admin.dashboard');
         }
         $dataSave['customers_FirstName'] = Request::get('customers_FirstName');
