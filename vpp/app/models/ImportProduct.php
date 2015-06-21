@@ -21,5 +21,25 @@ class ImportProduct extends Eloquent{
         return $this->belongsTo('Product', 'product_id');
     }
 
+    public static function reportImport($param){
+
+        $query = ImportProduct::where('import_product_id','>',0);
+        if($param['provider'] > 0){
+            $query->where('provider',$param['provider']);
+        }
+        if($param['product_id'] > 0){
+            $query->where('product_id',$param['product_id']);
+        }
+        if($param['import_product_create_start'] > 0){
+            $query->where('import_product_create_time','>=',$param['import_product_create_start']);
+        }
+        if($param['import_product_create_end'] > 0){
+            $query->where('import_product_create_time','<',$param['import_product_create_end']);
+        }
+        $query->orderBy('import_product_id','DESC');
+        $data = $query->get();
+
+    }
+
 
 }

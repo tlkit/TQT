@@ -39,7 +39,7 @@ class ImportController extends BaseAdminController{
         $admin = User::getListAllUser();
         $providers = Providers::getListAll();
         $param['import_create_start'] = ($param['import_create_start'] != '') ? strtotime($param['import_create_start']) : 0;
-        $param['import_create_end'] = ($param['import_create_end'] != '') ? strtotime($param['import_create_end']) : 0;
+        $param['import_create_end'] = ($param['import_create_end'] != '') ? strtotime($param['import_create_end'])+86400 : 0;
         $data = Import::search($param, $limit, $offset, $total);
         $paging = $total > 0 ? Pagging::getNewPager(3, $page_no, $total, $limit, $dataSearch) : '';
         $this->layout->content = View::make('admin.ImportLayouts.view')

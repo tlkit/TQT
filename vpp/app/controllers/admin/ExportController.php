@@ -40,7 +40,7 @@ class ExportController extends BaseAdminController{
         $admin = User::getListAllUser();
         $customers = Customers::getListAll();
         $param['export_create_start'] = ($param['export_create_start'] != '') ? strtotime($param['export_create_start']) : 0;
-        $param['export_create_end'] = ($param['export_create_end'] != '') ? strtotime($param['export_create_end']) : 0;
+        $param['export_create_end'] = ($param['export_create_end'] != '') ? strtotime($param['export_create_end'])+86400 : 0;
 //        echo '<pre>';
 //        print_r($param);die;
         $data = Export::search($param, $limit, $offset, $total);
