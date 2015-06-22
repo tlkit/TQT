@@ -149,8 +149,8 @@ class Customers extends Eloquent
     }
 
     public static function getListAll() {
-        $categories = Customers::where('customers_id', '>', 0)->orderBy('customers_FirstName')->lists('customers_FirstName','customers_id');
-        return $categories ? $categories : array();
+        $customer = Customers::where('customers_id', '>', 0)->orderBy('customers_FirstName')->lists('customers_FirstName','customers_id');
+        return $customer ? $customer : array();
     }
 
     public static function reportCustomer($param){

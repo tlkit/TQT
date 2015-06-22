@@ -46,6 +46,14 @@ class ReportController extends BaseAdminController{
         $input = $param;
         $input['import_product_create_start'] = ($input['import_product_create_start'] != '') ? strtotime($input['import_product_create_start']) : 0;
         $input['import_product_create_end'] = ($input['import_product_create_end'] != '') ? strtotime($input['import_product_create_end'])+86400 : 0;
+        $data = ImportProduct::reportImport($input);
+        $provider = Providers::getListAll();
+        $product = Product::getListAll();
+        $this->layout->content = View::make('admin.ReportLayouts.import')
+            ->with('provider',$provider)
+            ->with('product',$product)
+            ->with('param',$param)
+            ->with('data',$data);
 
     }
 }

@@ -24,8 +24,8 @@ class ImportProduct extends Eloquent{
     public static function reportImport($param){
 
         $query = ImportProduct::where('import_product_id','>',0);
-        if($param['provider'] > 0){
-            $query->where('provider',$param['provider']);
+        if($param['providers_id'] > 0){
+            $query->where('providers_id',$param['providers_id']);
         }
         if($param['product_id'] > 0){
             $query->where('product_id',$param['product_id']);
@@ -38,7 +38,7 @@ class ImportProduct extends Eloquent{
         }
         $query->orderBy('import_product_id','DESC');
         $data = $query->get();
-
+        return $data;
     }
 
 

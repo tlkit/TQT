@@ -15,12 +15,17 @@ class Product extends Eloquent
 
     public $timestamps = false;
 
-    protected $fillable = array('product_id', 'product_Code', 'product_Name', 'product_Category', 'product_CategoryName', 'product_Alias', 'product_OriginID', 'product_NameOrigin', 'product_UnitID', 'product_NameUnit', 'product_PackedWayID', 'product_NamePackedWay', 'product_Price', 'product_Description', 'product_Image', 'product_Thumbnail', 'product_Quantity', 'product_MinimumQuantity', 'product_IsAvailable', 'product_CreatorID', 'product_CreatedTime', 'product_ModifiedTime', 'product_Status');
+    protected $fillable = array('product_Code', 'product_Name', 'product_Category', 'product_CategoryName', 'product_Alias', 'product_OriginID', 'product_NameOrigin', 'product_UnitID', 'product_NameUnit', 'product_PackedWayID', 'product_NamePackedWay', 'product_Price', 'product_Description', 'product_Image', 'product_Thumbnail', 'product_Quantity', 'product_MinimumQuantity', 'product_IsAvailable', 'product_CreatorID', 'product_CreatedTime', 'product_ModifiedTime', 'product_Status');
 
     public static function getByID($id)
     {
         $product = Product::where('product_id', $id)->first();
         return $product;
+    }
+
+    public static function getListAll() {
+        $product = Product::where('product_id', '>', 0)->orderBy('product_Name')->lists('product_Name','product_id');
+        return $product ? $product : array();
     }
 
     public static function getProductsAll()

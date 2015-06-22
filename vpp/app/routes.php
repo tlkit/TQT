@@ -108,6 +108,7 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     /*Thống kê*/
     Route::get('report/customer',array('as' => 'admin.report_customer','uses' => 'ReportController@reportCustomer'));
     Route::get('report/productHot',array('as' => 'admin.report_productHot','uses' => 'ReportController@reportProductHot'));
+    Route::get('report/import',array('as' => 'admin.report_import','uses' => 'ReportController@reportImport'));
 
 
 });
