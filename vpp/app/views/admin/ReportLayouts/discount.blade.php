@@ -5,7 +5,7 @@
                 <i class="ace-icon fa fa-home home-icon"></i>
                 <a href="{{URL::route('admin.dashboard')}}">Home</a>
             </li>
-            <li class="active">Thống kê xuất hàng</li>
+            <li class="active">Thống kê chiết khấu</li>
         </ul><!-- /.breadcrumb -->
     </div>
 
@@ -17,7 +17,7 @@
                     {{ Form::open(array('method' => 'GET', 'role'=>'form')) }}
                     <div class="panel-body">
                         <div class="col-lg-3 col-sm-4 sys_time">
-                            <label for="export_create_start">Ngày xuất hàng từ </label>
+                            <label for="export_create_start">Ngày từ </label>
                             <div class="input-group input-group-sm">
                                 <input type="text" id="export_create_start" name="export_create_start" class="form-control" @if(isset($param['export_create_start']) && $param['export_create_start'] != '')value="{{$param['export_create_start']}}"@endif/>
                                 <span class="input-group-addon">

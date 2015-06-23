@@ -136,7 +136,7 @@ class Export extends Eloquent{
     }
 
     public static function reportDiscount($param){
-        $query = Export::where('export_id','>',0);
+        $query = Export::where('export_status',1);
         if(isset($param['customers_id']) && $param['customers_id'] > 0){
             $query->where('customers_id',$param['customers_id']);
         }

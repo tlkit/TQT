@@ -25,7 +25,7 @@ class ImportProduct extends Eloquent{
 
         $tbl_product = with(new Product())->getTable();
         $tbl_import_product = with(new ImportProduct())->getTable();
-        $query = ImportProduct::where('import_product_id','>',0);
+        $query = ImportProduct::where('import_product_status',1);
         $query->join($tbl_product,$tbl_import_product.'.product_id', '=', $tbl_product . '.product_id');
         if ($param['providers_id'] > 0) {
             $query->where($tbl_import_product . '.providers_id', $param['providers_id']);

@@ -318,6 +318,67 @@
                     </li>
                 </ul>
             </li>
+            <li class="@if(Route::currentRouteName() == 'admin.report_customer' || Route::currentRouteName() == 'admin.report_productHot' || Route::currentRouteName() == 'admin.report_import'|| Route::currentRouteName() == 'admin.report_export' || Route::currentRouteName() == 'admin.report_discount' || Route::currentRouteName() == 'admin.report_sale_list') active @endif">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-line-chart"></i>
+                    <span class="menu-text"> Thống kê </span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="@if(Route::currentRouteName() == 'admin.report_customer')active @endif">
+                        <a href="{{URL::route('admin.report_customer')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Thống kê khách hàng
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.report_productHot')active @endif">
+                        <a href="{{URL::route('admin.report_productHot')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Sản phẩm bán chạy
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.report_import')active @endif">
+                        <a href="{{URL::route('admin.report_import')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Thống kê nhập hàng
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.report_export')active @endif">
+                        <a href="{{URL::route('admin.report_export')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Thống kê xuất hàng
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.report_discount')active @endif">
+                        <a href="{{URL::route('admin.report_discount')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Thống kê chiết khấu
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.report_sale_list')active @endif">
+                        <a href="{{URL::route('admin.report_sale_list')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Bảng kê bán hàng
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
 
         </ul><!-- /.nav-list -->
 

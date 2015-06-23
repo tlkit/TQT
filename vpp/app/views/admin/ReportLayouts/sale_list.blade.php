@@ -5,7 +5,7 @@
                 <i class="ace-icon fa fa-home home-icon"></i>
                 <a href="{{URL::route('admin.dashboard')}}">Home</a>
             </li>
-            <li class="active">Thống kê xuất hàng</li>
+            <li class="active">Bảng kê bán hàng</li>
         </ul><!-- /.breadcrumb -->
     </div>
 
@@ -43,15 +43,6 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-lg-3 col-sm-6 input-group-sm">
-                            <label for="product_id">Sản phẩm </label>
-                            <select name="product_id" id="product_id" class="form-control input-sm" data-placeholder="Chọn sản phẩm">
-                                <option value="0" @if($param['product_id'] == 0) selected="selected" @endif></option>
-                                @foreach($product as $k => $v)
-                                    <option value="{{$k}}" @if($param['product_id'] == $k) selected="selected" @endif>{{$v}}</option>
-                                @endforeach
-                            </select>
-                        </div>
                     </div>
                     <div class="panel-footer text-right">
                         <span class="">
@@ -64,13 +55,14 @@
                     <table class="table table-bordered">
                         <thead class="thin-border-bottom">
                         <tr class="">
-                            <th class="center" width="5%">STT</th>
+                            <th class="center" width="10%">STT</th>
                             <th class="center" width="10%">Mã SP</th>
                             <th class="center" width="30%">Tên SP</th>
-                            <th class="center" width="10%">Thời gian</th>
-                            <th class="center" width="5%">SL</th>
-                            <th class="center" width="10%">Giá xuất</th>
-                            <th class="center" width="30%">Khách hàng</th>
+                            <th class="center" width="10%">Xuất Sứ</th>
+                            <th class="center" width="10%">ĐVT</th>
+                            <th class="center" width="10%">Giá</th>
+                            <th class="center" width="10%">SL</th>
+                            <th class="center" width="10%">Tổng tiền</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -79,10 +71,11 @@
                                 <td class="center">{{$key+1}}</td>
                                 <td class="center">{{$item['product_Code']}}</td>
                                 <td class="text-left">{{$item['product_Name']}}</td>
-                                <td class="center">{{date('d-m-Y',$item['export_product_create_time'])}}</td>
-                                <td class="center">{{$item['export_product_num']}}</td>
+                                <td class="center">{{$item['product_NameOrigin']}}</td>
+                                <td class="center">{{$item['product_NameUnit']}}</td>
                                 <td class="text-right">{{number_format($item['export_product_price'],0,'.','.')}}</td>
-                                <td class="text-left">{{$customer[$item['customers_id']]}}</td>
+                                <td class="center">{{$item['export_product_num']}}</td>
+                                <td class="text-right">{{number_format($item['export_product_total'],0,'.','.')}}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -91,7 +84,7 @@
                     <div class="alert">
                         Không có dữ liệu
                     </div>
-                    @endif
+                @endif
                             <!-- PAGE CONTENT ENDS -->
             </div>
             <!-- /.col -->
@@ -119,5 +112,4 @@
         dateFormat: 'dd-mm-yy'
     });
     $('#customers_id').chosen({allow_single_deselect:true,no_results_text:'Từ khóa : ',search_contains: true});
-    $('#product_id').chosen({allow_single_deselect:true,no_results_text:'Từ khóa : ',search_contains: true});
 </script>
