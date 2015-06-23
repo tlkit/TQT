@@ -23,21 +23,32 @@ class ImportProduct extends Eloquent{
 
     public static function reportImport($param){
 
+        $tbl_product = with(new Product())->getTable();
+        $tbl_import_product = with(new ImportProduct())->getTable();
         $query = ImportProduct::where('import_product_id','>',0);
-        if($param['providers_id'] > 0){
-            $query->where('providers_id',$param['providers_id']);
+        $query->join($tbl_product,$tbl_import_product.'.product_id', '=', $tbl_product . '.product_id');
+        if ($param['providers_id'] > 0) {
+            $query->where($tbl_import_product . '.providers_id', $param['providers_id']);
         }
-        if($param['product_id'] > 0){
-            $query->where('product_id',$param['product_id']);
+        if ($param['product_id'] > 0) {
+            $query->where($tbl_import_product . '.product_id', $param['product_id']);
         }
-        if($param['import_product_create_start'] > 0){
-            $query->where('import_product_create_time','>=',$param['import_product_create_start']);
+        if ($param['import_product_create_start'] > 0) {
+            $query->where($tbl_import_product . '.import_product_create_time', '>=', $param['import_product_create_start']);
         }
-        if($param['import_product_create_end'] > 0){
-            $query->where('import_product_create_time','<',$param['import_product_create_end']);
+        if ($param['import_product_create_end'] > 0) {
+            $query->where($tbl_import_product . '.import_product_create_time', '<', $param['import_product_create_end']);
         }
-        $query->orderBy('import_product_id','DESC');
-        $data = $query->get();
+        $query->orderBy($tbl_import_product . '.import_product_id', 'DESC');
+        $field_table = array(
+          $tbl_import_product.'.import_product_create_time',
+          $tbl_import_product.'.import_product_num',
+          $tbl_import_product.'.import_product_price',
+          $tbl_import_product.'.providers_id',
+          $tbl_product.'.product_Code',
+          $tbl_product.'.product_Name',
+        );
+        $data = $query->get($field_table);
         return $data;
     }
 

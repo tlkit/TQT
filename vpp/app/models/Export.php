@@ -134,4 +134,22 @@ class Export extends Eloquent{
             return false;
         }
     }
+
+    public static function reportDiscount($param){
+        $query = Export::where('export_id','>',0);
+        if(isset($param['customers_id']) && $param['customers_id'] > 0){
+            $query->where('customers_id',$param['customers_id']);
+        }
+        if(isset($param['export_create_start']) && $param['export_create_start'] > 0){
+            $query->where('export_create_time','>=',$param['export_create_start']);
+        }
+        if(isset($param['export_create_end']) && $param['export_create_end'] > 0){
+            $query->where('export_create_time','<',$param['export_create_end']);
+        }
+        $query->select(DB::raw('customers_id,SUM(export_discount) as ckdn,SUM(export_discount_customer) as ckcn'));
+        $query->orderBy('export_id','DESC');
+        $query->groupBy('customers_id');
+        $data = $query->get();
+        return $data;
+    }
 }

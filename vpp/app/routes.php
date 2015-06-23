@@ -109,6 +109,8 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('report/customer',array('as' => 'admin.report_customer','uses' => 'ReportController@reportCustomer'));
     Route::get('report/productHot',array('as' => 'admin.report_productHot','uses' => 'ReportController@reportProductHot'));
     Route::get('report/import',array('as' => 'admin.report_import','uses' => 'ReportController@reportImport'));
+    Route::get('report/export',array('as' => 'admin.report_import','uses' => 'ReportController@reportExport'));
+    Route::get('report/discount',array('as' => 'admin.report_import','uses' => 'ReportController@reportDiscount'));
 
 
 });

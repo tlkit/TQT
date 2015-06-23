@@ -56,4 +56,55 @@ class ReportController extends BaseAdminController{
             ->with('data',$data);
 
     }
+
+    public function reportExport(){
+        $param['export_product_create_start'] = Request::get('export_product_create_start','');
+        $param['export_product_create_end'] = Request::get('export_product_create_end','');
+        $param['product_id'] = (int)Request::get('product_id',0);
+        $param['customers_id'] = (int)Request::get('customers_id',0);
+        $input = $param;
+        $input['export_product_create_start'] = ($input['export_product_create_start'] != '') ? strtotime($input['export_product_create_start']) : 0;
+        $input['export_product_create_end'] = ($input['export_product_create_end'] != '') ? strtotime($input['export_product_create_end'])+86400 : 0;
+        $data = ExportProduct::reportExport($input);
+        $customer = Customers::getListAll();
+        $product = Product::getListAll();
+        $this->layout->content = View::make('admin.ReportLayouts.export')
+            ->with('customer',$customer)
+            ->with('product',$product)
+            ->with('param',$param)
+            ->with('data',$data);
+
+    }
+
+    public function reportDiscount(){
+        $param['export_create_start'] = Request::get('export_create_start','');
+        $param['export_create_end'] = Request::get('export_create_end','');
+        $param['customers_id'] = (int)Request::get('customers_id',0);
+        $input = $param;
+        $input['export_create_start'] = ($input['export_create_start'] != '') ? strtotime($input['export_create_start']) : 0;
+        $input['export_create_end'] = ($input['export_create_end'] != '') ? strtotime($input['export_create_end'])+86400 : 0;
+        $data = Export::reportDiscount($input);
+        $customer = Customers::getListAll();
+        $this->layout->content = View::make('admin.ReportLayouts.discount')
+            ->with('customer',$customer)
+            ->with('param',$param)
+            ->with('data',$data);
+
+    }
+
+    public function reportSaleList(){
+        $param['export_product_create_start'] = Request::get('export_product_create_start','');
+        $param['export_product_create_end'] = Request::get('export_product_create_end','');
+        $param['customers_id'] = (int)Request::get('customers_id',0);
+        $input = $param;
+        $input['export_product_create_start'] = ($input['export_product_create_start'] != '') ? strtotime($input['export_product_create_start']) : 0;
+        $input['export_product_create_end'] = ($input['export_product_create_end'] != '') ? strtotime($input['export_product_create_end'])+86400 : 0;
+        $data = ExportProduct::reportSaleList($input);
+        $customer = Customers::getListAll();
+        $this->layout->content = View::make('admin.ReportLayouts.sale_list')
+            ->with('customer',$customer)
+            ->with('param',$param)
+            ->with('data',$data);
+
+    }
 }
