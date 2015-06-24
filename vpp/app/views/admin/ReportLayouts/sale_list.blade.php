@@ -46,7 +46,8 @@
                     </div>
                     <div class="panel-footer text-right">
                         <span class="">
-                            <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
+                            <button class="btn btn-danger btn-sm" name="submit" value="2"><i class="ace-icon fa fa-file-excel-o"></i> Xuất Excel</button>
+                            <button class="btn btn-primary btn-sm" name="submit" value="1"><i class="fa fa-search"></i> Tìm kiếm</button>
                         </span>
                     </div>
                     {{ Form::close() }}
