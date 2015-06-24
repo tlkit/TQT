@@ -108,7 +108,9 @@ class ProductController extends BaseAdminController
         $dataSave['product_PackedWayID'] = Request::get('product_PackedWayID');
         $dataSave['product_NamePackedWay'] = Request::get('product_NamePackedWay');
 
-        $dataSave['product_Price'] = Request::get('product_Price');
+        $product_Price = Request::get('product_Price');
+        $dataSave['product_Price'] =  str_replace('.','',$product_Price);
+
         $dataSave['product_Description'] = Request::get('product_Description');
         $dataSave['product_Image'] = Request::get('product_Image');
         $dataSave['product_Thumbnail'] = Request::get('product_Thumbnail');

@@ -67,7 +67,7 @@
                                 <td>{{ $item['product_Name'] }}</td>
                                 <td>@if(isset($arrCategory[$item['product_Category']])) {{$arrCategory[$item['product_Category']]}}@else --- @endif</td>
                                 <td class="text-center">{{ $item['product_Quantity'] }}</td>
-                                <td class="text-right">{{ $item['product_Price'] }} đ</td>
+                                <td class="text-right">{{number_format($item['product_Price'],0,'.','.')}} đ</td>
                                 <td class="text-center">
                                     @if($permission_edit == 1)
                                         <a href="{{URL::route('admin.product_edit',array('id' => $item['product_id']))}}" title="Sửa item"><i class="fa fa-edit"></i></a>

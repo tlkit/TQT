@@ -44,8 +44,7 @@
                 </div>
                 <div class="form-group col-sm-3">
                     <label for="customers_Code"><i>Giá</i></label>
-                    <input type="text" id="product_Price" name="product_Price" class="form-control input-sm"
-                           value="@if(isset($data['product_Price'])){{$data['product_Price']}}@endif">
+                    <input type="text" class="form-control input-sm" id="product_Price" name="product_Price" value="@if(isset($data['product_Price'])){{number_format($data['product_Price'],0,'.','.')}}@endif">
                 </div>
                 <div class="form-group col-sm-3">
                     <label for="customers_Code"><i>SL tối thiểu</i></label>
@@ -104,3 +103,9 @@
         <!-- /.row -->
     </div><!-- /.page-content -->
 </div>
+<script>
+    $("#product_Price").on('keyup', function (event) {
+            Import.fomatNumber('product_Price');
+        });
+</script>
+{{HTML::script('assets/admin/js/import.js');}}
