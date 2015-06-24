@@ -17,6 +17,10 @@ class Product extends Eloquent
 
     protected $fillable = array('product_Code', 'product_Name', 'product_Category', 'product_CategoryName', 'product_Alias', 'product_OriginID', 'product_NameOrigin', 'product_UnitID', 'product_NameUnit', 'product_PackedWayID', 'product_NamePackedWay', 'product_Price', 'product_Description', 'product_Image', 'product_Thumbnail', 'product_Quantity', 'product_MinimumQuantity', 'product_IsAvailable', 'product_CreatorID', 'product_CreatedTime', 'product_ModifiedTime', 'product_Status');
 
+    public function importproduct() {
+        return $this->hasMany('ImportProduct');
+    }
+
     public static function getByID($id)
     {
         $product = Product::where('product_id', $id)->first();
@@ -156,6 +160,14 @@ class Product extends Eloquent
         $query->groupBy($tbl_export_product.'.product_id');
         $data = $query->get();
         return $data;
+    }
+
+    public static function getProductStore(){
+        $product = Product::select('*')->get();
+        foreach($product as $pr){
+            $pr->store = $pr->importproduct()->orderBy('import_product_create_time','DESC')->take(5)->get();
+        }
+        return $product;
     }
 
 
