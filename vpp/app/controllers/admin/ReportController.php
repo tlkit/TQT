@@ -72,7 +72,7 @@ class ReportController extends BaseAdminController{
         $ary_cell = array(
             'A'=>array('w'=>$val10,'val'=>'STT','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
             'B'=>array('w'=>$val50,'val'=>'Khách hàng','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
-            'C'=>array('w'=>$val18,'val'=>'Tổng số hóa đơn','align'=>PHPExcel_Style_Alignment::HORIZONTAL_LEFT),
+            'C'=>array('w'=>$val18,'val'=>'Tổng số hóa đơn','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
             'D'=>array('w'=>$val18,'val'=>'Tổng tiền','align'=>PHPExcel_Style_Alignment::HORIZONTAL_RIGHT),
         );
 
@@ -117,15 +117,15 @@ class ReportController extends BaseAdminController{
 
             $sheet->getStyle('B'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
-            $sheet->SetCellValue('B'.$rowCount, $data['customers_FirstName']);
+            $sheet->SetCellValue('B'.$rowCount, $data->customers_FirstName);
 
             $sheet->getStyle('C'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT,));
-            $sheet->SetCellValue('C'.$rowCount, $data['count_export']);
+            $sheet->SetCellValue('C'.$rowCount, $data->count_export);
 
             $sheet->getStyle('D'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,));
-            $sheet->SetCellValue('D'.$rowCount, number_format($data['sum_export'],0,',',',').' đ');
+            $sheet->SetCellValue('D'.$rowCount, number_format($data->sum_export,0,',',',').' đ');
 
             $rowCount++;
         }
@@ -246,15 +246,15 @@ class ReportController extends BaseAdminController{
 
             $sheet->getStyle('B'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
-            $sheet->SetCellValue('B'.$rowCount, $data['product_Code']);
+            $sheet->SetCellValue('B'.$rowCount, $data->product_Code);
 
             $sheet->getStyle('C'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT,));
-            $sheet->SetCellValue('C'.$rowCount, $data['product_Name']);
+            $sheet->SetCellValue('C'.$rowCount, $data->product_Name);
 
             $sheet->getStyle('D'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,));
-            $sheet->SetCellValue('D'.$rowCount, number_format($data['sum_product'],0,',',',').' đ');
+            $sheet->SetCellValue('D'.$rowCount, number_format($data->sum_product,0,',',','));
 
             $rowCount++;
         }
@@ -287,7 +287,7 @@ class ReportController extends BaseAdminController{
 
         $data = ImportProduct::reportImport($input);
         $d = Product::getProductStore();
-        echo '<pre>';print_r($d);echo '</pre>';die;
+        //echo '<pre>';print_r($d);echo '</pre>';die;
         $provider = Providers::getListAll();
         $product = Product::getListAll();
 

@@ -49,7 +49,7 @@
                         <tr class="">
                             <th class="center" width="10%">STT</th>
                             <th class="center" width="20%">Mã SP</th>
-                            <th class="center" width="50%">Khách hàng</th>
+                            <th class="left" width="50%">Tên sản phẩm</th>
                             <th class="center" width="20%">Tổng số đã bán</th>
                         </tr>
                         </thead>
