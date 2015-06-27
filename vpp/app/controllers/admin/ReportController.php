@@ -944,14 +944,172 @@ class ReportController extends BaseAdminController{
         parent::debug();
     }
 
+    /*****************************************************************************************
+     * Thống kê tồn kho
+     * ******************************************************************************************/
     public function reportStore(){
         $param['product_id'] = (int)Request::get('product_id',0);
+        $submit = (int)Request::get('submit',1);
         $data = Product::getProductStore($param);
         $product = Product::getListAll();
+
+        //xuất excel
+        if($submit == 2){
+            $this->exportExcelReportStore($data);
+        }
+
         $this->layout->content = View::make('admin.ReportLayouts.store')
             ->with('param',$param)
             ->with('data',$data)
             ->with('product',$product);
 
+    }
+    public function exportExcelReportStore($arrData = array()){
+        if(empty($arrData))
+            return;
+        // xu ly export
+        ini_set('max_execution_time', 3000);
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $sheet = $objPHPExcel->getActiveSheet();
+
+        // Set Orientation, size and scaling
+        $sheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
+        $sheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+        $sheet->getPageSetup()->setFitToPage(true);
+        $sheet->getPageSetup()->setFitToWidth(1);
+        $sheet->getPageSetup()->setFitToHeight(0);
+        // Set font
+        $sheet->getDefaultStyle()->getFont()->setName('Arial')->setSize(10);
+        $sheet->getStyle('A1')->getFont()->setSize(16)->getColor()->setRGB('000000');
+        $sheet->mergeCells('A1:H1');
+        $sheet->setCellValue("A1", "Thống kê tồn kho");
+        $sheet->getRowDimension("1")->setRowHeight(26);
+        $sheet->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER)
+            ->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+        //ngày thống kê
+        $sheet->getStyle('A2')->getFont()->setSize(11)->getColor()->setRGB('000000');
+        $sheet->mergeCells('A2:H2');
+        $sheet->setCellValue("A2", "Ngày thống kê: ".date('d-m-Y H:i:s',time()));
+        $sheet->getRowDimension("2")->setRowHeight(24);
+        $sheet->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT)
+            ->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+        // setting header
+        $position_hearder = 3;
+        $sheet->getRowDimension($position_hearder)->setRowHeight(30);
+        $val10 = 10; $val18 = 18; $val35 = 35;$val50 = 50; $val25 = 25;
+        $ary_cell = array(
+            'A'=>array('w'=>$val10,'val'=>'STT','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
+            'B'=>array('w'=>$val18,'val'=>'Mã SP','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
+            'C'=>array('w'=>$val50,'val'=>'Tên sản phẩm','align'=>PHPExcel_Style_Alignment::HORIZONTAL_LEFT),
+            'D'=>array('w'=>$val18,'val'=>'Xuất sứ','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
+            'E'=>array('w'=>$val18,'val'=>'Đơn vị tính','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
+            'F'=>array('w'=>$val18,'val'=>'Số lượng','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
+            'G'=>array('w'=>$val25,'val'=>'Giá nhập','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
+            'H'=>array('w'=>$val25,'val'=>'Tiền tồn','align'=>PHPExcel_Style_Alignment::HORIZONTAL_RIGHT),
+        );
+
+        //build header title
+        foreach($ary_cell as $col => $attr){
+            $sheet->getColumnDimension($col)->setWidth($attr['w']);
+            $sheet->setCellValue("$col{$position_hearder}",$attr['val']);
+            $sheet->getStyle($col)->getAlignment()->setWrapText(true);
+            $sheet->getStyle($col . $position_hearder)->applyFromArray(
+                array(
+                    'fill' => array(
+                        'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                        'color' => array('rgb' => '05729C'),
+                        'style' => array('font-weight' => 'bold')
+                    ),
+                    'font'  => array(
+                        'bold'  => true,
+                        'color' => array('rgb' => 'FFFFFF'),
+                        'size'  => 10,
+                        'name'  => 'Verdana'
+                    ),
+                    'borders' => array(
+                        'allborders' => array(
+                            'style' => PHPExcel_Style_Border::BORDER_THIN,
+                            'color' => array('rgb' => '333333')
+                        )
+                    ),
+                    'alignment' => array(
+                        'horizontal' => $attr['align'],
+                    )
+                )
+            );
+        }
+
+        //hien thị dũ liệu
+        $rowCount = $position_hearder+1; // hang bat dau xuat du lieu
+        foreach($arrData as $ky=>$data){
+            $sheet->getRowDimension($rowCount)->setRowHeight(25);//chiều cao của row
+            $sheet->getStyle('A'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+            $sheet->SetCellValue('A'.$rowCount, $ky+1);
+
+            $sheet->getStyle('B'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+            $sheet->SetCellValue('B'.$rowCount, $data['product_Code']);
+
+            $sheet->getStyle('C'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT,));
+            $sheet->SetCellValue('C'.$rowCount, $data['product_Name']);
+
+            $sheet->getStyle('D'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+            $sheet->SetCellValue('D'.$rowCount, $data['product_NameOrigin']);
+
+            $sheet->getStyle('E'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+            $sheet->SetCellValue('E'.$rowCount, $data['product_NameUnit']);
+
+            $sheet->getStyle('F'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+            $sheet->SetCellValue('F'.$rowCount, $data['product_Quantity']);
+
+            $sub_total = 0;$show_price = '';
+            $quantity = $data['product_Quantity'];
+            if($data['store']){
+                foreach($data['store'] as $store){
+                    if($quantity > 0){
+                        if($quantity >= $store['import_product_num']){
+                            $show_price = number_format($store['import_product_price'],0,'.','.').'đ'.' ('.$store['import_product_num'].')';
+                            $quantity = $quantity-$store['import_product_num'];
+                            $sub_total += ($store['import_product_num'] * $store['import_product_price']);
+                        }
+                        else{
+                            $show_price = number_format($store['import_product_price'],0,'.','.').'đ'.' ('.$quantity.')';
+                            $sub_total += ($quantity * $store['import_product_price']);
+                            $quantity = 0;
+                        }
+                    }
+                }
+            }
+
+            $sheet->getStyle('G'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+            $sheet->SetCellValue('G'.$rowCount, $show_price);
+
+            $sheet->getStyle('H'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,));
+            $sheet->SetCellValue('H'.$rowCount, number_format($sub_total,0,',',',').' đ');
+
+            $rowCount++;
+        }
+        // output file
+        ob_clean();
+        $filename = "Thong_ke_ton_kho" . date("_d/m/Y_H_i").'.xls';
+        @header("Cache-Control: ");
+        @header("Pragma: ");
+        @header("Content-type: application/octet-stream");
+        @header("Content-Disposition: attachment; filename=\"{$filename}\"");
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $objWriter->save("php://output");
+        exit();
+        parent::debug();
     }
 }
