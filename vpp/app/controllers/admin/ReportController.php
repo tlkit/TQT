@@ -286,7 +286,7 @@ class ReportController extends BaseAdminController{
         $input['import_product_create_end'] = ($input['import_product_create_end'] != '') ? strtotime($input['import_product_create_end'])+86400 : 0;
 
         $data = ImportProduct::reportImport($input);
-        $d = Product::getProductStore();
+        //$d = Product::getProductStore();
         //echo '<pre>';print_r($d);echo '</pre>';die;
         $provider = Providers::getListAll();
         $product = Product::getListAll();
@@ -873,5 +873,16 @@ class ReportController extends BaseAdminController{
         $objWriter->save("php://output");
         exit();
         parent::debug();
+    }
+
+    public function reportStore(){
+        $param['product_id'] = (int)Request::get('product_id',0);
+        $data = Product::getProductStore($param);
+        $product = Product::getListAll();
+        $this->layout->content = View::make('admin.ReportLayouts.store')
+            ->with('param',$param)
+            ->with('data',$data)
+            ->with('product',$product);
+
     }
 }

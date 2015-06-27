@@ -112,6 +112,7 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('report/export',array('as' => 'admin.report_export','uses' => 'ReportController@reportExport'));
     Route::get('report/discount',array('as' => 'admin.report_discount','uses' => 'ReportController@reportDiscount'));
     Route::get('report/sale_list',array('as' => 'admin.report_sale_list','uses' => 'ReportController@reportSaleList'));
+    Route::get('report/store',array('as' => 'admin.report_store','uses' => 'ReportController@reportStore'));
 
 
 });

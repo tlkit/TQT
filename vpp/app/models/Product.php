@@ -162,10 +162,15 @@ class Product extends Eloquent
         return $data;
     }
 
-    public static function getProductStore(){
-        $product = Product::select('*')->get();
-        foreach($product as $pr){
-            $pr->store = $pr->importproduct()->orderBy('import_product_create_time','DESC')->take(5)->get();
+    public static function getProductStore($param)
+    {
+        $query = Product::select('*');
+        if (isset($param['product_id']) && $param['product_id'] > 0) {
+            $query->where('product_id', $param['product_id']);
+        }
+        $product = $query->get();
+        foreach ($product as $pr) {
+            $pr->store = $pr->importproduct()->orderBy('import_product_create_time', 'DESC')->take(5)->get();
         }
         return $product;
     }
