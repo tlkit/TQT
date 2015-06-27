@@ -11,10 +11,12 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+//Route::get('/', function(){	return View::make('hello');});
+
+//Trang chu
+//Route::get('/',array('as' => 'site.index','uses' =>'SiteHomeController@index'));
+Route::get('/',array('as' => 'site.index','uses' =>'SiteHomeController@offSite'));
+
 Route::group(array('prefix' => 'admin', 'before' => ''), function()
 {
     /*login logout*/
