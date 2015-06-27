@@ -8,6 +8,7 @@
 
 class ReportController extends BaseAdminController{
 
+    private $filename = '';
     public function __construct(){
         parent::__construct();
 
@@ -727,8 +728,10 @@ class ReportController extends BaseAdminController{
     public function reportSaleList(){
         $param['export_product_create_start'] = Request::get('export_product_create_start','');
         $param['export_product_create_end'] = Request::get('export_product_create_end','');
+        $param['export_time'] = Request::get('export_time',date('d/m/Y',time()));
+        $param['bill_code'] = Request::get('bill_code','');
         $param['customers_id'] = (int)Request::get('customers_id',0);
-        $submit = (int)Request::get('submit',1);
+        //$submit = (int)Request::get('submit',1);
         $input = $param;
         $input['export_product_create_start'] = ($input['export_product_create_start'] != '') ? strtotime($input['export_product_create_start']) : 0;
         $input['export_product_create_end'] = ($input['export_product_create_end'] != '') ? strtotime($input['export_product_create_end'])+86400 : 0;
@@ -736,15 +739,81 @@ class ReportController extends BaseAdminController{
         $customer = Customers::getListAll();
 
         //xuất excel
-        if($submit == 2){
-            $this->exportExcelReportSaleList($data,$customer);
-        }
+//        if($submit == 2){
+//            $this->exportExcelReportSaleList($data,$customer);
+//        }
         $this->layout->content = View::make('admin.ReportLayouts.sale_list')
             ->with('customer',$customer)
             ->with('param',$param)
             ->with('data',$data);
 
     }
+
+    public function exportPdf()
+    {
+//        if (!in_array($this->permission_view, $this->permission)) {
+//            return Redirect::route('admin.dashboard');
+//        }
+
+//        $providers = Providers::find($import->providers_id);
+
+        $param['export_product_create_start'] = Request::get('export_start','');
+        $param['export_product_create_end'] = Request::get('export_end','');
+        $param['export_time'] = Request::get('export_time',date('d/m/Y',time()));
+        $param['customers_id'] = (int)Request::get('customers_id',0);
+        $param['bill_code'] = Request::get('bill_code','');
+        //$submit = (int)Request::get('submit',1);
+        $input = $param;
+        $input['export_product_create_start'] = ($input['export_product_create_start'] != '') ? strtotime($input['export_product_create_start']) : 0;
+        $input['export_product_create_end'] = ($input['export_product_create_end'] != '') ? strtotime($input['export_product_create_end'])+86400 : 0;
+        $input['export_time'] = ($input['export_time'] != '') ? strtotime($input['export_time']) : 0;
+        $data = ExportProduct::reportSaleList($input);
+        $customer = Customers::find($param['customers_id']);
+        if ($customer) {
+            $html = View::make('admin.ReportLayouts.exportpdf')->with('data', $data)->with('input', $input)->with('customer', $customer)->render();
+        }else{
+            $html = 'Không có thông tin khách hàng';
+        }
+        $signature = false;
+        $this->filename = "Bang-ke-KH-" . $param['customers_id'] . ".pdf";
+        $this->pdfOutput($html, $this->filename, 'I', $signature);
+    }
+
+    function pdfOutput($html, $filename, $outputType = 'I', $signature = false){
+        $pdf = new MYPDF(PDF_PAGE_ORIENTATION, 'px', PDF_PAGE_FORMAT, true, 'UTF-8', false, false, $signature);
+        // set document information
+        $pdf->SetCreator('System');
+        $pdf->SetAuthor('TQT');
+        $pdf->SetTitle('');
+        $pdf->SetSubject('');
+        $pdf->SetKeywords('TQT, export');
+        $pdf->setPrintFooter(false);
+
+        // set default monospaced font
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+        $pdf->setFontSubsetting(false);
+        $pdf->SetMargins(30, 15, 30);
+        $pdf->SetHeaderMargin(0);
+        $pdf->SetFooterMargin(0);
+
+        $pdf->SetCellPaddings(0);
+
+        //set auto page breaks
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setFormDefaultProp(array('lineWidth'=>0, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 255), 'strokeColor'=>array(255, 255, 255)));
+        // set font
+        $pdf->SetFont('freeserif', '', 10);
+        // add a page
+        $pdf->AddPage();
+        // output the HTML content
+        $pdf->writeHTML($html, true, false, true, false, '');
+        // reset pointer to the last page
+        $pdf->lastPage();
+        //Close and output PDF document
+        $pdf->Output($filename, $outputType);
+    }
+
     public function exportExcelReportSaleList($arrData = array()){
         if(empty($arrData))
             return;

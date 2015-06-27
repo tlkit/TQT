@@ -16,7 +16,7 @@
                 <div class="panel panel-info">
                     {{ Form::open(array('method' => 'GET', 'role'=>'form')) }}
                     <div class="panel-body">
-                        <div class="col-lg-3 col-sm-6 sys_time">
+                        <div class="col-lg-3 col-sm-4 sys_time">
                             <label for="export_product_create_start">Ngày xuất hàng từ </label>
                             <div class="input-group input-group-sm">
                                 <input type="text" id="export_product_create_start" name="export_product_create_start" class="form-control" @if(isset($param['export_product_create_start']) && $param['export_product_create_start'] != '')value="{{$param['export_product_create_start']}}"@endif/>
@@ -25,7 +25,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-sm-6 sys_time">
+                        <div class="col-lg-3 col-sm-4 sys_time">
                             <label for="export_product_create_end">Đến </label>
                             <div class="input-group input-group-sm">
                                 <input type="text" id="export_product_create_end" name="export_product_create_end" class="form-control" @if(isset($param['export_product_create_end']) && $param['export_product_create_end'] != '')value="{{$param['export_product_create_end']}}"@endif/>
@@ -34,7 +34,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-sm-6 input-group-sm">
+                        <div class="col-lg-3 col-sm-4">
                             <label for="customers_id">Khách hàng </label>
                             <select name="customers_id" id="customers_id" class="form-control input-sm" data-placeholder="Chọn khách hàng">
                                 <option value="0" @if($param['customers_id'] == 0) selected="selected" @endif></option>
@@ -43,10 +43,24 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="clearfix"></div>
+                        <div class="col-lg-3 col-sm-4">
+                            <label for="export_time">Ngày xuất bảng </label>
+                            <div class="input-group input-group-sm">
+                                <input type="text" id="export_time" name="export_time" class="form-control" @if(isset($param['export_time']) && $param['export_time'] != '')value="{{$param['export_time']}}"@endif/>
+                                <span class="input-group-addon">
+                                    <i class="ace-icon fa fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-4">
+                            <label for="bill_code">Kèm HĐGTGT </label>
+                            <input type="text" id="bill_code" name="bill_code" class="form-control input-sm" @if(isset($param['bill_code']) && $param['bill_code'] != '')value="{{$param['bill_code']}}"@endif/>
+                        </div>
                     </div>
                     <div class="panel-footer text-right">
                         <span class="">
-                            <button class="btn btn-danger btn-sm" name="submit" value="2"><i class="ace-icon fa fa-file-excel-o"></i> Xuất Excel</button>
+                            <a class="btn btn-danger btn-sm" href="{{URL::route('admin.report_sale_list_exportPdf')}}?export_start={{$param['export_product_create_start']}}&export_end={{$param['export_product_create_end']}}&export_time={{$param['export_time']}}&bill_code={{$param['bill_code']}}&customers_id={{$param['customers_id']}}" target="_blank"><i class="ace-icon fa fa-file-excel-o"></i> Xuất Excel</a>
                             <button class="btn btn-primary btn-sm" name="submit" value="1"><i class="fa fa-search"></i> Tìm kiếm</button>
                         </span>
                     </div>
@@ -111,6 +125,11 @@
         selectOtherMonths: false,
 //        numberOfMonths: 2,
         dateFormat: 'dd-mm-yy'
+    });
+    $( "#export_time" ).datepicker({
+        showOtherMonths: true,
+        selectOtherMonths: false,
+//        numberOfMonths: 2,
     });
     $('#customers_id').chosen({allow_single_deselect:true,no_results_text:'Từ khóa : ',search_contains: true});
 </script>
