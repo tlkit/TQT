@@ -45,7 +45,7 @@
     @endif
 </div>
 <div style="clear: both"></div>
-<table border="0.3" cellspacing="0" cellpadding="3" width="100%">
+<table border="0.3" cellspacing="0" cellpadding="1" width="100%">
     <thead>
     <tr style="">
         <td valign="middle" width="5%" style="text-align: center;"><b>STT</b></td>

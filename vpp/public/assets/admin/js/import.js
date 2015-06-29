@@ -4,6 +4,8 @@
 var restore = 0;
 $(document).ready(function(){
 
+    $('[data-rel=popover]').popover({container: 'body'});
+
     $('#providers_id').chosen({allow_single_deselect:true,no_results_text:'Từ khóa : ',search_contains: true});
 
     $("#providers_id").on('change', function () {
@@ -92,7 +94,7 @@ $(document).ready(function(){
             error: function () {
             },
             success: function (data) {
-
+                $('[data-rel=popover]').popover({container: 'body'});
                 $("#sys_product_info").html(data.html);
                 if (data.success == 1) {
                     $("#product_name").val('');
@@ -182,6 +184,7 @@ var Import = {
             error: function () {
             },
             success: function (data) {
+                $('[data-rel=popover]').popover({container: 'body'});
                 $("#sys_product_info").html(data.html);
             }
         });

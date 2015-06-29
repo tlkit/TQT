@@ -83,8 +83,9 @@
                                 </td>
                                 <td class="text-center">
                                     @if($permission_edit)
-                                        <a href="{{URL::route('admin.groupUser_edit',array('id' => $item['group_user_id']))}}"
-                                           title="Sửa nhóm"><i class="fa fa-edit"></i></a>
+                                        <a href="{{URL::route('admin.groupUser_edit',array('id' => $item['group_user_id']))}}" class="btn btn-xs btn-primary" data-content="Sửa nhóm" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                            <i class="ace-icon fa fa-edit bigger-120"></i>
+                                        </a>
                                     @endif
                                 </td>
                             </tr>
@@ -106,3 +107,6 @@
         <!-- /.row -->
     </div><!-- /.page-content -->
 </div>
+<script type="text/javascript">
+    $('[data-rel=popover]').popover({container: 'body'});
+</script>

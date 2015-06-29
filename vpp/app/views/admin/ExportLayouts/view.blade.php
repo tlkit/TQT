@@ -127,12 +127,24 @@
                                 <td class="center">{{date('d-m-Y H:i',$item['export_create_time'])}}</td>
                                 <td>
                                     @if($item['export_status'] == 1)
-                                        <div class="col-sm-3"><a href="{{URL::route('admin.export_detail',array('id' => base64_encode($item['export_id'])))}}" title="Chi tiết hóa đơn"><i class="fa fa-file-text-o fa-2x"></i></a></div>
-                                        <div class="col-sm-3"><a href="{{URL::route('admin.export_exportPdf',array('id' => base64_encode($item['export_id'])))}}" target="_blank" title="Xuất pdf"><i class="fa fa-file-pdf-o fa-2x"></i></a></div>
+                                        <a href="{{URL::route('admin.export_detail',array('id' => base64_encode($item['export_id'])))}}" class="btn btn-xs btn-primary" data-content="Chi tiết hóa đơn" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                            <i class="ace-icon fa fa-file-text-o bigger-120"></i>
+                                        </a>
+                                        {{--<div class="col-sm-3"><a href="{{URL::route('admin.export_detail',array('id' => base64_encode($item['export_id'])))}}" title="Chi tiết hóa đơn"><i class="fa fa-file-text-o fa-2x"></i></a></div>--}}
+                                        <a href="{{URL::route('admin.export_exportPdf',array('id' => base64_encode($item['export_id'])))}}" target="_blank" class="btn btn-xs btn-danger" data-content="Xuất pdf" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                            <i class="ace-icon fa fa-file-pdf-o bigger-120"></i>
+                                        </a>
+                                        {{--<div class="col-sm-3"><a href="{{URL::route('admin.export_exportPdf',array('id' => base64_encode($item['export_id'])))}}" target="_blank" title="Xuất pdf"><i class="fa fa-file-pdf-o fa-2x"></i></a></div>--}}
                                         @if($permission_edit)
-                                        <div class="col-sm-3"><a href="javascript:void(0)" title="Hủy hóa đơn" class="sys_open_delete" data-code="{{$item['export_code']}}"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                                            <a href="javascript:void(0)" class="btn btn-xs btn-warning sys_open_delete" data-code="{{$item['export_code']}}" data-content="Hủy hóa đơn" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                            </a>
+                                        {{--<div class="col-sm-3"><a href="javascript:void(0)" title="Hủy hóa đơn" class="sys_open_delete" data-code="{{$item['export_code']}}"><i class="fa fa-trash-o fa-2x"></i></a></div>--}}
                                         @if($permission_create)
-                                        <div class="col-sm-3"><a href="javascript:void(0)" title="Hủy hóa đơn và tạo lại" class="sys_open_restore" data-code="{{$item['export_code']}}"><i class="fa fa-history fa-2x"></i></a></div>
+                                            <a href="javascript:void(0)" class="btn btn-xs btn-success sys_open_restore" data-code="{{$item['export_code']}}" data-content="Hủy hóa đơn và tạo lại" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                                <i class="ace-icon fa fa-history bigger-120"></i>
+                                            </a>
+                                        {{--<div class="col-sm-3"><a href="javascript:void(0)" title="Hủy hóa đơn và tạo lại" class="sys_open_restore" data-code="{{$item['export_code']}}"><i class="fa fa-history fa-2x"></i></a></div>--}}
                                         @endif
                                         {{--modal--}}
                                         <div class="modal fade" role="dialog" id="export_{{$item['export_code']}}" aria-hidden="true">
@@ -154,7 +166,10 @@
                                         </div><!-- /.modal -->
                                         @endif
                                     @else
-                                        <div class="col-sm-3"><a href="javascript:void(0)" title="Ghi chú" data-target="#note_{{$item['export_code']}}" data-toggle="modal"><i class="fa fa-bookmark-o fa-2x"></i></a></div>
+                                        <a href="javascript:void(0)" class="btn btn-xs btn-warning" data-target="#note_{{$item['export_code']}}" data-toggle="modal" data-content="Ghi chú" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                            <i class="ace-icon fa fa-bookmark-o bigger-120"></i>
+                                        </a>
+                                        {{--<div class="col-sm-3"><a href="javascript:void(0)" title="Ghi chú" data-target="#note_{{$item['export_code']}}" data-toggle="modal"><i class="fa fa-bookmark-o fa-2x"></i></a></div>--}}
                                         {{--modal--}}
                                         <div class="modal fade grey" role="dialog" id="note_{{$item['export_code']}}" aria-hidden="true">
                                             <div class="modal-dialog">

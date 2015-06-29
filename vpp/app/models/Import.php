@@ -90,7 +90,7 @@ class Import extends Eloquent{
             DB::connection()->getPdo()->commit();
             return $import_id;
         } catch (\PDOException $e) {
-            var_dump($e->getMessage());die;
+            //var_dump($e->getMessage());die;
             DB::connection()->getPdo()->rollBack();
             //throw new PDOException();
             return false;

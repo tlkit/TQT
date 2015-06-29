@@ -9,6 +9,13 @@
 class ReportController extends BaseAdminController{
 
     private $filename = '';
+    private $permission_report_customer = 'report_customer';
+    private $permission_report_product_hot = 'report_product_hot';
+    private $permission_report_import = 'report_import';
+    private $permission_report_export = 'report_export';
+    private $permission_report_discount = 'report_discount';
+    private $permission_report_sale_list = 'report_sale_list';
+    private $permission_report_store = 'report_store';
     public function __construct(){
         parent::__construct();
 
@@ -18,6 +25,9 @@ class ReportController extends BaseAdminController{
      * Thống kê khách hàng
      * ******************************************************************************************/
     public function reportCustomer(){
+        if (!in_array($this->permission_report_customer, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $param['customers_id'] = Request::get('customers_id',0);
         $param['export_create_start'] = Request::get('export_create_start','');
         $param['export_create_end'] = Request::get('export_create_start','');
@@ -148,6 +158,9 @@ class ReportController extends BaseAdminController{
     * Sản phẩm bán chạy
     * ******************************************************************************************/
     public function reportProductHot(){
+        if (!in_array($this->permission_report_product_hot, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
 //        $param['customers_id'] = Request::get('customers_id',0);
         $param['export_product_create_start'] = Request::get('export_product_create_start','');
         $param['export_product_create_end'] = Request::get('export_product_create_end','');
@@ -277,6 +290,9 @@ class ReportController extends BaseAdminController{
      * thông kê nhập hàng
      * ******************************************************************************************/
     public function reportImport(){
+        if (!in_array($this->permission_report_import, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $param['import_product_create_start'] = Request::get('import_product_create_start','');
         $param['import_product_create_end'] = Request::get('import_product_create_end','');
         $param['product_id'] = (int)Request::get('product_id',0);
@@ -433,6 +449,9 @@ class ReportController extends BaseAdminController{
      * thông kê Xuất hàng
      * ******************************************************************************************/
     public function reportExport(){
+        if (!in_array($this->permission_report_export, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $param['export_product_create_start'] = Request::get('export_product_create_start','');
         $param['export_product_create_end'] = Request::get('export_product_create_end','');
         $param['product_id'] = (int)Request::get('product_id',0);
@@ -587,6 +606,9 @@ class ReportController extends BaseAdminController{
      * thông kê Chiết khấu
      * ******************************************************************************************/
     public function reportDiscount(){
+        if (!in_array($this->permission_report_discount, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $param['export_create_start'] = Request::get('export_create_start','');
         $param['export_create_end'] = Request::get('export_create_end','');
         $param['customers_id'] = (int)Request::get('customers_id',0);
@@ -726,9 +748,12 @@ class ReportController extends BaseAdminController{
      * bảng kê bán hàng
      * ******************************************************************************************/
     public function reportSaleList(){
+        if (!in_array($this->permission_report_sale_list, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $param['export_product_create_start'] = Request::get('export_product_create_start','');
         $param['export_product_create_end'] = Request::get('export_product_create_end','');
-        $param['export_time'] = Request::get('export_time',date('d/m/Y',time()));
+        $param['export_time'] = Request::get('export_time',date('d-m-Y',time()));
         $param['bill_code'] = Request::get('bill_code','');
         $param['customers_id'] = (int)Request::get('customers_id',0);
         //$submit = (int)Request::get('submit',1);
@@ -759,7 +784,7 @@ class ReportController extends BaseAdminController{
 
         $param['export_product_create_start'] = Request::get('export_start','');
         $param['export_product_create_end'] = Request::get('export_end','');
-        $param['export_time'] = Request::get('export_time',date('d/m/Y',time()));
+        $param['export_time'] = Request::get('export_time',date('d-m-Y',time()));
         $param['customers_id'] = (int)Request::get('customers_id',0);
         $param['bill_code'] = Request::get('bill_code','');
         //$submit = (int)Request::get('submit',1);
@@ -948,6 +973,9 @@ class ReportController extends BaseAdminController{
      * Thống kê tồn kho
      * ******************************************************************************************/
     public function reportStore(){
+        if (!in_array($this->permission_report_store, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $param['product_id'] = (int)Request::get('product_id',0);
         $submit = (int)Request::get('submit',1);
         $data = Product::getProductStore($param);

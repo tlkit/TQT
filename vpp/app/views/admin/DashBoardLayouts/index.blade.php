@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <!-- PAGE CONTENT BEGINS -->
-
+                Chào mừng bạn đến hệ thống quản lý nội bộ
                 <!-- PAGE CONTENT ENDS -->
             </div><!-- /.col -->
         </div><!-- /.row -->

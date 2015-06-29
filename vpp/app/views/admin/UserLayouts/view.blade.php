@@ -87,16 +87,16 @@
                                     @endif
                                 </td>
                                 <td class="text-center" align="center">
-                                    @if($permission_change_pass)
-                                        <br/>
-                                        <a href="{{URL::route('admin.user_change',array('id' => base64_encode($item['user_id'])))}}"
-                                           title="Đổi mật khẩu" class=""><i
-                                                    class="fa fa-lock"></i></a>
-                                    @endif
                                     <br/>
                                     @if($permission_edit)
-                                        <a href="{{URL::route('admin.user_edit',array('id' => $item['user_id']))}}"
-                                           title="Sửa thông tin tài khoản"><i class="fa fa-edit"></i></a>
+                                        <a href="{{URL::route('admin.user_edit',array('id' => $item['user_id']))}}" class="btn btn-xs btn-primary" data-content="Sửa thông tin tài khoản" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                            <i class="ace-icon fa fa-edit bigger-120"></i>
+                                        </a>
+                                    @endif
+                                    @if($permission_change_pass)
+                                        <a href="{{URL::route('admin.user_change',array('id' => base64_encode($item['user_id'])))}}" class="btn btn-xs btn-success" data-content="Đổi mật khẩu" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                            <i class="ace-icon fa fa-unlock bigger-120"></i>
+                                        </a>
                                     @endif
                                 </td>
                             </tr>
@@ -118,3 +118,6 @@
         <!-- /.row -->
     </div><!-- /.page-content -->
 </div>
+<script type="text/javascript">
+    $('[data-rel=popover]').popover({container: 'body'});
+</script>

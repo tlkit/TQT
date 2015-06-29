@@ -32,7 +32,12 @@
         <td class="text-right hidden-480">{{number_format($v['import_product_price'], 0, ',', '.');}}</td>
         <td class="center hidden-480">{{$v['import_product_num']}}</td>
         <td class="text-right hidden-480"><b>{{number_format($total_item, 0, ',', '.');}}</b></td>
-        <td class="center"><a href="javascript:void(0)" class="sys_remove_item" onclick="Import.removeItem({{$k}})"><i class="fa fa-trash-o"></i></a></td>
+        <td class="center">
+            <a href="javascript:void(0)" class="btn btn-xs btn-danger sys_remove_item" onclick="Import.removeItem({{$k}})" data-content="Bỏ sản phẩm" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                <i class="ace-icon fa fa-trash-o bigger-120"></i>
+            </a>
+            {{--<a href="javascript:void(0)" class="sys_remove_item" onclick="Import.removeItem({{$k}})"><i class="fa fa-trash-o"></i></a>--}}
+        </td>
     </tr>
     <?php $i ++;$total += $total_item;?>
     @endforeach

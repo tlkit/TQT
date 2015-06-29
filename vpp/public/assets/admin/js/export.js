@@ -3,6 +3,7 @@
  */
 var restore = 0;
 $(document).ready(function(){
+    $('[data-rel=popover]').popover({container: 'body'});
     $('#customers_id').chosen({allow_single_deselect:true,no_results_text:'Từ khóa : ',search_contains: true});
     //$('#customers_id').on('chosen:showing_dropdown', function(evt, params) {
     //    var customer_id = $('#customers_id').val();
@@ -136,7 +137,7 @@ $(document).ready(function(){
             error: function () {
             },
             success: function (data) {
-
+                $('[data-rel=popover]').popover({container: 'body'});
                 $("#sys_product_info").html(data.html);
                 if (data.success == 1) {
                     $("#product_name").val('');
@@ -216,6 +217,7 @@ var Export = {
             error: function () {
             },
             success: function (data) {
+                $('[data-rel=popover]').popover({container: 'body'});
                 $("#sys_product_info").html(data.html);
             }
         });

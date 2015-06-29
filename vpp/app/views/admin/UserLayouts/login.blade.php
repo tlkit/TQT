@@ -6,10 +6,10 @@
                     <div class="center">
                         <h1>
                             <i class="ace-icon fa fa-leaf green"></i>
-                            <span class="red">Ace</span>
+                            <span class="red">CMS</span>
                             <span class="white" id="id-text2">Application</span>
                         </h1>
-                        <h4 class="blue" id="id-company-text">&copy; Company Name</h4>
+                        <h4 class="blue" id="id-company-text">&copy; Thiều Sơn Company</h4>
                     </div>
 
                     <div class="space-6"></div>
@@ -46,10 +46,10 @@
                                             <div class="space"></div>
 
                                             <div class="clearfix">
-                                                <label class="inline">
-                                                    <input type="checkbox" class="ace" />
-                                                    <span class="lbl"> Remember Me</span>
-                                                </label>
+                                                {{--<label class="inline">--}}
+                                                    {{--<input type="checkbox" class="ace" />--}}
+                                                    {{--<span class="lbl"> Remember Me</span>--}}
+                                                {{--</label>--}}
 
                                                 <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
                                                     <i class="ace-icon fa fa-key"></i>

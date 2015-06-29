@@ -60,7 +60,7 @@
                     </div>
                     <div class="panel-footer text-right">
                         <span class="">
-                            <a class="btn btn-danger btn-sm" href="{{URL::route('admin.report_sale_list_exportPdf')}}?export_start={{$param['export_product_create_start']}}&export_end={{$param['export_product_create_end']}}&export_time={{$param['export_time']}}&bill_code={{$param['bill_code']}}&customers_id={{$param['customers_id']}}" target="_blank"><i class="ace-icon fa fa-file-excel-o"></i> Xuất Excel</a>
+                            <a class="btn btn-danger btn-sm" href="{{URL::route('admin.report_sale_list_exportPdf')}}?export_start={{$param['export_product_create_start']}}&export_end={{$param['export_product_create_end']}}&export_time={{$param['export_time']}}&bill_code={{$param['bill_code']}}&customers_id={{$param['customers_id']}}" target="_blank"><i class="ace-icon fa fa-file-pdf-o"></i> Xuất bảng kê</a>
                             <button class="btn btn-primary btn-sm" name="submit" value="1"><i class="fa fa-search"></i> Tìm kiếm</button>
                         </span>
                     </div>
