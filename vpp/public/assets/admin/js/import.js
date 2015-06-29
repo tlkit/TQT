@@ -94,8 +94,8 @@ $(document).ready(function(){
             error: function () {
             },
             success: function (data) {
-                $('[data-rel=popover]').popover({container: 'body'});
                 $("#sys_product_info").html(data.html);
+                $('[data-rel=popover]').popover({container: 'body'});
                 if (data.success == 1) {
                     $("#product_name").val('');
                     $("#input_import_product_price").val(0);
@@ -184,7 +184,6 @@ var Import = {
             error: function () {
             },
             success: function (data) {
-                $('[data-rel=popover]').popover({container: 'body'});
                 $("#sys_product_info").html(data.html);
             }
         });

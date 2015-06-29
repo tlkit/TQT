@@ -137,6 +137,7 @@ $(document).ready(function(){
             error: function () {
             },
             success: function (data) {
+                $('[data-rel="popover"]').popover();
                 $('[data-rel=popover]').popover({container: 'body'});
                 $("#sys_product_info").html(data.html);
                 if (data.success == 1) {

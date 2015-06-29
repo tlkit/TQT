@@ -56,3 +56,6 @@
     {{--<div class="col-sm-7 pull-left"> Extra Information</div>--}}
 </div>
 @endif
+<script type="text/javascript">
+    $('[data-rel=popover]').popover({container: 'body'});
+</script>
