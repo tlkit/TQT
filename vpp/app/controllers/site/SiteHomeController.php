@@ -32,7 +32,7 @@ class SiteHomeController extends BaseController {
         $url_src_icon = URL::to('/').'/images/cap-nhat-va-bao-tri-web.jpg';
         $today = time();
         $end_time = '31-08-2015';//d/m/Y
-        $deline = strtotime($end_time);
+        $deline = strtotime($end_time.' 23:59:59');
         $date_off = $this->timeLifeWithToday($today,$deline);
         return View::make('site.offSite')->with('url_src_icon',$url_src_icon)->with('date_off',$date_off);
     }
