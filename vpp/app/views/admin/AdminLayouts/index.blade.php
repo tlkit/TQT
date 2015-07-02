@@ -105,7 +105,7 @@
             <a href="{{ URL::route('admin.dashboard') }}" class="navbar-brand">
                 <small>
                     <i class="fa fa-leaf"></i>
-                    Cms Application
+                    Quản trị VPP
                 </small>
             </a>
         </div>
