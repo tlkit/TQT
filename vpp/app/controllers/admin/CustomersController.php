@@ -102,10 +102,10 @@ class CustomersController extends BaseAdminController
 
         $dataSave['customers_ContactEmail'] = Request::get('customers_ContactEmail');
         $dataSave['customers_ContactName'] = Request::get('customers_ContactName');
-        $dataSave['customers_TotalInvoice'] = Request::get('customers_TotalInvoice');
-        $dataSave['customers_AmountOfCapital'] = Request::get('customers_AmountOfCapital');
-        $dataSave['customers_AmountOfRevenue'] = Request::get('customers_AmountOfRevenue');
-        $dataSave['customers_NetProfit'] = Request::get('customers_NetProfit');
+        //$dataSave['customers_TotalInvoice'] = Request::get('customers_TotalInvoice');
+        //$dataSave['customers_AmountOfCapital'] = Request::get('customers_AmountOfCapital');
+        //$dataSave['customers_AmountOfRevenue'] = Request::get('customers_AmountOfRevenue');
+        //$dataSave['customers_NetProfit'] = Request::get('customers_NetProfit');
         $dataSave['customers_ManagedBy'] = Request::get('customers_ManagedBy');
 
         $dataSave['customers_Type'] = (int)Request::get('customers_Type', 0);

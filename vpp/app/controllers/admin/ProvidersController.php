@@ -75,8 +75,8 @@ class ProvidersController extends BaseAdminController
         $dataSave['providers_Phone'] = Request::get('providers_Phone');
         $dataSave['providers_Website'] = Request::get('providers_Website');
         $dataSave['providers_Description'] = Request::get('providers_Description');
-        $dataSave['providers_TotalImport'] = Request::get('providers_TotalImport');
-        $dataSave['providers_TotalExport'] = Request::get('providers_TotalExport');
+        //$dataSave['providers_TotalImport'] = Request::get('providers_TotalImport');
+        //$dataSave['providers_TotalExport'] = Request::get('providers_TotalExport');
 
         if($this->valid($dataSave) && empty($this->error)) {
             if($id > 0) {

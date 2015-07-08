@@ -98,27 +98,17 @@ class ProductController extends BaseAdminController
 
         $dataSave['product_Code'] = Request::get('product_Code');
         $dataSave['product_Name'] = Request::get('product_Name');
-        $dataSave['product_Category'] = Request::get('product_Category');
-        $dataSave['product_CategoryName'] = Request::get('product_CategoryName');
-        $dataSave['product_Alias'] = Request::get('product_Alias');
-        $dataSave['product_OriginID'] = Request::get('product_OriginID');
-        $dataSave['product_NameOrigin'] = Request::get('product_NameOrigin');
-        $dataSave['product_UnitID'] = Request::get('product_UnitID');
-        $dataSave['product_NameUnit'] = Request::get('product_NameUnit');
-        $dataSave['product_PackedWayID'] = Request::get('product_PackedWayID');
-        $dataSave['product_NamePackedWay'] = Request::get('product_NamePackedWay');
+        $dataSave['product_Category'] = (int)Request::get('product_Category');
+        $dataSave['product_CategoryName'] = isset($this->arrCategory[$dataSave['product_Category']])? $this->arrCategory[$dataSave['product_Category']] : '';
 
         $product_Price = Request::get('product_Price');
         $dataSave['product_Price'] =  str_replace('.','',$product_Price);
 
-        $dataSave['product_Description'] = Request::get('product_Description');
-        $dataSave['product_Image'] = Request::get('product_Image');
-        $dataSave['product_Thumbnail'] = Request::get('product_Thumbnail');
-        $dataSave['product_Quantity'] = Request::get('product_Quantity');
         $dataSave['product_MinimumQuantity'] = Request::get('product_MinimumQuantity');
-        $dataSave['product_IsAvailable'] = Request::get('product_IsAvailable');
-        $dataSave['product_CreatorID'] = Request::get('product_CreatorID');
-        $dataSave['product_Status'] = Request::get('product_Status');
+        $dataSave['product_NameOrigin'] = Request::get('product_NameOrigin');
+        $dataSave['product_NameUnit'] = Request::get('product_NameUnit');
+        $dataSave['product_NamePackedWay'] = Request::get('product_NamePackedWay');
+        $dataSave['product_Description'] = Request::get('product_Description');
 
         if ($this->valid($dataSave, $id) && empty($this->error)) {
             if ($id > 0) {
