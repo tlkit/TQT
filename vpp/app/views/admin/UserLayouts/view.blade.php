@@ -98,6 +98,11 @@
                                             <i class="ace-icon fa fa-unlock bigger-120"></i>
                                         </a>
                                     @endif
+                                    @if($permission_remove)
+                                        <a href="javascript:void(0)" class="btn btn-xs btn-danger sys_delete_user" data-content="Xóa tài khoản" data-placement="bottom" data-trigger="hover" data-rel="popover" data-id="{{$item['user_id']}}">
+                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -118,6 +123,7 @@
         <!-- /.row -->
     </div><!-- /.page-content -->
 </div>
+{{HTML::script('assets/admin/js/user.js');}}
 <script type="text/javascript">
     $('[data-rel=popover]').popover({container: 'body'});
 </script>

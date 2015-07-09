@@ -79,22 +79,22 @@
                                         <div class="col-sm-5">
                                             <label for="product_name"><i>Tên sản phẩm</i></label>
                                             <input type="text" id="product_name" name="product_name"
-                                                   class="form-control"
+                                                   class="form-control txt_input"
                                                    value="">
                                         </div>
                                         <div class="col-sm-3">
                                             <label for="import_product_price"><i>Giá nhập</i></label>
                                             <input type="text" id="import_product_price" name="import_product_price"
-                                                   class="form-control text-right"
+                                                   class="form-control text-right txt_input"
                                                    value="">
                                             <input type="hidden" id="input_import_product_price" name="import_product_price"
-                                                   class="form-control text-right"
+                                                   class="form-control text-right "
                                                    value="0">
                                         </div>
                                         <div class="col-sm-2">
                                             <label for="import_product_num"><i>Số lượng</i></label>
                                             <input type="text" id="import_product_num" name="import_product_num"
-                                                   class="form-control text-center"
+                                                   class="form-control text-center txt_input"
                                                    value="">
                                         </div>
                                         <div class="col-sm-2">

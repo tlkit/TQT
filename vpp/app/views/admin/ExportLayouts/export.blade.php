@@ -80,7 +80,7 @@
                                         <div class="col-sm-5">
                                             <label for="product_name"><i>Tên sản phẩm</i></label>
                                             <input type="text" id="product_name" name="product_name"
-                                                   class="form-control"
+                                                   class="form-control txt_input"
                                                    value="">
                                         </div>
                                         <div class="col-sm-3">
@@ -92,7 +92,7 @@
                                         <div class="col-sm-2">
                                             <label for="export_product_num"><i>Số lượng</i></label>
                                             <input type="text" id="export_product_num" name="export_product_num"
-                                                   class="form-control text-center"
+                                                   class="form-control text-center txt_input"
                                                    value="">
                                         </div>
                                         <div class="col-sm-2">

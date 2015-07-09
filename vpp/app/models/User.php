@@ -191,5 +191,19 @@ class User extends Eloquent {
         return $user ? $user : array();
     }
 
+    public static function remove($user){
+        try {
+            DB::connection()->getPdo()->beginTransaction();
+            $user->delete();
+            DB::connection()->getPdo()->commit();
+            return true;
+        } catch (PDOException $e) {
+            //var_dump($e->getMessage());
+            DB::connection()->getPdo()->rollBack();
+            throw new PDOException();
+            return false;
+        }
+    }
+
 
 }

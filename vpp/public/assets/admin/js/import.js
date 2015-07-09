@@ -157,7 +157,13 @@ $(document).ready(function(){
                 bootbox.alert(data.html);
             }
         });
-    })
+    });
+    $(".txt_input").on('keypress', function (event) {
+        if (event.which == 13 || event.keyCode == 13) {
+            $("#sys_add_product").trigger("click")
+            return false;
+        }
+    });
 
 });
 

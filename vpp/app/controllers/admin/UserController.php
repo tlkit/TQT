@@ -12,6 +12,7 @@ class UserController extends BaseAdminController
     private $permission_create = 'user_create';
     private $permission_edit = 'user_edit';
     private $permission_change_pass = 'user_change_pass';
+    private $permission_remove = 'user_remove';
     private $arrStatus = array(0 => 'Tất cả', 1 => 'Hoạt động', -1 => "Khóa");
 
     public function __construct()
@@ -51,7 +52,8 @@ class UserController extends BaseAdminController
             ->with('paging', $paging)
             ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
             ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0)
-            ->with('permission_change_pass', in_array($this->permission_change_pass, $this->permission) ? 1 : 0);
+            ->with('permission_change_pass', in_array($this->permission_change_pass, $this->permission) ? 1 : 0)
+            ->with('permission_remove', in_array($this->permission_remove, $this->permission) ? 1 : 0);
 
     }
 
@@ -280,6 +282,20 @@ class UserController extends BaseAdminController
             }
         }
 
+    }
+
+    public function remove($id){
+        $data['success'] = 0;
+        if(!in_array($this->permission_remove, $this->permission)){
+            return Response::json($data);
+        }
+        $user = User::find($id);
+        if($user){
+            if(User::remove($user)){
+                $data['success'] = 1;
+            }
+        }
+        return Response::json($data);
     }
 
 
