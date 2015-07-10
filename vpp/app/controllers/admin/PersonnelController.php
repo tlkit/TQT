@@ -155,5 +155,16 @@ class PersonnelController extends BaseAdminController
         return false;
     }
 
-
+    public function deleteItem()
+    {
+        $data = array('isIntOk' => 0);
+        if(!in_array($this->permission_edit,$this->permission)){
+            return Response::json($data);
+        }
+        $id = (int)Request::get('id', 0);
+        if ($id > 0 && Personnel::delData($id)) {
+            $data['isIntOk'] = 1;
+        }
+        return Response::json($data);
+    }
 }

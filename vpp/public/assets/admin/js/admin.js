@@ -12,6 +12,9 @@ var Admin = {
             else if(type == 3){ //xoa danh mục
                 var url_ajax = WEB_ROOT + '/admin/categories/deleteItem';
             }
+            else if(type == 4){ //xoa nhan vien
+                var url_ajax = WEB_ROOT + '/admin/personnel/deleteItem';
+            }
             $.ajax({
                 type: "post",
                 url: url_ajax,

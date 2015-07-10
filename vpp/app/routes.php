@@ -99,6 +99,7 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('personnel/view',array('as' => 'admin.personnel_list','uses' => 'PersonnelController@index'));
     Route::get('personnel/getCreate/{id?}', array('as' => 'admin.personnel_edit','uses' => 'PersonnelController@getCreate'));
     Route::post('personnel/getCreate/{id?}', array('as' => 'admin.personnel_edit_post','uses' => 'PersonnelController@postCreate'));
+    Route::post('personnel/deleteItem', array('as' => 'admin.deltete_personnel_post','uses' => 'PersonnelController@deleteItem'));
 
     /*Quản lý Triết khấu % danh mục*/
     Route::get('discountCustomers/discountCategory/{customer_id?}',array('as' => 'admin.discountCategory','uses' => 'DiscountCustomersController@discountCategory'));
