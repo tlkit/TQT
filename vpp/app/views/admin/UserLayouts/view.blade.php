@@ -62,7 +62,7 @@
                 @if(sizeof($data) > 0)
                     <div class="span clearfix"> @if($size >0) Có tổng số <b>{{$size}}</b> tài khoản  @endif </div>
                     <br>
-                    <table class="table-hover table table-bordered">
+                    <table class="table table-bordered">
                         <thead class="thin-border-bottom">
                         <tr class="">
                             <th width="15%" class="text-center">STT</th>
@@ -73,7 +73,7 @@
                         </thead>
                         <tbody>
                         @foreach ($data as $key => $item)
-                            <tr>
+                            <tr @if($item['user_status'] == 0)class="red bg-danger" @endif>
                                 <td class="text-center">{{ $start+$key+1 }}</td>
                                 <td>
                                     <div class="green"><b>Tài khoản : </b>{{ $item['user_name'] }}</div>

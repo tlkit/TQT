@@ -235,7 +235,7 @@ class UserController extends BaseAdminController
 
         $error = array();
         $data['user_id'] = $id;
-        $data['user_status'] = Request::get('user_status', -1);
+        $data['user_status'] = (int)Request::get('user_status', -1);
         $data['user_full_name'] = htmlspecialchars(trim(Request::get('user_full_name', '')));
         $data['user_email'] = htmlspecialchars(trim(Request::get('user_email', '')));
         $data['user_phone'] = htmlspecialchars(trim(Request::get('user_phone', '')));
@@ -264,11 +264,10 @@ class UserController extends BaseAdminController
             $dataInsert['user_email'] = $data['user_email'];
             $dataInsert['user_phone'] = $data['user_phone'];
             $dataInsert['user_full_name'] = $data['user_full_name'];
-            $dataInsert['user_status'] = $data['user_status'];
+            $dataInsert['user_status'] = (int)$data['user_status'];
             $dataInsert['user_edit_id'] = User::user_id();
             $dataInsert['user_edit_name'] = User::user_name();
             $dataInsert['user_updated'] = time();
-
             if (User::updateUser($id, $dataInsert)) {
                 return Redirect::route('admin.user_view');
             } else {

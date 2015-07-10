@@ -184,9 +184,10 @@ class ExportController extends BaseAdminController{
         }
         if(!$product){
             $error = 'Không tìm thấy sản phẩm cần xuất kho';
-        }
-        if($num > $product->product_Quantity){
-            $error = 'Số lượng hàng trong kho không đủ';
+        }else{
+            if($num > $product->product_Quantity){
+                $error = 'Số lượng hàng trong kho không đủ';
+            }
         }
         if ($error == '') {
             $category_price_hide_discount = $category_price_discount = 0;
