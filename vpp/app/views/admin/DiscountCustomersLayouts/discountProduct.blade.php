@@ -13,16 +13,42 @@
 
         <div class="row">
             <div class="col-xs-12">
+                <div class="panel panel-info">
+                    {{ Form::open(array('method' => 'GET', 'role'=>'form')) }}
+                    <div class="panel-body">
+                        <div class="form-group col-lg-3">
+                            <label for="providers_Name"><i>Tên sản phẩm</i></label>
+                            <input type="text" class="form-control input-sm" id="product_Name" name="product_Name"  placeholder="Tên sản phẩm" @if(isset($search['product_Name']) && $search['product_Name'] != '')value="{{$search['product_Name']}}"@endif>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="providers_Phone"><i>Danh mục sản phẩm</i></label>
+                            <select name="product_Category" id="product_Category" class="form-control input-sm">
+                                <option value="0">--- Chọn danh mục ---</option>
+                                @foreach($arrCategory as $k => $v)
+                                    <option value="{{$k}}" @if(isset($search['product_Category']) && $search['product_Category'] == $k)selected="selected" @endif>{{$v}}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="panel-footer text-right">
+                        <span class="">
+                            <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
+                        </span>
+                    </div>
+                    {{ Form::close() }}
+                </div>
                 @if(sizeof($data) > 0)
                     <br>
                     <table class="table table-bordered table-hover">
                         <thead class="thin-border-bottom">
                         <tr class="">
                             <th width="5%" class="text-center">STT</th>
-                            <th width="65%">Tên sản phẩm</th>
+                            <th width="45%">Tên sản phẩm</th>
+                            <th width="25%">Danh mục</th>
                             <th width="10%">Giá bán</th>
                             <th width="10%">Giá chiết khấu</th>
-                            <th width="10%" class="text-center">Thao tác</th>
+                            <th width="5%" class="text-center">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -30,6 +56,7 @@
                             <tr>
                                 <td class="text-center">{{$key+1 }}</td>
                                 <td>{{ $item['product_Name'] }}</td>
+                                <td>{{ $item['category_name'] }}</td>
                                 <td>
                                     <input type="text" class="form-control input-sm" id="product_Price" name="product_Price" value="{{$item['product_Price']}} đ" readonly>
                                 </td>

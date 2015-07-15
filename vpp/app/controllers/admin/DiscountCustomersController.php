@@ -104,8 +104,12 @@ class DiscountCustomersController extends BaseAdminController
         $data = array();
         $inforCust = Customers::getByID($customer_id);
 
+        $search['product_Name'] = Request::get('product_Name', '');
+        $search['product_Category'] = Request::get('product_Category', 0);
+        $arrCategory = $this->getCategoryProduct();
+
         //danh sách sản phẩm gốc
-        $dataProdcuct = Product::getProductsAll();
+        $dataProdcuct = Product::getProductsAll($search['product_Name'],$search['product_Category']);
 
         //danh sách danh mục đã có giá triết khấu
         $dataProductCustomer = ProductsCustomers::getProductByCustomersId($customer_id);
@@ -116,6 +120,7 @@ class DiscountCustomersController extends BaseAdminController
                 $data[] = array('product_id'=>$product_id,
                     'product_Name'=>$val['product_Name'],
                     'product_Price'=>$val['product_Price'],
+                    'category_name'=>isset($arrCategory[$val['product_Category']]) ? $arrCategory[$val['product_Category']] : '',
                     'customer_id'=>$customer_id,
                     'product_price_discount'=>isset($dataProductCustomer[$product_id])? $dataProductCustomer[$product_id]['product_price_discount']:0,
                 );
@@ -126,7 +131,13 @@ class DiscountCustomersController extends BaseAdminController
         $this->layout->content = View::make('admin.DiscountCustomersLayouts.discountProduct')
             ->with('data', $data)
             ->with('inforCust', $inforCust)
+            ->with('search', $search)
+            ->with('arrCategory', $arrCategory)
             ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0);
+    }
+
+    public function getCategoryProduct(){
+        return Categories::getCategoriessAll();
     }
 
     public function updateProduct()

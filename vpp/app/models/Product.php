@@ -32,14 +32,29 @@ class Product extends Eloquent
         return $product ? $product : array();
     }
 
-    public static function getProductsAll()
-    {
-        $categories = Product::where('product_id', '>', 0)->get();
-        $data = array();
-        foreach ($categories as $itm) {
-            $data[$itm['product_id']] = array('product_Name'=>$itm['product_Name'],'product_Price'=>$itm['product_Price']);
+    public static function getProductsAll($product_Name ='',$product_Category = 0){
+        try{
+            $query = Product::where('product_id','>',0);
+            if($product_Name != ''){
+                $query->where('product_Name', 'LIKE', '%' . $product_Name . '%');
+            }
+            if($product_Category != 0){
+                $query->where('product_Category', '=', $product_Category);
+            }
+            $total = $query->count();
+            $query->orderBy('product_id', 'desc');
+            $product = $query->take($total)->get();
+
+            $data = array();
+            if($product){
+                foreach ($product as $itm) {
+                    $data[$itm['product_id']] = array('product_Name'=>$itm['product_Name'],'product_Price'=>$itm['product_Price'],'product_Category'=>$itm['product_Category']);
+                }
+            }
+            return $data;
+        } catch (PDOException $e) {
+            throw new PDOException();
         }
-        return $data;
     }
 
 
