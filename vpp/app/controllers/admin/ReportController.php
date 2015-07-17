@@ -29,6 +29,7 @@ class ReportController extends BaseAdminController{
             return Redirect::route('admin.dashboard');
         }
         $param['customers_id'] = Request::get('customers_id',0);
+        $param['customers_ManagedBy'] = Request::get('customers_ManagedBy',0);
         $param['export_create_start'] = Request::get('export_create_start','');
         $param['export_create_end'] = Request::get('export_create_start','');
         $submit = (int)Request::get('submit',1);
@@ -37,12 +38,13 @@ class ReportController extends BaseAdminController{
         $input['export_create_end'] = ($input['export_create_end'] != '') ? strtotime($input['export_create_end'])+86400 : 0;
         $data = Customers::reportCustomer($input);
         $customers = Customers::getListAll();
+        $admin = User::getListAllUser();
 
         //xuất excel
         if($submit == 2){
             $this->exportExcelReportCustomer($data);
         }
-        $this->layout->content = View::make('admin.ReportLayouts.customer')->with('param',$param)->with('data',$data)->with('customers',$customers);
+        $this->layout->content = View::make('admin.ReportLayouts.customer')->with('param',$param)->with('data',$data)->with('customers',$customers)->with('admin',$admin);
     }
     public function exportExcelReportCustomer($arrData = array()){
         if(empty($arrData))

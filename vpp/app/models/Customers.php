@@ -162,6 +162,9 @@ class Customers extends Eloquent
         if ($param['customers_id'] > 0) {
             $query->where($tbl_customers . '.customers_id', $param['customers_id']);
         }
+        if ($param['customers_ManagedBy'] > 0) {
+            $query->where($tbl_customers . '.customers_ManagedBy', $param['customers_ManagedBy']);
+        }
         if ($param['export_create_start'] > 0) {
             $query->where($tbl_export . '.export_create_time', '>=', $param['export_create_start']);
         }

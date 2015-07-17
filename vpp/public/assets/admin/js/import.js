@@ -191,6 +191,8 @@ var Import = {
             },
             success: function (data) {
                 $("#sys_product_info").html(data.html);
+                $(".popover").removeClass('in');
+                $('[data-rel=popover]').popover({container: 'body'});
             }
         });
     }
