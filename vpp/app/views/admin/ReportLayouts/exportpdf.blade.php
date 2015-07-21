@@ -13,9 +13,9 @@
         <td width="530" valign="top" style="text-align: left">
             <br/>
             <b style="color: #002a80;">CÔNG TY TNHH THƯƠNG MẠI & VÀ DỊCH VỤ THIỀU SƠN</b><br/>
-            <b style="color: #136194;">Trụ sở : Số 64, Phố Yên Bái II, Phường Phố Huế, Quận Hai Bà Trưng, Hà Nội</b><br/>
-            <b style="color: #136194;">Cơ sở 1 : CC2 - Bắc Linh Đàm - Hoàng Mai - Hà Nội</b><br/>
-            <b style="color: #136194;">Cơ sở 2 : 73, Phố Nguyễn Văn Trỗi, Thanh Xuân, Hà Nội</b><br/>
+            <b style="color: #136194;">VPGD: Số 35, Phố Nguyễn Văn Trỗi, Phương Liệt, Thanh Xuân, Hà Nội. </b><br/>
+            {{--<b style="color: #136194;">Cơ sở 1 : CC2 - Bắc Linh Đàm - Hoàng Mai - Hà Nội</b><br/>--}}
+            {{--<b style="color: #136194;">Cơ sở 2 : 73, Phố Nguyễn Văn Trỗi, Thanh Xuân, Hà Nội</b><br/>--}}
             <b style="color: #136194;">ĐT : 04 66572 888 - 04 6686 0415 / Fax: 04 62841202 - Hotline: 0973323333</b><br/>
             <b style="color: #136194;">Website : http://banbuonvpp.vn &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Email: vpp@banbuonvpp.vn</b><br/>
             {{--<b><span style="color:black">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</span></b><br/>--}}
@@ -57,6 +57,7 @@
     </tr>
     </thead>
     <tbody>
+    <?php $sub_total = 0;?>
     @foreach($data as $key => $value)
         <tr>
             <td width="5%" style="text-align: center;">{{$key+1}}</td>
@@ -67,65 +68,51 @@
             <td width="10%" style="text-align: right;">{{number_format($value['export_product_price'], 0, ',', '.');}}</td>
             <td width="5%" style="text-align: center;">{{$value['export_product_num']}}</td>
             <td width="10%" style="text-align: right;"><b>{{number_format($value['export_product_total'], 0, ',', '.');}}</b></td>
+            <?php $sub_total += $value['export_product_total'];?>
         </tr>
     @endforeach
-    {{--<tr>--}}
-        {{--<td></td>--}}
-        {{--<td></td>--}}
-        {{--<td style="text-align: left" >--}}
-            {{--<b>Cộng tiền hàng</b>--}}
-        {{--</td>--}}
-        {{--<td colspan="5" style="text-align: right">--}}
-            {{--<b class="red">{{number_format($export['export_subtotal'], 0, ',', '.');}}</b>--}}
-        {{--</td>--}}
-    {{--</tr>--}}
-    {{--@if($export['export_discount'] > 0)--}}
-        {{--<tr>--}}
-            {{--<td></td>--}}
-            {{--<td></td>--}}
-            {{--<td style="text-align: left">--}}
-                {{--<b>Chiết khấu</b>--}}
-            {{--</td>--}}
-            {{--<td colspan="5" style="text-align: right">--}}
-                {{--<b class="red">{{number_format($export['export_discount'], 0, ',', '.');}}</b>--}}
-            {{--</td>--}}
-        {{--</tr>--}}
-        {{--<tr>--}}
-            {{--<td></td>--}}
-            {{--<td></td>--}}
-            {{--<td style="text-align: left">--}}
-                {{--<b>Tổng tiền hàng</b>--}}
-            {{--</td>--}}
-            {{--<td colspan="5" style="text-align: right">--}}
-                {{--<b class="red">{{number_format($export['export_total'], 0, ',', '.');}}</b>--}}
-            {{--</td>--}}
-        {{--</tr>--}}
-    {{--@endif--}}
-    {{--<tr>--}}
-        {{--<td></td>--}}
-        {{--<td></td>--}}
-        {{--<td style="text-align: left">--}}
-            {{--<b>Thuế GTGT</b>--}}
-        {{--</td>--}}
-        {{--<td colspan="5" style="text-align: right">--}}
-            {{--<b class="red">{{number_format($export['export_vat'], 0, ',', '.');}}</b>--}}
-        {{--</td>--}}
-    {{--</tr>--}}
-    {{--<tr>--}}
-        {{--<td></td>--}}
-        {{--<td></td>--}}
-        {{--<td style="text-align: left">--}}
-            {{--<b>Tổng thanh toán</b>--}}
-        {{--</td>--}}
-        {{--<td colspan="5" style="text-align: right">--}}
-            {{--<b class="red">{{number_format($export['export_total_pay'], 0, ',', '.');}}</b>--}}
-        {{--</td>--}}
-    {{--</tr>--}}
-    {{--<tr>--}}
-        {{--<td colspan="8" style="text-align: left">--}}
-            {{--<i>Bằng chữ : {{FunctionLib::numberToWord($export['export_total_pay'])}}</i>--}}
-        {{--</td>--}}
-    {{--</tr>--}}
+    <tr>
+        <td></td>
+        <td></td>
+        <td style="text-align: left" >
+            <b>Tổng tiền hàng</b>
+        </td>
+        <td colspan="5" style="text-align: right">
+            <b class="red">{{number_format($sub_total, 0, '.', '.');}}</b>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td style="text-align: left">
+            <b>Thuế GTGT</b>
+        </td>
+        <td colspan="5" style="text-align: right">
+            @if($customer['customers_IsNeededVAT'])
+                <?php $vat = $sub_total/10 ;?>
+            @else
+                <?php $vat = 0 ;?>
+            @endif
+            <?php ?>
+            <b class="red">{{number_format($vat, 0, '.', '.');}}</b>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td style="text-align: left">
+            <b>Tổng thanh toán</b>
+        </td>
+        <td colspan="5" style="text-align: right">
+            <?php $total = $sub_total+$vat ;?>
+            <b class="red">{{number_format($total, 0, '.', '.');}}</b>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="8" style="text-align: left">
+            <i>Bằng chữ : {{FunctionLib::numberToWord($total)}}</i>
+        </td>
+    </tr>
     </tbody>
 </table>
 <br/><br/>

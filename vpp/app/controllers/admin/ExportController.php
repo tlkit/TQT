@@ -381,6 +381,7 @@ class ExportController extends BaseAdminController{
         $this->layout->content = View::make('admin.ExportLayouts.export')
             ->with('customers',$customers)->with('customers_id',$export->customers_id);
         $admin = User::getListAllUser();
+        $export['export_delivery_time'] = ($export['export_delivery_time'] > 0 ) ? date('d-m-Y',$export['export_delivery_time']) : '';
         $this->layout->content->customer_info = View::make('admin.ExportLayouts.customer_info')->with('customers',$export)->with('admin',$admin);
         $this->layout->content->product_info = View::make('admin.ExportLayouts.product_info')->with('export',$aryExport)->with('vat',$vat);
 //        $this->layout->content = View::make('admin.ImportLayouts.import')

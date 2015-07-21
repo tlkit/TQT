@@ -31,7 +31,7 @@ class ReportController extends BaseAdminController{
         $param['customers_id'] = Request::get('customers_id',0);
         $param['customers_ManagedBy'] = Request::get('customers_ManagedBy',0);
         $param['export_create_start'] = Request::get('export_create_start','');
-        $param['export_create_end'] = Request::get('export_create_start','');
+        $param['export_create_end'] = Request::get('export_create_end','');
         $submit = (int)Request::get('submit',1);
         $input = $param;
         $input['export_create_start'] = ($input['export_create_start'] != '') ? strtotime($input['export_create_start']) : 0;
@@ -138,10 +138,13 @@ class ReportController extends BaseAdminController{
 
             $sheet->getStyle('D'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,));
-            $sheet->SetCellValue('D'.$rowCount, number_format($data->sum_export,0,',',',').' đ');
+            $sheet->SetCellValue('D'.$rowCount, $data->sum_export);
 
             $rowCount++;
         }
+        $sheet->getStyle('D4:D' . $rowCount)
+            ->getNumberFormat()
+            ->setFormatCode('#,##0');
         // output file
         ob_clean();
         $filename = "Thong_ke_ban_hàng" . date("_d/m/Y_H_i").'.xls';
@@ -270,10 +273,13 @@ class ReportController extends BaseAdminController{
 
             $sheet->getStyle('D'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,));
-            $sheet->SetCellValue('D'.$rowCount, number_format($data->sum_product,0,',',','));
+            $sheet->SetCellValue('D'.$rowCount, $data->sum_product);
 
             $rowCount++;
         }
+        $sheet->getStyle('D4:D' . $rowCount)
+            ->getNumberFormat()
+            ->setFormatCode('#,##0');
         // output file
         ob_clean();
         $filename = "San_pham_ban_chay" . date("_d/m/Y_H_i").'.xls';
@@ -425,7 +431,7 @@ class ReportController extends BaseAdminController{
 
             $sheet->getStyle('F'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,));
-            $sheet->SetCellValue('F'.$rowCount, number_format($data['import_product_price'],0,',',',').' đ');
+            $sheet->SetCellValue('F'.$rowCount, $data['import_product_price']);
 
             $sheet->getStyle('G'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
@@ -433,6 +439,9 @@ class ReportController extends BaseAdminController{
 
             $rowCount++;
         }
+        $sheet->getStyle('F4:F' . $rowCount)
+            ->getNumberFormat()
+            ->setFormatCode('#,##0');
         // output file
         ob_clean();
         $filename = "Thong_ke_nhap_hàng" . date("_d/m/Y_H_i").'.xls';
@@ -582,7 +591,7 @@ class ReportController extends BaseAdminController{
 
             $sheet->getStyle('F'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,));
-            $sheet->SetCellValue('F'.$rowCount, number_format($data['export_product_price'],0,',',',').' đ');
+            $sheet->SetCellValue('F'.$rowCount, $data['export_product_price']);
 
             $sheet->getStyle('G'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
@@ -590,6 +599,9 @@ class ReportController extends BaseAdminController{
 
             $rowCount++;
         }
+        $sheet->getStyle('F4:F' . $rowCount)
+            ->getNumberFormat()
+            ->setFormatCode('#,##0');
         // output file
         ob_clean();
         $filename = "Thong_ke_xuat_hang" . date("_d/m/Y_H_i").'.xls';
@@ -720,18 +732,21 @@ class ReportController extends BaseAdminController{
 
             $sheet->getStyle('C'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
-            $sheet->SetCellValue('C'.$rowCount, number_format($data['ckcn'],0,',',',').' đ');
+            $sheet->SetCellValue('C'.$rowCount, $data['ckcn']);
 
             $sheet->getStyle('D'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
-            $sheet->SetCellValue('D'.$rowCount, number_format($data['ckdn'],0,',',',').' đ');
+            $sheet->SetCellValue('D'.$rowCount, $data['ckdn']);
 
             $sheet->getStyle('E'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
-            $sheet->SetCellValue('E'.$rowCount, number_format(($data['ckcn']+$data['ckdn']),0,',',',').' đ');
+            $sheet->SetCellValue('E'.$rowCount, ($data['ckcn']+$data['ckdn']));
 
             $rowCount++;
         }
+        $sheet->getStyle('C4:E' . $rowCount)
+            ->getNumberFormat()
+            ->setFormatCode('#,##0');
         // output file
         ob_clean();
         $filename = "Thong_ke_chiet_khau" . date("_d/m/Y_H_i").'.xls';
@@ -758,7 +773,7 @@ class ReportController extends BaseAdminController{
         $param['export_time'] = Request::get('export_time',date('d-m-Y',time()));
         $param['bill_code'] = Request::get('bill_code','');
         $param['customers_id'] = (int)Request::get('customers_id',0);
-        //$submit = (int)Request::get('submit',1);
+        $submit = (int)Request::get('submit',1);
         $input = $param;
         $input['export_product_create_start'] = ($input['export_product_create_start'] != '') ? strtotime($input['export_product_create_start']) : 0;
         $input['export_product_create_end'] = ($input['export_product_create_end'] != '') ? strtotime($input['export_product_create_end'])+86400 : 0;
@@ -766,9 +781,9 @@ class ReportController extends BaseAdminController{
         $customer = Customers::getListAll();
 
         //xuất excel
-//        if($submit == 2){
-//            $this->exportExcelReportSaleList($data,$customer);
-//        }
+        if($submit == 2){
+            $this->exportExcelReportSaleList($data,$customer);
+        }
         $this->layout->content = View::make('admin.ReportLayouts.sale_list')
             ->with('customer',$customer)
             ->with('param',$param)
@@ -945,7 +960,7 @@ class ReportController extends BaseAdminController{
 
             $sheet->getStyle('F'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,));
-            $sheet->SetCellValue('F'.$rowCount, number_format($data['export_product_price'],0,',',',').' đ');
+            $sheet->SetCellValue('F'.$rowCount, $data['export_product_price']);
 
             $sheet->getStyle('G'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
@@ -953,10 +968,16 @@ class ReportController extends BaseAdminController{
 
             $sheet->getStyle('H'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,));
-            $sheet->SetCellValue('H'.$rowCount, number_format($data['export_product_total'],0,',',',').' đ');
+            $sheet->SetCellValue('H'.$rowCount, $data['export_product_total']);
 
             $rowCount++;
         }
+        $sheet->getStyle('F4:F' . $rowCount)
+            ->getNumberFormat()
+            ->setFormatCode('#,##0');
+        $sheet->getStyle('H4:H' . $rowCount)
+            ->getNumberFormat()
+            ->setFormatCode('#,##0');
         // output file
         ob_clean();
         $filename = "Bang_ke_ban_hàng" . date("_d/m/Y_H_i").'.xls';
@@ -1125,10 +1146,13 @@ class ReportController extends BaseAdminController{
 
             $sheet->getStyle('H'.$rowCount)->getAlignment()->applyFromArray(
                 array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,));
-            $sheet->SetCellValue('H'.$rowCount, number_format($sub_total,0,',',',').' đ');
+            $sheet->SetCellValue('H'.$rowCount, $sub_total);
 
             $rowCount++;
         }
+        $sheet->getStyle('H4:H' . $rowCount)
+            ->getNumberFormat()
+            ->setFormatCode('#,##0');
         // output file
         ob_clean();
         $filename = "Thong_ke_ton_kho" . date("_d/m/Y_H_i").'.xls';

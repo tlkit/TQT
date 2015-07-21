@@ -298,7 +298,9 @@ class ImportController extends BaseAdminController{
                 'product_Code' => $p->product_Code,
                 'product_Name' => $p->product_Name,
                 'product_OriginID' => $p->product_OriginID,
+                'product_NameOrigin' => $p->product_NameOrigin,
                 'product_UnitID' => $p->product_UnitID,
+                'product_NameUnit' => $p->product_NameUnit,
                 'import_product_price' => $product->import_product_price,
                 'import_product_num' => $product->import_product_num,
             );
