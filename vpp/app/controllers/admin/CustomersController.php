@@ -11,7 +11,7 @@ class CustomersController extends BaseAdminController
     private $permission_view = 'customers_view';
     private $permission_create = 'customers_create';
     private $permission_edit = 'customers_edit';
-    private $arrType = array(-1 => 'Kiểu khách hàng', 1 => 'Mua buôn', 2 => 'Mua lẻ');
+    private $arrType = array(-1 => 'Kiểu khách hàng', 1 => 'Mua buôn', 2 => 'Mua lẻ', 3 => 'Yêu cầu báo giá');
     private $arrTypeVat = array(1 => 'Có VAT', 0 => 'Không có VAT');
 
     public function __construct()

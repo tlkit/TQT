@@ -141,7 +141,7 @@
                                             </a>
                                         {{--<div class="col-sm-3"><a href="javascript:void(0)" title="Hủy hóa đơn" class="sys_open_delete" data-code="{{$item['export_code']}}"><i class="fa fa-trash-o fa-2x"></i></a></div>--}}
                                         @if($permission_create)
-                                            <a href="javascript:void(0)" class="btn btn-xs btn-success sys_open_restore" data-code="{{$item['export_code']}}" data-content="Hủy hóa đơn và tạo lại" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                            <a href="javascript:void(0)" class="btn btn-xs btn-success sys_open_restore" data-code="{{$item['export_code']}}" data-content="Sửa đơn hàng" data-placement="bottom" data-trigger="hover" data-rel="popover">
                                                 <i class="ace-icon fa fa-history bigger-120"></i>
                                             </a>
                                         {{--<div class="col-sm-3"><a href="javascript:void(0)" title="Hủy hóa đơn và tạo lại" class="sys_open_restore" data-code="{{$item['export_code']}}"><i class="fa fa-history fa-2x"></i></a></div>--}}
