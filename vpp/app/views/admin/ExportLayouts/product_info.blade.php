@@ -10,7 +10,7 @@
             <th class="center">#</th>
             <th class="center">Mã hàng</th>
             <th class="hidden-480">Tên hàng hóa</th>
-            <th class="center hidden-xs">Xuất sứ</th>
+            <th class="center hidden-xs">Xuất xứ</th>
             <th class="center hidden-480">Đơn vị tính</th>
             <th class="center hidden-480">Giá</th>
             <th class="center hidden-480">Số lượng</th>

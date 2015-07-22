@@ -74,7 +74,7 @@
                             <th class="center" width="10%">STT</th>
                             <th class="center" width="10%">Mã SP</th>
                             <th class="center" width="30%">Tên SP</th>
-                            <th class="center" width="10%">Xuất Sứ</th>
+                            <th class="center" width="10%">Xuất xứ</th>
                             <th class="center" width="10%">ĐVT</th>
                             <th class="center" width="10%">Giá</th>
                             <th class="center" width="10%">SL</th>

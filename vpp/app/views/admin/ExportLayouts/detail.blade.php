@@ -61,7 +61,7 @@
                         <td class="center" width="5%">STT</td>
                         <td class="center" width="10%">Mã hàng</td>
                         <td class="left" width="35%">Tên hàng hóa</td>
-                        <td class="center" width="10%">Xuất sứ</td>
+                        <td class="center" width="10%">Xuất xứ</td>
                         <td class="center" width="10%">ĐVT</td>
                         <td class="center" width="10%">Đơn giá</td>
                         <td class="center" width="5%">SL</td>

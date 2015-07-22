@@ -49,7 +49,7 @@
         <td valign="middle" width="5%" style="text-align: center;"><b>STT</b></td>
         <td class="center" width="15%" style="text-align: center;"><b>Mã hàng</b></td>
         <td class="left" width="35%" style="text-align: center;"><b>Tên hàng hóa</b></td>
-        <td class="center" width="10%" style="text-align: center;"><b>Xuất sứ</b></td>
+        <td class="center" width="10%" style="text-align: center;"><b>Xuất xứ</b></td>
         <td class="center" width="10%" style="text-align: center;"><b>ĐVT</b></td>
         <td class="center" width="10%" style="text-align: center;"><b>Đơn giá</b></td>
         <td class="center" width="5%" style="text-align: center;"><b>SL</b></td>
