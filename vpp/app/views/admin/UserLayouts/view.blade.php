@@ -73,7 +73,7 @@
                         </thead>
                         <tbody>
                         @foreach ($data as $key => $item)
-                            <tr @if($item['user_status'] == 0)class="red bg-danger" @endif>
+                            <tr @if($item['user_status'] == -1)class="red bg-danger" @endif>
                                 <td class="text-center">{{ $start+$key+1 }}</td>
                                 <td>
                                     <div class="green"><b>Tài khoản : </b>{{ $item['user_name'] }}</div>

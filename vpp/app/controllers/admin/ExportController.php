@@ -207,13 +207,16 @@ class ExportController extends BaseAdminController{
                 'product_id' => $product->product_id,
                 'export_product_price' => $product->product_Price,
                 'export_product_num' => $num,
-                'export_product_discount' => (int)($product->product_Price * $num * $category_price_discount),
-                'export_product_discount_customer' => (int)($product->product_Price * $num * $category_price_hide_discount),
+                'export_product_discount' => (int)($product->product_Price * $num * ($category_price_discount/100)),
+                'export_product_discount_customer' => (int)($product->product_Price * $num * ($category_price_hide_discount/100)),
                 'product_Name' => $product->product_Name,
                 'product_Code' => $product->product_Code,
                 'product_NameOrigin' => $product->product_NameOrigin,
                 'product_NameUnit' => $product->product_NameUnit,
             );
+//            echo '<pre>';
+//            print_r($export);
+//            echo '<pre>';die;
             Session::put('export', $export);
         }
         $data['success'] = ($error == '') ? 1 : 0;

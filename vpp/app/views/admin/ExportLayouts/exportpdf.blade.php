@@ -12,7 +12,7 @@
         </td>
         <td width="530" valign="top" style="text-align: left">
             <br/>
-            <b style="color: #002a80;">CÔNG TY TNHH THƯƠNG MẠI & VÀ DỊCH VỤ THIỀU SƠN</b><br/>
+            <b style="color: #002a80;">CÔNG TY TNHH THƯƠNG MẠI & DỊCH VỤ THIỀU SƠN</b><br/>
             <b style="color: #136194;">VPGD: Số 35, Phố Nguyễn Văn Trỗi, Phương Liệt, Thanh Xuân, Hà Nội.</b><br/>
             {{--<b style="color: #136194;">Cơ sở 1 : CC2 - Bắc Linh Đàm - Hoàng Mai - Hà Nội</b><br/>--}}
             {{--<b style="color: #136194;">Cơ sở 2 : 73, Phố Nguyễn Văn Trỗi, Thanh Xuân, Hà Nội</b><br/>--}}
@@ -45,7 +45,7 @@
     @endif
 </div>
 <div style="clear: both"></div>
-<table border="0.3" cellspacing="0" cellpadding="1" width="100%">
+<table border="0.1" cellspacing="0" cellpadding="1" width="100%">
     <thead>
     <tr style="">
         <td valign="middle" width="5%" style="text-align: center;"><b>STT</b></td>
@@ -62,7 +62,7 @@
     @foreach($exportProduct as $key => $value)
         <tr>
             <td width="5%" style="text-align: center;">{{$key+1}}</td>
-            <td width="15%" style="text-align: center;"><b>{{$value['product']['product_Code']}}</b></td>
+            <td width="15%" style="text-align: center;">{{$value['product']['product_Code']}}</td>
             <td width="35%" style=""><div style="margin-left: 5px">{{$value['product']['product_Name']}}</div></td>
             <td width="10%" style="text-align: center;">{{$value['product']['product_NameOrigin']}}</td>
             <td width="10%" style="text-align: center;">{{$value['product']['product_NameUnit']}}</td>

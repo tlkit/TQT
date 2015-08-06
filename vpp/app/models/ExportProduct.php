@@ -75,6 +75,7 @@ class ExportProduct extends Eloquent{
             $tbl_export_product.'.export_product_create_time',
             DB::raw('SUM('.$tbl_export_product.'.export_product_num) as export_product_num'),
             $tbl_export_product.'.export_product_price',
+            DB::raw('SUM('.$tbl_export_product.'.export_product_discount) as export_product_discount'),
             DB::raw('SUM('.$tbl_export_product.'.export_product_total) as export_product_total'),
             $tbl_export_product.'.customers_id',
             $tbl_product.'.product_id',

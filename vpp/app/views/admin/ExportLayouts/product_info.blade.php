@@ -24,7 +24,7 @@
         @foreach($export as $k => $v)
             <?php
             $total_item = $v['export_product_price'] * $v['export_product_num'];
-            $discount_item =  $v['export_product_price'] * $v['export_product_num'] * $v['export_product_discount']
+            $discount_item =  $v['export_product_discount']
             ?>
             <tr>
                 <td class="center">{{$i}}</td>
