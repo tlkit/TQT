@@ -6,11 +6,11 @@
 <body link="blue" style="font-family: Arial">
 <table border="0" cellspacing="0" cellpadding="0" valign="top">
     <tr style="">
-        <td width="70" valign="top">
+        <td width="60" valign="top">
             <br/>
-            <span style=""><img src="/assets/admin/img/logo.jpg" alt="" width="60px" height="90px"/></span>
+            <span style=""><img src="/assets/admin/img/logo.jpg" alt="" width="40px" height="60px"/></span>
         </td>
-        <td width="530" valign="top" style="text-align: left">
+        <td width="540" valign="top" style="text-align: left">
             <br/>
             <b style="color: #002a80;">CÔNG TY TNHH THƯƠNG MẠI & DỊCH VỤ THIỀU SƠN</b><br/>
             <b style="color: #136194;">VPGD: Số 35, Phố Nguyễn Văn Trỗi, Phương Liệt, Thanh Xuân, Hà Nội.</b><br/>
@@ -45,91 +45,94 @@
     @endif
 </div>
 <div style="clear: both"></div>
-<table border="0.1" cellspacing="0" cellpadding="1" width="100%">
+<table cellspacing="0" cellpadding="2" width="100%">
     <thead>
     <tr style="">
-        <td valign="middle" width="5%" style="text-align: center;"><b>STT</b></td>
-        <td class="center" width="15%" style="text-align: center;"><b>Mã hàng</b></td>
-        <td class="left" width="35%" style="text-align: center;"><b>Tên hàng hóa</b></td>
-        <td class="center" width="10%" style="text-align: center;"><b>Xuất xứ</b></td>
-        <td class="center" width="10%" style="text-align: center;"><b>ĐVT</b></td>
-        <td class="center" width="10%" style="text-align: center;"><b>Đơn giá</b></td>
-        <td class="center" width="5%" style="text-align: center;"><b>SL</b></td>
-        <td class="center" width="10%" style="text-align: center;"><b>Thành tiền</b></td>
+        <td valign="middle" width="5%" style="text-align: center;border: 0.1em solid grey"><b>STT</b></td>
+        <td class="center" width="15%" style="text-align: center;border-top: 0.1em solid grey;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"><b>Mã hàng</b></td>
+        <td class="left" width="35%" style="text-align: center;border-top: 0.1em solid grey;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"><b>Tên hàng hóa</b></td>
+        <td class="center" width="10%" style="text-align: center;border-top: 0.1em solid grey;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"><b>Xuất xứ</b></td>
+        <td class="center" width="10%" style="text-align: center;border-top: 0.1em solid grey;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"><b>ĐVT</b></td>
+        <td class="center" width="10%" style="text-align: center;border-top: 0.1em solid grey;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"><b>Đơn giá</b></td>
+        <td class="center" width="5%" style="text-align: center;border-top: 0.1em solid grey;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"><b>SL</b></td>
+        <td class="center" width="10%" style="text-align: center;border-top: 0.1em solid grey;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"><b>Thành tiền</b></td>
     </tr>
     </thead>
     <tbody>
     @foreach($exportProduct as $key => $value)
         <tr>
-            <td width="5%" style="text-align: center;">{{$key+1}}</td>
-            <td width="15%" style="text-align: center;">{{$value['product']['product_Code']}}</td>
-            <td width="35%" style=""><div style="margin-left: 5px">{{$value['product']['product_Name']}}</div></td>
-            <td width="10%" style="text-align: center;">{{$value['product']['product_NameOrigin']}}</td>
-            <td width="10%" style="text-align: center;">{{$value['product']['product_NameUnit']}}</td>
-            <td width="10%" style="text-align: right;">{{number_format($value['export_product_price'], 0, ',', '.');}}</td>
-            <td width="5%" style="text-align: center;">{{$value['export_product_num']}}</td>
-            <td width="10%" style="text-align: right;"><b>{{number_format($value['export_product_total'], 0, ',', '.');}}</b></td>
+            <td width="5%" style="text-align: center;border-left: 0.1em solid grey;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey">{{$key+1}}</td>
+            <td width="15%" style="text-align: center;text-align: center;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey">{{$value['product']['product_Code']}}</td>
+            <td width="35%" style="border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"><div style="margin-left: 5px;">{{$value['product']['product_Name']}}</div></td>
+            <td width="10%" style="text-align: center;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey">{{$value['product']['product_NameOrigin']}}</td>
+            <td width="10%" style="text-align: center;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey">{{$value['product']['product_NameUnit']}}</td>
+            <td width="10%" style="text-align: right;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey">{{number_format($value['export_product_price'], 0, ',', '.');}}</td>
+            <td width="5%" style="text-align: center;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey">{{$value['export_product_num']}}</td>
+            <td width="10%" style="text-align: right;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"><b>{{number_format($value['export_product_total'], 0, ',', '.');}}</b></td>
         </tr>
     @endforeach
     <tr>
-        <td></td>
-        <td></td>
-        <td style="text-align: left" >
+        <td style="border-left: 0.1em solid grey;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"></td>
+        <td style="border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"></td>
+        <td style="text-align: left;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey" >
             <b>Cộng tiền hàng</b>
         </td>
-        <td colspan="5" style="text-align: right">
+        <td colspan="5" style="text-align: right;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey">
             <b class="red">{{number_format($export['export_subtotal'], 0, ',', '.');}}</b>
         </td>
     </tr>
     @if($export['export_discount'] > 0)
         <tr>
-            <td></td>
-            <td></td>
-            <td style="text-align: left">
+            <td style="border-left: 0.1em solid grey;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"></td>
+            <td style="border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"></td>
+            <td style="text-align: left;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey">
                 <b>Chiết khấu</b>
             </td>
-            <td colspan="5" style="text-align: right">
+            <td colspan="5" style="text-align: right;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey">
                 <b class="red">{{number_format($export['export_discount'], 0, ',', '.');}}</b>
             </td>
         </tr>
         <tr>
-            <td></td>
-            <td></td>
-            <td style="text-align: left">
+            <td style="border-left: 0.1em solid grey;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"></td>
+            <td style="border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"></td>
+            <td style="text-align: left;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey">
                 <b>Tổng tiền hàng</b>
             </td>
-            <td colspan="5" style="text-align: right">
+            <td colspan="5" style="text-align: right;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey">
                 <b class="red">{{number_format($export['export_total'], 0, ',', '.');}}</b>
             </td>
         </tr>
     @endif
     <tr>
-        <td></td>
-        <td></td>
-        <td style="text-align: left">
+        <td style="border-left: 0.1em solid grey;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"></td>
+        <td style="border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"></td>
+        <td style="text-align: left;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey">
             <b>Thuế GTGT</b>
         </td>
-        <td colspan="5" style="text-align: right">
+        <td colspan="5" style="text-align: right;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey">
             <b class="red">{{number_format($export['export_vat'], 0, ',', '.');}}</b>
         </td>
     </tr>
     <tr>
-        <td></td>
-        <td></td>
-        <td style="text-align: left">
+        <td style="border-left: 0.1em solid grey;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"></td>
+        <td style="border-right: 0.1em solid grey;border-bottom: 0.1em solid grey"></td>
+        <td style="text-align: left;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey">
             <b>Tổng thanh toán</b>
         </td>
-        <td colspan="5" style="text-align: right">
+        <td colspan="5" style="text-align: right;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey">
             <b class="red">{{number_format($export['export_total_pay'], 0, ',', '.');}}</b>
         </td>
     </tr>
     <tr>
-        <td colspan="8" style="text-align: left">
+        <td colspan="8" style="text-align: left;border-left: 0.1em solid grey;border-right: 0.1em solid grey;border-bottom: 0.1em solid grey">
             <i>Bằng chữ : {{FunctionLib::numberToWord($export['export_total_pay'])}}</i>
         </td>
     </tr>
     </tbody>
 </table>
+@if($export['export_note'] && $export['export_note'] != '')
+<p><i>Ghi chú : {{$export['export_note']}}</i></p>
+@endif
 <br/><br/>
 <table border="0" cellspacing="0" cellpadding="0" width="100%">
     <tr>
