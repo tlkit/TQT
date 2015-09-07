@@ -36,17 +36,26 @@
                            class="form-control input-sm"
                            value="@if(isset($data['customers_FirstName'])){{$data['customers_FirstName']}}@endif">
                 </div>
-                <div class="form-group col-sm-4">
+                <div class="form-group col-sm-3">
                     <label for="customers_Code"><i>Mã khách hàng</i><span style="color: red"> *</span></label>
                     <input type="text" id="customers_Code" name="customers_Code" class="form-control input-sm"
                            value="@if(isset($data['customers_Code'])){{$data['customers_Code']}}@endif">
                 </div>
-                <div class="form-group col-sm-4">
+                <div class="form-group col-sm-2">
                     <label for="customers_Type"><i>Kiểu khách hàng</i></label>
                     <select name="customers_Type" id="customers_Type" class="form-control input-sm">
                         @foreach($arrType as $k => $v)
                             <option value="{{$k}}" @if(isset($data['customers_Type']) && $data['customers_Type'] == $k)
                                     selected="selected" @endif>{{$v}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="customers_Type_Pay"><i>Kiểu thanh toán</i></label>
+                    <select name="customers_Type_Pay" id="customers_Type_Pay" class="form-control input-sm">
+                        @foreach($arrTypePay as $k2 => $v2)
+                            <option value="{{$k2}}" @if(isset($data['customers_Type_Pay']) && $data['customers_Type_Pay'] == $k2)
+                                    selected="selected" @endif>{{$v2}}</option>
                         @endforeach
                     </select>
                 </div>

@@ -11,7 +11,8 @@ class CustomersController extends BaseAdminController
     private $permission_view = 'customers_view';
     private $permission_create = 'customers_create';
     private $permission_edit = 'customers_edit';
-    private $arrType = array(-1 => 'Kiểu khách hàng', 1 => 'Mua buôn', 2 => 'Mua lẻ', 3 => 'Yêu cầu báo giá');
+    private $arrType = array(-1 => '--Chọn kiểu khách hàng--', 1 => 'Mua buôn', 2 => 'Mua lẻ', 3 => 'Yêu cầu báo giá');
+    private $arrTypePay = array(-1 => '--Chọn kiểu thanh toán--', 1 => 'Công nợ', 2 => 'Thanh toán luôn');
     private $arrTypeVat = array(1 => 'Có VAT', 0 => 'Không có VAT');
 
     public function __construct()
@@ -42,7 +43,8 @@ class CustomersController extends BaseAdminController
                     'customers_Phone'=>$val->customers_Phone,
                     'customers_ContactEmail'=>$val->customers_ContactEmail,
                     'customers_ContactAddress'=>$val->customers_ContactAddress,
-                    'customers_Type'=>isset($this->arrType[$val->customers_Type])? $this->arrType[$val->customers_Type] :'---',
+                    'customers_Type'=>(isset($this->arrType[$val->customers_Type]) && $val->customers_Type > 0 )? $this->arrType[$val->customers_Type] :'---',
+                    'customers_Type_Pay'=>(isset($this->arrTypePay[$val->customers_Type_Pay]) && $val->customers_Type_Pay > 0 )? $this->arrTypePay[$val->customers_Type_Pay] :'---',
                 );
             }
         }
@@ -76,6 +78,7 @@ class CustomersController extends BaseAdminController
             ->with('data', $data)
             ->with('arrTypeVat', $this->arrTypeVat)
             ->with('user', $user)
+            ->with('arrTypePay', $this->arrTypePay)
             ->with('arrType', $this->arrType);
     }
 
@@ -109,6 +112,7 @@ class CustomersController extends BaseAdminController
         $dataSave['customers_ManagedBy'] = Request::get('customers_ManagedBy');
 
         $dataSave['customers_Type'] = (int)Request::get('customers_Type', 0);
+        $dataSave['customers_Type_Pay'] = (int)Request::get('customers_Type_Pay', 0);
 
         if($this->valid($dataSave,$id) && empty($this->error)) {
             if($id > 0) {
@@ -129,6 +133,7 @@ class CustomersController extends BaseAdminController
             ->with('error', $this->error)
             ->with('arrTypeVat', $this->arrTypeVat)
             ->with('user', $user)
+            ->with('arrTypePay', $this->arrTypePay)
             ->with('arrType', $this->arrType);
     }
 

@@ -11,7 +11,7 @@ class Customers extends Eloquent
     protected $table = 'customers';
     protected $primaryKey = 'customers_id';
     public $timestamps = false;
-    protected $fillable = array('customers_Type', 'customers_FirstName', 'customers_LastName', 'customers_Code', 'customers_ContractNo', 'customers_BizRegistrationNo', 'customers_IsNeededVAT', 'customers_TaxCode','customers_Phone', 'customers_Fax', 'customers_Email', 'customers_Website', 'customers_BizAddress', 'customers_ContactAddress', 'customers_Description', 'customers_ContactPhone','customers_ContactEmail', 'customers_ContactName', 'customers_TotalInvoice', 'customers_AmountOfCapital', 'customers_AmountOfRevenue', 'customers_NetProfit', 'customers_ManagedBy', 'customers_CreatedTime');
+    protected $fillable = array('customers_Type', 'customers_FirstName', 'customers_LastName', 'customers_Code', 'customers_ContractNo', 'customers_BizRegistrationNo', 'customers_IsNeededVAT', 'customers_TaxCode','customers_Phone', 'customers_Fax', 'customers_Email', 'customers_Website', 'customers_BizAddress', 'customers_ContactAddress', 'customers_Description', 'customers_ContactPhone','customers_ContactEmail', 'customers_ContactName', 'customers_TotalInvoice', 'customers_AmountOfCapital', 'customers_AmountOfRevenue', 'customers_NetProfit', 'customers_ManagedBy', 'customers_CreatedTime', 'customers_Type_Pay');
 
     public static function getByID($id) {
         $customers = Customers::where('customers_id', $id)->first();
