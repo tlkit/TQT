@@ -104,7 +104,7 @@
                 <b>Tổng tiền sau chiết khấu</b>
             </td>
             <td colspan="5" style="text-align: right">
-                <b class="red">{{number_format((int)($sub_total - $discount), 0, '.', '.');}}</b>
+                <b class="red">{{number_format((int)($sub_total - (int)$discount), 0, '.', '.');}}</b>
             </td>
         </tr>
     @endif
@@ -116,12 +116,12 @@
         </td>
         <td colspan="5" style="text-align: right">
             @if($customer['customers_IsNeededVAT'])
-                <?php $vat = ($sub_total - $discount)/10 ;?>
+                <?php $vat = ($sub_total - (int)$discount)/10 ;?>
             @else
                 <?php $vat = 0 ;?>
             @endif
             <?php ?>
-            <b class="red">{{number_format($vat, 0, '.', '.');}}</b>
+            <b class="red">{{number_format((int)$vat, 0, '.', '.');}}</b>
         </td>
     </tr>
     <tr>
@@ -131,7 +131,7 @@
             <b>Tổng tiền thanh toán</b>
         </td>
         <td colspan="5" style="text-align: right">
-            <?php $total = $sub_total - $discount +$vat ;?>
+            <?php $total = $sub_total - (int)$discount +(int)$vat ;?>
             <b class="red">{{number_format((int)$total, 0, '.', '.');}}</b>
         </td>
     </tr>
