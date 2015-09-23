@@ -54,10 +54,11 @@
                         <thead class="thin-border-bottom">
                         <tr class="">
                             <th width="5%" class="text-center">STT</th>
-                            <th width="35%">Tên khách hàng</th>
-                            <th width="8%">Loại KH</th>
-                            <th width="15%">Email - Số ĐT</th>
-                            <th width="30%">Đ/c thực tế</th>
+                            <th width="25%">Tên khách hàng</th>
+                            <th width="8%" class="text-center">Loại KH</th>
+                            <th width="8%" class="text-center">Kiểu thanh toán</th>
+                            <th width="20%">Email - Số ĐT</th>
+                            <th width="25%">Đ/c thực tế</th>
                             <th width="5%" class="text-center">Thao tác</th>
                         </tr>
                         </thead>
@@ -66,7 +67,8 @@
                             <tr>
                                 <td class="text-center">{{ $stt + $key+1 }}</td>
                                 <td>{{ $item['customers_FirstName'] }}</td>
-                                <td>{{ $item['customers_Type'] }}</td>
+                                <td class="text-center">{{ $item['customers_Type'] }}</td>
+                                <td class="text-center">{{ $item['customers_Type_Pay'] }}</td>
                                 <td>
                                     @if($item['customers_ContactEmail'] != '')
                                         E: {{ $item['customers_ContactEmail'] }} <br/>@endif
