@@ -136,10 +136,10 @@ class ExportController extends BaseAdminController{
             $aryExport['export_user_customer'] = $param['export_user_customer'];
             $aryExport['export_subtotal'] = $total;
             $aryExport['export_total'] = $total - $total_discount;
-            $aryExport['export_total_pay'] = $aryExport['export_total'] + $aryExport['export_total']*($vat/100);
+            $aryExport['export_total_pay'] = $aryExport['export_total'] + (int)($aryExport['export_total']*($vat/100));
             $aryExport['export_discount'] = $total_discount;
             $aryExport['export_discount_customer'] = $total_discount_customer;
-            $aryExport['export_vat'] = $aryExport['export_total']*($vat/100);
+            $aryExport['export_vat'] = (int)($aryExport['export_total']*($vat/100));
             $aryExport['export_status'] = 1;
             $aryExport['export_create_id'] = User::user_id();
             $aryExport['export_create_time'] = time();

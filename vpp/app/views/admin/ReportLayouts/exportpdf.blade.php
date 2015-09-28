@@ -16,8 +16,10 @@
             <b style="color: #136194;">VPGD: Số 35, Phố Nguyễn Văn Trỗi, Phương Liệt, Thanh Xuân, Hà Nội. </b><br/>
             {{--<b style="color: #136194;">Cơ sở 1 : CC2 - Bắc Linh Đàm - Hoàng Mai - Hà Nội</b><br/>--}}
             {{--<b style="color: #136194;">Cơ sở 2 : 73, Phố Nguyễn Văn Trỗi, Thanh Xuân, Hà Nội</b><br/>--}}
-            <b style="color: #136194;">ĐT : 04 66572 888 - 04 6686 0415 / Fax: 04 62841202 - Hotline: 0973323333</b><br/>
-            <b style="color: #136194;">Website : http://banbuonvpp.vn &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Email: vpp@banbuonvpp.vn</b><br/>
+            <b style="color: #136194;">ĐT : 04 66572 888 - 04 6686 0415 / Fax: 04 62841202 - Hotline:
+                0973323333</b><br/>
+            <b style="color: #136194;">Website : http://banbuonvpp.vn &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email:
+                vpp@banbuonvpp.vn</b><br/>
             {{--<b><span style="color:black">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</span></b><br/>--}}
             {{--<b><span style="color:black">Độc lập - Tự do - Hạnh phúc</span></b><br/>--}}
             {{------------------------------}}
@@ -31,10 +33,11 @@
 <div style="float: left;text-align:center;position: relative;line-height: 0.7">
     Ngày xuất kho : {{date('d/m/Y',$input['export_time'])}}
     @if($input['bill_code'] != '')
-    &nbsp;&nbsp;&nbsp;Kèm HĐGTGT số {{$input['bill_code']}}
+        &nbsp;&nbsp;&nbsp;Kèm HĐGTGT số {{$input['bill_code']}}
     @endif
 </div>
 <span style="text-align: right;">No : BK{{$input['customers_id']}}{{date('d',$input['export_time'])}}{{date('m',$input['export_time'])}}{{date('y',$input['export_time'])}}</span>
+
 <div style="clear: both"></div>
 <div>
     <br/>
@@ -42,8 +45,8 @@
     <br/>
     Địa chỉ : {{$customer['customers_BizAddress']}} .
     @if($customer['customers_TaxCode'] != '')
-    <br/>
-    MST : {{$customer['customers_TaxCode']}} .
+        <br/>
+        MST : {{$customer['customers_TaxCode']}} .
     @endif
 </div>
 <div style="clear: both"></div>
@@ -66,12 +69,16 @@
         <tr>
             <td width="5%" style="text-align: center;">{{$key+1}}</td>
             <td width="15%" style="text-align: center;"><b>{{$value['product']['product_Code']}}</b></td>
-            <td width="35%" style=""><div style="margin-left: 5px">{{$value['product']['product_Name']}}</div></td>
+            <td width="35%" style="">
+                <div style="margin-left: 5px">{{$value['product']['product_Name']}}</div>
+            </td>
             <td width="10%" style="text-align: center;">{{$value['product']['product_NameOrigin']}}</td>
             <td width="10%" style="text-align: center;">{{$value['product']['product_NameUnit']}}</td>
-            <td width="10%" style="text-align: right;">{{number_format($value['export_product_price'], 0, ',', '.');}}</td>
+            <td width="10%"
+                style="text-align: right;">{{number_format($value['export_product_price'], 0, ',', '.');}}</td>
             <td width="5%" style="text-align: center;">{{$value['export_product_num']}}</td>
-            <td width="10%" style="text-align: right;"><b>{{number_format($value['export_product_total'], 0, ',', '.');}}</b></td>
+            <td width="10%" style="text-align: right;">
+                <b>{{number_format($value['export_product_total'], 0, ',', '.');}}</b></td>
             <?php $sub_total += $value['export_product_total'];?>
             <?php $discount += $value['export_product_discount'];?>
         </tr>
@@ -79,7 +86,7 @@
     <tr>
         <td></td>
         <td></td>
-        <td style="text-align: left" >
+        <td style="text-align: left">
             <b>Cộng tiền hàng</b>
         </td>
         <td colspan="5" style="text-align: right">
@@ -90,21 +97,21 @@
         <tr>
             <td></td>
             <td></td>
-            <td style="text-align: left" >
+            <td style="text-align: left">
                 <b>Chiết khấu</b>
             </td>
             <td colspan="5" style="text-align: right">
-                <b class="red">{{number_format((int)$discount, 0, '.', '.');}}</b>
+                <b class="red">{{number_format($discount, 0, '.', '.');}}</b>
             </td>
         </tr>
         <tr>
             <td></td>
             <td></td>
-            <td style="text-align: left" >
+            <td style="text-align: left">
                 <b>Tổng tiền sau chiết khấu</b>
             </td>
             <td colspan="5" style="text-align: right">
-                <b class="red">{{number_format((int)($sub_total - (int)$discount), 0, '.', '.');}}</b>
+                <b class="red">{{number_format((int)($sub_total - $discount), 0, '.', '.');}}</b>
             </td>
         </tr>
     @endif
@@ -116,12 +123,12 @@
         </td>
         <td colspan="5" style="text-align: right">
             @if($customer['customers_IsNeededVAT'])
-                <?php $vat = ($sub_total - (int)$discount)/10 ;?>
+                <?php $vat = (int)(($sub_total - $discount) / 10);?>
             @else
-                <?php $vat = 0 ;?>
+                <?php $vat = 0;?>
             @endif
             <?php ?>
-            <b class="red">{{number_format((int)$vat, 0, '.', '.');}}</b>
+            <b class="red">{{number_format($vat, 0, '.', '.');}}</b>
         </td>
     </tr>
     <tr>
@@ -131,13 +138,13 @@
             <b>Tổng tiền thanh toán</b>
         </td>
         <td colspan="5" style="text-align: right">
-            <?php $total = $sub_total - (int)$discount +(int)$vat ;?>
-            <b class="red">{{number_format((int)$total, 0, '.', '.');}}</b>
+            <?php $total = $sub_total - $discount + $vat ;?>
+            <b class="red">{{number_format($total, 0, '.', '.');}}</b>
         </td>
     </tr>
     <tr>
         <td colspan="8" style="text-align: left">
-            <i>Bằng chữ : {{FunctionLib::numberToWord((int)$total)}}</i>
+            <i>Bằng chữ : {{FunctionLib::numberToWord($total)}}</i>
         </td>
     </tr>
     </tbody>
