@@ -86,7 +86,7 @@
                                             <label for="import_product_price"><i>Giá nhập</i></label>
                                             <input type="text" id="import_product_price" name="import_product_price"
                                                    class="form-control text-right txt_input"
-                                                   value="">
+                                                   value="" autocomplete="off">
                                             <input type="hidden" id="input_import_product_price" name="import_product_price"
                                                    class="form-control text-right "
                                                    value="0">
@@ -95,7 +95,7 @@
                                             <label for="import_product_num"><i>Số lượng</i></label>
                                             <input type="text" id="import_product_num" name="import_product_num"
                                                    class="form-control text-center txt_input"
-                                                   value="">
+                                                   value="" autocomplete="off">
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="space"></div>

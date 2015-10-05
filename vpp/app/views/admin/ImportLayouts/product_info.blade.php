@@ -4,6 +4,16 @@
     </div>
 @endif
 @if($import)
+<div class="cols-sm-6 col-xs-12">
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" class="ace" id="import_pay_type" name="import_pay_type" value="1" @if($import_pay_type == 1) checked @endif>
+            <span class="lbl green"> <strong>Thanh toán công nợ</strong></span>
+        </label>
+    </div>
+    <div class="space-6"></div>
+</div>
+<div class="clearfix"></div>
 <table class="table table-striped table-bordered">
     <thead class="thin-border-bottom">
     <tr>
@@ -39,7 +49,7 @@
             {{--<a href="javascript:void(0)" class="sys_remove_item" onclick="Import.removeItem({{$k}})"><i class="fa fa-trash-o"></i></a>--}}
         </td>
     </tr>
-    <?php $i ++;$total += $total_item;?>
+    <?php $i ++;$total += $total_item;$total_discount =0?>
     @endforeach
     </tbody>
 </table>
@@ -48,10 +58,52 @@
 
 <div class="row">
     <div class="col-sm-5 pull-right">
-        <h4 class="pull-right">
-            Tổng tiền :
-            <span class="red">{{number_format($total, 0, ',', '.');}} VNĐ</span>
-        </h4>
+        <div class="col-sm-6 col-xs-6" style="margin-bottom: 5px">
+            <b>Tổng tiền</b>
+        </div>
+        <div class="col-sm-6 col-xs-6 text-right" style="margin-bottom: 5px">
+            <b>{{number_format($total, 0, ',', '.');}}</b>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-6 col-xs-6">
+            <div class="radio">
+                <label>
+                    <input type="radio" class="ace" name="import_pay_discount_type" value="1" @if($import_pay_discount_type == 1) checked @endif>
+                    <span class="lbl"> Chiết khấu %</span>
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xs-6 text-right sys_discount" id="sys_discount_1" @if($import_pay_discount_type != 1) style="display: none" @endif>
+            <input type="text" id="import_pay_discount_percent" name="import_pay_discount_percent"
+                   class="form-control text-right txt_input"
+                   value="{{$discount_percent}}">
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-6 col-xs-6">
+            <div class="radio">
+                <label>
+                    <input type="radio" class="ace" name="import_pay_discount_type" value="2" @if($import_pay_discount_type == 2) checked @endif>
+                    <span class="lbl"> Chiết khấu VNĐ</span>
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xs-6 text-right sys_discount" id="sys_discount_2" @if($import_pay_discount_type != 2) style="display: none" @endif>
+                <input type="text" id="import_pay_discount_vnd" name=""
+                       class="form-control text-right txt_input"
+                       value="{{number_format($discount_vnd, 0, ',', '.');}}">
+                <input type="hidden" id="input_import_pay_discount_vnd" name="import_pay_discount_vnd"
+                       class="form-control text-right "
+                       value="{{$discount_vnd}}">
+        </div>
+        <div class="clearfix"></div>
+        <div class="hr hr8 hr-double hr-dotted"></div>
+        <div class="col-sm-6 col-xs-6">
+            <b>Tổng thanh toán</b>
+        </div>
+        <div class="col-sm-6 col-xs-6 text-right">
+            <b class="red">{{number_format($total-$total_discount, 0, ',', '.');}}</b>
+        </div>
+        <div class="clearfix"></div>
     </div>
     {{--<div class="col-sm-7 pull-left"> Extra Information</div>--}}
 </div>

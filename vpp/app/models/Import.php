@@ -14,7 +14,7 @@ class Import extends Eloquent{
 
     protected $primaryKey = 'import_id';
 
-    protected $fillable = array('import_code','providers_id','import_price','import_status','import_note','import_create_id','import_create_time','import_update_id','import_update_time');
+    protected $fillable = array('import_code','providers_id','import_price','import_status','import_note','import_pay_type','import_pay_discount','import_pay_total','import_create_id','import_create_time','import_update_id','import_update_time');
 
     public function importproduct()
     {

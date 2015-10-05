@@ -182,6 +182,7 @@ class CustomersController extends BaseAdminController
                 $param['export_user_customer'] = $customers['customers_ContactName'];
                 $param['export_customer_phone'] = $customers['customers_ContactPhone'];
                 $param['export_customers_note'] = '';
+                $param['export_pay_type'] = ($customers['customers_Type_Pay'] == 1) ? 1 : 0;
                 $data['html'] = View::make('admin.ExportLayouts.customer_info')->with('customers',$param)->with('admin',$admin)->render();
             }
         }

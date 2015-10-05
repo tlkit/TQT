@@ -43,6 +43,17 @@ $(document).ready(function(){
         Import.fomatNumber('import_product_price');
     });
 
+    $("#import_pay_discount_vnd").on('keyup', function (event) {
+        Import.fomatNumber('import_pay_discount_vnd');
+    });
+
+    $('#import_pay_discount_percent').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+
+    $('input[name="import_pay_discount_type"]').on('change',function(){
+        $('.sys_discount').hide();
+        $('#sys_discount_' + $(this).val()).show();
+    });
+
     $("#product_name").autocomplete({
         source: function (request, response) {
             $.ajax({
@@ -80,6 +91,10 @@ $(document).ready(function(){
         var name = $("#product_name").val();
         var price = $("#input_import_product_price").val();
         var num = $("#import_product_num").val();
+        var type = $("#import_pay_type:checked").val();
+        var discount_type = $('input[name="import_pay_discount_type"]:checked').val();
+        var discount_percent = $("#import_pay_discount_percent").val();
+        var discount_vnd = $("#input_import_pay_discount_vnd").val();
         $.ajax({
             dataType: 'json',
             type: 'POST',
@@ -87,7 +102,11 @@ $(document).ready(function(){
             data: {
                 name: name,
                 price: price,
-                num: num
+                num: num,
+                type: type,
+                discount_type: discount_type,
+                discount_vnd: discount_vnd,
+                discount_percent: discount_percent
             },
             beforeSend: function () {
             },
@@ -101,7 +120,15 @@ $(document).ready(function(){
                     $("#input_import_product_price").val(0);
                     $("#import_product_price").val('');
                     $("#import_product_num").val('');
+                    $("#import_pay_discount_vnd").on('keyup', function (event) {
+                        Import.fomatNumber('import_pay_discount_vnd');
+                    });
+                    $('#import_pay_discount_percent').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
 
+                    $('input[name="import_pay_discount_type"]').on('change',function(){
+                        $('.sys_discount').hide();
+                        $('#sys_discount_' + $(this).val()).show();
+                    });
                 }
             }
         });
@@ -177,13 +204,20 @@ var Import = {
         number.numberFormatNew(re, id);
     },
     removeItem:function(product_id){
-
+        var type = $("#import_pay_type:checked").val();
+        var discount_type = $('input[name="import_pay_discount_type"]:checked').val();
+        var discount_vnd = $("#input_import_pay_discount_vnd").val();
+        var discount_percent = $("#import_pay_discount_percent").val();
         $.ajax({
             dataType: 'json',
             type: 'POST',
             url: WEB_ROOT + '/admin/import/removeProduct',
             data: {
-                product_id: product_id
+                product_id: product_id,
+                type: type,
+                discount_type:discount_type,
+                discount_vnd: discount_vnd,
+                discount_percent: discount_percent
             },
             beforeSend: function () {
             },
@@ -193,6 +227,14 @@ var Import = {
                 $("#sys_product_info").html(data.html);
                 $(".popover").removeClass('in');
                 $('[data-rel=popover]').popover({container: 'body'});
+                $("#import_pay_discount_vnd").on('keyup', function (event) {
+                    Import.fomatNumber('import_pay_discount_vnd');
+                });
+                $('#import_pay_discount_percent').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+                $('input[name="import_pay_discount_type"]').on('change',function(){
+                    $('.sys_discount').hide();
+                    $('#sys_discount_' + $(this).val()).show();
+                });
             }
         });
     }

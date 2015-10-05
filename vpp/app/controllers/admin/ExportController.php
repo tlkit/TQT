@@ -82,6 +82,7 @@ class ExportController extends BaseAdminController{
         $param['export_user_customer'] = Request::get('export_user_customer','');
         $param['export_customer_phone'] = Request::get('export_customer_phone','');
         $param['export_customers_note'] = Request::get('export_customers_note','');
+        $param['export_pay_type'] = (int)Request::get('export_pay_type',0);
         $export = Session::has('export') ? Session::get('export') : array();
         $error = '';
         if(!$export){
@@ -130,6 +131,7 @@ class ExportController extends BaseAdminController{
             $aryExport['export_customers_name'] = $param['export_customers_name'];
             $aryExport['export_customer_phone'] = $param['export_customer_phone'];
             $aryExport['export_customers_note'] = $param['export_customers_note'];
+            $aryExport['export_pay_type'] = $param['export_pay_type'];
             $aryExport['export_delivery_time'] = strtotime($param['export_delivery_time']);
             $aryExport['export_user_store'] = $param['export_user_store'];
             $aryExport['export_user_cod'] = $param['export_user_cod'];

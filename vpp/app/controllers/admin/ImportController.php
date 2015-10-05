@@ -71,6 +71,10 @@ class ImportController extends BaseAdminController{
             return Redirect::route('admin.dashboard');
         }
         $providers_id = Request::get('providers_id',0);
+        $import_pay_type = Request::get('import_pay_type',0);
+        $import_pay_discount_type = (int)Request::get('import_pay_discount_type',0);
+        $import_pay_discount_type = Request::get('import_pay_discount_type',0);
+
         $import = Session::has('import') ? Session::get('import') : array();
         $error = '';
         if(!$import){
@@ -108,6 +112,7 @@ class ImportController extends BaseAdminController{
             $aryImport['import_price'] = $total;
             $aryImport['import_status'] = 1;
             $aryImport['import_note'] = '';
+            $aryImport['import_pay_type'] = $import_pay_type;
             $aryImport['import_create_id'] = User::user_id();
             $aryImport['import_create_time'] = time();
             $import_id = Import::add($aryImport,$aryImportProduct);
@@ -125,7 +130,7 @@ class ImportController extends BaseAdminController{
                 ->with('providers',$providers)->with('providers_id',$providers_id)->with('error',$error);
             $provider = Providers::find($providers_id);
             $this->layout->content->provider_info = View::make('admin.ImportLayouts.provider_info')->with('provider',$provider);
-            $this->layout->content->product_info = View::make('admin.ImportLayouts.product_info')->with('import',$import);
+            $this->layout->content->product_info = View::make('admin.ImportLayouts.product_info')->with('import',$import)->with('import_pay_type',$import_pay_type)->with('import_pay_discount_type',$import_pay_discount_type);
         }
     }
 
@@ -134,6 +139,10 @@ class ImportController extends BaseAdminController{
         $name = Request::get('name','');
         $price = Request::get('price',0);
         $num = Request::get('num',0);
+        $type = (int)Request::get('type',0);
+        $import_pay_discount_type = (int)Request::get('discount_type',0);
+        $discount_vnd = (int)Request::get('discount_vnd',0);
+        $discount_percent = Request::get('discount_percent',0);
         $product = Product::getByName($name);
         $import = Session::has('import') ? Session::get('import') : array();
         $error = '';
@@ -163,7 +172,7 @@ class ImportController extends BaseAdminController{
             }
         }
         $data['success'] = ($error == '') ? 1 : 0;
-        $data['html'] = View::make('admin.ImportLayouts.product_info')->with('import',$import)->with('error',$error)->render();
+        $data['html'] = View::make('admin.ImportLayouts.product_info')->with('import',$import)->with('import_pay_type',$type)->with('import_pay_discount_type',$import_pay_discount_type)->with('discount_vnd',$discount_vnd)->with('discount_percent',$discount_percent)->with('error',$error)->render();
 
         return Response::json($data);
 
@@ -171,13 +180,17 @@ class ImportController extends BaseAdminController{
 
     public function removeProduct(){
         $product_id = Request::get('product_id',0);
+        $type = (int)Request::get('type',0);
+        $import_pay_discount_type = (int)Request::get('discount_type',0);
+        $discount_vnd = (int)Request::get('discount_vnd',0);
+        $discount_percent = Request::get('discount_percent',0);
         $import = Session::has('import') ? Session::get('import') : array();
         if(isset($import[$product_id])){
             unset($import[$product_id]);
         }
         Session::put('import', $import);
         $data['success'] = 1;
-        $data['html'] = View::make('admin.ImportLayouts.product_info')->with('import',$import)->render();
+        $data['html'] = View::make('admin.ImportLayouts.product_info')->with('import',$import)->with('import_pay_type',$type)->with('import_pay_discount_type',$import_pay_discount_type)->with('discount_vnd',$discount_vnd)->with('discount_percent',$discount_percent)->render();
         return Response::json($data);
     }
 

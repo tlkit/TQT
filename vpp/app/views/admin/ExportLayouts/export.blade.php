@@ -59,7 +59,7 @@
                                             </select>
                                         </div>
                                         <div class="clearfix"></div>
-                                        <div class="col-sm-12 text-center" id="sys_load" style="padding: 71px;display: none;">
+                                        <div class="col-sm-12 text-center" id="sys_load" style="padding: 90.5px;display: none;">
                                             <i class="ace-icon fa fa-spinner fa-spin bigger-300"></i>
                                         </div>
                                         <div class="clearfix"></div>
