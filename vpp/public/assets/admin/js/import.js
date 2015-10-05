@@ -45,13 +45,37 @@ $(document).ready(function(){
 
     $("#import_pay_discount_vnd").on('keyup', function (event) {
         Import.fomatNumber('import_pay_discount_vnd');
+        var import_price = parseInt($('#import_price').val());
+        var import_discount = parseInt($("#input_import_pay_discount_vnd").val());
+        var import_total = import_price - import_discount;
+        import_total = formatNumber(import_total);
+        $('#sys_import_total').html(import_total);
     });
 
     $('#import_pay_discount_percent').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
 
+    $("#import_pay_discount_percent").on('keyup', function (event) {
+        var import_price = parseInt($('#import_price').val());
+        var import_discount = parseInt($("#import_pay_discount_percent").val() * import_price / 100);
+        var import_total = import_price - import_discount;
+        import_total = formatNumber(import_total);
+        $('#sys_import_total').html(import_total);
+    });
+
     $('input[name="import_pay_discount_type"]').on('change',function(){
         $('.sys_discount').hide();
         $('#sys_discount_' + $(this).val()).show();
+        var import_price = parseInt($('#import_price').val());
+        if ($(this).val() == 1) {
+            var import_discount = parseInt($("#import_pay_discount_percent").val() * import_price / 100);
+        }else if($(this).val() == 2){
+            var import_discount = parseInt($("#input_import_pay_discount_vnd").val());
+        }else{
+            var import_discount = 0;
+        }
+        var import_total = import_price - import_discount;
+        import_total = formatNumber(import_total);
+        $('#sys_import_total').html(import_total);
     });
 
     $("#product_name").autocomplete({
@@ -122,13 +146,37 @@ $(document).ready(function(){
                     $("#import_product_num").val('');
                     $("#import_pay_discount_vnd").on('keyup', function (event) {
                         Import.fomatNumber('import_pay_discount_vnd');
+                        var import_price = parseInt($('#import_price').val());
+                        var import_discount = parseInt($("#input_import_pay_discount_vnd").val());
+                        var import_total = import_price - import_discount;
+                        import_total = formatNumber(import_total);
+                        $('#sys_import_total').html(import_total);
                     });
                     $('#import_pay_discount_percent').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
-
+                    $("#import_pay_discount_percent").on('keyup', function (event) {
+                        var import_price = parseInt($('#import_price').val());
+                        var import_discount = parseInt($("#import_pay_discount_percent").val() * import_price / 100);
+                        var import_total = import_price - import_discount;
+                        import_total = formatNumber(import_total);
+                        $('#sys_import_total').html(import_total);
+                    });
                     $('input[name="import_pay_discount_type"]').on('change',function(){
                         $('.sys_discount').hide();
                         $('#sys_discount_' + $(this).val()).show();
+                        var import_price = parseInt($('#import_price').val());
+                        if ($(this).val() == 1) {
+                            var import_discount = parseInt($("#import_pay_discount_percent").val() * import_price / 100);
+                        }else if($(this).val() == 2){
+                            var import_discount = parseInt($("#input_import_pay_discount_vnd").val());
+                        }else{
+                            var import_discount = 0;
+                        }
+                        var import_total = import_price - import_discount;
+                        import_total = formatNumber(import_total);
+                        $('#sys_import_total').html(import_total);
+
                     });
+                    $('')
                 }
             }
         });
@@ -229,11 +277,34 @@ var Import = {
                 $('[data-rel=popover]').popover({container: 'body'});
                 $("#import_pay_discount_vnd").on('keyup', function (event) {
                     Import.fomatNumber('import_pay_discount_vnd');
+                    var import_price = parseInt($('#import_price').val());
+                    var import_discount = parseInt($("#input_import_pay_discount_vnd").val());
+                    var import_total = import_price - import_discount;
+                    import_total = formatNumber(import_total);
+                    $('#sys_import_total').html(import_total);
                 });
                 $('#import_pay_discount_percent').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+                $("#import_pay_discount_percent").on('keyup', function (event) {
+                    var import_price = parseInt($('#import_price').val());
+                    var import_discount = parseInt($("#import_pay_discount_percent").val() * import_price / 100);
+                    var import_total = import_price - import_discount;
+                    import_total = formatNumber(import_total);
+                    $('#sys_import_total').html(import_total);
+                });
                 $('input[name="import_pay_discount_type"]').on('change',function(){
                     $('.sys_discount').hide();
                     $('#sys_discount_' + $(this).val()).show();
+                    var import_price = parseInt($('#import_price').val());
+                    if ($(this).val() == 1) {
+                        var import_discount = parseInt($("#import_pay_discount_percent").val() * import_price / 100);
+                    }else if($(this).val() == 2){
+                        var import_discount = parseInt($("#input_import_pay_discount_vnd").val());
+                    }else{
+                        var import_discount = 0;
+                    }
+                    var import_total = import_price - import_discount;
+                    import_total = formatNumber(import_total);
+                    $('#sys_import_total').html(import_total);
                 });
             }
         });

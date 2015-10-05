@@ -49,7 +49,7 @@
             {{--<a href="javascript:void(0)" class="sys_remove_item" onclick="Import.removeItem({{$k}})"><i class="fa fa-trash-o"></i></a>--}}
         </td>
     </tr>
-    <?php $i ++;$total += $total_item;$total_discount =0?>
+    <?php $i ++;$total += $total_item;?>
     @endforeach
     </tbody>
 </table>
@@ -63,6 +63,7 @@
         </div>
         <div class="col-sm-6 col-xs-6 text-right" style="margin-bottom: 5px">
             <b>{{number_format($total, 0, ',', '.');}}</b>
+            <input type="hidden" id="import_price" value="{{$total}}">
         </div>
         <div class="clearfix"></div>
         <div class="col-sm-6 col-xs-6">
@@ -101,7 +102,15 @@
             <b>Tổng thanh toán</b>
         </div>
         <div class="col-sm-6 col-xs-6 text-right">
-            <b class="red">{{number_format($total-$total_discount, 0, ',', '.');}}</b>
+            <?php
+            $import_pay_discount = 0;
+            if ($import_pay_discount_type == 1) {
+                $import_pay_discount = (int)($total * ($discount_percent / 100));
+            } elseif ($import_pay_discount_type == 2) {
+                $import_pay_discount = (int)$discount_vnd;
+            }
+            ?>
+            <b class="red" id="sys_import_total">{{number_format($total-$import_pay_discount, 0, ',', '.');}}</b>
         </div>
         <div class="clearfix"></div>
     </div>

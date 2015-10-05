@@ -73,8 +73,8 @@ class ImportController extends BaseAdminController{
         $providers_id = Request::get('providers_id',0);
         $import_pay_type = Request::get('import_pay_type',0);
         $import_pay_discount_type = (int)Request::get('import_pay_discount_type',0);
-        $import_pay_discount_type = Request::get('import_pay_discount_type',0);
-
+        $discount_vnd = (int)Request::get('import_pay_discount_vnd',0);
+        $discount_percent = Request::get('import_pay_discount_percent',0);
         $import = Session::has('import') ? Session::get('import') : array();
         $error = '';
         if(!$import){
@@ -97,8 +97,12 @@ class ImportController extends BaseAdminController{
                 $aryImportProduct[$k]['import_product_create_time'] = time();
                 $total += $aryImportProduct[$k]['import_product_total'];
             }
-
-
+            $import_pay_discount = 0;
+            if ($import_pay_discount_type == 1) {
+                $import_pay_discount = (int)($total * ($discount_percent/100));
+            }elseif($import_pay_discount_type == 2){
+                $import_pay_discount = (int)$discount_vnd;
+            }
             $count = Import::getCountInDay();
             $count = $count +1;
             $num_length = strlen((string)$count);
@@ -112,6 +116,8 @@ class ImportController extends BaseAdminController{
             $aryImport['import_price'] = $total;
             $aryImport['import_status'] = 1;
             $aryImport['import_note'] = '';
+            $aryImport['import_pay_discount'] = $import_pay_discount;
+            $aryImport['import_pay_total'] = $total - $import_pay_discount;
             $aryImport['import_pay_type'] = $import_pay_type;
             $aryImport['import_create_id'] = User::user_id();
             $aryImport['import_create_time'] = time();
@@ -130,7 +136,7 @@ class ImportController extends BaseAdminController{
                 ->with('providers',$providers)->with('providers_id',$providers_id)->with('error',$error);
             $provider = Providers::find($providers_id);
             $this->layout->content->provider_info = View::make('admin.ImportLayouts.provider_info')->with('provider',$provider);
-            $this->layout->content->product_info = View::make('admin.ImportLayouts.product_info')->with('import',$import)->with('import_pay_type',$import_pay_type)->with('import_pay_discount_type',$import_pay_discount_type);
+            $this->layout->content->product_info = View::make('admin.ImportLayouts.product_info')->with('import',$import)->with('import_pay_type',$import_pay_type)->with('import_pay_discount_type',$import_pay_discount_type)->with('discount_vnd',$discount_vnd)->with('discount_percent',$discount_percent);
         }
     }
 
