@@ -397,11 +397,17 @@
                 <b class="arrow"></b>
                 <ul class="submenu">
                     <li class="@if(Route::currentRouteName() == 'admin.ticket_list')active @endif">
-                        <a href="{{URL::route('admin.ticket_list')}}">
+                        <a href="{{URL::route('admin.ticket_list',array('ticket_type'=>1))}}">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            Quản lý phiếu thu-chi
+                            Phiếu thu
                         </a>
-
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.ticket_list')active @endif">
+                        <a href="{{URL::route('admin.ticket_list',array('ticket_type'=>2))}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Phiếu chi
+                        </a>
                         <b class="arrow"></b>
                     </li>
                 </ul>

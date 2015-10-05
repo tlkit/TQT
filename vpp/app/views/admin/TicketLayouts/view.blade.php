@@ -5,7 +5,7 @@
                 <i class="ace-icon fa fa-home home-icon"></i>
                 <a href="{{URL::route('admin.dashboard')}}">Home</a>
             </li>
-            <li class="active">Danh sách phiếu thu - chi</li>
+            <li class="active">Danh sách phiếu @if($search['ticket_type'] ==1)thu @else chi @endif</li>
         </ul><!-- /.breadcrumb -->
     </div>
 
@@ -24,7 +24,7 @@
                         </div>
                         <div class="form-group col-lg-3">
                             <label for="ticket_type"><i>Loại phiếu</i></label>
-                            <select name="ticket_type" id="ticket_type" class="form-control input-sm">
+                            <select name="ticket_type" id="ticket_type" class="form-control input-sm" disabled>
                                 <option value="0">-- Chọn loại phiếu --</option>
                                 @foreach($arrTypeTicket as $k => $v)
                                     <option value="{{$k}}" @if($search['ticket_type'] == $k)
@@ -73,9 +73,9 @@
                         </div>
                     </div>
                     <div class="panel-footer text-right">
-                        @if($permission_create == 1)
+                        @if($permission_create == 1 && isset($search['ticket_type']) && $search['ticket_type'] > 0)
                         <span class="">
-                            <a class="btn btn-danger btn-sm" href="{{URL::route('admin.ticket_edit')}}">
+                            <a class="btn btn-danger btn-sm" href="{{URL::route('admin.ticket_edit',array('id' => base64_encode(0),'type'=>$search['ticket_type']))}}">
                                 <i class="ace-icon fa fa-plus-circle"></i>
                                 Thêm mới
                             </a>
@@ -88,7 +88,7 @@
                     {{ Form::close() }}
                 </div>
                 @if(sizeof($data) > 0)
-                    <div class="span"> @if($total >0) Có tổng số <b>{{$total}}</b> phiếu thu - chi @endif </div>
+                    <div class="span"> @if($total >0) Có tổng số <b>{{$total}}</b> phiếu @if($search['ticket_type'] ==1)thu @else chi @endif @endif </div>
                     <br/>
                     <table class="table table-bordered table-hover">
                         <thead class="thin-border-bottom">
@@ -154,7 +154,7 @@
 
                                 <td class="text-center">
                                     @if($permission_edit ==1)
-                                        <a href="{{URL::route('admin.ticket_edit',array('id' => base64_encode($item['ticket_id'])))}}" class="btn btn-xs btn-primary" title="Chi tiết phiếu" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                        <a href="{{URL::route('admin.ticket_edit',array('id' => base64_encode($item['ticket_id']),'type'=>$item['ticket_type']))}}" class="btn btn-xs btn-primary" title="Chi tiết phiếu" data-placement="bottom" data-trigger="hover" data-rel="popover">
                                             <i class="ace-icon fa fa-file-text-o bigger-120"></i>
                                         </a>
                                         <a href="{{URL::route('admin.ticket_export',array('id' => base64_encode($item['ticket_id'])))}}" class="btn btn-xs btn-danger" title="Xuất phiếu" data-placement="bottom" data-trigger="hover" data-rel="popover">

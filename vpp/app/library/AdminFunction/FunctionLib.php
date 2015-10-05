@@ -86,5 +86,11 @@ class FunctionLib {
         }
         return strtoupper(substr($Str, 0, 1)) . substr($Str, 1, strlen($Str) - 1) . ($lang == 'vi' ? "đồng" : 'vnd');
     }
-
+    static function debug($array) {
+        if($_SERVER['HTTP_HOST'] != 'banbuonvpp.vn') {
+            echo '<pre>';
+            print_r($array);
+            die;
+        }
+    }
 }

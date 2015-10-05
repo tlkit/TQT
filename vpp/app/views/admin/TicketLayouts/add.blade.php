@@ -77,19 +77,20 @@
                 </div>
 
                 <div class="form-group col-sm-12 text-center" style="margin: 10px 0">
-                    <label for="customers_Code" class="col-sm-12 text-center">
-                        <select name="ticket_type" id="ticket_type" style="font-size: 50px; width: 280px; height: 65px;">
-                            @foreach($arrTypeTicket as $k => $v)
-                                <option value="{{$k}}" @if(isset($data['ticket_type']) && $data['ticket_type'] == $k) selected="selected" @endif>{{$v}}</option>
-                            @endforeach
-                        </select>
-
-                        <div class="clear1"></div>
-                        <div class="col-sm-12">
-                            <label class="col-sm-12"><i>Ngày tháng năm lập phiếu</i></label>
-                            <input type="text" class="input-sm" id="ticket_time_created" name="ticket_time_created"  data-date-format="dd-mm-yyyy" value="@if(isset($data['ticket_time_created'])) {{date('d-m-Y',$data['ticket_time_created'])}} @endif">
-                        </div>
+                    <label for="customers_Code" class="col-sm-12 text-center" style="font-size: 50px;">
+                        @if((isset($data['ticket_type']) && $data['ticket_type'] == 1) || (isset($ticket_type) && $ticket_type == 1))
+                            Phiếu thu
+                        @endif
+                        @if((isset($data['ticket_type']) && $data['ticket_type'] == 2) || (isset($ticket_type) && $ticket_type == 2))
+                            Phiếu chi
+                        @endif
+                        <input type="hidden" id="ticket_type" name="ticket_type" value="@if(isset($data['ticket_type']) && $data['ticket_type'] == 2){{$data['ticket_type']}} @else {{$ticket_type}}@endif">
                     </label>
+                    <div class="clear1"></div>
+                    <div class="col-sm-12">
+                        <label class="col-sm-12"><i>Ngày tháng năm lập phiếu</i></label>
+                        <input type="text" class="input-sm" id="ticket_time_created" name="ticket_time_created"  data-date-format="dd-mm-yyyy" value="@if(isset($data['ticket_time_created'])) {{date('d-m-Y',$data['ticket_time_created'])}} @endif">
+                    </div>
                 </div>
 
 

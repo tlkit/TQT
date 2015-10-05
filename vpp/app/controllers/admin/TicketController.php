@@ -21,9 +21,9 @@ class TicketController extends BaseAdminController
 
     public function index() {
         //Check phan quyen.
-        /*if(!in_array($this->permission_view,$this->permission)){
+        if(!in_array($this->permission_view,$this->permission)){
             return Redirect::route('admin.dashboard');
-        }*/
+        }
         $pageNo = (int) Request::get('page_no',1);
         $limit = 30;
         $offset = ($pageNo - 1) * $limit;
@@ -56,10 +56,10 @@ class TicketController extends BaseAdminController
             ->with('arrTypeTicket', $this->arrTypeTicket);
     }
 
-    public function getCreate($ids=0) {
-        /*if(!in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
+    public function getCreate($ids = 0, $ticket_type = 1) {
+        if(!in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
             return Redirect::route('admin.dashboard');
-        }*/
+        }
         $data = array();
         $id = base64_decode($ids);
         if($id > 0) {
@@ -68,13 +68,14 @@ class TicketController extends BaseAdminController
         $this->layout->content = View::make('admin.TicketLayouts.add')
             ->with('id', $id)
             ->with('data', $data)
+            ->with('ticket_type', $ticket_type)
             ->with('arrTypeTicket', $this->arrTypeTicket);
     }
 
-    public function postCreate($ids=0) {
-        /*if(!in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
+    public function postCreate($ids = 0, $ticket_type = 1) {
+        if(!in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
             return Redirect::route('admin.dashboard');
-        }*/
+        }
         $id = base64_decode($ids);
         $submit = (int)Request::get('submit',1);
         $dataSave['ticket_type'] = (int)Request::get('ticket_type',1);
@@ -115,7 +116,7 @@ class TicketController extends BaseAdminController
 
         $dataSave['ticket_rate'] = Request::get('ticket_rate','');
         $ticket_rate_money = Request::get('ticket_rate_money');
-        $dataSave['ticket_rate_money'] =  str_replace('.','',$ticket_rate_money);
+        $dataSave['ticket_rate_money'] =  (int)str_replace('.','',$ticket_rate_money);
 
         $dataSave['ticket_money_miss'] =  abs((int)$dataSave['ticket_money']-(int)$dataSave['ticket_money_pay']);
 
@@ -126,7 +127,7 @@ class TicketController extends BaseAdminController
                 $dataSave['ticket_user_update'] = isset($this->user['user_full_name']) ? $this->user['user_full_name']: '---';
                 if(Ticket::updateTicket($id, $dataSave)) {
                     if($submit == 1 ){
-                        return Redirect::route('admin.ticket_list');
+                        return Redirect::route('admin.ticket_list',array('ticket_type'=>$dataSave['ticket_type']));
                     }else{
                         $this->exporTicket($id);
                     }
@@ -136,10 +137,12 @@ class TicketController extends BaseAdminController
                 $dataSave['ticket_date_created'] = time();
                 $dataSave['ticket_user_id_created'] = isset($this->user['user_id']) ? $this->user['user_id'] : 0;
                 $dataSave['ticket_user_created'] = isset($this->user['user_full_name']) ? $this->user['user_full_name']: '---';
+                //FunctionLib::debug($dataSave);
                 $ticket_id = Ticket::createNew($dataSave);
+
                 if($ticket_id > 0) {
                     if($submit == 1 ){
-                        return Redirect::route('admin.ticket_list');
+                        return Redirect::route('admin.ticket_list',array('ticket_type'=>$dataSave['ticket_type']));
                     }else{
                         $this->exporTicket($ticket_id);
                     }
@@ -149,6 +152,7 @@ class TicketController extends BaseAdminController
         $this->layout->content =  View::make('admin.TicketLayouts.add')
             ->with('id', $id)
             ->with('data', $dataSave)
+            ->with('ticket_type', $ticket_type)
             ->with('error', $this->error)
             ->with('arrTypeTicket', $this->arrTypeTicket);
     }
@@ -170,7 +174,7 @@ class TicketController extends BaseAdminController
         return false;
     }
 
-    function ticket_export($ids){
+        function ticket_export($ids){
         $ticket_id = base64_decode($ids);
         $this->exporTicket($ticket_id);
     }

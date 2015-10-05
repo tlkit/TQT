@@ -61,8 +61,8 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     /*Quản lý phiếu thu - chi*/
     Route::get('ticket/view',array('as' => 'admin.ticket_list','uses' => 'TicketController@index'));
     Route::get('ticket/ticket_export/{id?}', array('as' => 'admin.ticket_export','uses' => 'TicketController@ticket_export'));
-    Route::get('ticket/getCreate/{id?}', array('as' => 'admin.ticket_edit','uses' => 'TicketController@getCreate'));
-    Route::post('ticket/getCreate/{id?}', array('as' => 'admin.ticket_edit_post','uses' => 'TicketController@postCreate'));
+    Route::get('ticket/getCreate/{id?}/{type?}', array('as' => 'admin.ticket_edit','uses' => 'TicketController@getCreate'));
+    Route::post('ticket/getCreate/{id?}/{type?}', array('as' => 'admin.ticket_edit_post','uses' => 'TicketController@postCreate'));
 
     /*Quản lý nhà cung cấp*/
     Route::get('providers/view',array('as' => 'admin.providers_list','uses' => 'ProvidersController@index'));
