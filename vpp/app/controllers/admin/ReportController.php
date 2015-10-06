@@ -1166,4 +1166,17 @@ class ReportController extends BaseAdminController{
         exit();
         parent::debug();
     }
+
+    /**************************************
+     * Lập báo giá khách hàng
+     **************************************/
+    public function priceListInfo(){
+//        if (!in_array($this->permission_create, $this->permission)) {
+//            return Redirect::route('admin.dashboard');
+//        }
+        Session::forget('price_list');
+        $customers = Customers::getListAll();
+        $this->layout->content = View::make('admin.ReportLayouts.price_list')
+            ->with('customers',$customers)->with('customers_id',0);
+    }
 }
