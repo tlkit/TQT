@@ -125,5 +125,12 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('report/exportPdf_sale_list',array('as' => 'admin.report_sale_list_exportPdf','uses' => 'ReportController@exportPdf'));
     Route::get('report/store',array('as' => 'admin.report_store','uses' => 'ReportController@reportStore'));
 
+    /*Báo giá khách hàng*/
+    Route::get('customers/bang-gia.html',array('as' => 'admin.price_list','uses' => 'ReportController@priceListInfo'));
+    Route::post('customers/price_list',array('as' => 'admin.price_list','uses' => 'ReportController@priceList'));
+    Route::get('customers/bang-gia-{id}.pdf',array('as' => 'admin.price_list_pdf','uses' => 'ReportController@priceListPdf'));
+    Route::post('customers/addProduct', array('as' => 'admin.customers_addProduct','uses' => 'ReportController@addProduct'));
+    Route::post('customers/removeSessionPriceList', array('as' => 'admin.customers_removeSessionPriceList','uses' => 'ReportController@removeSessionPriceList'));
+    Route::post('customers/removeProduct', array('as' => 'admin.customers_removeProduct','uses' => 'ReportController@removeProduct'));
 
 });
