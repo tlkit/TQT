@@ -256,13 +256,33 @@
                 </ul>
             </li>
 
-            <li class="@if(Route::currentRouteName() == 'admin.customers_list' || Route::currentRouteName() == 'admin.discountCategory'|| Route::currentRouteName() == 'admin.discountProduct') active @endif">
-                <a href="{{URL::route('admin.customers_list')}}">
+            <li class="@if(Route::currentRouteName() == 'admin.customers_list' || Route::currentRouteName() == 'admin.discountCategory'|| Route::currentRouteName() == 'admin.discountProduct' || Route::currentRouteName() == 'admin.cr_price_list') active @endif">
+                <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-group"></i>
-                    <span class="menu-text"> Quản trị khách hàng </span>
+                    <span class="menu-text"> Q.Trị khách hàng </span>
+                    <b class="arrow fa fa-angle-down"></b>
                 </a>
 
                 <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="@if(Route::currentRouteName() == 'admin.customers_list' || Route::currentRouteName() == 'admin.discountCategory'|| Route::currentRouteName() == 'admin.discountProduct')active @endif">
+                        <a href="{{URL::route('admin.customers_list')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Thông tin khách hàng
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.cr_price_list')active @endif">
+                        <a href="{{URL::route('admin.cr_price_list')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Báo giá khách hàng
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
             </li>
 
             <li class="@if(Route::currentRouteName() == 'admin.providers_list') active @endif">
