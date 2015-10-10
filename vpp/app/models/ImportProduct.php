@@ -52,5 +52,9 @@ class ImportProduct extends Eloquent{
         return $data;
     }
 
+    public static function getByProductId($product_id){
+        $query = ImportProduct::where('product_id',$product_id)->where('import_product_status',1)->orderBy('import_product_create_time', 'DESC')->take(30)->get();
+    }
+
 
 }

@@ -205,6 +205,15 @@ class ExportController extends BaseAdminController{
                 $category_price_discount = $category_customer->category_price_discount;
             }
             $vat = $customers->customers_IsNeededVAT ? 10 : 0;
+            $import = ImportProduct::getByProductId($product->product_id);
+            $aryStore = array();
+            if($import){
+                foreach($import as $k => $v){
+                    $temp =
+                    if()
+                    $aryStore[$v]
+                }
+            }
             $export[$product->product_id] = array(
                 'product_id' => $product->product_id,
                 'export_product_price' => $product->product_Price,
