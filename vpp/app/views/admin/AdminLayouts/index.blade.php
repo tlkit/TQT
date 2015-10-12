@@ -453,7 +453,7 @@
                 </ul>
             </li>
 
-            <li class="@if(Route::currentRouteName() == 'admin.ticket_list' || Route::currentRouteName() == 'admin.ticket_edit'|| Route::currentRouteName() == 'admin.ticket_edit_post')active @endif">
+            <li class="@if(Route::currentRouteName() == 'admin.ticket_list' || Route::currentRouteName() == 'admin.ticket_edit'|| Route::currentRouteName() == 'admin.ticket_edit_post'|| Route::currentRouteName() == 'admin.groupMoney_list')active @endif">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-file-text-o"></i>
                     <span class="menu-text"> QL Phiếu thu-chi </span>
@@ -472,6 +472,13 @@
                         <a href="{{URL::route('admin.ticket_list',array('ticket_type'=>2))}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Phiếu chi
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.groupMoney_list')active @endif">
+                        <a href="{{URL::route('admin.groupMoney_list')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Quỹ tiền mặt
                         </a>
                         <b class="arrow"></b>
                     </li>

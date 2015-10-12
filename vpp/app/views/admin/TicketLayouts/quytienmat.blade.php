@@ -29,7 +29,7 @@
     <br/><b>Loại quỹ:</b> .......................
 </p>
 
-<table border="0.3" cellspacing="0" cellpadding="5" width="100%">
+<table border="1" cellspacing="0" cellpadding="5" width="100%">
   <tr style="height:63.8px">
     <td rowspan="2" style="text-align: center" width="12%">Ngày tháng ghi sổ</td>
     <td rowspan="2" style="text-align: center" width="12%">Ngày tháng chứng từ</td>
@@ -38,7 +38,7 @@
     <td colspan="3" style="text-align: center" width="46%">Số tiền</td>
     <td style="text-align: center" width="10%">Ghi chú</td>
   </tr>
-  <tr style="height:63.8px">
+  <tr>
     <td style="text-align: center">Thu</td>
     <td style="text-align: center">Chi</td>
     <td style="text-align: center">Thu</td>
@@ -46,7 +46,7 @@
     <td style="text-align: center">Tồn</td>
     <td>&nbsp;</td>
   </tr>
-  <tr style="height:63.8px">
+  <tr>
     <td style="text-align: center">A</td>
     <td style="text-align: center">B</td>
     <td>&nbsp;</td>

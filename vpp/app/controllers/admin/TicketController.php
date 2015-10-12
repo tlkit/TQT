@@ -80,7 +80,7 @@ class TicketController extends BaseAdminController
         $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
         //FunctionLib::debug($dataSearch);
         if($submit == 2){
-            $type = 2;
+            $type = 1;
             //xuất phiếu thu
             $template = 'admin.TicketLayouts.quytienmat';
             $filename = "Quỹ tiền mặt";
