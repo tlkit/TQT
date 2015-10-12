@@ -6,9 +6,9 @@
  * Time: 9:21 CH
  */
 
-class ImportProduct extends Eloquent{
+class ImportProductFake extends Eloquent{
 
-    protected $table = 'import_product';
+    protected $table = 'import_product_fake';
 
     public $timestamps = false;
 
@@ -24,8 +24,8 @@ class ImportProduct extends Eloquent{
     public static function reportImport($param){
 
         $tbl_product = with(new Product())->getTable();
-        $tbl_import_product = with(new ImportProduct())->getTable();
-        $query = ImportProduct::where('import_product_status',1);
+        $tbl_import_product = with(new ImportProductFake())->getTable();
+        $query = ImportProductFake::where('import_product_status',1);
         $query->join($tbl_product,$tbl_import_product.'.product_id', '=', $tbl_product . '.product_id');
         if ($param['providers_id'] > 0) {
             $query->where($tbl_import_product . '.providers_id', $param['providers_id']);
@@ -53,7 +53,7 @@ class ImportProduct extends Eloquent{
     }
 
     public static function getByProductId($product_id){
-        $data = ImportProduct::where('product_id',$product_id)->where('import_product_status',1)->orderBy('import_product_create_time', 'DESC')->take(30)->get();
+        $data = ImportProductFake::where('product_id',$product_id)->where('import_product_status',1)->orderBy('import_product_create_time', 'DESC')->take(30)->get();
         return $data;
     }
 

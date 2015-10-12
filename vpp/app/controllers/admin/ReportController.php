@@ -1166,4 +1166,107 @@ class ReportController extends BaseAdminController{
         exit();
         parent::debug();
     }
+
+    /**************************************
+     * Lập báo giá khách hàng
+     **************************************/
+    public function priceListInfo(){
+//        if (!in_array($this->permission_create, $this->permission)) {
+//            return Redirect::route('admin.dashboard');
+//        }
+        Session::forget('price_list');
+        $customers = Customers::getListAll();
+        $this->layout->content = View::make('admin.ReportLayouts.price_list')
+            ->with('customers',$customers)->with('customers_id',0);
+    }
+
+    public function priceList()
+    {
+        $data['success'] = 0;
+        $customers_id = (int)Request::get('customers_id', 0);
+        $customers = Customers::find($customers_id);
+        $price_list = Session::has('price_list') ? Session::get('price_list') : array();
+        if (!$customers) {
+            $data['mess'] = 'Không tìm thấy thông tin khách hàng';
+            return Response::json($data);
+        }
+        if (!$price_list) {
+            $data['mess'] = 'Không tìm thấy thông tin sản phẩm cần báo giá';
+            return Response::json($data);
+        }
+        $data['success'] = 1;
+        $data['link'] = URL::route('admin.price_list_pdf', array('id' => $customers_id));
+        return Response::json($data);
+    }
+
+    public function priceListPdf($id){
+        $customers = Customers::find($id);
+        $price_list = Session::has('price_list') ? Session::get('price_list') : array();
+        $html = View::make('admin.ReportLayouts.price_list_pdf')->with('customer',$customers)->with('list',$price_list)->render();
+        $pdf = PDF::loadHTML($html);
+        return $pdf->stream('my.pdf');
+    }
+
+    public function addProduct(){
+        $customers_id = (int)Request::get('customers_id',0);
+        $name = Request::get('name','');
+        $num = (int)Request::get('num',0);
+        $vat = 0;
+        $product = Product::getByName($name);
+        $customers = Customers::find($customers_id);
+        $price_list = Session::has('price_list') ? Session::get('price_list') : array();
+        $error = '';
+        if(!$customers){
+            $error = 'Không tìm thấy thông tin khách hàng';
+        }
+        if($num == 0){
+            $error = 'Chưa chọn số lượng xuất kho';
+        }
+        if($name == ''){
+            $error = 'Chưa chọn sản phẩm xuất kho';
+        }
+        if(!$product){
+            $error = 'Không tìm thấy sản phẩm cần xuất kho';
+        }
+        if ($error == '') {
+            $vat = $customers->customers_IsNeededVAT ? 10 : 0;
+            $price_list[$product->product_id] = array(
+                'product_id' => $product->product_id,
+                'product_price' => $product->product_Price,
+                'product_num' => $num,
+                'product_Name' => $product->product_Name,
+                'product_Code' => $product->product_Code,
+                'product_NameOrigin' => $product->product_NameOrigin,
+                'product_NameUnit' => $product->product_NameUnit,
+            );
+            Session::put('price_list', $price_list);
+        }
+        $data['success'] = ($error == '') ? 1 : 0;
+        $data['html'] = View::make('admin.ReportLayouts.product_info')->with('price_list',$price_list)->with('vat',$vat)->with('error',$error)->render();
+        return Response::json($data);
+
+    }
+
+    public function removeSessionPriceList()
+    {
+        Session::forget('price_list');
+        $data['success'] = 1;
+        return Response::json($data);
+    }
+
+    public function removeProduct()
+    {
+        $product_id = Request::get('product_id', 0);
+        $customers_id = (int)Request::get('customers_id', 0);
+        $customers = Customers::find($customers_id);
+        $vat = $customers->customers_IsNeededVAT ? 10 : 0;
+        $price_list = Session::has('price_list') ? Session::get('price_list') : array();
+        if (isset($price_list[$product_id])) {
+            unset($price_list[$product_id]);
+        }
+        Session::put('price_list', $price_list);
+        $data['success'] = 1;
+        $data['html'] = View::make('admin.ReportLayouts.product_info')->with('price_list', $price_list)->with('vat', $vat)->render();
+        return Response::json($data);
+    }
 }

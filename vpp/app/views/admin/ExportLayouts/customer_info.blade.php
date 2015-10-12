@@ -60,6 +60,15 @@
                class="form-control input-sm"
                value="{{$customers['export_customers_note']}}">
     </div>
+    <div class="cols-sm-6 col-xs-12">
+        <div class="space-6"></div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" class="ace ace-checkbox-2" id="export_pay_type" name="export_pay_type" value="1" @if($customers['export_pay_type'] == 1) checked @endif>
+                <span class="lbl orange"> <strong>Thanh toán công nợ</strong></span>
+            </label>
+        </div>
+    </div>
 </div>
 <script type="text/javascript">
     $( "#export_delivery_time" ).datepicker({

@@ -8,7 +8,7 @@
                 <i class="ace-icon fa fa-home home-icon"></i>
                 <a href="{{URL::route('admin.dashboard')}}">Home</a>
             </li>
-            <li class="active">Nhập kho</li>
+            <li class="active">Nhập kho ảo</li>
         </ul><!-- /.breadcrumb -->
     </div>
 
@@ -32,7 +32,7 @@
                                     <span class="blue">{{date('d/m/Y',time())}}</span>
                                 </div>
                             </div>
-                            {{Form::open(array('method' => 'POST', 'role'=>'form', 'class'=>'form-horizontal', 'route' => 'admin.import'))}}
+                            {{Form::open(array('method' => 'POST', 'role'=>'form', 'class'=>'form-horizontal', 'route' => 'admin.import_fake'))}}
                             <div class="widget-body">
                                 <div class="widget-main">
 
@@ -124,4 +124,4 @@
         </div><!-- /.row -->
     </div><!-- /.page-content -->
 </div>
-{{HTML::script('assets/admin/js/import.js');}}
+{{HTML::script('assets/admin/js/import_fake.js');}}

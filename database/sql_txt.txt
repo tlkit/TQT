@@ -1,0 +1,21 @@
+﻿ALTER TABLE `import`
+ADD COLUMN `import_pay_type`  int(2) NULL DEFAULT 0 COMMENT '0 : thanh toan ; 1 : cong no' AFTER `import_note`;
+ALTER TABLE `import`
+ADD COLUMN `import_pay_discount`  int(11) NULL DEFAULT 0 COMMENT 'tổng tiền chiết khấu' AFTER `import_pay_type`;
+ALTER TABLE `import`
+ADD COLUMN `import_pay_total`  int(11) NULL DEFAULT 0 COMMENT 'tổng tiền thanh toán' AFTER `import_pay_discount`;
+
+ALTER TABLE `import_product`
+ADD COLUMN `import_product_type`  int(2) NULL DEFAULT 0 COMMENT '0 : thanh toan ; 1 : cong no' AFTER `import_product_status`;
+
+ALTER TABLE `export`
+ADD COLUMN `export_pay_type`  int(2) NULL DEFAULT 0 COMMENT '0 : Thanh toán , 1 : Công nợ' AFTER `export_note`;
+ALTER TABLE `export`
+ADD COLUMN `export_price_origin`  int(11) NULL DEFAULT 0 COMMENT 'Giá gốc' AFTER `export_vat`;
+
+ALTER TABLE `export_product`
+ADD COLUMN `export_product_type`  int(11) NULL DEFAULT 0 COMMENT '0: thanh toan ; 1 Cong no' AFTER `export_product_status`;
+ALTER TABLE `export_product`
+ADD COLUMN `export_product_price_origin`  int(11) NULL DEFAULT 0 COMMENT 'Giá gốc' AFTER `export_product_total`;
+ALTER TABLE `product`
+ADD COLUMN `product_Quantity_Fake`  int(11) NULL DEFAULT 0 AFTER `product_Quantity`;

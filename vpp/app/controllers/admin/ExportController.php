@@ -82,6 +82,7 @@ class ExportController extends BaseAdminController{
         $param['export_user_customer'] = Request::get('export_user_customer','');
         $param['export_customer_phone'] = Request::get('export_customer_phone','');
         $param['export_customers_note'] = Request::get('export_customers_note','');
+        $param['export_pay_type'] = (int)Request::get('export_pay_type',0);
         $export = Session::has('export') ? Session::get('export') : array();
         $error = '';
         if(!$export){
@@ -97,22 +98,25 @@ class ExportController extends BaseAdminController{
         }
         if($error == ''){
             $aryExport = $aryExportProduct = array();
-            $total = $total_discount = $total_discount_customer = 0;
+            $total = $total_discount = $total_discount_customer = $price_origin = 0;
             foreach ($export as $k => $v) {
                 $aryExportProduct[$k]['product_id'] = $v['product_id'];
                 $aryExportProduct[$k]['customers_id'] = $customers_id;
                 $aryExportProduct[$k]['export_product_price'] = $v['export_product_price'];
                 $aryExportProduct[$k]['export_product_num'] = $v['export_product_num'];
+                $aryExportProduct[$k]['export_product_price_origin'] = $v['export_product_price_origin'];
 //                $aryExportProduct[$k]['export_product_subtotal'] = $v['export_product_num']* $v['export_product_price'];
                 $aryExportProduct[$k]['export_product_discount'] = $v['export_product_discount'];
                 $aryExportProduct[$k]['export_product_discount_customer'] = $v['export_product_discount_customer'];
                 $aryExportProduct[$k]['export_product_total'] = $v['export_product_num']* $v['export_product_price'];
                 $aryExportProduct[$k]['export_product_status'] = 1;
+                $aryExportProduct[$k]['export_product_type'] = $param['export_pay_type'];
                 $aryExportProduct[$k]['export_product_create_id'] = User::user_id();
                 $aryExportProduct[$k]['export_product_create_time'] = time();
                 $total += $aryExportProduct[$k]['export_product_total'];
                 $total_discount += $aryExportProduct[$k]['export_product_discount'];
                 $total_discount_customer += $aryExportProduct[$k]['export_product_discount_customer'];
+                $price_origin += $aryExportProduct[$k]['export_product_price_origin'];
             }
 
 
@@ -130,6 +134,7 @@ class ExportController extends BaseAdminController{
             $aryExport['export_customers_name'] = $param['export_customers_name'];
             $aryExport['export_customer_phone'] = $param['export_customer_phone'];
             $aryExport['export_customers_note'] = $param['export_customers_note'];
+            $aryExport['export_pay_type'] = $param['export_pay_type'];
             $aryExport['export_delivery_time'] = strtotime($param['export_delivery_time']);
             $aryExport['export_user_store'] = $param['export_user_store'];
             $aryExport['export_user_cod'] = $param['export_user_cod'];
@@ -140,6 +145,7 @@ class ExportController extends BaseAdminController{
             $aryExport['export_discount'] = $total_discount;
             $aryExport['export_discount_customer'] = $total_discount_customer;
             $aryExport['export_vat'] = (int)($aryExport['export_total']*($vat/100));
+            $aryExport['export_price_origin'] = $price_origin;
             $aryExport['export_status'] = 1;
             $aryExport['export_create_id'] = User::user_id();
             $aryExport['export_create_time'] = time();
@@ -203,10 +209,35 @@ class ExportController extends BaseAdminController{
                 $category_price_discount = $category_customer->category_price_discount;
             }
             $vat = $customers->customers_IsNeededVAT ? 10 : 0;
+            $import = ImportProduct::getByProductId($product->product_id);
+            $aryStore = array();
+            $price_input = 0;
+            if($import){
+                $x = $y = $i =0;
+                foreach($import as $k => $v){
+                    if($x < $product->product_Quantity){
+                        $y = $x;
+                        $x += $v['import_product_num'];
+                        $aryStore[$i]['num'] = ($x <= $product->product_Quantity) ? $v['import_product_num'] : ($product->product_Quantity - $y);
+                        $aryStore[$i]['price'] = $v['import_product_price'];
+                        $i++;
+                    }
+                }
+                krsort($aryStore);
+                $aryStore = array_values($aryStore);
+                $temp = $num;
+                foreach($aryStore as $k => $v){
+                    if($temp > 0){
+                        $price_input += ($temp <= $v['num']) ? ($temp*$v['price']) : ($v['num']*$v['price']);
+                        $temp = $temp - $v['num'];
+                    }
+                }
+            }
             $export[$product->product_id] = array(
                 'product_id' => $product->product_id,
                 'export_product_price' => $product->product_Price,
                 'export_product_num' => $num,
+                'export_product_price_origin' => $price_input,
                 'export_product_discount' => (int)($product->product_Price * $num * ($category_price_discount/100)),
                 'export_product_discount_customer' => (int)($product->product_Price * $num * ($category_price_hide_discount/100)),
                 'product_Name' => $product->product_Name,
@@ -371,6 +402,7 @@ class ExportController extends BaseAdminController{
                 'product_id' => $p->product_id,
                 'export_product_price' => $p->product_Price,
                 'export_product_num' => $product->export_product_num,
+                'export_product_price_origin' => $product->export_product_price_origin,
                 'export_product_discount' => (int)($p->product_Price * $product->export_product_num * $category_price_discount),
                 'export_product_discount_customer' => (int)($p->product_Price * $product->export_product_num * $category_price_hide_discount),
                 'product_Name' => $p->product_Name,

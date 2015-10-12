@@ -6,9 +6,9 @@
  * Time: 9:19 CH
  */
 
-class Import extends Eloquent{
+class ImportFake extends Eloquent{
 
-    protected $table = 'import';
+    protected $table = 'import_fake';
 
     public $timestamps = false;
 
@@ -16,21 +16,21 @@ class Import extends Eloquent{
 
     protected $fillable = array('import_code','providers_id','import_price','import_status','import_note','import_pay_type','import_pay_discount','import_pay_total','import_create_id','import_create_time','import_update_id','import_update_time');
 
-    public function importproduct()
+    public function importproductfake()
     {
-        return $this->hasMany('ImportProduct', 'import_id');
+        return $this->hasMany('ImportProductFake', 'import_id');
     }
 
     public static function getCountInDay(){
         $start = strtotime(date('d-m-Y',time()));
-        $count = Import::where('import_create_time','>=',$start)->count();
+        $count = ImportFake::where('import_create_time','>=',$start)->count();
         return $count;
     }
 
     public static function search($dataSearch = array(), $limit = 50, $offset = 0, &$total)
     {
         try {
-            $query = Import::where('import_id', '>', 0);
+            $query = ImportFake::where('import_id', '>', 0);
             if (isset($dataSearch['import_code']) && $dataSearch['import_code'] != '') {
                 $query->where('import_code', $dataSearch['import_code']);
             }
@@ -63,7 +63,7 @@ class Import extends Eloquent{
         try {
 
             DB::connection()->getPdo()->beginTransaction();
-            $import = new Import();
+            $import = new ImportFake();
 
             if(is_array($aryImport) && count($aryImport) > 0) {
                 foreach($aryImport as $k => $v) {
@@ -75,14 +75,14 @@ class Import extends Eloquent{
 
             if(is_array($aryImportProduct) && count($aryImportProduct) > 0){
                 foreach($aryImportProduct as $imProduct){
-                    $importProduct = new ImportProduct();
+                    $importProduct = new ImportProductFake();
                     $importProduct->import_id = $import_id;
                     foreach($imProduct as $k => $v) {
                         $importProduct->$k = $v;
                     }
                     $importProduct->save();
                     $product = Product::find($importProduct->product_id);
-                    $product->product_Quantity = $product->product_Quantity + $importProduct->import_product_num;
+                    $product->product_Quantity_Fake = $product->product_Quantity_Fake + $importProduct->import_product_num;
                     $product->save();
                 }
             }
@@ -105,17 +105,17 @@ class Import extends Eloquent{
             $import->import_update_id = User::user_id();
             $import->import_update_time = time();
             $import->save();
-            $importProduct = $import->importproduct;
+            $importProduct = $import->importproductfake;
             foreach($importProduct as $key => $value){
                 if($value['import_product_status'] == 1){
-                    $importP = ImportProduct::find($value['import_product_id']);
+                    $importP = ImportProductFake::find($value['import_product_id']);
                     $importP->import_product_status = 0;
                     $importP->import_product_update_id = User::user_id();
                     $importP->import_product_update_time = time();
                     //$importP->import_product_status = 0;
                     $importP->save();
                     $product = Product::find($value['product_id']);
-                    $product->product_Quantity = $product->product_Quantity - $importP->import_product_num;
+                    $product->product_Quantity_Fake = $product->product_Quantity_Fake - $importP->import_product_num;
                     $product->save();
                 }
             }

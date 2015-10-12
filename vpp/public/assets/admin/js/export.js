@@ -5,50 +5,7 @@ var restore = 0;
 $(document).ready(function(){
     $('[data-rel=popover]').popover({container: 'body'});
     $('#customers_id').chosen({allow_single_deselect:true,no_results_text:'Từ khóa : ',search_contains: true});
-    //$('#customers_id').on('chosen:showing_dropdown', function(evt, params) {
-    //    var customer_id = $('#customers_id').val();
-    //    var customer_text = $('#customers_id option:selected').attr('data-name');
-    //    $('#customers_id_chosen ul.chosen-results').empty();
-    //    $("#customers_id").empty();
-    //    $('#customers_id').append('<option data-name="Chọn khách hàng" value="0"></option>');
-    //    if(customer_id){
-    //        $('#customers_id').append('<option data-name="' + customer_text + '" value="' + customer_id + '" selected>' + customer_text + '</option>');
-    //    }
-    //});
-    //$('#customers_id_chosen .chosen-search input').autocomplete({
-    //    source: function( request, response ) {
-    //        var customer_name = $('#customers_id_chosen .chosen-search input').val();
-    //        var customer_id = $('#customers_id').val();
-    //        var customer_text = $('#customers_id option:selected').attr('data-name');
-    //        $.ajax({
-    //            url: WEB_ROOT + '/admin/getCustomersByName',
-    //            data: {
-    //                customers_name: customer_name
-    //            },
-    //            dataType: "json",
-    //            beforeSend: function(){
-    //                $('#customers_id_chosen ul.chosen-results').empty();
-    //                $("#customers_id").empty();
-    //            },
-    //            success: function( data ) {
-    //                $('#customers_id').append('<option data-name="Chọn khách hàng" value="0"></option>');
-    //                if(customer_id){
-    //                    $('#customers_id').append('<option data-name="' + customer_text + '" value="' + customer_id + '" selected>' + customer_text + '</option>');
-    //                }
-    //                response( $.map( data.product, function( item,i ) {
-    //                    $('#customers_id').append('<option data-name="' + item + '" value="'+i+'">' + item + '</option>');
-    //                }));
-    //
-    //                $("#customers_id").trigger("chosen:updated");
-    //                $('#customers_id_chosen .chosen-search input').val(customer_name)
-    //                if(customer_id){
-    //                    $('#customers_id_chosen .chosen-results li.result-selected').hide();
-    //                }
-    //
-    //            }
-    //        });
-    //    }
-    //});
+
     $('#customers_id').on('change',function(){
         var customers_id = $(this).val();
         $("#sys_product_info").html('');
@@ -70,14 +27,14 @@ $(document).ready(function(){
                 },
                 success: function (data) {
                     $("#sys_load").fadeOut(555, function () {
-                        $("#sys_customer_info").html(data.html);
                         $("#sys_customer_info").fadeIn(1111);
+                        $("#sys_customer_info").html(data.html);
                     });
                 }
             });
         else
-            $("#sys_customer_info").hide(1111);
-    })
+            $("#sys_customer_info").hide(2222);
+    });
 
     $('#export_product_num').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
 
@@ -117,7 +74,7 @@ $(document).ready(function(){
             return false;
         }
         //minLength: 3
-    })
+    });
 
     $("#sys_add_product").on('click',function(){
         var name = $("#product_name").val();
@@ -137,8 +94,8 @@ $(document).ready(function(){
             error: function () {
             },
             success: function (data) {
-                $('[data-rel=popover]').popover({container: 'body'});
                 $("#sys_product_info").html(data.html);
+                $('[data-rel=popover]').popover({container: 'body'});
                 if (data.success == 1) {
                     $("#product_name").val('');
                     $("#product_Quantity").val('');

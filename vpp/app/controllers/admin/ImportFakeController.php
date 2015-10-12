@@ -6,7 +6,7 @@
  * Time: 8:14 CH
  */
 
-class ImportController extends BaseAdminController{
+class ImportFakeController extends BaseAdminController{
 
     private $filename = '';
     private $aryStatus = array(-1 => 'Chọn trạng thái', 0 => 'Hóa đơn hủy', 1 => 'Hóa đơn bình thường');
@@ -40,9 +40,9 @@ class ImportController extends BaseAdminController{
         $providers = Providers::getListAll();
         $param['import_create_start'] = ($param['import_create_start'] != '') ? strtotime($param['import_create_start']) : 0;
         $param['import_create_end'] = ($param['import_create_end'] != '') ? strtotime($param['import_create_end'])+86400 : 0;
-        $data = Import::search($param, $limit, $offset, $total);
+        $data = ImportFake::search($param, $limit, $offset, $total);
         $paging = $total > 0 ? Pagging::getNewPager(3, $page_no, $total, $limit, $dataSearch) : '';
-        $this->layout->content = View::make('admin.ImportLayouts.view')
+        $this->layout->content = View::make('admin.ImportFakeLayouts.view')
             ->with('param',$dataSearch)
             ->with('data',$data)
             ->with('total', $total)
@@ -60,9 +60,9 @@ class ImportController extends BaseAdminController{
         if (!in_array($this->permission_create, $this->permission)) {
             return Redirect::route('admin.dashboard');
         }
-        Session::forget('import');
+        Session::forget('import_fake');
         $providers = Providers::getListAll();
-        $this->layout->content = View::make('admin.ImportLayouts.import')
+        $this->layout->content = View::make('admin.ImportFakeLayouts.import')
             ->with('providers',$providers)->with('providers_id',0);
     }
 
@@ -75,7 +75,7 @@ class ImportController extends BaseAdminController{
         $import_pay_discount_type = (int)Request::get('import_pay_discount_type',0);
         $discount_vnd = (int)Request::get('import_pay_discount_vnd',0);
         $discount_percent = Request::get('import_pay_discount_percent',0);
-        $import = Session::has('import') ? Session::get('import') : array();
+        $import = Session::has('import_fake') ? Session::get('import_fake') : array();
         $error = '';
         if(!$import){
             $error = 'Chưa chọn sản phẩm cần nhập';
@@ -104,13 +104,13 @@ class ImportController extends BaseAdminController{
             }elseif($import_pay_discount_type == 2){
                 $import_pay_discount = (int)$discount_vnd;
             }
-            $count = Import::getCountInDay();
+            $count = ImportFake::getCountInDay();
             $count = $count +1;
             $num_length = strlen((string)$count);
             if ($num_length == 1) {
-                $code = 'N0' . (string)$count . date('d', time()) . date('m', time()) . date('y', time());
+                $code = 'NA0' . (string)$count . date('d', time()) . date('m', time()) . date('y', time());
             } else {
-                $code = 'N' . (string)$count . date('d', time()) . date('m', time()) . date('y', time());
+                $code = 'NA' . (string)$count . date('d', time()) . date('m', time()) . date('y', time());
             }
             $aryImport['import_code'] = $code;
             $aryImport['providers_id'] = $providers_id;
@@ -122,10 +122,10 @@ class ImportController extends BaseAdminController{
             $aryImport['import_pay_type'] = $import_pay_type;
             $aryImport['import_create_id'] = User::user_id();
             $aryImport['import_create_time'] = time();
-            $import_id = Import::add($aryImport,$aryImportProduct);
+            $import_id = ImportFake::add($aryImport,$aryImportProduct);
             if ($import_id) {
-                Session::forget('import');
-                return Redirect::route("admin.import_detail", array('id' => base64_encode($import_id)));
+                Session::forget('import_fake');
+                return Redirect::route("admin.import_fake_detail", array('id' => base64_encode($import_id)));
             } else {
                 $error = 'Cập nhật dữ liệu không thành công ';
             }
@@ -133,11 +133,11 @@ class ImportController extends BaseAdminController{
 
         if($error != ''){
             $providers = Providers::getListAll();
-            $this->layout->content = View::make('admin.ImportLayouts.import')
+            $this->layout->content = View::make('admin.ImportFakeLayouts.import')
                 ->with('providers',$providers)->with('providers_id',$providers_id)->with('error',$error);
             $provider = Providers::find($providers_id);
-            $this->layout->content->provider_info = View::make('admin.ImportLayouts.provider_info')->with('provider',$provider);
-            $this->layout->content->product_info = View::make('admin.ImportLayouts.product_info')->with('import',$import)->with('import_pay_type',$import_pay_type)->with('import_pay_discount_type',$import_pay_discount_type)->with('discount_vnd',$discount_vnd)->with('discount_percent',$discount_percent);
+            $this->layout->content->provider_info = View::make('admin.ImportFakeLayouts.provider_info')->with('provider',$provider);
+            $this->layout->content->product_info = View::make('admin.ImportFakeLayouts.product_info')->with('import',$import)->with('import_pay_type',$import_pay_type)->with('import_pay_discount_type',$import_pay_discount_type)->with('discount_vnd',$discount_vnd)->with('discount_percent',$discount_percent);
         }
     }
 
@@ -151,7 +151,7 @@ class ImportController extends BaseAdminController{
         $discount_vnd = (int)Request::get('discount_vnd',0);
         $discount_percent = Request::get('discount_percent',0);
         $product = Product::getByName($name);
-        $import = Session::has('import') ? Session::get('import') : array();
+        $import = Session::has('import_fake') ? Session::get('import_fake') : array();
         $error = '';
         if($num == 0){
             $error = 'Chưa chọn số lượng nhập hàng';
@@ -173,13 +173,13 @@ class ImportController extends BaseAdminController{
                     'import_product_price' => $price,
                     'import_product_num' => $num,
                 );
-                Session::put('import', $import);
+                Session::put('import_fake', $import);
             } else {
                 $error = 'Sản phẩm bạn nhập không có trong hệ thống';
             }
         }
         $data['success'] = ($error == '') ? 1 : 0;
-        $data['html'] = View::make('admin.ImportLayouts.product_info')->with('import',$import)->with('import_pay_type',$type)->with('import_pay_discount_type',$import_pay_discount_type)->with('discount_vnd',$discount_vnd)->with('discount_percent',$discount_percent)->with('error',$error)->render();
+        $data['html'] = View::make('admin.ImportFakeLayouts.product_info')->with('import',$import)->with('import_pay_type',$type)->with('import_pay_discount_type',$import_pay_discount_type)->with('discount_vnd',$discount_vnd)->with('discount_percent',$discount_percent)->with('error',$error)->render();
 
         return Response::json($data);
 
@@ -191,13 +191,13 @@ class ImportController extends BaseAdminController{
         $import_pay_discount_type = (int)Request::get('discount_type',0);
         $discount_vnd = (int)Request::get('discount_vnd',0);
         $discount_percent = Request::get('discount_percent',0);
-        $import = Session::has('import') ? Session::get('import') : array();
+        $import = Session::has('import_fake') ? Session::get('import_fake') : array();
         if(isset($import[$product_id])){
             unset($import[$product_id]);
         }
-        Session::put('import', $import);
+        Session::put('import_fake', $import);
         $data['success'] = 1;
-        $data['html'] = View::make('admin.ImportLayouts.product_info')->with('import',$import)->with('import_pay_type',$type)->with('import_pay_discount_type',$import_pay_discount_type)->with('discount_vnd',$discount_vnd)->with('discount_percent',$discount_percent)->render();
+        $data['html'] = View::make('admin.ImportFakeLayouts.product_info')->with('import',$import)->with('import_pay_type',$type)->with('import_pay_discount_type',$import_pay_discount_type)->with('discount_vnd',$discount_vnd)->with('discount_percent',$discount_percent)->render();
         return Response::json($data);
     }
 
@@ -206,13 +206,13 @@ class ImportController extends BaseAdminController{
             return Redirect::route('admin.dashboard');
         }
         $id = base64_decode($ids);
-        $import = Import::find($id);
+        $import = ImportFake::find($id);
         $providers = Providers::find($import->providers_id);
-        $importProduct = $import->importproduct;
+        $importProduct = $import->importproductfake;
         foreach($importProduct as $product){
             $product->product;
         }
-        $this->layout->content = View::make('admin.ImportLayouts.detail')->with('import',$import)->with('importProduct',$importProduct)->with('providers',$providers);
+        $this->layout->content = View::make('admin.ImportFakeLayouts.detail')->with('import',$import)->with('importProduct',$importProduct)->with('providers',$providers);
     }
 
     public function exportPdf($ids)
@@ -221,15 +221,15 @@ class ImportController extends BaseAdminController{
             return Redirect::route('admin.dashboard');
         }
         $id = base64_decode($ids);
-        $import = Import::find($id);
+        $import = ImportFake::find($id);
         $providers = Providers::find($import->providers_id);
-        $importProduct = $import->importproduct;
+        $importProduct = $import->importproductfake;
         foreach($importProduct as $product){
             $product->product;
         }
-        $html = View::make('admin.ImportLayouts.export')->with('import',$import)->with('importProduct',$importProduct)->with('providers',$providers)->render();
+        $html = View::make('admin.ImportFakeLayouts.export')->with('import',$import)->with('importProduct',$importProduct)->with('providers',$providers)->render();
         $signature = false;
-        $this->filename = "import_" . $import->import_code . ".pdf";
+        $this->filename = "import_f_" . $import->import_code . ".pdf";
         $this->pdfOutput($html, $this->filename, 'I', $signature);
     }
 
@@ -280,14 +280,14 @@ class ImportController extends BaseAdminController{
             $data['html'] = 'Không tìm thấy hóa đơn cần hủy';
             return Response::json($data);
         }
-        $import = Import::find($import_id);
+        $import = ImportFake::find($import_id);
         $import->import_note = $import_note;
         if($import->import_status != 1){
             $data['success'] = 0;
             $data['html'] = 'Hóa đơn này đã bị hủy trước đó';
             return Response::json($data);
         }
-        if(Import::remove($import)){
+        if(ImportFake::remove($import)){
             if($restore == 1){
                 $data['link'] = URL::route('admin.import_restore',array('id' => base64_encode($import_id)));
             }
@@ -307,9 +307,9 @@ class ImportController extends BaseAdminController{
             return Redirect::route('admin.dashboard');
         }
         $id = base64_decode($ids);
-        $import = Import::find($id);
+        $import = ImportFake::find($id);
         $provider = Providers::find($import->providers_id);
-        $importProduct = $import->importproduct;
+        $importProduct = $import->importproductfake;
         $aryImport = array();
         foreach($importProduct as $product){
             $p = $product->product;
@@ -325,12 +325,12 @@ class ImportController extends BaseAdminController{
                 'import_product_num' => $product->import_product_num,
             );
         }
-        Session::put('import', $aryImport);
+        Session::put('import_fake', $aryImport);
         $providers = Providers::getListAll();
-        $this->layout->content = View::make('admin.ImportLayouts.import')
+        $this->layout->content = View::make('admin.ImportFakeLayouts.import')
             ->with('providers',$providers)->with('providers_id',$import->providers_id);
-        $this->layout->content->provider_info = View::make('admin.ImportLayouts.provider_info')->with('provider',$provider);
-        $this->layout->content->product_info = View::make('admin.ImportLayouts.product_info')->with('import',$aryImport);
+        $this->layout->content->provider_info = View::make('admin.ImportFakeLayouts.provider_info')->with('provider',$provider);
+        $this->layout->content->product_info = View::make('admin.ImportFakeLayouts.product_info')->with('import',$aryImport);
     }
 
 }

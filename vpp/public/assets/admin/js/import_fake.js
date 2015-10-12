@@ -122,7 +122,7 @@ $(document).ready(function(){
         $.ajax({
             dataType: 'json',
             type: 'POST',
-            url: WEB_ROOT + '/admin/import/addProduct',
+            url: WEB_ROOT + '/admin/import_fake/addProduct',
             data: {
                 name: name,
                 price: price,
@@ -202,7 +202,7 @@ $(document).ready(function(){
         $.ajax({
             dataType: 'json',
             type: 'POST',
-            url: WEB_ROOT + '/admin/import/remove',
+            url: WEB_ROOT + '/admin/import_fake/remove',
             data: {
                 import_id: import_id,
                 import_note: import_note,
@@ -259,7 +259,7 @@ var Import = {
         $.ajax({
             dataType: 'json',
             type: 'POST',
-            url: WEB_ROOT + '/admin/import/removeProduct',
+            url: WEB_ROOT + '/admin/import_fake/removeProduct',
             data: {
                 product_id: product_id,
                 type: type,
