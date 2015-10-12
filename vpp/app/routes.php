@@ -61,6 +61,7 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
 
     /*Quản lý phiếu thu - chi*/
     Route::get('ticket/view',array('as' => 'admin.ticket_list','uses' => 'TicketController@index'));
+    Route::get('ticket/groupMoney',array('as' => 'admin.groupMoney_list','uses' => 'TicketController@groupMoney'));
     Route::get('ticket/ticket_export/{id?}', array('as' => 'admin.ticket_export','uses' => 'TicketController@ticket_export'));
     Route::get('ticket/getCreate/{id?}/{type?}', array('as' => 'admin.ticket_edit','uses' => 'TicketController@getCreate'));
     Route::post('ticket/getCreate/{id?}/{type?}', array('as' => 'admin.ticket_edit_post','uses' => 'TicketController@postCreate'));

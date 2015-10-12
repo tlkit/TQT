@@ -38,12 +38,70 @@ class TicketController extends BaseAdminController
         $search['ticket_time_approve_start'] = Request::get('ticket_time_approve_start','');
         $search['ticket_time_approve_end'] = Request::get('ticket_time_approve_end','');
 
-
         $dataSearch = Ticket::searchByCondition($search, $limit, $offset,$total);
         $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
 
         //echo '<pre>';  print_r($dataSearch); echo '</pre>'; die;
         $this->layout->content = View::make('admin.TicketLayouts.view')
+            ->with('paging', $paging)
+            ->with('stt', ($pageNo-1)*$limit)
+            ->with('total', $total)
+            ->with('sizeShow', count($data))
+            ->with('data', $dataSearch)
+            ->with('search', $search)
+            //->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
+            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1)
+            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 1)
+            ->with('arrTypeTicket', $this->arrTypeTicket);
+    }
+
+    public function groupMoney() {
+        //Check phan quyen.
+        if(!in_array($this->permission_view,$this->permission)){
+            return Redirect::route('admin.dashboard');
+        }
+
+        $pageNo = (int) Request::get('page_no',1);
+        $limit = 30;
+        $offset = ($pageNo - 1) * $limit;
+        $search = $data = array();
+        $total = 0;
+
+        $search['ticket_person_money'] = addslashes(Request::get('ticket_person_money',''));
+        $submit = (int)Request::get('submit',1);
+        $search['ticket_type'] = (int)Request::get('ticket_type',0);
+        $search['ticket_time_created_start'] = Request::get('ticket_time_created_start','');
+        $search['ticket_time_created_end'] = Request::get('ticket_time_created_end','');
+
+        $search['ticket_time_approve_start'] = Request::get('ticket_time_approve_start','');
+        $search['ticket_time_approve_end'] = Request::get('ticket_time_approve_end','');
+
+        $dataSearch = Ticket::searchByCondition($search, $limit, $offset,$total);
+        $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
+        //FunctionLib::debug($dataSearch);
+        if($submit == 2){
+            $type = 2;
+            //xuất phiếu thu
+            $template = 'admin.TicketLayouts.quytienmat';
+            $filename = "Quỹ tiền mặt";
+            if($type == 1){
+                $output = View::make($template)->with('data',$dataSearch);
+                $filepath = $filename.'_'.date('d-m-Y h:i',time()).".doc";
+                @header("Cache-Control: ");// leave blank to avoid IE errors
+                @header("Pragma: ");// leave blank to avoid IE errors
+                @header("Content-type: application/octet-stream");
+                @header("Content-Disposition: attachment; filename=\"{$filepath}\"");
+                echo $output;die;
+            }elseif($type == 2){
+                $html = View::make($template)->with('data',$dataSearch)->render();
+                $signature = false;
+                $filepath = $filename.".pdf";
+                $this->pdfOutput($html, $filepath, 'I', $signature);
+            }
+        }
+        //FunctionLib::debug('sssss');
+        //echo '<pre>';  print_r($dataSearch); echo '</pre>'; die;
+        $this->layout->content = View::make('admin.TicketLayouts.view_2')
             ->with('paging', $paging)
             ->with('stt', ($pageNo-1)*$limit)
             ->with('total', $total)
@@ -174,10 +232,11 @@ class TicketController extends BaseAdminController
         return false;
     }
 
-        function ticket_export($ids){
+    function ticket_export($ids){
         $ticket_id = base64_decode($ids);
         $this->exporTicket($ticket_id);
     }
+
     function exporTicket($ticket_id){
         $infor_ticket = array();
         if($ticket_id > 0){
