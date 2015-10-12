@@ -120,9 +120,9 @@
                             <tr id="{{$item['export_code']}}" @if($item['export_status'] == 0)class="orange bg-warning" @endif>
                                 <td class="center">{{ $start + $key+1 }}</td>
                                 <td class="center">{{ $item['export_code'] }}</td>
-                                <td class="center">{{$customers[$item['customers_id']]}}</td>
-                                <td class="center">{{$admin[$item['export_user_store']]}}</td>
-                                <td class="center">{{$admin[$item['export_user_cod']]}}</td>
+                                <td class="center">@if(isset($customers[$item['customers_id']])){{$customers[$item['customers_id']]}}@endif</td>
+                                <td class="center">@if(isset($admin[$item['export_user_store']])){{$admin[$item['export_user_store']]}}@endif</td>
+                                <td class="center">@if(isset($admin[$item['export_user_cod']])){{$admin[$item['export_user_cod']]}}@endif</td>
                                 <td class="text-right">{{number_format($item['export_total_pay'],0,'.','.')}}</td>
                                 <td class="center">{{date('d-m-Y H:i',$item['export_create_time'])}}</td>
                                 <td>
