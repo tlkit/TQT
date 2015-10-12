@@ -25,6 +25,7 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('logout', array('as' => 'admin.logout','uses' => 'LoginController@logout'));
     /*màn hình chính*/
     Route::get('dashboard', array('as' => 'admin.dashboard','uses' => 'DashBoardController@dashboard'));
+    Route::get('convert', array('as' => 'admin.convert','uses' => 'BaseAdminController@convert'));
     /*thông tin tài khoản*/
     Route::get('user/view',array('as' => 'admin.user_view','uses' => 'UserController@view'));
     Route::get('user/create',array('as' => 'admin.user_create','uses' => 'UserController@createInfo'));
@@ -88,6 +89,18 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::post('import/removeProduct', array('as' => 'admin.import_removeProduct','uses' => 'ImportController@removeProduct'));
     Route::get('getProductByName', array('as' => 'admin.getProductByName','uses' => 'ProductController@getProductByName'));
     Route::get('getProviderInfo', array('as' => 'admin.getProviderInfo','uses' => 'ProvidersController@getProviderInfo'));
+
+    /*nhập kho ao*/
+    Route::get('import_fake/view',array('as' => 'admin.import_fake_view','uses' => 'ImportFakeController@view'));
+    Route::get('import_fake',array('as' => 'admin.import_fake','uses' => 'ImportFakeController@importInfo'));
+    Route::get('import_fake/restore/{id}',array('as' => 'admin.import_fake_restore','uses' => 'ImportFakeController@restore'));
+    Route::post('import_fake',array('as' => 'admin.import_fake','uses' => 'ImportFakeController@import'));
+    Route::post('import_fake/remove',array('as' => 'admin.import_fake_remove','uses' => 'ImportFakeController@remove'));
+    Route::get('import_fake/detail/{id}',array('as' => 'admin.import_fake_detail','uses' => 'ImportFakeController@detail'));
+    Route::get('import_fake/exportPdf/{id}',array('as' => 'admin.import_fake_exportPdf','uses' => 'ImportFakeController@exportPdf'));
+    Route::post('import_fake/addProduct', array('as' => 'admin.import_fake_addProduct','uses' => 'ImportFakeController@addProduct'));
+    Route::post('import_fake/removeProduct', array('as' => 'admin.import_fake_removeProduct','uses' => 'ImportFakeController@removeProduct'));
+
     /*Xuất kho*/
     Route::get('export/view',array('as' => 'admin.export_view','uses' => 'ExportController@view'));
     Route::get('export',array('as' => 'admin.export','uses' => 'ExportController@exportInfo'));

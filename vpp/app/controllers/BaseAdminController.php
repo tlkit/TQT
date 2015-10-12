@@ -29,4 +29,43 @@ class BaseAdminController extends BaseController
 
     }
 
+    public function convert(){
+        $ex = ExportProduct::where('export_product_status',1)->where('export_product_price_origin',0)->orderBy('export_product_id','ASC')->take(200)->get();
+        foreach($ex as $key => $value){
+            $countN = ImportProduct::where('product_id',$value['product_id'])->where('import_product_status',1)->where('import_product_create_time','<',$value['export_product_create_time'])->sum('import_product_num');;
+            $countX = ExportProduct::where('product_id',$value['product_id'])->where('export_product_status',1)->where('export_product_create_time','<',$value['export_product_create_time'])->sum('export_product_num');;
+            $count = $countN - $countX;
+            $import = ImportProduct::where('product_id',$value['product_id'])->where('import_product_status',1)->where('import_product_create_time','<',$value['export_product_create_time'])->orderBy('import_product_create_time', 'DESC')->take(30)->get();
+            $aryStore = array();
+            $price_input = 0;
+            if($import){
+                $x = $y = $i =0;
+                foreach($import as $k => $v){
+                    if($x < $count){
+                        $y = $x;
+                        $x += $v['import_product_num'];
+                        $aryStore[$i]['num'] = ($x <= $count) ? $v['import_product_num'] : ($count - $y);
+                        $aryStore[$i]['price'] = $v['import_product_price'];
+                        $i++;
+                    }
+                }
+                krsort($aryStore);
+                $aryStore = array_values($aryStore);
+                $temp = $value['export_product_num'];
+                foreach($aryStore as $k => $v){
+                    if($temp > 0){
+                        $price_input += ($temp <= $v['num']) ? ($temp*$v['price']) : ($v['num']*$v['price']);
+                        $temp = $temp - $v['num'];
+                    }
+                }
+            }
+            $export = ExportProduct::find($value['export_product_id']);
+            $export->export_product_price_origin = $price_input;
+            $export->save();
+            echo $value['export_product_id'].'_'.$price_input;
+            echo '<br>';
+        }
+        echo 'done';die;
+    }
+
 }

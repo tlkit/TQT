@@ -14,7 +14,7 @@ class ExportProduct extends Eloquent{
 
     protected $primaryKey = 'export_product_id';
 
-    protected $fillable = array('export_id','product_id','customers_id','export_product_price','export_product_num','export_product_discount','export_product_discount_customer','export_product_total','export_product_status','export_product_create_id','export_product_create_time','export_product_update_id','export_product_update_time');
+    protected $fillable = array('export_id','product_id','customers_id','export_product_price','export_product_num','export_product_discount','export_product_discount_customer','export_product_total','export_product_price_origin','export_product_status','export_product_type','export_product_create_id','export_product_create_time','export_product_update_id','export_product_update_time');
 
     public function product()
     {

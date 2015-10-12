@@ -5,7 +5,7 @@
         <style type="text/css">
 
             * {
-                font-family: "DejaVu Serif, sans-serif, TimeNewRoman";
+                font-family: "DejaVu Serif","Times-Roman";
                 font-size: 13px;
                 color: black;
             }

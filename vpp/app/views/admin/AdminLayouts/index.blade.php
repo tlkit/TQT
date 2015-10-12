@@ -338,6 +338,51 @@
                     </li>
                 </ul>
             </li>
+            <li class="@if(Route::currentRouteName() == 'admin.import_fake_view' || Route::currentRouteName() == 'admin.import_fake_detail' || Route::currentRouteName() == 'admin.import_fake'|| Route::currentRouteName() == 'admin.import_fake_restore' || Route::currentRouteName() == 'admin.export_view' || Route::currentRouteName() == 'admin.export_detail' || Route::currentRouteName() == 'admin.export'|| Route::currentRouteName() == 'admin.export_restore') active @endif">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-gears"></i>
+                    <span class="menu-text"> Quản lý xuất nhập ảo</span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="@if(Route::currentRouteName() == 'admin.import_fake_view' || Route::currentRouteName() == 'admin.import_fake_detail')active @endif">
+                        <a href="{{URL::route('admin.import_fake_view')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            DS nhập kho ảo
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.export_view')active @endif">
+                        <a href="{{URL::route('admin.export_view')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Danh sách xuất kho
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.import_fake' || Route::currentRouteName() == 'admin.import_fake_restore')active @endif">
+                        <a href="{{URL::route('admin.import_fake')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Nhập kho ảo
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.export' || Route::currentRouteName() == 'admin.export_restore')active @endif">
+                        <a href="{{URL::route('admin.export')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Xuất kho
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
             <li class="@if(Route::currentRouteName() == 'admin.report_customer' || Route::currentRouteName() == 'admin.report_productHot' || Route::currentRouteName() == 'admin.report_import'|| Route::currentRouteName() == 'admin.report_export' || Route::currentRouteName() == 'admin.report_discount' || Route::currentRouteName() == 'admin.report_sale_list' || Route::currentRouteName() == 'admin.report_store') active @endif">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-line-chart"></i>
