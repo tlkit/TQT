@@ -6,9 +6,9 @@
  * Time: 7:46 CH
  */
 
-class Export extends Eloquent{
+class ExportFake extends Eloquent{
 
-    protected $table = 'export';
+    protected $table = 'export_fake';
 
     public $timestamps = false;
 
@@ -16,21 +16,21 @@ class Export extends Eloquent{
 
     protected $fillable = array('export_code','customers_id','export_customers_address','export_customers_name', 'export_customer_phone', 'export_customers_note','export_delivery_time','export_user_store','export_user_cod', 'export_user_customer','export_subtotal','export_total','export_total_pay','export_discount','export_discount_customer','export_vat','export_price_origin','export_status','export_note','export_pay_type','export_create_id','export_create_time','export_update_id','export_update_time');
 
-    public function exportproduct()
+    public function exportproductfake()
     {
-        return $this->hasMany('ExportProduct', 'export_id');
+        return $this->hasMany('ExportProductFake', 'export_id');
     }
 
     public static function getCountInDay(){
         $start = strtotime(date('d-m-Y',time()));
-        $count = Export::where('export_create_time','>=',$start)->count();
+        $count = ExportFake::where('export_create_time','>=',$start)->count();
         return $count;
     }
 
     public static function search($dataSearch = array(), $limit = 50, $offset = 0, &$total)
     {
         try {
-            $query = Export::where('export_id', '>', 0);
+            $query = ExportFake::where('export_id', '>', 0);
             if (isset($dataSearch['export_code']) && $dataSearch['export_code'] != '') {
                 $query->where('export_code', $dataSearch['export_code']);
             }
@@ -69,7 +69,7 @@ class Export extends Eloquent{
         try {
 
             DB::connection()->getPdo()->beginTransaction();
-            $export = new Export();
+            $export = new ExportFake();
 
             if(is_array($aryExport) && count($aryExport) > 0) {
                 foreach($aryExport as $k => $v) {
@@ -81,15 +81,15 @@ class Export extends Eloquent{
 
             if(is_array($aryExportProduct) && count($aryExportProduct) > 0){
                 foreach($aryExportProduct as $exProduct){
-                    $exportProduct = new ExportProduct();
+                    $exportProduct = new ExportProductFake();
                     $exportProduct->export_id = $export_id;
                     foreach($exProduct as $k => $v) {
                         $exportProduct->$k = $v;
                     }
                     $exportProduct->save();
                     $product = Product::find($exportProduct->product_id);
-                    $product->product_Quantity = $product->product_Quantity - $exportProduct->export_product_num;
-                    if($product->product_Quantity < 0){
+                    $product->product_Quantity_Fake = $product->product_Quantity_Fake - $exportProduct->export_product_num;
+                    if($product->product_Quantity_Fake < 0){
                         return false;
                     }
                     $product->save();
@@ -114,17 +114,17 @@ class Export extends Eloquent{
             $export->export_update_id = User::user_id();
             $export->export_update_time = time();
             $export->save();
-            $exportProduct = $export->exportproduct;
+            $exportProduct = $export->exportproductfake;
             foreach($exportProduct as $key => $value){
                 if($value['export_product_status'] == 1){
-                    $exportP = ExportProduct::find($value['export_product_id']);
+                    $exportP = ExportProductFake::find($value['export_product_id']);
                     $exportP->export_product_status = 0;
                     $exportP->export_product_update_id = User::user_id();
                     $exportP->export_product_update_time = time();
                     //$exportP->export_product_status = 0;
                     $exportP->save();
                     $product = Product::find($value['product_id']);
-                    $product->product_Quantity = $product->product_Quantity + $exportP->export_product_num;
+                    $product->product_Quantity_Fake = $product->product_Quantity_Fake + $exportP->export_product_num;
                     $product->save();
                 }
             }
@@ -139,7 +139,7 @@ class Export extends Eloquent{
     }
 
     public static function reportDiscount($param){
-        $query = Export::where('export_status',1);
+        $query = ExportFake::where('export_status',1);
         if(isset($param['customers_id']) && $param['customers_id'] > 0){
             $query->where('customers_id',$param['customers_id']);
         }

@@ -186,7 +186,7 @@ class Product extends Eloquent
         }
         $product = $query->get();
         foreach ($product as $pr) {
-            $pr->store = $pr->importproduct()->where('import_product_status',1)->orderBy('import_product_create_time', 'DESC')->take(5)->get();
+            $pr->store = $pr->importproduct()->where('import_product_status',1)->orderBy('import_product_create_time', 'DESC')->take(10)->get();
         }
         return $product;
     }

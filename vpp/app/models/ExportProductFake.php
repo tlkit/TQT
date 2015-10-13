@@ -6,9 +6,9 @@
  * Time: 7:46 CH
  */
 
-class ExportProduct extends Eloquent{
+class ExportProductFake extends Eloquent{
 
-    protected $table = 'export_product';
+    protected $table = 'export_product_fake';
 
     public $timestamps = false;
 
@@ -24,8 +24,8 @@ class ExportProduct extends Eloquent{
     public static function reportExport($param){
 
         $tbl_product = with(new Product())->getTable();
-        $tbl_export_product = with(new ExportProduct())->getTable();
-        $query = ExportProduct::where('export_product_status',1);
+        $tbl_export_product = with(new ExportProductFake())->getTable();
+        $query = ExportProductFake::where('export_product_status',1);
         $query->join($tbl_product,$tbl_export_product.'.product_id', '=', $tbl_product . '.product_id');
         if ($param['customers_id'] > 0) {
             $query->where($tbl_export_product . '.customers_id', $param['customers_id']);
@@ -53,8 +53,8 @@ class ExportProduct extends Eloquent{
     }
     public static function reportSaleList($param){
         $tbl_product = with(new Product())->getTable();
-        $tbl_export_product = with(new ExportProduct())->getTable();
-        $query = ExportProduct::where('export_product_status',1);
+        $tbl_export_product = with(new ExportProductFake())->getTable();
+        $query = ExportProductFake::where('export_product_status',1);
         $query->join($tbl_product,$tbl_export_product.'.product_id', '=', $tbl_product . '.product_id');
         if($param['customers_id'] == 0){
             return array();
@@ -89,7 +89,7 @@ class ExportProduct extends Eloquent{
     }
 
     public static function getCountExPort($ids,$time){
-        $count = ExportProduct::whereIn('product_id',$ids)->where('export_product_create_time','>',$time)->where('export_product_create_time','<=',time())->count();
+        $count = ExportProductFake::whereIn('product_id',$ids)->where('export_product_create_time','>',$time)->where('export_product_create_time','<=',time())->count();
         return $count;
     }
 

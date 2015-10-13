@@ -287,9 +287,16 @@ class ImportFakeController extends BaseAdminController{
             $data['html'] = 'Hóa đơn này đã bị hủy trước đó';
             return Response::json($data);
         }
+        $product_ids = ImportProductFake::getProductByImportId($import_id);
+        $count_export = ExportProductFake::getCountExPort($product_ids,$import->import_create_time);
+        if($count_export > 0){
+            $data['success'] = 0;
+            $data['html'] = 'Hóa đơn này không hủy được vì hàng đã xuất kho';
+            return Response::json($data);
+        }
         if(ImportFake::remove($import)){
             if($restore == 1){
-                $data['link'] = URL::route('admin.import_restore',array('id' => base64_encode($import_id)));
+                $data['link'] = URL::route('admin.import_fake_restore',array('id' => base64_encode($import_id)));
             }
             $data['success'] = 1;
             $data['html'] = 'Hủy hóa đơn thành công';

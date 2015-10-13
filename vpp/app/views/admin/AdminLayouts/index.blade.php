@@ -338,7 +338,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="@if(Route::currentRouteName() == 'admin.import_fake_view' || Route::currentRouteName() == 'admin.import_fake_detail' || Route::currentRouteName() == 'admin.import_fake'|| Route::currentRouteName() == 'admin.import_fake_restore' || Route::currentRouteName() == 'admin.export_view' || Route::currentRouteName() == 'admin.export_detail' || Route::currentRouteName() == 'admin.export'|| Route::currentRouteName() == 'admin.export_restore') active @endif">
+            <li class="@if(Route::currentRouteName() == 'admin.import_fake_view' || Route::currentRouteName() == 'admin.import_fake_detail' || Route::currentRouteName() == 'admin.import_fake'|| Route::currentRouteName() == 'admin.import_fake_restore' || Route::currentRouteName() == 'admin.export_fake_view' || Route::currentRouteName() == 'admin.export_fake_detail' || Route::currentRouteName() == 'admin.export_fake'|| Route::currentRouteName() == 'admin.export_fake_restore') active @endif">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-gears"></i>
                     <span class="menu-text"> Quản lý xuất nhập ảo</span>
@@ -357,10 +357,10 @@
 
                         <b class="arrow"></b>
                     </li>
-                    <li class="@if(Route::currentRouteName() == 'admin.export_view')active @endif">
-                        <a href="{{URL::route('admin.export_view')}}">
+                    <li class="@if(Route::currentRouteName() == 'admin.export_fake_view' || Route::currentRouteName() == 'admin.export_fake_detail')active @endif">
+                        <a href="{{URL::route('admin.export_fake_view')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            Danh sách xuất kho
+                            DS xuất kho ảo
                         </a>
 
                         <b class="arrow"></b>
@@ -373,10 +373,10 @@
 
                         <b class="arrow"></b>
                     </li>
-                    <li class="@if(Route::currentRouteName() == 'admin.export' || Route::currentRouteName() == 'admin.export_restore')active @endif">
-                        <a href="{{URL::route('admin.export')}}">
+                    <li class="@if(Route::currentRouteName() == 'admin.export_fake' || Route::currentRouteName() == 'admin.export_fake_restore')active @endif">
+                        <a href="{{URL::route('admin.export_fake')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            Xuất kho
+                            Xuất kho ảo
                         </a>
 
                         <b class="arrow"></b>

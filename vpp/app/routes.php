@@ -115,6 +115,17 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('export/restore/{id}',array('as' => 'admin.export_restore','uses' => 'ExportController@restore'));
 //    Route::get('getCustomersByName', array('as' => 'admin.getCustomersByName','uses' => 'CustomersController@getCustomersByName'));
 
+    /*Xuất kho ảo*/
+    Route::get('export_fake/view',array('as' => 'admin.export_fake_view','uses' => 'ExportFakeController@view'));
+    Route::get('export_fake',array('as' => 'admin.export_fake','uses' => 'ExportFakeController@exportInfo'));
+    Route::post('export_fake',array('as' => 'admin.export_fake','uses' => 'ExportFakeController@export'));
+    Route::post('export_fake/addProduct', array('as' => 'admin.export_fake_addProduct','uses' => 'ExportFakeController@addProduct'));
+    Route::post('export_fake/removeProduct', array('as' => 'admin.export_fake_removeProduct','uses' => 'ExportFakeController@removeProduct'));
+    Route::get('export_fake/detail/{id}',array('as' => 'admin.export_fake_detail','uses' => 'ExportFakeController@detail'));
+    Route::get('export_fake/exportPdf/{id}',array('as' => 'admin.export_fake_exportPdf','uses' => 'ExportFakeController@exportPdf'));
+    Route::post('export_fake/remove',array('as' => 'admin.export_fake_remove','uses' => 'ExportFakeController@remove'));
+    Route::get('export_fake/restore/{id}',array('as' => 'admin.export_fake_restore','uses' => 'ExportFakeController@restore'));
+
     /*Quản lý nhân viên*/
     Route::get('personnel/view',array('as' => 'admin.personnel_list','uses' => 'PersonnelController@index'));
     Route::get('personnel/getCreate/{id?}', array('as' => 'admin.personnel_edit','uses' => 'PersonnelController@getCreate'));
