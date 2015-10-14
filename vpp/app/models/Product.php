@@ -21,6 +21,10 @@ class Product extends Eloquent
         return $this->hasMany('ImportProduct');
     }
 
+    public function importproductfake() {
+        return $this->hasMany('ImportProductFake');
+    }
+
     public static function getByID($id)
     {
         $product = Product::where('product_id', $id)->first();
@@ -187,6 +191,19 @@ class Product extends Eloquent
         $product = $query->get();
         foreach ($product as $pr) {
             $pr->store = $pr->importproduct()->where('import_product_status',1)->orderBy('import_product_create_time', 'DESC')->take(10)->get();
+        }
+        return $product;
+    }
+
+    public static function getProductStoreFake($param)
+    {
+        $query = Product::select('*');
+        if (isset($param['product_id']) && $param['product_id'] > 0) {
+            $query->where('product_id', $param['product_id']);
+        }
+        $product = $query->get();
+        foreach ($product as $pr) {
+            $pr->store = $pr->importproductfake()->where('import_product_status',1)->orderBy('import_product_create_time', 'DESC')->take(10)->get();
         }
         return $product;
     }

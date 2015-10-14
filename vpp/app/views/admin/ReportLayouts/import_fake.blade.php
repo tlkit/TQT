@@ -5,7 +5,7 @@
                 <i class="ace-icon fa fa-home home-icon"></i>
                 <a href="{{URL::route('admin.dashboard')}}">Home</a>
             </li>
-            <li class="active">Thống kê xuất hàng</li>
+            <li class="active">Thống kê nhập hàng ảo</li>
         </ul><!-- /.breadcrumb -->
     </div>
 
@@ -17,29 +17,29 @@
                     {{ Form::open(array('method' => 'GET', 'role'=>'form')) }}
                     <div class="panel-body">
                         <div class="col-lg-3 col-sm-6 sys_time">
-                            <label for="export_product_create_start">Ngày xuất hàng từ </label>
+                            <label for="import_product_create_start">Ngày nhập hàng từ </label>
                             <div class="input-group input-group-sm">
-                                <input type="text" id="export_product_create_start" name="export_product_create_start" class="form-control" @if(isset($param['export_product_create_start']) && $param['export_product_create_start'] != '')value="{{$param['export_product_create_start']}}"@endif/>
+                                <input type="text" id="import_product_create_start" name="import_product_create_start" class="form-control" @if(isset($param['import_product_create_start']) && $param['import_product_create_start'] != '')value="{{$param['import_product_create_start']}}"@endif/>
                                 <span class="input-group-addon">
                                     <i class="ace-icon fa fa-calendar"></i>
                                 </span>
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 sys_time">
-                            <label for="export_product_create_end">Đến </label>
+                            <label for="import_product_create_end">Đến </label>
                             <div class="input-group input-group-sm">
-                                <input type="text" id="export_product_create_end" name="export_product_create_end" class="form-control" @if(isset($param['export_product_create_end']) && $param['export_product_create_end'] != '')value="{{$param['export_product_create_end']}}"@endif/>
+                                <input type="text" id="import_product_create_end" name="import_product_create_end" class="form-control" @if(isset($param['import_product_create_end']) && $param['import_product_create_end'] != '')value="{{$param['import_product_create_end']}}"@endif/>
                                 <span class="input-group-addon">
                                     <i class="ace-icon fa fa-calendar"></i>
                                 </span>
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 input-group-sm">
-                            <label for="customers_id">Khách hàng </label>
-                            <select name="customers_id" id="customers_id" class="form-control input-sm" data-placeholder="Chọn khách hàng">
-                                <option value="0" @if($param['customers_id'] == 0) selected="selected" @endif></option>
-                                @foreach($customer as $k => $v)
-                                    <option value="{{$k}}" @if($param['customers_id'] == $k) selected="selected" @endif>{{$v}}</option>
+                            <label for="providers_id">Nhà cung cấp </label>
+                            <select name="providers_id" id="providers_id" class="form-control input-sm" data-placeholder="Chọn nhà cung cấp">
+                                <option value="0" @if($param['providers_id'] == 0) selected="selected" @endif></option>
+                                @foreach($provider as $k => $v)
+                                    <option value="{{$k}}" @if($param['providers_id'] == $k) selected="selected" @endif>{{$v}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -69,9 +69,9 @@
                             <th class="center" width="10%">Mã SP</th>
                             <th class="center" width="30%">Tên SP</th>
                             <th class="center" width="10%">Thời gian</th>
-                            <th class="center" width="5%">SL</th>
-                            <th class="center" width="10%">Giá xuất</th>
-                            <th class="center" width="30%">Khách hàng</th>
+                            <th class="center" width="10%">SL</th>
+                            <th class="center" width="15%">Giá nhập</th>
+                            <th class="center" width="20%">NCC</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -80,10 +80,10 @@
                                 <td class="center">{{$key+1}}</td>
                                 <td class="center">{{$item['product_Code']}}</td>
                                 <td class="text-left">{{$item['product_Name']}}</td>
-                                <td class="center">{{date('d-m-Y',$item['export_product_create_time'])}}</td>
-                                <td class="center">{{$item['export_product_num']}}</td>
-                                <td class="text-right">{{number_format($item['export_product_price'],0,'.','.')}}</td>
-                                <td class="text-left">{{$customer[$item['customers_id']]}}</td>
+                                <td class="center">{{date('d-m-Y',$item['import_product_create_time'])}}</td>
+                                <td class="center">{{$item['import_product_num']}}</td>
+                                <td class="text-right">{{number_format($item['import_product_price'],0,'.','.')}}</td>
+                                <td class="text-left">{{$provider[$item['providers_id']]}}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -100,24 +100,25 @@
         <!-- /.row -->
     </div><!-- /.page-content -->
 </div>
+
 <script type="text/javascript">
     $('#customers_id').chosen({allow_single_deselect:true,no_results_text:'Từ khóa : ',search_contains: true});
-    $( "#export_product_create_start" ).datepicker({
+    $( "#import_product_create_start" ).datepicker({
         showOtherMonths: true,
         selectOtherMonths: false,
         dateFormat: 'dd-mm-yy',
 //        numberOfMonths: 2,
         onClose: function(selectedDate) {
-            $("#export_product_create_end").datepicker("option", "minDate", selectedDate);
-            $(this).parents('.sys_time').next().children().find('#export_product_create_end').focus();
+            $("#import_product_create_end").datepicker("option", "minDate", selectedDate);
+            $(this).parents('.sys_time').next().children().find('#import_product_create_end').focus();
         }
     });
-    $( "#export_product_create_end" ).datepicker({
+    $( "#import_product_create_end" ).datepicker({
         showOtherMonths: true,
         selectOtherMonths: false,
 //        numberOfMonths: 2,
         dateFormat: 'dd-mm-yy'
     });
-    $('#customers_id').chosen({allow_single_deselect:true,no_results_text:'Từ khóa : ',search_contains: true});
+    $('#providers_id').chosen({allow_single_deselect:true,no_results_text:'Từ khóa : ',search_contains: true});
     $('#product_id').chosen({allow_single_deselect:true,no_results_text:'Từ khóa : ',search_contains: true});
 </script>

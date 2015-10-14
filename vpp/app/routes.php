@@ -145,10 +145,13 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('report/productHot',array('as' => 'admin.report_productHot','uses' => 'ReportController@reportProductHot'));
     Route::get('report/import',array('as' => 'admin.report_import','uses' => 'ReportController@reportImport'));
     Route::get('report/export',array('as' => 'admin.report_export','uses' => 'ReportController@reportExport'));
+    Route::get('report/import_fake',array('as' => 'admin.report_import_fake','uses' => 'ReportController@reportImportFake'));
+    Route::get('report/export_fake',array('as' => 'admin.report_export_fake','uses' => 'ReportController@reportExportFake'));
     Route::get('report/discount',array('as' => 'admin.report_discount','uses' => 'ReportController@reportDiscount'));
     Route::get('report/sale_list',array('as' => 'admin.report_sale_list','uses' => 'ReportController@reportSaleList'));
     Route::get('report/exportPdf_sale_list',array('as' => 'admin.report_sale_list_exportPdf','uses' => 'ReportController@exportPdf'));
     Route::get('report/store',array('as' => 'admin.report_store','uses' => 'ReportController@reportStore'));
+    Route::get('report/store_fake',array('as' => 'admin.report_store_fake','uses' => 'ReportController@reportStoreFake'));
 
     /*Báo giá khách hàng*/
     Route::get('customers/bang-gia.html',array('as' => 'admin.cr_price_list','uses' => 'ReportController@priceListInfo'));

@@ -171,7 +171,7 @@ class Customers extends Eloquent
         if ($param['export_create_end'] > 0) {
             $query->where($tbl_export . '.export_create_time', '<=', $param['export_create_end']);
         }
-        $query->select(DB::raw($tbl_customers.'.*,COUNT('.$tbl_export.'.export_id) as count_export, SUM('.$tbl_export.'.export_total_pay) as sum_export'));
+        $query->select(DB::raw($tbl_customers.'.*,COUNT('.$tbl_export.'.export_id) as count_export, SUM('.$tbl_export.'.export_total_pay) as sum_export,SUM('.$tbl_export.'.export_price_origin) as sum_origin'));
         $query->orderBy(DB::raw('SUM('.$tbl_export.'.export_total_pay)'),'desc');
         $query->groupBy($tbl_export.'.customers_id');
         $data = $query->get();

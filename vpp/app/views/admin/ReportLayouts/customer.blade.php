@@ -66,9 +66,10 @@
                         <thead class="thin-border-bottom">
                         <tr class="">
                             <th class="center" width="10%">STT</th>
-                            <th class="center" width="50%">Khách hàng</th>
-                            <th class="center" width="20%">Tổng số HĐ</th>
-                            <th class="center" width="30%">Tổng tiền</th>
+                            <th class="center" width="40%">Khách hàng</th>
+                            <th class="center" width="10%">Tổng số HĐ</th>
+                            <th class="center" width="20%">Tổng nhập</th>
+                            <th class="center" width="20%">Tổng tiền</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -77,6 +78,7 @@
                                 <td class="center">{{ $key+1 }}</td>
                                 <td class="text-left">{{$item->customers_FirstName}}</td>
                                 <td class="center">{{$item->count_export}}</td>
+                                <td class="text-right">{{number_format($item->sum_origin,0,'.','.')}}</td>
                                 <td class="text-right">{{number_format($item->sum_export,0,'.','.')}}</td>
                             </tr>
                         @endforeach
