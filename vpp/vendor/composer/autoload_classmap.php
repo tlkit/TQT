@@ -2270,6 +2270,7 @@ return array(
     'Text_Frame_Decorator' => $vendorDir . '/dompdf/dompdf/include/text_frame_decorator.cls.php',
     'Text_Frame_Reflower' => $vendorDir . '/dompdf/dompdf/include/text_frame_reflower.cls.php',
     'Text_Renderer' => $vendorDir . '/dompdf/dompdf/include/text_renderer.cls.php',
+    'TicketController' => $baseDir . '/app/controllers/admin/TicketController.php',
     'User' => $baseDir . '/app/models/User.php',
     'UserController' => $baseDir . '/app/controllers/admin/UserController.php',
     'Whoops\\Exception\\ErrorException' => $vendorDir . '/filp/whoops/src/Whoops/Exception/ErrorException.php',

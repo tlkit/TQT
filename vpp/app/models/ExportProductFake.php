@@ -6,9 +6,9 @@
  * Time: 7:46 CH
  */
 
-class ExportProduct extends Eloquent{
+class ExportProductFake extends Eloquent{
 
-    protected $table = 'export_product';
+    protected $table = 'export_product_fake';
 
     public $timestamps = false;
 
@@ -24,8 +24,8 @@ class ExportProduct extends Eloquent{
     public static function reportExport($param){
 
         $tbl_product = with(new Product())->getTable();
-        $tbl_export_product = with(new ExportProduct())->getTable();
-        $query = ExportProduct::where('export_product_status',1);
+        $tbl_export_product = with(new ExportProductFake())->getTable();
+        $query = ExportProductFake::where('export_product_status',1);
         $query->join($tbl_product,$tbl_export_product.'.product_id', '=', $tbl_product . '.product_id');
         if ($param['customers_id'] > 0) {
             $query->where($tbl_export_product . '.customers_id', $param['customers_id']);
@@ -53,8 +53,8 @@ class ExportProduct extends Eloquent{
     }
     public static function reportSaleList($param){
         $tbl_product = with(new Product())->getTable();
-        $tbl_export_product = with(new ExportProduct())->getTable();
-        $query = ExportProduct::where('export_product_status',1);
+        $tbl_export_product = with(new ExportProductFake())->getTable();
+        $query = ExportProductFake::where('export_product_status',1);
         $query->join($tbl_product,$tbl_export_product.'.product_id', '=', $tbl_product . '.product_id');
         if($param['customers_id'] == 0){
             return array();
@@ -87,45 +87,10 @@ class ExportProduct extends Eloquent{
         $data = $query->get($field_table);
         return $data;
     }
-    
-    public static function reportSaleListNotVat($param)
-    {
-        $tbl_product = with(new Product())->getTable();
-        $tbl_export_product = with(new ExportProduct())->getTable();
-        $tbl_export = with(new Export())->getTable();
-        $query = ExportProduct::where('export_product_status', 1);
-        $query->join($tbl_product, $tbl_export_product . '.product_id', '=', $tbl_product . '.product_id');
-        $query->join($tbl_export, $tbl_export . '.export_id', '=', $tbl_export_product . '.export_id');
 
-        $query->where($tbl_export . '.export_vat', '=', 0);
-        if ($param['customers_id'] > 0) {
-            $query->where($tbl_export_product . '.customers_id', $param['customers_id']);
-        }
-        if ($param['export_product_create_start'] > 0) {
-            $query->where($tbl_export_product . '.export_product_create_time', '>=', $param['export_product_create_start']);
-        }
-        if ($param['export_product_create_end'] > 0) {
-            $query->where($tbl_export_product . '.export_product_create_time', '<', $param['export_product_create_end']);
-        }
-        $query->orderBy($tbl_export_product . '.export_product_id', 'DESC');
-        $query->groupBy($tbl_export_product . '.product_id');
-        $query->groupBy($tbl_export_product . '.export_product_price');
-        $field_table = array(
-            $tbl_export_product . '.export_product_create_time',
-            DB::raw('SUM(' . $tbl_export_product . '.export_product_num) as export_product_num'),
-            $tbl_export_product . '.export_product_price',
-            DB::raw('SUM(' . $tbl_export_product . '.export_product_discount) as export_product_discount'),
-            DB::raw('SUM(' . $tbl_export_product . '.export_product_total) as export_product_total'),
-            $tbl_export_product . '.customers_id',
-            $tbl_product . '.product_id',
-            $tbl_product . '.product_Code',
-            $tbl_product . '.product_Name',
-            $tbl_product . '.product_NameUnit',
-            $tbl_product . '.product_NameOrigin',
-            $tbl_export . '.export_customers_name',
-        );
-        $data = $query->get($field_table);
-        return $data;
+    public static function getCountExPort($ids,$time){
+        $count = ExportProductFake::whereIn('product_id',$ids)->where('export_product_create_time','>',$time)->where('export_product_create_time','<=',time())->count();
+        return $count;
     }
 
 }

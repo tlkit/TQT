@@ -5,7 +5,7 @@
                 <i class="ace-icon fa fa-home home-icon"></i>
                 <a href="{{URL::route('admin.dashboard')}}">Home</a>
             </li>
-            <li class="active">Thống kê xuất hàng</li>
+            <li class="active">Thống kê xuất hàng ảo</li>
         </ul><!-- /.breadcrumb -->
     </div>
 

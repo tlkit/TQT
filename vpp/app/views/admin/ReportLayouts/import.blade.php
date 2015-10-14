@@ -100,7 +100,7 @@
         <!-- /.row -->
     </div><!-- /.page-content -->
 </div>
-{{HTML::script('assets/admin/js/export.js');}}
+
 <script type="text/javascript">
     $('#customers_id').chosen({allow_single_deselect:true,no_results_text:'Từ khóa : ',search_contains: true});
     $( "#import_product_create_start" ).datepicker({

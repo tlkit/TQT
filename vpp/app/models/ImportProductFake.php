@@ -57,5 +57,10 @@ class ImportProductFake extends Eloquent{
         return $data;
     }
 
+    public static function getProductByImportId($import_id){
+        $data = ImportProductFake::where('import_id',$import_id)->lists('product_id');
+        return $data;
+    }
+
 
 }

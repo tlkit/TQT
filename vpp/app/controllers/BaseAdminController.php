@@ -32,10 +32,10 @@ class BaseAdminController extends BaseController
     public function convert(){
         $ex = ExportProduct::where('export_product_status',1)->where('export_product_price_origin',0)->orderBy('export_product_id','ASC')->take(200)->get();
         foreach($ex as $key => $value){
-            $countN = ImportProduct::where('product_id',$value['product_id'])->where('import_product_status',1)->where('import_product_create_time','<',$value['export_product_create_time'])->sum('import_product_num');;
+            $countN = ImportProduct::where('product_id',$value['product_id'])->where('import_product_status',1)->sum('import_product_num');;
             $countX = ExportProduct::where('product_id',$value['product_id'])->where('export_product_status',1)->where('export_product_create_time','<',$value['export_product_create_time'])->sum('export_product_num');;
             $count = $countN - $countX;
-            $import = ImportProduct::where('product_id',$value['product_id'])->where('import_product_status',1)->where('import_product_create_time','<',$value['export_product_create_time'])->orderBy('import_product_create_time', 'DESC')->take(30)->get();
+            $import = ImportProduct::where('product_id',$value['product_id'])->where('import_product_status',1)->orderBy('import_product_create_time', 'DESC')->get();
             $aryStore = array();
             $price_input = 0;
             if($import){
@@ -66,6 +66,27 @@ class BaseAdminController extends BaseController
             echo '<br>';
         }
         echo 'done';die;
+    }
+
+    public function update(){
+        /*
+         *
+         * UPDATE export AS e,
+ (
+	SELECT
+		export_id,
+		sum(
+			export_product_price_origin
+		) AS mysum
+	FROM
+		export_product
+	GROUP BY
+		export_id
+) AS p
+SET e.export_price_origin = p.mysum
+WHERE
+	e.export_id = p.export_id
+         * */
     }
 
 }
