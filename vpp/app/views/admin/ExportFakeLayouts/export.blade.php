@@ -41,7 +41,7 @@
                                     @endif
 
                                     <div class="row">
-                                        <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right" style="text-align: left">
+                                        <div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right" style="text-align: left">
                                             <b>Bước 1 : Chọn khách hàng</b>
                                         </div>
                                     </div>
@@ -71,7 +71,7 @@
                                     </div>
                                     <div class="space"></div>
                                     <div class="row">
-                                        <div class="col-xs-11 label label-lg label-warning arrowed-in arrowed-right" style="text-align: left">
+                                        <div class="col-xs-11 label label-lg label-danger arrowed-in arrowed-right" style="text-align: left">
                                             <b>Bước 2 : Chọn sản phẩm</b>
                                         </div>
                                     </div>
