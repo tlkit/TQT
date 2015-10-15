@@ -1320,6 +1320,37 @@ class ReportController extends BaseAdminController{
     }
 
     /*****************************************************************************************
+     * Thông kê bán hàng khách không lấy VAT
+     * ******************************************************************************************/
+    public function sale_list_not_vat(){
+        if (!in_array($this->permission_report_sale_list, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
+        $param['export_product_create_start'] = Request::get('export_product_create_start','');
+        $param['export_product_create_end'] = Request::get('export_product_create_end','');
+        $param['export_time'] = Request::get('export_time',date('d-m-Y',time()));
+        $param['bill_code'] = Request::get('bill_code','');
+        $param['customers_id'] = (int)Request::get('customers_id',0);
+        $submit = (int)Request::get('submit',1);
+        $input = $param;
+        $input['export_product_create_start'] = ($input['export_product_create_start'] != '') ? strtotime($input['export_product_create_start']) : 0;
+        $input['export_product_create_end'] = ($input['export_product_create_end'] != '') ? strtotime($input['export_product_create_end'])+86400 : 0;
+
+        $data = ExportProduct::reportSaleListNotVat($input);
+        $customer = Customers::getListAll();
+
+        //xuất excel
+        if($submit == 2){
+            $this->exportExcelReportSaleList($data,$customer);
+        }
+        $this->layout->content = View::make('admin.ReportLayouts.sale_list_not_vat')
+            ->with('customer',$customer)
+            ->with('param',$param)
+            ->with('data',$data);
+
+    }
+
+    /*****************************************************************************************
      * Thống kê tồn kho
      * ******************************************************************************************/
     public function reportStore(){
