@@ -340,8 +340,8 @@
             </li>
             <li class="@if(Route::currentRouteName() == 'admin.import_fake_view' || Route::currentRouteName() == 'admin.import_fake_detail' || Route::currentRouteName() == 'admin.import_fake'|| Route::currentRouteName() == 'admin.import_fake_restore' || Route::currentRouteName() == 'admin.export_fake_view' || Route::currentRouteName() == 'admin.export_fake_detail' || Route::currentRouteName() == 'admin.export_fake'|| Route::currentRouteName() == 'admin.export_fake_restore') active @endif">
                 <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-gears"></i>
-                    <span class="menu-text"> Quản lý xuất nhập ảo</span>
+                    <i class="menu-icon fa fa-recycle"></i>
+                    <span class="menu-text"> QLý xuất nhập ảo</span>
 
                     <b class="arrow fa fa-angle-down"></b>
                 </a>

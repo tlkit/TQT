@@ -995,7 +995,6 @@ return array(
     'Patchwork\\Utf8' => $vendorDir . '/patchwork/utf8/src/Patchwork/Utf8.php',
     'Patchwork\\Utf8\\BestFit' => $vendorDir . '/patchwork/utf8/src/Patchwork/Utf8/BestFit.php',
     'Patchwork\\Utf8\\Bootup' => $vendorDir . '/patchwork/utf8/src/Patchwork/Utf8/Bootup.php',
-    'Patchwork\\Utf8\\Compiler' => $vendorDir . '/patchwork/utf8/src/Patchwork/Utf8/Compiler.php',
     'Patchwork\\Utf8\\WindowsStreamWrapper' => $vendorDir . '/patchwork/utf8/src/Patchwork/Utf8/WindowsStreamWrapper.php',
     'PclZip' => $baseDir . '/app/library/class_phpexcel/PHPExcel/Shared/PCLZip/pclzip.lib.php',
     'Permission' => $baseDir . '/app/models/Permission.php',
