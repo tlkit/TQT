@@ -1737,7 +1737,7 @@ class ReportController extends BaseAdminController{
         $price_list = Session::has('price_list') ? Session::get('price_list') : array();
         $html = View::make('admin.ReportLayouts.price_list_pdf')->with('customer',$customers)->with('list',$price_list)->render();
         $pdf = PDF::loadHTML($html);
-        return $pdf->stream('my.pdf');
+        return $pdf->stream('Bao_gia_'.date('d_m_Y').'.pdf');
     }
 
     public function addProduct(){
