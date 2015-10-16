@@ -299,45 +299,10 @@ class ExportFakeController extends BaseAdminController{
             $product->product;
         }
         $html = View::make('admin.ExportFakeLayouts.exportpdf')->with('export',$export)->with('exportProduct',$exportProduct)->render();
-        $signature = false;
-        $this->filename = "export_f_" . $export->export_code . ".pdf";
-        $this->pdfOutput($html, $this->filename, 'I', $signature);
+        $pdf = PDF::loadHTML($html);
+        return $pdf->stream("export_f_" . $export->export_code . ".pdf");
     }
 
-    function pdfOutput($html, $filename, $outputType = 'I', $signature = false){
-        $pdf = new MYPDF(PDF_PAGE_ORIENTATION, 'px', PDF_PAGE_FORMAT, true, 'UTF-8', false, false, $signature);
-        // set document information
-        $pdf->SetCreator('System');
-        $pdf->SetAuthor('TQT');
-        $pdf->SetTitle('');
-        $pdf->SetSubject('');
-        $pdf->SetKeywords('TQT, export');
-        $pdf->setPrintFooter(false);
-
-        // set default monospaced font
-        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
-        $pdf->setFontSubsetting(false);
-        $pdf->SetMargins(30, 15, 30);
-        $pdf->SetHeaderMargin(0);
-        $pdf->SetFooterMargin(0);
-
-        $pdf->SetCellPaddings(0);
-
-        //set auto page breaks
-        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-        $pdf->setFormDefaultProp(array('lineWidth'=>0, 'borderStyle'=>'solid', 'fillColor'=>array(255, 255, 255), 'strokeColor'=>array(255, 255, 255)));
-        // set font
-        $pdf->SetFont('freeserif', '', 10);
-        // add a page
-        $pdf->AddPage();
-        // output the HTML content
-        $pdf->writeHTML($html, true, false, true, false, '');
-        // reset pointer to the last page
-        $pdf->lastPage();
-        //Close and output PDF document
-        $pdf->Output($filename, $outputType);
-    }
 
     public function remove(){
         if (!in_array($this->permission_edit, $this->permission)) {
