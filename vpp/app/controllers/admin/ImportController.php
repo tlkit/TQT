@@ -229,7 +229,7 @@ class ImportController extends BaseAdminController{
         }
         $html = View::make('admin.ImportLayouts.export')->with('import',$import)->with('importProduct',$importProduct)->with('providers',$providers)->render();
         $pdf = PDF::loadHTML($html);
-        return $pdf->stream("export_" . $import->import_code . ".pdf");
+        return $pdf->stream("import_" . $import->import_code . ".pdf");
     }
 
     public function remove(){
