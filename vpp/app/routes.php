@@ -113,7 +113,9 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('export/exportPdf/{id}',array('as' => 'admin.export_exportPdf','uses' => 'ExportController@exportPdf'));
     Route::post('export/remove',array('as' => 'admin.export_remove','uses' => 'ExportController@remove'));
     Route::get('export/restore/{id}',array('as' => 'admin.export_restore','uses' => 'ExportController@restore'));
-//    Route::get('getCustomersByName', array('as' => 'admin.getCustomersByName','uses' => 'CustomersController@getCustomersByName'));
+    Route::get('sale_list/create',array('as' => 'admin.sale_list_create','uses' => 'SaleListController@createInfo'));
+    Route::get('export/export_sale',array('as' => 'admin.export_sale_list','uses' => 'ExportController@getExportForSale'));
+
 
     /*Xuất kho ảo*/
     Route::get('export_fake/view',array('as' => 'admin.export_fake_view','uses' => 'ExportFakeController@view'));

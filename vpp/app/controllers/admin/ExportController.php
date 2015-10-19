@@ -389,4 +389,23 @@ class ExportController extends BaseAdminController{
 //        $this->layout->content->product_info = View::make('admin.ImportLayouts.product_info')->with('import',$aryImport);
     }
 
+    public function getExportForSale(){
+        $param['customers_id'] = (int)Request::get('customers_id',0);
+        $param['export_pay_type'] = (int)Request::get('export_pay_type',0);
+        $param['export_create_start'] = Request::get('export_create_start','');
+        $param['export_create_end'] = Request::get('export_create_end','');
+        $param['export_create_start'] = ($param['export_create_start'] != '') ? strtotime($param['export_create_start']) : 0;
+        $param['export_create_end'] = ($param['export_create_end'] != '') ? strtotime($param['export_create_end'])+86400 : 0;
+        $data['success'] = 0;
+        if($param['customers_id'] == 0){
+            $data['html'] = '<div class="alert alert-danger">Chưa chọn khách hàng</div>';
+            return Response::json($data);
+        }
+        $export = Export::getExportForSale($param);
+        $admin = User::getListAllUser();
+        $html = View::make('admin.ExportLayouts.export_sale')->with('export',$export)->with('admin',$admin)->render();
+        $data['html'] = $html;
+        return Response::json($data);
+    }
+
 }

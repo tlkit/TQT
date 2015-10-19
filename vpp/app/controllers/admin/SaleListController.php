@@ -16,5 +16,9 @@ class SaleListController extends BaseAdminController
 
     public function createInfo(){
 
+        $customers = Customers::getListAll();
+        $this->layout->content = View::make('admin.ExportLayouts.sale_list')
+            ->with('customers',$customers)
+            ->with('customers_id',0);
     }
 }

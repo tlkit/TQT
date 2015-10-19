@@ -155,4 +155,23 @@ class Export extends Eloquent{
         $data = $query->get();
         return $data;
     }
+
+    public static function getExportForSale($param){
+        $query = Export::where('export_status', 1);
+        if (isset($param['customers_id']) && $param['customers_id'] > 0) {
+            $query->where('customers_id', $param['customers_id']);
+        }
+        if (isset($param['export_pay_type'])) {
+            $query->where('export_pay_type', $param['export_pay_type']);
+        }
+        if (isset($param['export_create_start']) && $param['export_create_start'] > 0) {
+            $query->where('export_create_time', '>=', $param['export_create_start']);
+        }
+        if (isset($param['export_create_end']) && $param['export_create_end'] > 0) {
+            $query->where('export_create_time', '<', $param['export_create_end']);
+        }
+        $query->orderBy('export_id', 'DESC');
+        $data = $query->get();
+        return $data;
+    }
 }

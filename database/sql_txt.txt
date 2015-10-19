@@ -19,3 +19,16 @@ ALTER TABLE `export_product`
 ADD COLUMN `export_product_price_origin`  int(11) NULL DEFAULT 0 COMMENT 'Giá gốc' AFTER `export_product_total`;
 ALTER TABLE `product`
 ADD COLUMN `product_Quantity_Fake`  int(11) NULL DEFAULT 0 AFTER `product_Quantity`;
+
+CREATE TABLE `NewTable` (
+`sale_list_id`  int(11) NOT NULL AUTO_INCREMENT ,
+`customers_id`  int(11) NOT NULL DEFAULT 0 ,
+`sale_list_type`  int(11) NULL DEFAULT 0 COMMENT '0 :thanh toan , 1 : cong no' ,
+`sale_list_status`  int(11) NULL DEFAULT 1 COMMENT '1  :bt , -1: hủy' ,
+`sale_list_code`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT 'hoa don gtgt' ,
+`sale_list_create_id`  int(11) NULL DEFAULT 0 ,
+`sale_list_create_time`  int(11) NULL DEFAULT 0 ,
+PRIMARY KEY (`sale_list_id`)
+)
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+;
