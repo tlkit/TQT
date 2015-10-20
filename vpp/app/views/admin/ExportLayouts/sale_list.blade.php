@@ -1,6 +1,3 @@
-<style type="text/css">
-    .ui-autocomplete { max-height: 200px; overflow-y: scroll; overflow-x: hidden;}
-</style>
 <div class="main-content-inner">
     <div class="breadcrumbs" id="breadcrumbs">
         <ul class="breadcrumb">
@@ -23,6 +20,13 @@
         <div class="row">
             <div class="col-xs-12">
                 <!-- PAGE CONTENT BEGINS -->
+                @if(isset($error))
+                    <div class="alert alert-danger">
+                        @foreach($error as $e)
+                            <p>{{$e}}</p>
+                        @endforeach
+                    </div>
+                @endif
                 {{Form::open(array('method' => 'POST', 'role'=>'form', 'route' => 'admin.sale_list_create'))}}
                 <div class="col-sm-2">
                     <div class="form-group">
@@ -91,7 +95,11 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="space-6"></div>
-                <div class="row" id="sys_data_export"></div>
+                <div class="row" id="sys_data_export">
+                </div>
+                <div class="row text-center" id="sys_load" style="display: none">
+                    <i class="ace-icon fa fa-spinner fa-spin bigger-300"></i>
+                </div>
                 <div class="space-6"></div>
                 {{Form::close()}}
                 <!-- PAGE CONTENT ENDS -->

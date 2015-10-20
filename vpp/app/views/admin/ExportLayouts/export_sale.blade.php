@@ -1,4 +1,4 @@
-@if($export)
+@if(sizeof($export) > 0)
     <div class="col-xs-12">
         <table id="simple-table" class="table table-striped table-bordered table-hover">
             <thead>
@@ -21,7 +21,7 @@
                 <tr>
                     <td class="center">
                         <label class="pos-rel">
-                            <input type="checkbox" class="ace" name="export_id[]"/>
+                            <input type="checkbox" class="ace" name="export_id[]" value="{{$ex['export_id']}}"/>
                             <span class="lbl"></span>
                         </label>
                     </td>
@@ -29,7 +29,7 @@
                         {{$ex['export_code']}}
                     </td>
                     <td class="center">
-                        {{date('d-m-Y H:i')}}
+                        {{date('d-m-Y H:i',$ex['export_create_time'])}}
                     </td>
                     <td class="center">
                         @if(isset($admin[$ex['export_user_store']])){{$admin[$ex['export_user_store']]}}@endif
@@ -44,6 +44,10 @@
             @endforeach
             </tbody>
         </table>
+        <div class="clearfix"></div>
+        <div class="row text-right">
+            <button type="submit" class="btn btn-warning"><i class="fa fa-credit-card"></i> Thanh toán</button>
+        </div>
     </div>
 @else
     <div class="alert alert-danger">Không có xuất kho nào được tìm thấy</div>

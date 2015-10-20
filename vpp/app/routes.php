@@ -114,6 +114,7 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::post('export/remove',array('as' => 'admin.export_remove','uses' => 'ExportController@remove'));
     Route::get('export/restore/{id}',array('as' => 'admin.export_restore','uses' => 'ExportController@restore'));
     Route::get('sale_list/create',array('as' => 'admin.sale_list_create','uses' => 'SaleListController@createInfo'));
+    Route::post('sale_list/create',array('as' => 'admin.sale_list_create','uses' => 'SaleListController@create'));
     Route::get('export/export_sale',array('as' => 'admin.export_sale_list','uses' => 'ExportController@getExportForSale'));
 
 

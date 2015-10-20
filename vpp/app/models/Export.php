@@ -158,7 +158,7 @@ class Export extends Eloquent{
 
     public static function getExportForSale($param){
         $query = Export::where('export_status', 1);
-        if (isset($param['customers_id']) && $param['customers_id'] > 0) {
+        if (isset($param['customers_id'])) {
             $query->where('customers_id', $param['customers_id']);
         }
         if (isset($param['export_pay_type'])) {
@@ -173,5 +173,20 @@ class Export extends Eloquent{
         $query->orderBy('export_id', 'DESC');
         $data = $query->get();
         return $data;
+    }
+
+    public static function checkForSale($param,$count){
+        $query = Export::where('export_status', 1);
+        if (isset($param['export_id'])) {
+            $query->whereIn('export_id', $param['export_id']);
+        }
+        if (isset($param['customers_id'])) {
+            $query->where('customers_id', $param['customers_id']);
+        }
+        if (isset($param['export_pay_type'])) {
+            $query->where('export_pay_type', $param['export_pay_type']);
+        }
+        $data = $query->count();
+        return ($data == $count) ? true : false;
     }
 }

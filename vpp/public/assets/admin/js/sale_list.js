@@ -10,7 +10,7 @@ $(document).ready(function(){
         dateFormat: 'dd-mm-yy',
         onClose: function(selectedDate) {
             $("#export_create_end").datepicker("option", "minDate", selectedDate);
-            $(this).parents('.sys_time').next().children().find('#export_create_end').focus();
+            $('#export_create_end').focus();
         }
     });
 
@@ -19,6 +19,12 @@ $(document).ready(function(){
         selectOtherMonths: false,
         dateFormat: 'dd-mm-yy'
     });
+
+    $("#customers_id,#sale_list_type").on('change',function(){
+        $("#sys_data_export").hide(1111,function(){
+            $("#sys_data_export").html('');
+        });
+    })
 
     $("#sys_get_export").on('click dbclick',function(){
         var customers_id = parseInt($("#customers_id").val());
@@ -41,10 +47,12 @@ $(document).ready(function(){
                 complete: function () {
                 },
                 error: function () {
+                    $("#sys_data_export").html('');
+                    bootbox.alert('Lỗi hệ thống');
                 },
                 success: function (data) {
                     $("#sys_data_export").html(data.html);
-
+                    $("#sys_data_export").show();
                     var active_class = 'active';
                     $('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
                         var th_checked = this.checked;//checkbox inside "TH" table header
@@ -64,22 +72,5 @@ $(document).ready(function(){
                 }
             });
         }
-    });
-
-    var active_class = 'active';
-    $('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
-        var th_checked = this.checked;//checkbox inside "TH" table header
-        $(this).closest('table').find('tbody > tr').each(function(){
-            var row = this;
-            if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
-            else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
-        });
-    });
-
-    //select/deselect a row when the checkbox is checked/unchecked
-    $('#simple-table').on('click', 'td input[type=checkbox]' , function(){
-        var $row = $(this).closest('tr');
-        if(this.checked) $row.addClass(active_class);
-        else $row.removeClass(active_class);
     });
 })

@@ -21,4 +21,35 @@ class SaleList extends Eloquent{
         return $this->hasMany('Export', 'sale_list_id');
     }
 
+    public static function add($data, $export_ids)
+    {
+        try {
+
+            DB::connection()->getPdo()->beginTransaction();
+            $sale_list = new SaleList();
+            if(is_array($data) && count($data) > 0) {
+                foreach($data as $k => $v) {
+                    $sale_list->$k = $v;
+                }
+            }
+            $sale_list->save();
+            $sale_list_id = $sale_list->sale_list_id;
+            if(is_array($export_ids) && count($export_ids) > 0){
+                foreach($export_ids as $export_id){
+                    $export = Export::find($export_id);
+                    $export->sale_list_id = $sale_list_id;
+                    $export->save();
+                }
+            }
+
+            DB::connection()->getPdo()->commit();
+            return $sale_list_id;
+        } catch (\PDOException $e) {
+            DB::connection()->getPdo()->rollBack();
+            //throw new PDOException();
+            return false;
+        }
+
+    }
+
 }
