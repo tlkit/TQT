@@ -45,7 +45,7 @@
             </tbody>
         </table>
         <div class="clearfix"></div>
-        <div class="row text-right">
+        <div class="text-right">
             <button type="submit" class="btn btn-warning"><i class="fa fa-credit-card"></i> Thanh toán</button>
         </div>
     </div>
