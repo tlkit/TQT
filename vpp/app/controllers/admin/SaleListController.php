@@ -26,7 +26,7 @@ class SaleListController extends BaseAdminController
 
         $param['customers_id'] = (int)Request::get('customers_id',0);
         $param['sale_list_type'] = (int)Request::get('sale_list_type',-1);
-        $param['sale_list_code'] = Request::get('sale_list_code','');
+        $param['sale_list_bill'] = Request::get('sale_list_bill','');
         $param['export_create_start'] = Request::get('export_create_start','');
         $param['export_create_end'] = Request::get('export_create_end','');
         $param['export_id'] = Request::get('export_id',array());
@@ -45,17 +45,27 @@ class SaleListController extends BaseAdminController
             }
         }
         if(!$error){
+            $count = SaleList::getCountInDay();
+            $count = $count +1;
+            $num_length = strlen((string)$count);
+            if ($num_length == 1) {
+                $code = 'BK0' . (string)$count . date('d', time()) . date('m', time()) . date('y', time());
+            } else {
+                $code = 'BK' . (string)$count . date('d', time()) . date('m', time()) . date('y', time());
+            }
             $data['customers_id'] = $param['customers_id'];
             $data['sale_list_type'] = $param['sale_list_type'];
             $data['sale_list_status'] = 1;
-            $data['sale_list_code'] = $param['sale_list_code'];
+            $data['sale_list_bill'] = $param['sale_list_bill'];
+            $data['sale_list_code'] = $code;
             $data['sale_list_create_id'] = User::user_id();;
             $data['sale_list_create_time'] = time();
             $ex_ids =  $param['export_id'];
-            if(!SaleList::add($data,$ex_ids)){
+            $id = SaleList::add($data,$ex_ids);
+            if(!$id){
                 $error[] = 'Lỗi cập nhật dữ liệu';
             }else{
-                echo 'fuck';die;
+                return Redirect::route('admin.sale_list_detail',array('id'=>base64_encode($id)));
             }
         }
 
@@ -71,6 +81,165 @@ class SaleListController extends BaseAdminController
 
     public function detail($id){
         $id = (int) base64_decode($id);
-        
+        $sale_list = SaleList::find($id);
+        $export_ids = Export::getListIdBySaleList($id);
+        $customer = Customers::find($sale_list->customers_id);
+        $product = ExportProduct::reportSaleList($export_ids);
+        $this->layout->content = View::make('admin.ExportLayouts.sale_list_detail')
+            ->with('sale_list',$sale_list)
+            ->with('customer',$customer)
+            ->with('product',$product);
+    }
+
+    public function exportPdf($id)
+    {
+        $id = (int) base64_decode($id);
+        $sale_list = SaleList::find($id);
+        $export_ids = Export::getListIdBySaleList($id);
+        $customer = Customers::find($sale_list->customers_id);
+        $product = ExportProduct::reportSaleList($export_ids);
+        $html = View::make('admin.ExportLayouts.sale_list_pdf')
+            ->with('sale_list',$sale_list)
+            ->with('customer',$customer)
+            ->with('product',$product)->render();
+        $pdf = PDF::loadHTML($html);
+        return $pdf->stream("Bang-ke-KH-" . $customer['customers_id'] . ".pdf");
+    }
+
+    public function exportExcelReportSaleList($id){
+        $id = (int) base64_decode($id);
+        $export_ids = Export::getListIdBySaleList($id);
+        $arrData = ExportProduct::reportSaleList($export_ids);
+        // xu ly export
+        ini_set('max_execution_time', 3000);
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $sheet = $objPHPExcel->getActiveSheet();
+
+        // Set Orientation, size and scaling
+        $sheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
+        $sheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+        $sheet->getPageSetup()->setFitToPage(true);
+        $sheet->getPageSetup()->setFitToWidth(1);
+        $sheet->getPageSetup()->setFitToHeight(0);
+        // Set font
+        $sheet->getDefaultStyle()->getFont()->setName('Arial')->setSize(10);
+        $sheet->getStyle('A1')->getFont()->setSize(16)->getColor()->setRGB('000000');
+        $sheet->mergeCells('A1:H1');
+        $sheet->setCellValue("A1", "Bảng kê bán hàng");
+        $sheet->getRowDimension("1")->setRowHeight(26);
+        $sheet->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER)
+            ->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+        //ngày thống kê
+        $sheet->getStyle('A2')->getFont()->setSize(11)->getColor()->setRGB('000000');
+        $sheet->mergeCells('A2:H2');
+        $sheet->setCellValue("A2", "Ngày thống kê: ".date('d-m-Y H:i:s',time()));
+        $sheet->getRowDimension("2")->setRowHeight(24);
+        $sheet->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT)
+            ->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+        // setting header
+        $position_hearder = 3;
+        $sheet->getRowDimension($position_hearder)->setRowHeight(30);
+        $val10 = 10; $val18 = 18; $val35 = 35;$val50 = 50; $val25 = 25;
+        $ary_cell = array(
+            'A'=>array('w'=>$val10,'val'=>'STT','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
+            'B'=>array('w'=>$val18,'val'=>'Mã SP','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
+            'C'=>array('w'=>$val50,'val'=>'Tên sản phẩm','align'=>PHPExcel_Style_Alignment::HORIZONTAL_LEFT),
+            'D'=>array('w'=>$val18,'val'=>'Xuất xứ','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
+            'E'=>array('w'=>$val18,'val'=>'Đơn vị tính','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
+            'F'=>array('w'=>$val18,'val'=>'Giá','align'=>PHPExcel_Style_Alignment::HORIZONTAL_RIGHT),
+            'G'=>array('w'=>$val25,'val'=>'Số lượng','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
+            'H'=>array('w'=>$val25,'val'=>'Tổng tiền','align'=>PHPExcel_Style_Alignment::HORIZONTAL_RIGHT),
+        );
+
+        //build header title
+        foreach($ary_cell as $col => $attr){
+            $sheet->getColumnDimension($col)->setWidth($attr['w']);
+            $sheet->setCellValue("$col{$position_hearder}",$attr['val']);
+            $sheet->getStyle($col)->getAlignment()->setWrapText(true);
+            $sheet->getStyle($col . $position_hearder)->applyFromArray(
+                array(
+                    'fill' => array(
+                        'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                        'color' => array('rgb' => '05729C'),
+                        'style' => array('font-weight' => 'bold')
+                    ),
+                    'font'  => array(
+                        'bold'  => true,
+                        'color' => array('rgb' => 'FFFFFF'),
+                        'size'  => 10,
+                        'name'  => 'Verdana'
+                    ),
+                    'borders' => array(
+                        'allborders' => array(
+                            'style' => PHPExcel_Style_Border::BORDER_THIN,
+                            'color' => array('rgb' => '333333')
+                        )
+                    ),
+                    'alignment' => array(
+                        'horizontal' => $attr['align'],
+                    )
+                )
+            );
+        }
+
+        //hien thị dũ liệu
+        $rowCount = $position_hearder+1; // hang bat dau xuat du lieu
+        foreach($arrData as $ky=>$data){
+            $sheet->getRowDimension($rowCount)->setRowHeight(25);//chiều cao của row
+            $sheet->getStyle('A'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+            $sheet->SetCellValue('A'.$rowCount, $ky+1);
+
+            $sheet->getStyle('B'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+            $sheet->SetCellValue('B'.$rowCount, $data['product_Code']);
+
+            $sheet->getStyle('C'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT,));
+            $sheet->SetCellValue('C'.$rowCount, $data['product_Name']);
+
+            $sheet->getStyle('D'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+            $sheet->SetCellValue('D'.$rowCount, $data['product_NameOrigin']);
+
+            $sheet->getStyle('E'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+            $sheet->SetCellValue('E'.$rowCount, $data['product_NameUnit']);
+
+            $sheet->getStyle('F'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,));
+            $sheet->SetCellValue('F'.$rowCount, $data['export_product_price']);
+
+            $sheet->getStyle('G'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+            $sheet->SetCellValue('G'.$rowCount, $data['export_product_num']);
+
+            $sheet->getStyle('H'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT,));
+            $sheet->SetCellValue('H'.$rowCount, $data['export_product_total']);
+
+            $rowCount++;
+        }
+        $sheet->getStyle('F4:F' . $rowCount)
+            ->getNumberFormat()
+            ->setFormatCode('#,##0');
+        $sheet->getStyle('H4:H' . $rowCount)
+            ->getNumberFormat()
+            ->setFormatCode('#,##0');
+        // output file
+        ob_clean();
+        $filename = "Bang_ke_ban_hàng" . date("_d/m/Y_H_i").'.xls';
+        @header("Cache-Control: ");
+        @header("Pragma: ");
+        @header("Content-type: application/octet-stream");
+        @header("Content-Disposition: attachment; filename=\"{$filename}\"");
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $objWriter->save("php://output");
+        exit();
+        parent::debug();
     }
 }

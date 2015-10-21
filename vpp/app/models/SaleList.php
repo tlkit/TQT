@@ -14,11 +14,17 @@ class SaleList extends Eloquent{
 
     protected $primaryKey = 'sale_list_id';
 
-    protected $fillable = array('customers_id','sale_list_type','sale_list_status','sale_list_code','sale_list_create_id', 'sale_list_create_time');
+    protected $fillable = array('customers_id','sale_list_type','sale_list_status','sale_list_code','sale_list_bill','sale_list_create_id', 'sale_list_create_time');
 
     public function export()
     {
         return $this->hasMany('Export', 'sale_list_id');
+    }
+
+    public static function getCountInDay(){
+        $start = strtotime(date('d-m-Y',time()));
+        $count = SaleList::where('sale_list_create_time','>=',$start)->count();
+        return $count;
     }
 
     public static function add($data, $export_ids)
@@ -37,8 +43,12 @@ class SaleList extends Eloquent{
             if(is_array($export_ids) && count($export_ids) > 0){
                 foreach($export_ids as $export_id){
                     $export = Export::find($export_id);
-                    $export->sale_list_id = $sale_list_id;
-                    $export->save();
+                    if($export->sale_list_id == 0){
+                        $export->sale_list_id = $sale_list_id;
+                        $export->save();
+                    }else{
+                        return false;
+                    }
                 }
             }
 

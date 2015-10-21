@@ -156,11 +156,14 @@ class Export extends Eloquent{
         return $data;
     }
 
+    /*bang ke*/
+
     public static function getExportForSale($param){
         $query = Export::where('export_status', 1);
         if (isset($param['customers_id'])) {
             $query->where('customers_id', $param['customers_id']);
         }
+        $query->where('sale_list_id',0);
         if (isset($param['export_pay_type'])) {
             $query->where('export_pay_type', $param['export_pay_type']);
         }
@@ -183,10 +186,18 @@ class Export extends Eloquent{
         if (isset($param['customers_id'])) {
             $query->where('customers_id', $param['customers_id']);
         }
+        $query->where('sale_list_id',0);
         if (isset($param['export_pay_type'])) {
             $query->where('export_pay_type', $param['export_pay_type']);
         }
         $data = $query->count();
         return ($data == $count) ? true : false;
     }
+
+    public static function getListIdBySaleList($sale_list_id){
+        $ids = Export::where('sale_list_id',$sale_list_id)->where('export_status',1)->lists('export_id');
+        return $ids;
+    }
+
+    /*end bảng kê*/
 }

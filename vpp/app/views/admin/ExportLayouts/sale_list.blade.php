@@ -1,6 +1,3 @@
-<style type="text/css">
-    .ui-autocomplete { max-height: 200px; overflow-y: scroll; overflow-x: hidden;}
-</style>
 <div class="main-content-inner">
     <div class="breadcrumbs" id="breadcrumbs">
         <ul class="breadcrumb">
@@ -61,7 +58,7 @@
                 </div>
                 <div class="col-sm-5">
                     <div class="form-group">
-                        <input type="text" class="form-control input-sm" id="sale_list_code" name="sale_list_code" @if(isset($param['sale_list_code'])) value="{{$param['sale_list_code']}}" @endif>
+                        <input type="text" class="form-control input-sm" id="sale_list_bill" name="sale_list_bill" @if(isset($param['sale_list_bill'])) value="{{$param['sale_list_bill']}}" @endif>
                     </div>
                 </div>
                 <div class="clearfix"></div>

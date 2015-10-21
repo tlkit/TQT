@@ -322,6 +322,11 @@ class ExportController extends BaseAdminController{
             $data['html'] = 'Hóa đơn này đã bị hủy trước đó';
             return Response::json($data);
         }
+        if($export->sale_list_id > 0){
+            $data['success'] = 0;
+            $data['html'] = 'Hóa đơn này đã tạo bảng kê không thể hủy';
+            return Response::json($data);
+        }
         if(Export::remove($export)){
             if($restore == 1){
                 $data['link'] = URL::route('admin.export_restore',array('id' => base64_encode($export_id)));

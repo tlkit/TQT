@@ -71,6 +71,8 @@ $(document).ready(function(){
                     });
                 }
             });
+        }else{
+            bootbox.alert('Chưa chọn thông tin khách hàng');
         }
     });
 })
