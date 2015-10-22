@@ -51,7 +51,7 @@ class Import extends Eloquent{
             }
             $total = $query->count();
             $query->orderBy('import_id', 'desc');
-            return ($offset == 0) ? $query->take($limit)->get() : $query->take($limit)->skip($offset)->get();
+            return $query->take($limit)->skip($offset)->get();
 
         } catch (PDOException $e) {
             throw new PDOException();

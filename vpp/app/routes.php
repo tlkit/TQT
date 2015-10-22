@@ -114,6 +114,8 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::post('export/remove',array('as' => 'admin.export_remove','uses' => 'ExportController@remove'));
     Route::get('export/restore/{id}',array('as' => 'admin.export_restore','uses' => 'ExportController@restore'));
 
+    /* Bảng kê*/
+    Route::get('sale_list/view',array('as' => 'admin.sale_list_view','uses' => 'SaleListController@view'));
     Route::get('sale_list/create',array('as' => 'admin.sale_list_create','uses' => 'SaleListController@createInfo'));
     Route::post('sale_list/create',array('as' => 'admin.sale_list_create','uses' => 'SaleListController@create'));
     Route::get('export/export_sale',array('as' => 'admin.export_sale_list','uses' => 'ExportController@getExportForSale'));
@@ -169,4 +171,6 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::post('customers/removeSessionPriceList', array('as' => 'admin.customers_removeSessionPriceList','uses' => 'ReportController@removeSessionPriceList'));
     Route::post('customers/removeProduct', array('as' => 'admin.customers_removeProduct','uses' => 'ReportController@removeProduct'));
 
+    /*Công nợ*/
+    Route::get('lia/customer',array('as' => 'admin.lia_customer','uses' => 'LiabilitiesController@liaCustomer'));
 });

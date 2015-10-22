@@ -6,7 +6,7 @@
                 <a href="{{URL::route('admin.dashboard')}}">Home</a>
             </li>
             <li>
-                <a href="{{URL::route('admin.sale_list_create')}}">Tạo bảng kê</a>
+                <a href="{{URL::route('admin.sale_list_view')}}"> Bảng kê khách hàng</a>
             </li>
             <li class="active">Chi tiết bảng kê</li>
         </ul>

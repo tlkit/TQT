@@ -293,7 +293,7 @@
 
                 <b class="arrow"></b>
             </li>
-            <li class="@if(Route::currentRouteName() == 'admin.import_view' || Route::currentRouteName() == 'admin.import_detail' || Route::currentRouteName() == 'admin.import'|| Route::currentRouteName() == 'admin.import_restore' || Route::currentRouteName() == 'admin.export_view' || Route::currentRouteName() == 'admin.export_detail' || Route::currentRouteName() == 'admin.export'|| Route::currentRouteName() == 'admin.export_restore') active @endif">
+            <li class="@if(Route::currentRouteName() == 'admin.import_view' || Route::currentRouteName() == 'admin.import_detail' || Route::currentRouteName() == 'admin.import'|| Route::currentRouteName() == 'admin.import_restore' || Route::currentRouteName() == 'admin.export_view' || Route::currentRouteName() == 'admin.export_detail' || Route::currentRouteName() == 'admin.export'|| Route::currentRouteName() == 'admin.export_restore' || Route::currentRouteName() == 'admin.sale_list_view' || Route::currentRouteName() == 'admin.sale_list_create') active @endif">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-gears"></i>
                     <span class="menu-text"> Quản lý xuất nhập </span>
@@ -320,6 +320,14 @@
 
                         <b class="arrow"></b>
                     </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.sale_list_view')active @endif">
+                        <a href="{{URL::route('admin.sale_list_view')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Bảng kê khách hàng
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
                     <li class="@if(Route::currentRouteName() == 'admin.import' || Route::currentRouteName() == 'admin.import_restore')active @endif">
                         <a href="{{URL::route('admin.import')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
@@ -332,6 +340,14 @@
                         <a href="{{URL::route('admin.export')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Xuất kho
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.sale_list_create')active @endif">
+                        <a href="{{URL::route('admin.sale_list_create')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Tạo bảng kê
                         </a>
 
                         <b class="arrow"></b>
@@ -383,7 +399,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="@if(Route::currentRouteName() == 'admin.report_customer' || Route::currentRouteName() == 'admin.report_productHot' || Route::currentRouteName() == 'admin.report_import'|| Route::currentRouteName() == 'admin.report_export' || Route::currentRouteName() == 'admin.report_import_fake'|| Route::currentRouteName() == 'admin.report_export_fake' || Route::currentRouteName() == 'admin.report_discount' || Route::currentRouteName() == 'admin.report_sale_list' || Route::currentRouteName() == 'admin.report_store' || Route::currentRouteName() == 'admin.report_store_fake') active @endif">
+            <li class="@if(Route::currentRouteName() == 'admin.report_customer' || Route::currentRouteName() == 'admin.report_productHot' || Route::currentRouteName() == 'admin.report_import'|| Route::currentRouteName() == 'admin.report_export' || Route::currentRouteName() == 'admin.report_discount' || Route::currentRouteName() == 'admin.report_sale_list' || Route::currentRouteName() == 'admin.report_store') active @endif">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-line-chart"></i>
                     <span class="menu-text"> Thống kê </span>
@@ -426,22 +442,6 @@
 
                         <b class="arrow"></b>
                     </li>
-                    <li class="@if(Route::currentRouteName() == 'admin.report_import_fake')active @endif">
-                        <a href="{{URL::route('admin.report_import_fake')}}">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Thống kê nhập ảo
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                    <li class="@if(Route::currentRouteName() == 'admin.report_export_fake')active @endif">
-                        <a href="{{URL::route('admin.report_export_fake')}}">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Thống kê xuất ảo
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
                     <li class="@if(Route::currentRouteName() == 'admin.report_discount')active @endif">
                         <a href="{{URL::route('admin.report_discount')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
@@ -466,6 +466,35 @@
 
                         <b class="arrow"></b>
                     </li>
+                </ul>
+            </li>
+            <li class="@if(Route::currentRouteName() == 'admin.report_import_fake'|| Route::currentRouteName() == 'admin.report_export_fake' || Route::currentRouteName() == 'admin.report_store_fake') active @endif">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-area-chart"></i>
+                    <span class="menu-text"> Thống kê ảo</span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="@if(Route::currentRouteName() == 'admin.report_import_fake')active @endif">
+                        <a href="{{URL::route('admin.report_import_fake')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Thống kê nhập ảo
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.report_export_fake')active @endif">
+                        <a href="{{URL::route('admin.report_export_fake')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Thống kê xuất ảo
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
                     <li class="@if(Route::currentRouteName() == 'admin.report_store_fake')active @endif">
                         <a href="{{URL::route('admin.report_store_fake')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
@@ -476,7 +505,27 @@
                     </li>
                 </ul>
             </li>
+            <li class="@if(Route::currentRouteName() == 'admin.lia_customer') active @endif">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa  fa-calculator"></i>
+                    <span class="menu-text"> Công nợ</span>
 
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu">
+                    <li class="@if(Route::currentRouteName() == 'admin.lia_customer')active @endif">
+                        <a href="{{URL::route('admin.lia_customer')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Công nợ khách hàng
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
             <li class="@if(Route::currentRouteName() == 'admin.ticket_list' || Route::currentRouteName() == 'admin.ticket_edit'|| Route::currentRouteName() == 'admin.ticket_edit_post'|| Route::currentRouteName() == 'admin.groupMoney_list')active @endif">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-file-text-o"></i>

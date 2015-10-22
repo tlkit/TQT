@@ -143,7 +143,7 @@ class GroupUser extends Eloquent
      * @param int $offset
      * @param int $total
      */
-    public static function searchGroupUser($data, $limit, $offset, &$total) {
+    public static function searchGroupUser($data, $limit = 1, $offset = 0, &$total) {
         $query = GroupUser::select('*');
         if(isset($data['group_user_id'])) {
             $query->whereIn('group_user_id', $data['group_user_id']);
@@ -156,7 +156,7 @@ class GroupUser extends Eloquent
         }
         $total = $query->count();
         $query->orderBy('group_user_id', 'desc');
-        return ($offset == 0) ? $query->take($limit)->get() : $query->take($limit)->skip($offset)->get();
+        return $query->take($limit)->skip($offset)->get();
     }
 
 

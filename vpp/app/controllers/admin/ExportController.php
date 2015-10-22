@@ -8,7 +8,6 @@
 
 class ExportController extends BaseAdminController{
 
-    private $filename = '';
     private $aryStatus = array(-1 => 'Chọn trạng thái', 0 => 'Hóa đơn hủy', 1 => 'Hóa đơn bình thường');
     private $permission_view = 'export_view';
     private $permission_create = 'export_create';
@@ -408,7 +407,7 @@ class ExportController extends BaseAdminController{
         }
         $export = Export::getExportForSale($param);
         $admin = User::getListAllUser();
-        $html = View::make('admin.ExportLayouts.export_sale')->with('export',$export)->with('admin',$admin)->render();
+        $html = View::make('admin.SaleListLayouts.export_sale')->with('export',$export)->with('admin',$admin)->render();
         $data['html'] = $html;
         return Response::json($data);
     }

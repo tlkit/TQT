@@ -22,7 +22,7 @@ class Providers extends Eloquent
         return $provider ? $provider : array();
     }
 
-    public static function searchByCondition($dataSearch = array(), $limit =0, $offset=0, &$total){
+    public static function searchByCondition($dataSearch = array(), $limit = 0, $offset=0, &$total){
         try{
             $query = Providers::where('providers_id','>',0);
             if (isset($dataSearch['providers_Name']) && $dataSearch['providers_Name'] != '') {
@@ -33,7 +33,7 @@ class Providers extends Eloquent
             }
             $total = $query->count();
             $query->orderBy('providers_id', 'desc');
-            return ($offset == 0) ? $query->take($limit)->get() : $query->take($limit)->skip($offset)->get();
+            return $query->take($limit)->skip($offset)->get();
 
         }catch (PDOException $e){
             throw new PDOException();

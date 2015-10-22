@@ -49,7 +49,7 @@ class Customers extends Eloquent
             }
             $total = $query->count();
             $query->orderBy('customers_id', 'desc');
-            return ($offset == 0) ? $query->take($limit)->get() : $query->take($limit)->skip($offset)->get();
+            return $query->take($limit)->skip($offset)->get();
 
         }catch (PDOException $e){
             throw new PDOException();
@@ -174,6 +174,32 @@ class Customers extends Eloquent
         $query->select(DB::raw($tbl_customers.'.*,COUNT('.$tbl_export.'.export_id) as count_export, SUM('.$tbl_export.'.export_total_pay) as sum_export,SUM('.$tbl_export.'.export_price_origin) as sum_origin'));
         $query->orderBy(DB::raw('SUM('.$tbl_export.'.export_total_pay)'),'desc');
         $query->groupBy($tbl_export.'.customers_id');
+        $data = $query->get();
+        return $data;
+    }
+
+    public static function liaCustomer($param){
+        $tbl_customers = with(new Customers())->getTable();
+        $tbl_sale_list = with(new SaleList())->getTable();
+        $query = DB::table($tbl_customers);
+        $query->join($tbl_sale_list, $tbl_customers . '.customers_id', '=', $tbl_sale_list . '.customers_id');
+        $query->where($tbl_sale_list . '.sale_list_status', 1);
+        $query->where($tbl_sale_list . '.sale_list_type', 1);
+        if ($param['customers_id'] > 0) {
+            $query->where($tbl_customers . '.customers_id', $param['customers_id']);
+        }
+        if ($param['customers_ManagedBy'] > 0) {
+            $query->where($tbl_customers . '.customers_ManagedBy', $param['customers_ManagedBy']);
+        }
+        if ($param['sale_list_create_start'] > 0) {
+            $query->where($tbl_sale_list . '.sale_list_create_time', '>=', $param['sale_list_create_start']);
+        }
+        if ($param['sale_list_create_end'] > 0) {
+            $query->where($tbl_sale_list . '.sale_list_create_time', '<=', $param['sale_list_create_end']);
+        }
+        $query->select(DB::raw($tbl_customers.'.*,COUNT('.$tbl_sale_list.'.sale_list_id) as count_sale_list, SUM('.$tbl_sale_list.'.sale_list_total_pay) as sum_sale_list'));
+        $query->orderBy(DB::raw('SUM('.$tbl_sale_list.'.sale_list_total_pay)'),'desc');
+        $query->groupBy($tbl_sale_list.'.customers_id');
         $data = $query->get();
         return $data;
     }

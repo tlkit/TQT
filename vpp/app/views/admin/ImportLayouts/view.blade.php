@@ -81,7 +81,7 @@
                     {{ Form::close() }}
                 </div>
                 @if(sizeof($data) > 0)
-                    <div class="span clearfix"> @if($total >0) Có tổng số <b>{{$total}}</b> danh mục @endif </div>
+                    <div class="span clearfix"> @if($total >0) Có tổng số <b>{{$total}}</b> nhập kho @endif </div>
                     <br>
                     <table class="table table-bordered">
                         <thead class="thin-border-bottom">

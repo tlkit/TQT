@@ -123,7 +123,7 @@ class Permission extends Eloquent{
      * @param int $offset
      * @param int $total
      */
-    public static  function searchPermission($data, $limit, $offset, &$total) {
+    public static  function searchPermission($data, $limit = 1, $offset = 0, &$total) {
         $query = Permission::select('*');
         if(isset($data['permission_id'])) {
             $query->whereIn('permission_id', $data['permission_id']);
@@ -143,7 +143,7 @@ class Permission extends Eloquent{
         $total = $query->count();
         $query->orderBy('permission_group_name', 'asc');
         $query->orderBy('permission_id', 'desc');
-        return ($offset == 0) ? $query->take($limit)->get() : $query->take($limit)->skip($offset)->get();
+        return $query->take($limit)->skip($offset)->get();
     }
 
     /**

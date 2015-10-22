@@ -7,6 +7,8 @@
  */
 class SaleListController extends BaseAdminController
 {
+    private $aryStatus = array(-1 => 'Chọn trạng thái', 0 => 'Bảng kê hủy', 1 => 'Bảng kê bình thường');
+    private $aryType = array(-1 => 'Chọn trạng thái', 0 => 'Đã thanh toán', 1 => 'Công nợ');
 
     public function __construct()
     {
@@ -14,10 +16,45 @@ class SaleListController extends BaseAdminController
 
     }
 
+    public function view(){
+
+        $dataSearch['customers_id'] = Request::get('customers_id', 0);
+        $dataSearch['sale_list_type'] = Request::get('sale_list_type', -1);
+        $dataSearch['sale_list_status'] = Request::get('sale_list_status', -1);
+        $dataSearch['sale_list_code'] = Request::get('sale_list_code', '');
+        $dataSearch['sale_list_bill'] = Request::get('sale_list_bill', '');
+        $dataSearch['sale_list_create_id'] = Request::get('export_create_id', 0);
+        $dataSearch['sale_list_start'] = Request::get('sale_list_start', '');
+        $dataSearch['sale_list_end'] = Request::get('sale_list_end', '');
+        $page_no = Request::get('page_no', 1);
+        $limit = 30;
+        $total = 0;
+        $offset = ($page_no - 1) * $limit;
+        $param = $dataSearch;
+        $admin = User::getListAllUser();
+        $customers = Customers::getListAll();
+        $param['sale_list_start'] = ($param['sale_list_start'] != '') ? strtotime($param['sale_list_start']) : 0;
+        $param['sale_list_end'] = ($param['sale_list_end'] != '') ? strtotime($param['sale_list_end'])+86400 : 0;
+        $data = SaleList::search($param, $limit, $offset, $total);
+        $paging = $total > 0 ? Pagging::getNewPager(3, $page_no, $total, $limit, $dataSearch) : '';
+        $this->layout->content = View::make('admin.SaleListLayouts.view')
+            ->with('param',$dataSearch)
+            ->with('data',$data)
+            ->with('total', $total)
+            ->with('aryStatus', $this->aryStatus)
+            ->with('aryType', $this->aryType)
+            ->with('admin', $admin)
+            ->with('customers', $customers)
+            ->with('start', ($page_no - 1) * $limit)
+            ->with('paging',$paging);
+//            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1)
+//            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 1);
+    }
+
     public function createInfo(){
 
         $customers = Customers::getListAll();
-        $this->layout->content = View::make('admin.ExportLayouts.sale_list')
+        $this->layout->content = View::make('admin.SaleListLayouts.sale_list')
             ->with('customers',$customers)
             ->with('customers_id',0);
     }
@@ -71,7 +108,7 @@ class SaleListController extends BaseAdminController
 
         if($error){
             $customers = Customers::getListAll();
-            $this->layout->content = View::make('admin.ExportLayouts.sale_list')
+            $this->layout->content = View::make('admin.SaleListLayouts.sale_list')
                 ->with('customers',$customers)
                 ->with('param',$param)
                 ->with('error',$error)
@@ -85,7 +122,7 @@ class SaleListController extends BaseAdminController
         $export_ids = Export::getListIdBySaleList($id);
         $customer = Customers::find($sale_list->customers_id);
         $product = ExportProduct::reportSaleList($export_ids);
-        $this->layout->content = View::make('admin.ExportLayouts.sale_list_detail')
+        $this->layout->content = View::make('admin.SaleListLayouts.sale_list_detail')
             ->with('sale_list',$sale_list)
             ->with('customer',$customer)
             ->with('product',$product);
@@ -98,7 +135,7 @@ class SaleListController extends BaseAdminController
         $export_ids = Export::getListIdBySaleList($id);
         $customer = Customers::find($sale_list->customers_id);
         $product = ExportProduct::reportSaleList($export_ids);
-        $html = View::make('admin.ExportLayouts.sale_list_pdf')
+        $html = View::make('admin.SaleListLayouts.sale_list_pdf')
             ->with('sale_list',$sale_list)
             ->with('customer',$customer)
             ->with('product',$product)->render();
