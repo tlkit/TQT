@@ -119,7 +119,19 @@
                                 <td class="center">@if(isset($admin[$item['sale_list_create_id']])){{$admin[$item['sale_list_create_id']]}}@endif</td>
                                 <td class="text-right">{{number_format($item['sale_list_total_pay'],0,'.','.')}}</td>
                                 <td class="center">{{date('d-m-Y H:i',$item['sale_list_create_time'])}}</td>
-                                <td></td>
+                                <td>
+                                    @if($item['sale_list_type'] == 1)
+                                        <a href="javascript:void(0)" class="btn btn-xs btn-info sys_update_payment" data-id="{{$item['sale_list_id']}}" data-code="{{$item['sale_list_code']}}" data-content="Cập nhật thanh toán" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                            <i class="ace-icon fa fa-credit-card bigger-120"></i>
+                                        </a>
+                                    @endif
+                                    <a class="btn btn-xs btn-danger" href="{{URL::route('admin.sale_list_pdf',array('id'=>base64_encode($item['sale_list_id'])))}}" target="_blank" data-content="Xuất pdf" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                        <i class="ace-icon fa fa-file-pdf-o bigger-120"></i>
+                                    </a>
+                                    <a class="btn btn-xs btn-success" href="{{URL::route('admin.exportExcelReportSaleList',array('id'=>base64_encode($item['sale_list_id'])))}}" data-content="Xuất excel" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                        <i class="ace-icon fa fa-file-excel-o bigger-120"></i>
+                                    </a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

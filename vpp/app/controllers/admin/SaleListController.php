@@ -279,4 +279,27 @@ class SaleListController extends BaseAdminController
         exit();
         parent::debug();
     }
+
+    public function updatePayment()
+    {
+        $data['success'] = 0;
+        $sale_list_id = (int)Request::get('sale_list_id', 0);
+        $sale_list = SaleList::find($sale_list_id);
+        if (!$sale_list) {
+            $data['html'] = 'Không tìm thấy bảng kê cần thanh toán';
+            return Response::json($data);
+        }
+        if ($sale_list->sale_list_type == 0) {
+            $data['html'] = 'Bảng kê đã được thanh toán trước đó';
+            return Response::json($data);
+        }
+        if (SaleList::updatePayment($sale_list)) {
+            $data['success'] = 1;
+            $data['html'] = 'Cập nhật thành công';
+            return Response::json($data);
+        } else {
+            $data['html'] = 'Cập nhật không thành công';
+            return Response::json($data);
+        }
+    }
 }

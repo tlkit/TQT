@@ -14,7 +14,7 @@ class SaleList extends Eloquent{
 
     protected $primaryKey = 'sale_list_id';
 
-    protected $fillable = array('customers_id','sale_list_type','sale_list_status','sale_list_code','sale_list_bill','sale_list_total_pay','sale_list_create_id', 'sale_list_create_time');
+    protected $fillable = array('customers_id','sale_list_type','sale_list_status','sale_list_code','sale_list_bill','sale_list_total_pay','sale_list_create_id', 'sale_list_create_time','sale_list_pay_id','sale_list_pay_time');
 
     public function export()
     {
@@ -54,6 +54,10 @@ class SaleList extends Eloquent{
                 }
             }
             $sale_list->sale_list_total_pay = $total;
+            if($sale_list->sale_list_type == 0){
+                $sale_list->sale_list_pay_id = User::user_id();
+                $sale_list->sale_list_pay_time = time();
+            }
             $sale_list->save();
 
             DB::connection()->getPdo()->commit();
@@ -101,6 +105,25 @@ class SaleList extends Eloquent{
 
         } catch (PDOException $e) {
             throw new PDOException();
+        }
+    }
+
+    public static function updatePayment($sale){
+        try {
+            if($sale->sale_list_type == 1){
+                $sale->sale_list_type = 0;
+                $sale->sale_list_pay_id = User::user_id();
+                $sale->sale_list_pay_time = time();
+                $sale->save();
+            }else{
+                return false;
+            }
+            DB::connection()->getPdo()->commit();
+            return $sale->sale_list_id;
+        } catch (\PDOException $e) {
+            DB::connection()->getPdo()->rollBack();
+            //throw new PDOException();
+            return false;
         }
     }
 

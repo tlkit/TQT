@@ -118,6 +118,7 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('sale_list/view',array('as' => 'admin.sale_list_view','uses' => 'SaleListController@view'));
     Route::get('sale_list/create',array('as' => 'admin.sale_list_create','uses' => 'SaleListController@createInfo'));
     Route::post('sale_list/create',array('as' => 'admin.sale_list_create','uses' => 'SaleListController@create'));
+    Route::post('sale_list/update_payment',array('as' => 'admin.sale_list_update_payment','uses' => 'SaleListController@updatePayment'));
     Route::get('export/export_sale',array('as' => 'admin.export_sale_list','uses' => 'ExportController@getExportForSale'));
     Route::get('sale_list/detail/{id}',array('as' => 'admin.sale_list_detail','uses' => 'SaleListController@detail'));
     Route::get('sale_list/pdf/{id}',array('as' => 'admin.sale_list_pdf','uses' => 'SaleListController@exportPdf'));
@@ -157,7 +158,7 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('report/import_fake',array('as' => 'admin.report_import_fake','uses' => 'ReportController@reportImportFake'));
     Route::get('report/export_fake',array('as' => 'admin.report_export_fake','uses' => 'ReportController@reportExportFake'));
     Route::get('report/discount',array('as' => 'admin.report_discount','uses' => 'ReportController@reportDiscount'));
-    Route::get('report/sale_list',array('as' => 'admin.report_sale_list','uses' => 'ReportController@reportSaleList'));
+//    Route::get('report/sale_list',array('as' => 'admin.report_sale_list','uses' => 'ReportController@reportSaleList'));
     Route::get('report/sale_list_not_vat',array('as' => 'admin.report_not_vat','uses' => 'ReportController@sale_list_not_vat'));
     Route::get('report/exportPdf_sale_list',array('as' => 'admin.report_sale_list_exportPdf','uses' => 'ReportController@exportPdf'));
     Route::get('report/store',array('as' => 'admin.report_store','uses' => 'ReportController@reportStore'));

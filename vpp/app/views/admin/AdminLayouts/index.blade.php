@@ -399,7 +399,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="@if(Route::currentRouteName() == 'admin.report_customer' || Route::currentRouteName() == 'admin.report_productHot' || Route::currentRouteName() == 'admin.report_import'|| Route::currentRouteName() == 'admin.report_export' || Route::currentRouteName() == 'admin.report_discount' || Route::currentRouteName() == 'admin.report_sale_list' || Route::currentRouteName() == 'admin.report_store') active @endif">
+            <li class="@if(Route::currentRouteName() == 'admin.report_customer' || Route::currentRouteName() == 'admin.report_productHot' || Route::currentRouteName() == 'admin.report_import'|| Route::currentRouteName() == 'admin.report_export' || Route::currentRouteName() == 'admin.report_discount' || Route::currentRouteName() == 'admin.report_store') active @endif">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-line-chart"></i>
                     <span class="menu-text"> Thống kê </span>
@@ -446,14 +446,6 @@
                         <a href="{{URL::route('admin.report_discount')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Thống kê chiết khấu
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                    <li class="@if(Route::currentRouteName() == 'admin.report_sale_list')active @endif">
-                        <a href="{{URL::route('admin.report_sale_list')}}">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Bảng kê bán hàng
                         </a>
 
                         <b class="arrow"></b>

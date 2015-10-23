@@ -2,6 +2,7 @@
  * Created by MT969 on 10/19/2015.
  */
 $(document).ready(function(){
+    $('[data-rel=popover]').popover({container: 'body'});
     $('#customers_id').chosen({allow_single_deselect:true,no_results_text:'Từ khóa : ',search_contains: true});
 
     $( "#export_create_start" ).datepicker({
@@ -74,5 +75,41 @@ $(document).ready(function(){
         }else{
             bootbox.alert('Chưa chọn thông tin khách hàng');
         }
+    });
+
+    $(".sys_update_payment").on('click dbclick',function(){
+        var $this = $(this);
+        var sale_list_code = $(this).data('code');
+        var sale_list_id = $(this).data('id');
+        bootbox.confirm("Bạn muốn cập nhật trạng thái thanh toán cho bảng kê " + sale_list_code + " ", function (result) {
+            if(result == true){
+                $.ajax({
+                    dataType: 'json',
+                    type: 'POST',
+                    url: WEB_ROOT + '/admin/sale_list/update_payment',
+                    data: {
+                        sale_list_id: sale_list_id
+                    },
+                    beforeSend: function () {
+                        $this.addClass('disabled');
+                    },
+                    error: function () {
+                        $this.removeClass('disabled');
+                        bootbox.alert('Lỗi hệ thống');
+                    },
+                    success: function (data) {
+                        $this.removeClass('disabled');
+                        if(data.success == 1){
+                            $this.hide();
+                            if(parseInt($("#sale_list_type").val()) == 1){
+                                $this.parents('tr').hide();
+                            }
+                        }
+                        bootbox.alert(data.html);
+                    }
+                });
+            }
+        });
+        return false;
     });
 })

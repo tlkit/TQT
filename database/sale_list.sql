@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2015-10-22 07:41:55
+Date: 2015-10-22 22:44:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,5 +29,7 @@ CREATE TABLE `sale_list` (
   `sale_list_total_pay` int(11) DEFAULT '0' COMMENT 'tổng thanh toán',
   `sale_list_create_id` int(11) DEFAULT '0',
   `sale_list_create_time` int(11) DEFAULT '0',
+  `sale_list_pay_id` int(11) DEFAULT '0',
+  `sale_list_pay_time` int(11) DEFAULT '0',
   PRIMARY KEY (`sale_list_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
