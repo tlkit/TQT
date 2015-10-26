@@ -10,9 +10,11 @@ class ImportFakeController extends BaseAdminController{
 
     private $filename = '';
     private $aryStatus = array(-1 => 'Chọn trạng thái', 0 => 'Hóa đơn hủy', 1 => 'Hóa đơn bình thường');
+    private $aryPayType = array(-1 => 'Chọn trạng thái', 0 => 'Đã thanh toán', 1 => 'Thanh toán công nợ');
     private $permission_view = 'import_view';
     private $permission_create = 'import_create';
     private $permission_edit = 'import_edit';
+    private $permission_update_payment = 'import_update_payment';
 
     public function __construct(){
         parent::__construct();
@@ -28,6 +30,7 @@ class ImportFakeController extends BaseAdminController{
         $dataSearch['import_create_id'] = Request::get('import_create_id', 0);
         $dataSearch['import_code'] = Request::get('import_code', '');
         $dataSearch['import_status'] = Request::get('import_status', -1);
+        $dataSearch['import_pay_type'] = Request::get('import_pay_type', -1);
         $dataSearch['providers_id'] = Request::get('providers_id', 0);
         $dataSearch['import_create_start'] = Request::get('import_create_start', '');
         $dataSearch['import_create_end'] = Request::get('import_create_end', '');
@@ -47,12 +50,14 @@ class ImportFakeController extends BaseAdminController{
             ->with('data',$data)
             ->with('total', $total)
             ->with('aryStatus', $this->aryStatus)
+            ->with('aryPayType', $this->aryPayType)
             ->with('admin', $admin)
             ->with('providers', $providers)
             ->with('start', ($page_no - 1) * $limit)
             ->with('paging',$paging)
-            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1)
-            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 1);
+            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
+            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0)
+            ->with('permission_update_payment', in_array($this->permission_update_payment, $this->permission) ? 1 : 1);
     }
 
     public function importInfo(){
@@ -122,6 +127,10 @@ class ImportFakeController extends BaseAdminController{
             $aryImport['import_pay_type'] = $import_pay_type;
             $aryImport['import_create_id'] = User::user_id();
             $aryImport['import_create_time'] = time();
+            if($import_pay_type == 0){
+                $aryImport['import_pay_id'] = User::user_id();
+                $aryImport['import_pay_time'] = time();
+            }
             $import_id = ImportFake::add($aryImport,$aryImportProduct);
             if ($import_id) {
                 Session::forget('import_fake');
@@ -302,6 +311,29 @@ class ImportFakeController extends BaseAdminController{
             ->with('providers',$providers)->with('providers_id',$import->providers_id);
         $this->layout->content->provider_info = View::make('admin.ImportFakeLayouts.provider_info')->with('provider',$provider);
         $this->layout->content->product_info = View::make('admin.ImportFakeLayouts.product_info')->with('import',$aryImport);
+    }
+
+    public function updatePayment()
+    {
+        $data['success'] = 0;
+        $import_id = (int)Request::get('import_id', 0);
+        $import = ImportFake::find($import_id);
+        if (!$import) {
+            $data['html'] = 'Không tìm thấy phiếu nhập cần thanh toán';
+            return Response::json($data);
+        }
+        if ($import->import_pay_type == 0) {
+            $data['html'] = 'Phiếu nhập đã được thanh toán trước đó';
+            return Response::json($data);
+        }
+        if (ImportFake::updatePayment($import)) {
+            $data['success'] = 1;
+            $data['html'] = 'Cập nhật thành công';
+            return Response::json($data);
+        } else {
+            $data['html'] = 'Cập nhật không thành công';
+            return Response::json($data);
+        }
     }
 
 }

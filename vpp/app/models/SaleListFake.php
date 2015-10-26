@@ -6,9 +6,9 @@
  * Time: 10:11 CH
  */
 
-class SaleList extends Eloquent{
+class SaleListFake extends Eloquent{
 
-    protected $table = 'sale_list';
+    protected $table = 'sale_list_fake';
 
     public $timestamps = false;
 
@@ -18,12 +18,12 @@ class SaleList extends Eloquent{
 
     public function export()
     {
-        return $this->hasMany('Export', 'sale_list_id');
+        return $this->hasMany('ExportFake', 'sale_list_id');
     }
 
     public static function getCountInDay(){
         $start = strtotime(date('d-m-Y',time()));
-        $count = SaleList::where('sale_list_create_time','>=',$start)->count();
+        $count = SaleListFake::where('sale_list_create_time','>=',$start)->count();
         return $count;
     }
 
@@ -32,7 +32,7 @@ class SaleList extends Eloquent{
         try {
 
             DB::connection()->getPdo()->beginTransaction();
-            $sale_list = new SaleList();
+            $sale_list = new SaleListFake();
             if(is_array($data) && count($data) > 0) {
                 foreach($data as $k => $v) {
                     $sale_list->$k = $v;
@@ -43,7 +43,7 @@ class SaleList extends Eloquent{
             $total = 0;
             if(is_array($export_ids) && count($export_ids) > 0){
                 foreach($export_ids as $export_id){
-                    $export = Export::find($export_id);
+                    $export = ExportFake::find($export_id);
                     if($export->sale_list_id == 0){
                         $export->sale_list_id = $sale_list_id;
                         $total += $export->export_total_pay;
@@ -73,7 +73,7 @@ class SaleList extends Eloquent{
     public static function search($dataSearch = array(), $limit = 50, $offset = 0, &$total)
     {
         try {
-            $query = SaleList::where('sale_list_id', '>', 0);
+            $query = SaleListFake::where('sale_list_id', '>', 0);
 
             if (isset($dataSearch['customers_id']) && $dataSearch['customers_id'] != 0) {
                 $query->where('customers_id', $dataSearch['customers_id']);

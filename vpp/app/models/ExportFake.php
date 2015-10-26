@@ -155,4 +155,49 @@ class ExportFake extends Eloquent{
         $data = $query->get();
         return $data;
     }
+
+    /*bang ke*/
+
+    public static function getExportForSale($param){
+        $query = ExportFake::where('export_status', 1);
+        if (isset($param['customers_id'])) {
+            $query->where('customers_id', $param['customers_id']);
+        }
+        $query->where('sale_list_id',0);
+        if (isset($param['export_pay_type'])) {
+            $query->where('export_pay_type', $param['export_pay_type']);
+        }
+        if (isset($param['export_create_start']) && $param['export_create_start'] > 0) {
+            $query->where('export_create_time', '>=', $param['export_create_start']);
+        }
+        if (isset($param['export_create_end']) && $param['export_create_end'] > 0) {
+            $query->where('export_create_time', '<', $param['export_create_end']);
+        }
+        $query->orderBy('export_id', 'DESC');
+        $data = $query->get();
+        return $data;
+    }
+
+    public static function checkForSale($param,$count){
+        $query = ExportFake::where('export_status', 1);
+        if (isset($param['export_id'])) {
+            $query->whereIn('export_id', $param['export_id']);
+        }
+        if (isset($param['customers_id'])) {
+            $query->where('customers_id', $param['customers_id']);
+        }
+        $query->where('sale_list_id',0);
+        if (isset($param['export_pay_type'])) {
+            $query->where('export_pay_type', $param['export_pay_type']);
+        }
+        $data = $query->count();
+        return ($data == $count) ? true : false;
+    }
+
+    public static function getListIdBySaleList($sale_list_id){
+        $ids = ExportFake::where('sale_list_id',$sale_list_id)->where('export_status',1)->lists('export_id');
+        return $ids;
+    }
+
+    /*end bảng kê*/
 }

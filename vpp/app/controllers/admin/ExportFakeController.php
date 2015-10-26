@@ -8,7 +8,6 @@
 
 class ExportFakeController extends BaseAdminController{
 
-    private $filename = '';
     private $aryStatus = array(-1 => 'Chọn trạng thái', 0 => 'Hóa đơn hủy', 1 => 'Hóa đơn bình thường');
     private $permission_view = 'export_view';
     private $permission_create = 'export_create';
@@ -54,8 +53,8 @@ class ExportFakeController extends BaseAdminController{
             ->with('customers', $customers)
             ->with('start', ($page_no - 1) * $limit)
             ->with('paging',$paging)
-            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1)
-            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 1);
+            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
+            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0);
     }
 
     public function exportInfo(){
@@ -303,7 +302,6 @@ class ExportFakeController extends BaseAdminController{
         return $pdf->stream("export_f_" . $export->export_code . ".pdf");
     }
 
-
     public function remove(){
         if (!in_array($this->permission_edit, $this->permission)) {
             return Redirect::route('admin.dashboard');
@@ -321,6 +319,11 @@ class ExportFakeController extends BaseAdminController{
         if($export->export_status != 1){
             $data['success'] = 0;
             $data['html'] = 'Hóa đơn này đã bị hủy trước đó';
+            return Response::json($data);
+        }
+        if($export->sale_list_id > 0){
+            $data['success'] = 0;
+            $data['html'] = 'Hóa đơn này đã tạo bảng kê không thể hủy';
             return Response::json($data);
         }
         if(ExportFake::remove($export)){
@@ -388,6 +391,25 @@ class ExportFakeController extends BaseAdminController{
 //            ->with('providers',$providers)->with('providers_id',$import->providers_id);
 //        $this->layout->content->provider_info = View::make('admin.ImportLayouts.provider_info')->with('provider',$provider);
 //        $this->layout->content->product_info = View::make('admin.ImportLayouts.product_info')->with('import',$aryImport);
+    }
+
+    public function getExportForSale(){
+        $param['customers_id'] = (int)Request::get('customers_id',0);
+        $param['export_pay_type'] = (int)Request::get('export_pay_type',0);
+        $param['export_create_start'] = Request::get('export_create_start','');
+        $param['export_create_end'] = Request::get('export_create_end','');
+        $param['export_create_start'] = ($param['export_create_start'] != '') ? strtotime($param['export_create_start']) : 0;
+        $param['export_create_end'] = ($param['export_create_end'] != '') ? strtotime($param['export_create_end'])+86400 : 0;
+        $data['success'] = 0;
+        if($param['customers_id'] == 0){
+            $data['html'] = '<div class="alert alert-danger">Chưa chọn khách hàng</div>';
+            return Response::json($data);
+        }
+        $export = ExportFake::getExportForSale($param);
+        $admin = User::getListAllUser();
+        $html = View::make('admin.SaleListLayouts.export_sale')->with('export',$export)->with('admin',$admin)->render();
+        $data['html'] = $html;
+        return Response::json($data);
     }
 
 }

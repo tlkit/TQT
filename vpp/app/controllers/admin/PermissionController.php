@@ -68,8 +68,8 @@ class PermissionController extends BaseAdminController
             ->with('dataSearch', $dataSearch)
             ->with('total', $total)
             ->with('paging', $paging)
-            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1)
-            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 1)
+            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
+            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0)
             ->with('start', ($page_no - 1) * $limit)
             ->with('arrStatus', $this->arrStatus);
     }

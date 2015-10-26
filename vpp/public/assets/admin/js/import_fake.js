@@ -240,6 +240,42 @@ $(document).ready(function(){
         }
     });
 
+    $(".sys_update_payment").on('click dbclick',function(){
+        var $this = $(this);
+        var import_code = $(this).data('code');
+        var import_id = $(this).data('id');
+        bootbox.confirm("Bạn muốn cập nhật trạng thái thanh toán cho phiếu nhập " + import_code + " ", function (result) {
+            if(result == true){
+                $.ajax({
+                    dataType: 'json',
+                    type: 'POST',
+                    url: WEB_ROOT + '/admin/import_fake/update_payment',
+                    data: {
+                        import_id: import_id
+                    },
+                    beforeSend: function () {
+                        $this.addClass('disabled');
+                    },
+                    error: function () {
+                        $this.removeClass('disabled');
+                        bootbox.alert('Lỗi hệ thống');
+                    },
+                    success: function (data) {
+                        $this.removeClass('disabled');
+                        if(data.success == 1){
+                            $this.hide();
+                            if(parseInt($("#import_pay_type").val()) == 1){
+                                $this.parents('tr').hide();
+                            }
+                        }
+                        bootbox.alert(data.html);
+                    }
+                });
+            }
+        });
+        return false;
+    });
+
 });
 
 var Import = {

@@ -354,7 +354,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="@if(Route::currentRouteName() == 'admin.import_fake_view' || Route::currentRouteName() == 'admin.import_fake_detail' || Route::currentRouteName() == 'admin.import_fake'|| Route::currentRouteName() == 'admin.import_fake_restore' || Route::currentRouteName() == 'admin.export_fake_view' || Route::currentRouteName() == 'admin.export_fake_detail' || Route::currentRouteName() == 'admin.export_fake'|| Route::currentRouteName() == 'admin.export_fake_restore') active @endif">
+            <li class="@if(Route::currentRouteName() == 'admin.import_fake_view' || Route::currentRouteName() == 'admin.import_fake_detail' || Route::currentRouteName() == 'admin.import_fake'|| Route::currentRouteName() == 'admin.import_fake_restore' || Route::currentRouteName() == 'admin.export_fake_view' || Route::currentRouteName() == 'admin.export_fake_detail' || Route::currentRouteName() == 'admin.export_fake'|| Route::currentRouteName() == 'admin.export_fake_restore' || Route::currentRouteName() == 'admin.sale_list_fake_create' || Route::currentRouteName() == 'admin.sale_list_fake_view') active @endif">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-recycle"></i>
                     <span class="menu-text"> QLý xuất nhập ảo</span>
@@ -381,6 +381,14 @@
 
                         <b class="arrow"></b>
                     </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.sale_list_fake_view')active @endif">
+                        <a href="{{URL::route('admin.sale_list_fake_view')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Bảng kê ảo
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
                     <li class="@if(Route::currentRouteName() == 'admin.import_fake' || Route::currentRouteName() == 'admin.import_fake_restore')active @endif">
                         <a href="{{URL::route('admin.import_fake')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
@@ -393,6 +401,14 @@
                         <a href="{{URL::route('admin.export_fake')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Xuất kho ảo
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.sale_list_fake_create')active @endif">
+                        <a href="{{URL::route('admin.sale_list_fake_create')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Tạo bảng kê ảo
                         </a>
 
                         <b class="arrow"></b>

@@ -14,7 +14,7 @@ class Import extends Eloquent{
 
     protected $primaryKey = 'import_id';
 
-    protected $fillable = array('import_code','providers_id','import_price','import_status','import_note','import_pay_type','import_pay_discount','import_pay_total','import_create_id','import_create_time','import_update_id','import_update_time');
+    protected $fillable = array('import_code','providers_id','import_price','import_status','import_note','import_pay_type','import_pay_discount','import_pay_total','import_create_id','import_create_time','import_update_id','import_update_time','import_pay_id','import_pay_time');
 
     public function importproduct()
     {
@@ -42,6 +42,9 @@ class Import extends Eloquent{
             }
             if (isset($dataSearch['import_status']) && $dataSearch['import_status'] != -1) {
                 $query->where('import_status', $dataSearch['import_status']);
+            }
+            if (isset($dataSearch['import_pay_type']) && $dataSearch['import_pay_type'] != -1) {
+                $query->where('import_pay_type', $dataSearch['import_pay_type']);
             }
             if (isset($dataSearch['import_create_start']) && $dataSearch['import_create_start'] != 0) {
                 $query->where('import_create_time','>=', $dataSearch['import_create_start']);
@@ -123,6 +126,26 @@ class Import extends Eloquent{
             return true;
         } catch (\PDOException $e) {
             var_dump($e->getMessage());die;
+            DB::connection()->getPdo()->rollBack();
+            //throw new PDOException();
+            return false;
+        }
+    }
+
+    public static function updatePayment($import){
+        try {
+            DB::connection()->getPdo()->beginTransaction();
+            if($import->import_pay_type == 1){
+                $import->import_pay_type = 0;
+                $import->import_pay_id = User::user_id();
+                $import->import_pay_time = time();
+                $import->save();
+            }else{
+                return false;
+            }
+            DB::connection()->getPdo()->commit();
+            return $import->import_id;
+        } catch (\PDOException $e) {
             DB::connection()->getPdo()->rollBack();
             //throw new PDOException();
             return false;

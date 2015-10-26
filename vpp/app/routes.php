@@ -90,6 +90,7 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::post('import/removeProduct', array('as' => 'admin.import_removeProduct','uses' => 'ImportController@removeProduct'));
     Route::get('getProductByName', array('as' => 'admin.getProductByName','uses' => 'ProductController@getProductByName'));
     Route::get('getProviderInfo', array('as' => 'admin.getProviderInfo','uses' => 'ProvidersController@getProviderInfo'));
+    Route::post('import/update_payment',array('as' => 'admin.import_update_payment','uses' => 'ImportController@updatePayment'));
 
     /*nhập kho ao*/
     Route::get('import_fake/view',array('as' => 'admin.import_fake_view','uses' => 'ImportFakeController@view'));
@@ -101,6 +102,7 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('import_fake/exportPdf/{id}',array('as' => 'admin.import_fake_exportPdf','uses' => 'ImportFakeController@exportPdf'));
     Route::post('import_fake/addProduct', array('as' => 'admin.import_fake_addProduct','uses' => 'ImportFakeController@addProduct'));
     Route::post('import_fake/removeProduct', array('as' => 'admin.import_fake_removeProduct','uses' => 'ImportFakeController@removeProduct'));
+    Route::post('import_fake/update_payment',array('as' => 'admin.import_fake_update_payment','uses' => 'ImportFakeController@updatePayment'));
 
     /*Xuất kho*/
     Route::get('export/view',array('as' => 'admin.export_view','uses' => 'ExportController@view'));
@@ -135,6 +137,16 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('export_fake/exportPdf/{id}',array('as' => 'admin.export_fake_exportPdf','uses' => 'ExportFakeController@exportPdf'));
     Route::post('export_fake/remove',array('as' => 'admin.export_fake_remove','uses' => 'ExportFakeController@remove'));
     Route::get('export_fake/restore/{id}',array('as' => 'admin.export_fake_restore','uses' => 'ExportFakeController@restore'));
+
+    /* Bảng kê ảo*/
+    Route::get('sale_list_fake/view',array('as' => 'admin.sale_list_fake_view','uses' => 'SaleListFakeController@view'));
+    Route::get('sale_list_fake/create',array('as' => 'admin.sale_list_fake_create','uses' => 'SaleListFakeController@createInfo'));
+    Route::post('sale_list_fake/create',array('as' => 'admin.sale_list_fake_create','uses' => 'SaleListFakeController@create'));
+    Route::post('sale_list_fake/update_payment',array('as' => 'admin.sale_list_fake_update_payment','uses' => 'SaleListFakeController@updatePayment'));
+    Route::get('export_fake/export_sale',array('as' => 'admin.export_sale_list_fake','uses' => 'ExportFakeController@getExportForSale'));
+    Route::get('sale_list_fake/detail/{id}',array('as' => 'admin.sale_list_fake_detail','uses' => 'SaleListFakeController@detail'));
+    Route::get('sale_list_fake/pdf/{id}',array('as' => 'admin.sale_list_fake_pdf','uses' => 'SaleListFakeController@exportPdf'));
+    Route::get('exportExcelReportSaleListFake/{id}',array('as' => 'admin.exportExcelReportSaleListFake','uses' => 'SaleListFakeController@exportExcelReportSaleList'));
 
     /*Quản lý nhân viên*/
     Route::get('personnel/view',array('as' => 'admin.personnel_list','uses' => 'PersonnelController@index'));

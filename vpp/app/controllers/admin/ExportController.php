@@ -53,8 +53,8 @@ class ExportController extends BaseAdminController{
             ->with('customers', $customers)
             ->with('start', ($page_no - 1) * $limit)
             ->with('paging',$paging)
-            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1)
-            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 1);
+            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
+            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0);
     }
 
     public function exportInfo(){

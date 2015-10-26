@@ -326,6 +326,8 @@ return array(
     'ReportController' => $baseDir . '/app/controllers/admin/ReportController.php',
     'SaleList' => $baseDir . '/app/models/SaleList.php',
     'SaleListController' => $baseDir . '/app/controllers/admin/SaleListController.php',
+    'SaleListFake' => $baseDir . '/app/models/SaleListFake.php',
+    'SaleListFakeController' => $baseDir . '/app/controllers/admin/SaleListFakeController.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
     'SingularValueDecomposition' => $baseDir . '/app/library/class_phpexcel/PHPExcel/Shared/JAMA/SingularValueDecomposition.php',
     'SiteHomeController' => $baseDir . '/app/controllers/site/SiteHomeController.php',
