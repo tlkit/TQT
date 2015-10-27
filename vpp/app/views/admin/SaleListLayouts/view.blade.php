@@ -100,11 +100,12 @@
                         <thead class="thin-border-bottom">
                         <tr class="">
                             <th class="center" width="5%">STT</th>
-                            <th class="center" width="10%">Mã BK</th>
+                            <th class="center" width="8%">Mã BK</th>
                             <th class="center" width="10%">Hóa đơn GTGT</th>
-                            <th class="center" width="35%">Khách hàng</th>
-                            <th class="center" width="10%">Người tạo</th>
+                            <th class="center" width="30%">Khách hàng</th>
+                            <th class="center" width="7%">Người tạo</th>
                             <th class="center" width="10%">Tổng tiền</th>
+                            <th class="center" width="10%">Thanh toán</th>
                             <th class="center" width="10%">Thời gian tạo</th>
                             <th class="center" width="10%">Thao tác</th>
                         </tr>
@@ -118,6 +119,13 @@
                                 <td class="left"><a href="{{URL::route('admin.customers_edit',array('id'=>$item['customers_id']))}}" target="_blank">@if(isset($customers[$item['customers_id']])){{$customers[$item['customers_id']]}}@endif</a></td>
                                 <td class="center">@if(isset($admin[$item['sale_list_create_id']])){{$admin[$item['sale_list_create_id']]}}@endif</td>
                                 <td class="text-right">{{number_format($item['sale_list_total_pay'],0,'.','.')}}</td>
+                                <th class="center" width="10%">
+                                    @if($item['sale_list_type'] == 1)
+                                        <span class="red"> Công nợ</span>
+                                    @else
+                                        <span class="green">Đã  thanh toán</span>
+                                    @endif
+                                </th>
                                 <td class="center">{{date('d-m-Y H:i',$item['sale_list_create_time'])}}</td>
                                 <td>
                                     @if($item['sale_list_type'] == 1)

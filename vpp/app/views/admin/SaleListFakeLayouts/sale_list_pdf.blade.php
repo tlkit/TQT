@@ -158,7 +158,7 @@
         <td width="33%" style="text-align: center;">
         </td>
         <td width="34%" style="text-align: center;">
-            <span>Ng ười mua hàng</span><br/>
+            <span>Người mua hàng</span><br/>
             <span>(Ký, họ tên)</span>
         </td>
     </tr>
