@@ -165,6 +165,11 @@ class Customers extends Eloquent
         if ($param['customers_ManagedBy'] > 0) {
             $query->where($tbl_customers . '.customers_ManagedBy', $param['customers_ManagedBy']);
         }
+        if ($param['export_is_vat'] > 0) {
+            $query->where($tbl_export . '.export_vat', '>', 0);
+        }elseif($param['export_is_vat'] == 0){
+            $query->where($tbl_export . '.export_vat', '=', 0);
+        }
         if ($param['export_create_start'] > 0) {
             $query->where($tbl_export . '.export_create_time', '>=', $param['export_create_start']);
         }

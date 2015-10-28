@@ -29,4 +29,20 @@ class LiabilitiesController extends BaseAdminController{
         $this->layout->content = View::make('admin.LiabilitiesLayouts.customer')->with('param',$param)->with('data',$data)->with('customers',$customers)->with('admin',$admin);
     }
 
+    public function liaProvider(){
+
+        $param['providers_id'] = Request::get('providers_id',0);
+        $param['import_create_start'] = Request::get('import_create_start','');
+        $param['import_create_end'] = Request::get('import_create_end','');
+        $input = $param;
+        $input['import_create_start'] = ($input['import_create_start'] != '') ? strtotime($input['import_create_start']) : 0;
+        $input['import_create_end'] = ($input['import_create_end'] != '') ? strtotime($input['import_create_end'])+86400 : 0;
+        $data = Providers::liaProvider($input);
+        $providers = Providers::getListAll();
+        $this->layout->content = View::make('admin.LiabilitiesLayouts.provider')
+            ->with('param',$param)
+            ->with('data',$data)
+            ->with('providers',$providers);
+    }
+
 }

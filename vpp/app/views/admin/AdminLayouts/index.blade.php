@@ -513,7 +513,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="@if(Route::currentRouteName() == 'admin.lia_customer') active @endif">
+            <li class="@if(Route::currentRouteName() == 'admin.lia_customer' || Route::currentRouteName() == 'admin.lia_provider') active @endif">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa  fa-calculator"></i>
                     <span class="menu-text"> Công nợ</span>
@@ -528,6 +528,14 @@
                         <a href="{{URL::route('admin.lia_customer')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Công nợ khách hàng
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.lia_provider')active @endif">
+                        <a href="{{URL::route('admin.lia_provider')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Công nợ nhà cung cấp
                         </a>
 
                         <b class="arrow"></b>

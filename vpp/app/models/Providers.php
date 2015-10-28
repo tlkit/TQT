@@ -111,4 +111,28 @@ class Providers extends Eloquent
         }
     }
 
+    public static function liaProvider($param){
+
+        $tbl_provider = with(new Providers())->getTable();
+        $tbl_import = with(new Import())->getTable();
+        $query = DB::table($tbl_provider);
+        $query->join($tbl_import, $tbl_provider . '.providers_id', '=', $tbl_import . '.providers_id');
+        $query->where($tbl_import . '.import_status', 1);
+        $query->where($tbl_import . '.import_pay_type', 1);
+        if ($param['providers_id'] > 0) {
+            $query->where($tbl_provider . '.providers_id', $param['providers_id']);
+        }
+        if ($param['import_create_start'] > 0) {
+            $query->where($tbl_import . '.import_create_time', '>=', $param['import_create_start']);
+        }
+        if ($param['import_create_end'] > 0) {
+            $query->where($tbl_import . '.import_create_time', '<=', $param['import_create_end']);
+        }
+        $query->select(DB::raw($tbl_provider . '.*,COUNT(' . $tbl_import . '.import_id) as count_import, SUM(' . $tbl_import . '.import_pay_total) as sum_import'));
+        $query->orderBy(DB::raw('SUM(' . $tbl_import . '.import_pay_total)'), 'desc');
+        $query->groupBy($tbl_import . '.providers_id');
+        $data = $query->get();
+        return $data;
+    }
+
 }

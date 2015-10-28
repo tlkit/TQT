@@ -16,7 +16,7 @@
                 <div class="panel panel-info">
                     {{ Form::open(array('method' => 'GET', 'role'=>'form')) }}
                     <div class="panel-body">
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-4">
                             <label for="customers_id">Khách hàng </label>
                             <select name="customers_id" id="customers_id" class="chosen-select form-control input-sm" data-placeholder="Chọn khách hàng">
                                 <option value="0" selected>  </option>
@@ -25,7 +25,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-4">
                             <label for="customers_ManagedBy">Quản lý bởi </label>
                             <select name="customers_ManagedBy" id="customers_ManagedBy" class="form-control input-sm">
                                 <option value="0" selected>-- Chọn --</option>
@@ -34,7 +34,16 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-sm-3 sys_time">
+                        <div class="form-group col-sm-4">
+                            <label for="export_is_vat">VAT </label>
+                            <select name="export_is_vat" id="export_is_vat" class="form-control input-sm">
+                                @foreach($aryVatType as $k => $v)
+                                    <option value="{{$k}}" @if($param['export_is_vat'] == $k) selected="selected" @endif>{{$v}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group col-sm-4 sys_time">
                             <label for="export_create_start">Ngày mua hàng từ </label>
                             <div class="input-group input-group-sm">
                                 <input type="text" id="export_create_start" name="export_create_start" class="form-control" @if(isset($param['export_create_start']) && $param['export_create_start'] != '')value="{{$param['export_create_start']}}"@endif/>
@@ -43,7 +52,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm-3 sys_time">
+                        <div class=" form-group col-sm-4 sys_time">
                             <label for="export_create_end">Đến </label>
                             <div class="input-group input-group-sm">
                                 <input type="text" id="export_create_end" name="export_create_end" class="form-control" @if(isset($param['export_create_end']) && $param['export_create_end'] != '')value="{{$param['export_create_end']}}"@endif/>

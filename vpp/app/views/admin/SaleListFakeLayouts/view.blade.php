@@ -101,13 +101,13 @@
                         <tr class="">
                             <th class="center" width="5%">STT</th>
                             <th class="center" width="8%">Mã BK</th>
-                            <th class="center" width="10%">Hóa đơn GTGT</th>
+                            <th class="center" width="8%">Hóa đơn GTGT</th>
                             <th class="center" width="30%">Khách hàng</th>
                             <th class="center" width="7%">Người tạo</th>
                             <th class="center" width="10%">Tổng tiền</th>
                             <th class="center" width="10%">TT Thanh toán</th>
-                            <th class="center" width="10%">Thời gian tạo</th>
-                            <th class="center" width="10%">Thao tác</th>
+                            <th class="center" width="7%">Thời gian tạo</th>
+                            <th class="center" width="15%">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
