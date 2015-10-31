@@ -72,15 +72,31 @@
         @endforeach
         <tr>
             <td colspan="3" style="text-align: center">
-                <b>Tổng nhập</b>
+                <b>Tổng tiền hàng</b>
             </td>
             <td colspan="5" style="text-align: right">
                 <b class="red">{{number_format($import['import_price'], 0, ',', '.');}}</b>
             </td>
         </tr>
         <tr>
+            <td colspan="3" style="text-align: center">
+                <b>Chiết khấu</b>
+            </td>
+            <td colspan="5" style="text-align: right">
+                <b class="red">{{number_format($import['import_pay_discount'], 0, ',', '.');}}</b>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" style="text-align: center">
+                <b>Tổng nhập</b>
+            </td>
+            <td colspan="5" style="text-align: right">
+                <b class="red">{{number_format($import['import_pay_total'], 0, ',', '.');}}</b>
+            </td>
+        </tr>
+        <tr>
             <td colspan="8" style="text-align: left">
-                <i>Bằng chữ : {{FunctionLib::numberToWord($import['import_price'])}}</i>
+                <i>Bằng chữ : {{FunctionLib::numberToWord($import['import_pay_total'])}}</i>
             </td>
         </tr>
         </tbody>
