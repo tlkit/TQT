@@ -152,4 +152,22 @@ class Import extends Eloquent{
         }
     }
 
+    public static function reportDiscount($param){
+        $query = Import::where('import_status',1);
+        if(isset($param['providers_id']) && $param['providers_id'] > 0){
+            $query->where('providers_id',$param['providers_id']);
+        }
+        if(isset($param['import_create_start']) && $param['import_create_start'] > 0){
+            $query->where('import_create_time','>=',$param['import_create_start']);
+        }
+        if(isset($param['import_create_end']) && $param['import_create_end'] > 0){
+            $query->where('import_create_time','<',$param['import_create_end']);
+        }
+        $query->select(DB::raw('providers_id,SUM(import_pay_discount) as sum_discount'));
+        $query->orderBy('import_id','DESC');
+        $query->groupBy('providers_id');
+        $data = $query->get();
+        return $data;
+    }
+
 }

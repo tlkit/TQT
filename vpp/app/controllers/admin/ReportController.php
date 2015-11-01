@@ -1096,6 +1096,151 @@ class ReportController extends BaseAdminController{
     }
 
     /*****************************************************************************************
+     * thông kê Chiết khấu
+     * ******************************************************************************************/
+    public function reportDiscountProvider(){
+        if (!in_array($this->permission_report_discount, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
+        $param['import_create_start'] = Request::get('import_create_start','');
+        $param['import_create_end'] = Request::get('import_create_end','');
+        $param['providers_id'] = (int)Request::get('providers_id',0);
+        $submit = (int)Request::get('submit',1);
+        $input = $param;
+        $input['import_create_start'] = ($input['import_create_start'] != '') ? strtotime($input['import_create_start']) : 0;
+        $input['import_create_end'] = ($input['import_create_end'] != '') ? strtotime($input['import_create_end'])+86400 : 0;
+        $data = Import::reportDiscount($input);
+        $provider = Providers::getListAll();
+
+        //xuất excel
+        if($submit == 2){
+            $this->exportExcelReportDiscountProvider($data,$provider);
+        }
+        $this->layout->content = View::make('admin.ReportLayouts.discount_provider')
+            ->with('provider',$provider)
+            ->with('param',$param)
+            ->with('data',$data);
+
+    }
+    public function exportExcelReportDiscountProvider($arrData = array(),$customer = array()){
+        if(empty($arrData))
+            return;
+        // xu ly export
+        ini_set('max_execution_time', 3000);
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        $sheet = $objPHPExcel->getActiveSheet();
+
+        // Set Orientation, size and scaling
+        $sheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
+        $sheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+        $sheet->getPageSetup()->setFitToPage(true);
+        $sheet->getPageSetup()->setFitToWidth(1);
+        $sheet->getPageSetup()->setFitToHeight(0);
+        // Set font
+        $sheet->getDefaultStyle()->getFont()->setName('Arial')->setSize(10);
+        $sheet->getStyle('A1')->getFont()->setSize(16)->getColor()->setRGB('000000');
+        $sheet->mergeCells('A1:E1');
+        $sheet->setCellValue("A1", "Thống kê Chiết khấu");
+        $sheet->getRowDimension("1")->setRowHeight(26);
+        $sheet->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER)
+            ->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+        //ngày thống kê
+        $sheet->getStyle('A2')->getFont()->setSize(11)->getColor()->setRGB('000000');
+        $sheet->mergeCells('A2:E2');
+        $sheet->setCellValue("A2", "Ngày thống kê: ".date('d-m-Y H:i:s',time()));
+        $sheet->getRowDimension("2")->setRowHeight(24);
+        $sheet->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT)
+            ->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+        // setting header
+        $position_hearder = 3;
+        $sheet->getRowDimension($position_hearder)->setRowHeight(30);
+        $val10 = 10; $val18 = 18; $val35 = 35;$val50 = 50; $val25 = 25;
+        $ary_cell = array(
+            'A'=>array('w'=>$val10,'val'=>'STT','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
+            'B'=>array('w'=>$val50,'val'=>'Khách hàng','align'=>PHPExcel_Style_Alignment::HORIZONTAL_LEFT),
+            'C'=>array('w'=>$val18,'val'=>'CK cá nhân','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
+            'D'=>array('w'=>$val18,'val'=>'Ck công ty','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
+            'E'=>array('w'=>$val18,'val'=>'Tổng tiền','align'=>PHPExcel_Style_Alignment::HORIZONTAL_CENTER),
+        );
+
+        //build header title
+        foreach($ary_cell as $col => $attr){
+            $sheet->getColumnDimension($col)->setWidth($attr['w']);
+            $sheet->setCellValue("$col{$position_hearder}",$attr['val']);
+            $sheet->getStyle($col)->getAlignment()->setWrapText(true);
+            $sheet->getStyle($col . $position_hearder)->applyFromArray(
+                array(
+                    'fill' => array(
+                        'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                        'color' => array('rgb' => '05729C'),
+                        'style' => array('font-weight' => 'bold')
+                    ),
+                    'font'  => array(
+                        'bold'  => true,
+                        'color' => array('rgb' => 'FFFFFF'),
+                        'size'  => 10,
+                        'name'  => 'Verdana'
+                    ),
+                    'borders' => array(
+                        'allborders' => array(
+                            'style' => PHPExcel_Style_Border::BORDER_THIN,
+                            'color' => array('rgb' => '333333')
+                        )
+                    ),
+                    'alignment' => array(
+                        'horizontal' => $attr['align'],
+                    )
+                )
+            );
+        }
+
+        //hien thị dũ liệu
+        $rowCount = $position_hearder+1; // hang bat dau xuat du lieu
+        foreach($arrData as $ky=>$data){
+            $sheet->getRowDimension($rowCount)->setRowHeight(25);//chiều cao của row
+            $sheet->getStyle('A'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+            $sheet->SetCellValue('A'.$rowCount, $ky+1);
+
+            $sheet->getStyle('B'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT,));
+            $sheet->SetCellValue('B'.$rowCount, $customer[$data['customers_id']]);
+
+            $sheet->getStyle('C'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+            $sheet->SetCellValue('C'.$rowCount, $data['ckcn']);
+
+            $sheet->getStyle('D'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+            $sheet->SetCellValue('D'.$rowCount, $data['ckdn']);
+
+            $sheet->getStyle('E'.$rowCount)->getAlignment()->applyFromArray(
+                array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,));
+            $sheet->SetCellValue('E'.$rowCount, ($data['ckcn']+$data['ckdn']));
+
+            $rowCount++;
+        }
+        $sheet->getStyle('C4:E' . $rowCount)
+            ->getNumberFormat()
+            ->setFormatCode('#,##0');
+        // output file
+        ob_clean();
+        $filename = "Thong_ke_chiet_khau" . date("_d/m/Y_H_i").'.xls';
+        @header("Cache-Control: ");
+        @header("Pragma: ");
+        @header("Content-type: application/octet-stream");
+        @header("Content-Disposition: attachment; filename=\"{$filename}\"");
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $objWriter->save("php://output");
+        exit();
+        parent::debug();
+    }
+
+    /*****************************************************************************************
      * Thông kê bán hàng khách không lấy VAT
      * ******************************************************************************************/
     public function sale_list_not_vat(){
