@@ -31,6 +31,7 @@ class ReportController extends BaseAdminController{
         $param['customers_id'] = Request::get('customers_id',0);
         $param['customers_ManagedBy'] = Request::get('customers_ManagedBy',0);
         $param['export_is_vat'] = Request::get('export_is_vat', -1);
+        $param['customers_is_buy'] = Request::get('customers_is_buy', -1);
         $param['export_create_start'] = Request::get('export_create_start','');
         $param['export_create_end'] = Request::get('export_create_end','');
         $submit = (int)Request::get('submit',1);
@@ -46,8 +47,10 @@ class ReportController extends BaseAdminController{
             $this->exportExcelReportCustomer($data);
         }
         $aryVatType = array(-1 => 'Tất cả', 0 => 'Không có VAT', 1 => 'Có VAT');
+        $aryIsBuy = array(-1 => 'Tất cả', 0 => 'Không mua hàng', 1 => 'Có mua hàng');
         $this->layout->content = View::make('admin.ReportLayouts.customer')
             ->with('aryVatType',$aryVatType)
+            ->with('aryIsBuy',$aryIsBuy)
             ->with('param',$param)
             ->with('data',$data)
             ->with('customers',$customers)

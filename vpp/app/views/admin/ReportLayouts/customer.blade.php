@@ -43,6 +43,14 @@
                             </select>
                         </div>
                         <div class="clearfix"></div>
+                        <div class="form-group col-sm-4">
+                            <label for="customers_is_buy">TT mua hàng </label>
+                            <select name="customers_is_buy" id="customers_is_buy" class="form-control input-sm">
+                                @foreach($aryIsBuy as $k => $v)
+                                    <option value="{{$k}}" @if($param['customers_is_buy'] == $k) selected="selected" @endif>{{$v}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="form-group col-sm-4 sys_time">
                             <label for="export_create_start">Ngày mua hàng từ </label>
                             <div class="input-group input-group-sm">

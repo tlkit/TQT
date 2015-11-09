@@ -153,32 +153,41 @@ class Customers extends Eloquent
         return $customer ? $customer : array();
     }
 
-    public static function reportCustomer($param){
+    public static function reportCustomer($param)
+    {
         $tbl_customers = with(new Customers())->getTable();
         $tbl_export = with(new Export())->getTable();
         $query = DB::table($tbl_customers);
-        $query->join($tbl_export, $tbl_customers . '.customers_id', '=', $tbl_export . '.customers_id');
-        $query->where($tbl_export . '.export_status', 1);
+        //$query->leftJoin($tbl_export, $tbl_customers . '.customers_id', '=', $tbl_export . '.customers_id');
+        $query->leftjoin($tbl_export, function ($join) use ($tbl_customers, $tbl_export, $param) {
+            $join->on($tbl_customers . '.customers_id', '=', $tbl_export . '.customers_id');
+            $join->where($tbl_export . '.export_status', '=', 1);
+            if ($param['export_is_vat'] > 0) {
+                $join->where($tbl_export . '.export_vat', '>', 0);
+            } elseif ($param['export_is_vat'] == 0) {
+                $join->where($tbl_export . '.export_vat', '=', 0);
+            }
+            if ($param['export_create_start'] > 0) {
+                $join->where($tbl_export . '.export_create_time', '>=', $param['export_create_start']);
+            }
+            if ($param['export_create_end'] > 0) {
+                $join->where($tbl_export . '.export_create_time', '<=', $param['export_create_end']);
+            }
+        });
         if ($param['customers_id'] > 0) {
             $query->where($tbl_customers . '.customers_id', $param['customers_id']);
         }
         if ($param['customers_ManagedBy'] > 0) {
             $query->where($tbl_customers . '.customers_ManagedBy', $param['customers_ManagedBy']);
         }
-        if ($param['export_is_vat'] > 0) {
-            $query->where($tbl_export . '.export_vat', '>', 0);
-        }elseif($param['export_is_vat'] == 0){
-            $query->where($tbl_export . '.export_vat', '=', 0);
+        $query->select(DB::raw($tbl_customers . '.*,COUNT(' . $tbl_export . '.export_id) as count_export, SUM(' . $tbl_export . '.export_total_pay) as sum_export,SUM(' . $tbl_export . '.export_price_origin) as sum_origin'));
+        $query->orderBy(DB::raw('SUM(' . $tbl_export . '.export_total_pay)'), 'desc');
+        $query->groupBy($tbl_customers . '.customers_id');
+        if (isset($param['customers_is_buy']) && $param['customers_is_buy'] == 0) {
+            $query->havingRaw('count_export = 0');
+        } elseif (isset($param['customers_is_buy']) && $param['customers_is_buy'] == 1) {
+            $query->havingRaw('count_export > 0');
         }
-        if ($param['export_create_start'] > 0) {
-            $query->where($tbl_export . '.export_create_time', '>=', $param['export_create_start']);
-        }
-        if ($param['export_create_end'] > 0) {
-            $query->where($tbl_export . '.export_create_time', '<=', $param['export_create_end']);
-        }
-        $query->select(DB::raw($tbl_customers.'.*,COUNT('.$tbl_export.'.export_id) as count_export, SUM('.$tbl_export.'.export_total_pay) as sum_export,SUM('.$tbl_export.'.export_price_origin) as sum_origin'));
-        $query->orderBy(DB::raw('SUM('.$tbl_export.'.export_total_pay)'),'desc');
-        $query->groupBy($tbl_export.'.customers_id');
         $data = $query->get();
         return $data;
     }
