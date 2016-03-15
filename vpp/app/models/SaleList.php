@@ -14,7 +14,7 @@ class SaleList extends Eloquent{
 
     protected $primaryKey = 'sale_list_id';
 
-    protected $fillable = array('customers_id','sale_list_type','sale_list_status','sale_list_code','sale_list_bill','sale_list_total_pay','sale_list_create_id', 'sale_list_create_time','sale_list_pay_id','sale_list_pay_time');
+    protected $fillable = array('customers_id','sale_list_type','sale_list_status','sale_list_code','sale_list_bill','sale_list_time','sale_list_total_pay','sale_list_create_id', 'sale_list_create_time','sale_list_pay_id','sale_list_pay_time');
 
     public function export()
     {
@@ -94,10 +94,10 @@ class SaleList extends Eloquent{
                 $query->where('sale_list_create_id', $dataSearch['sale_list_create_id']);
             }
             if (isset($dataSearch['sale_list_start']) && $dataSearch['sale_list_start'] != 0) {
-                $query->where('sale_list_create_time','>=', $dataSearch['sale_list_start']);
+                $query->where('sale_list_time','>=', $dataSearch['sale_list_start']);
             }
             if (isset($dataSearch['sale_list_end']) && $dataSearch['sale_list_end'] != 0) {
-                $query->where('sale_list_create_time','<=', $dataSearch['sale_list_end']);
+                $query->where('sale_list_time','<=', $dataSearch['sale_list_end']);
             }
             $total = $query->count();
             $query->orderBy('sale_list_id', 'desc');

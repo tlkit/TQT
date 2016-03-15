@@ -57,7 +57,7 @@ class ImportFakeController extends BaseAdminController{
             ->with('paging',$paging)
             ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
             ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0)
-            ->with('permission_update_payment', in_array($this->permission_update_payment, $this->permission) ? 1 : 1);
+            ->with('permission_update_payment', in_array($this->permission_update_payment, $this->permission) ? 1 : 0);
     }
 
     public function importInfo(){

@@ -21,7 +21,7 @@
                     </div>
                     <div class="col-sm-11 col-xs-10">
                         <div><b>CÔNG TY TNHH THƯƠNG MẠI & VÀ DỊCH VỤ THIỀU SƠN</b></div>
-                        <div><b>VPGD: Số 35, Phố Nguyễn Văn Trỗi, Phương Liệt, Thanh Xuân, Hà Nội. </b></div>
+                        <div><b>VPGD: Số 64, Phố Yên Bái II, Phường Phố Huế, Quận Hai Bà Trưng, TP Hà Nội. </b></div>
                         {{--<div><b>Cơ sở 1 : CC2 - Bắc Linh Đàm - Hoàng Mai - Hà Nội</b></div>--}}
                         {{--<div><b>Cơ sở 2 : 73, Phố Nguyễn Văn Trỗi, Thanh Xuân, Hà Nội</b></div>--}}
                         <div><b>ĐT : 04 66572 888 - 04 6686 0415 / Fax: 04 62841202 - Hotline: 0973323333</b></div>

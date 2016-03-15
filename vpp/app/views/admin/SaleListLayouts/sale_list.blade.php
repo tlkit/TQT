@@ -64,6 +64,17 @@
                 <div class="clearfix"></div>
                 <div class="col-sm-2">
                     <div class="form-group">
+                        <i>Ngày tạo bảng kê</i>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <input type="text" class="form-control input-sm" id="sale_list_time" name="sale_list_time" @if(isset($param['sale_list_time'])) value="{{$param['sale_list_time']}}" @endif>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-2">
+                    <div class="form-group">
                         <i>Ngày xuất kho</i>
                     </div>
                 </div>

@@ -10,6 +10,10 @@ class SaleListController extends BaseAdminController
     private $aryStatus = array(-1 => 'Chọn trạng thái', 0 => 'Bảng kê hủy', 1 => 'Bảng kê bình thường');
     private $aryType = array(-1 => 'Chọn trạng thái', 0 => 'Đã thanh toán', 1 => 'Công nợ');
 
+    private $permission_view = 'sale_list_view';
+    private $permission_create = 'sale_list_create';
+    private $permission_update_payment = 'sale_list_update_payment';
+
     public function __construct()
     {
         parent::__construct();
@@ -18,6 +22,9 @@ class SaleListController extends BaseAdminController
 
     public function view(){
 
+        if (!in_array($this->permission_view, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $dataSearch['customers_id'] = Request::get('customers_id', 0);
         $dataSearch['sale_list_type'] = Request::get('sale_list_type', -1);
         $dataSearch['sale_list_status'] = Request::get('sale_list_status', -1);
@@ -46,13 +53,16 @@ class SaleListController extends BaseAdminController
             ->with('admin', $admin)
             ->with('customers', $customers)
             ->with('start', ($page_no - 1) * $limit)
-            ->with('paging',$paging);
-//            ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 1)
-//            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 1);
+            ->with('paging',$paging)
+            ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0)
+            ->with('permission_update_payment', in_array($this->permission_update_payment, $this->permission) ? 1 : 0);
     }
 
     public function createInfo(){
 
+        if (!in_array($this->permission_create, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $customers = Customers::getListAll();
         $this->layout->content = View::make('admin.SaleListLayouts.sale_list')
             ->with('customers',$customers)
@@ -61,9 +71,13 @@ class SaleListController extends BaseAdminController
 
     public function create(){
 
+        if (!in_array($this->permission_create, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $param['customers_id'] = (int)Request::get('customers_id',0);
         $param['sale_list_type'] = (int)Request::get('sale_list_type',-1);
         $param['sale_list_bill'] = Request::get('sale_list_bill','');
+        $param['sale_list_time'] = Request::get('sale_list_time','');
         $param['export_create_start'] = Request::get('export_create_start','');
         $param['export_create_end'] = Request::get('export_create_end','');
         $param['export_id'] = Request::get('export_id',array());
@@ -73,6 +87,9 @@ class SaleListController extends BaseAdminController
         }
         if($param['sale_list_type'] != 0 && $param['sale_list_type'] != 1){
             $error[] = 'Chưa chọn kiểu thanh toán';
+        }
+        if($param['sale_list_time'] == ''){
+            $error[] = 'Chưa chọn ngày tạo bảng kê';
         }
         if(sizeof($param['export_id']) == 0){
             $error[] = 'Chưa chọn xuất kho';
@@ -94,6 +111,7 @@ class SaleListController extends BaseAdminController
             $data['sale_list_type'] = $param['sale_list_type'];
             $data['sale_list_status'] = 1;
             $data['sale_list_bill'] = $param['sale_list_bill'];
+            $data['sale_list_time'] = strtotime($param['sale_list_time']);
             $data['sale_list_code'] = $code;
             $data['sale_list_create_id'] = User::user_id();;
             $data['sale_list_create_time'] = time();
@@ -117,6 +135,9 @@ class SaleListController extends BaseAdminController
     }
 
     public function detail($id){
+        if (!in_array($this->permission_view, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $id = (int) base64_decode($id);
         $sale_list = SaleList::find($id);
         $export_ids = Export::getListIdBySaleList($id);
@@ -130,6 +151,9 @@ class SaleListController extends BaseAdminController
 
     public function exportPdf($id)
     {
+        if (!in_array($this->permission_view, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $id = (int) base64_decode($id);
         $sale_list = SaleList::find($id);
         $export_ids = Export::getListIdBySaleList($id);
@@ -144,6 +168,10 @@ class SaleListController extends BaseAdminController
     }
 
     public function exportExcelReportSaleList($id){
+
+        if (!in_array($this->permission_view, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $id = (int) base64_decode($id);
         $export_ids = Export::getListIdBySaleList($id);
         $arrData = ExportProduct::reportSaleList($export_ids);
@@ -282,6 +310,9 @@ class SaleListController extends BaseAdminController
 
     public function updatePayment()
     {
+        if (!in_array($this->permission_update_payment, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $data['success'] = 0;
         $sale_list_id = (int)Request::get('sale_list_id', 0);
         $sale_list = SaleList::find($sale_list_id);

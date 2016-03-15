@@ -10,6 +10,7 @@ class ReportController extends BaseAdminController{
 
     private $filename = '';
     private $permission_report_customer = 'report_customer';
+    private $permission_customer_price_list = 'customer_price_list';
     private $permission_report_product_hot = 'report_product_hot';
     private $permission_report_import = 'report_import';
     private $permission_report_export = 'report_export';
@@ -1627,9 +1628,9 @@ class ReportController extends BaseAdminController{
      * Lập báo giá khách hàng
      **************************************/
     public function priceListInfo(){
-//        if (!in_array($this->permission_create, $this->permission)) {
-//            return Redirect::route('admin.dashboard');
-//        }
+        if (!in_array($this->permission_customer_price_list, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         Session::forget('price_list');
         $customers = Customers::getListAll();
         $this->layout->content = View::make('admin.ReportLayouts.price_list')
@@ -1656,6 +1657,9 @@ class ReportController extends BaseAdminController{
     }
 
     public function priceListPdf($id){
+        if (!in_array($this->permission_customer_price_list, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $customers = Customers::find($id);
         $price_list = Session::has('price_list') ? Session::get('price_list') : array();
         $html = View::make('admin.ReportLayouts.price_list_pdf')->with('customer',$customers)->with('list',$price_list)->render();

@@ -79,14 +79,14 @@
                         </div>
                     </div>
                     <div class="panel-footer text-right">
-                        {{--@if($permission_create)--}}
+                        @if($permission_create)
                             <span class="">
                                 <a class="btn btn-danger btn-sm" href="{{URL::route('admin.sale_list_create')}}">
                                     <i class="ace-icon fa fa-plus-circle"></i>
                                     Tạo bảng kê
                                 </a>
                             </span>
-                        {{--@endif--}}
+                        @endif
                         <span class="">
                             <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
                         </span>
@@ -126,12 +126,14 @@
                                         <span class="green">Đã  thanh toán</span>
                                     @endif
                                 </th>
-                                <td class="center">{{date('d-m-Y H:i',$item['sale_list_create_time'])}}</td>
+                                <td class="center">{{date('d-m-Y H:i',$item['sale_list_time'])}}</td>
                                 <td>
-                                    @if($item['sale_list_type'] == 1)
-                                        <a href="javascript:void(0)" class="btn btn-xs btn-info sys_update_payment" data-id="{{$item['sale_list_id']}}" data-code="{{$item['sale_list_code']}}" data-content="Cập nhật thanh toán" data-placement="bottom" data-trigger="hover" data-rel="popover">
-                                            <i class="ace-icon fa fa-credit-card bigger-120"></i>
-                                        </a>
+                                    @if($permission_update_payment)
+                                        @if($item['sale_list_type'] == 1)
+                                            <a href="javascript:void(0)" class="btn btn-xs btn-info sys_update_payment" data-id="{{$item['sale_list_id']}}" data-code="{{$item['sale_list_code']}}" data-content="Cập nhật thanh toán" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                                <i class="ace-icon fa fa-credit-card bigger-120"></i>
+                                            </a>
+                                        @endif
                                     @endif
                                     <a class="btn btn-xs btn-danger" href="{{URL::route('admin.sale_list_fake_pdf',array('id'=>base64_encode($item['sale_list_id'])))}}" target="_blank" data-content="Xuất pdf" data-placement="bottom" data-trigger="hover" data-rel="popover">
                                         <i class="ace-icon fa fa-file-pdf-o bigger-120"></i>

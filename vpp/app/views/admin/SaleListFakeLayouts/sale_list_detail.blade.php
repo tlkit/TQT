@@ -26,7 +26,7 @@
                     <b>BẢNG KÊ BÁN HÀNG</b>
                 </div>
                 <div class="row text-center position-relative">
-                    Ngày tạo bảng : {{date('d/m/Y',$sale_list['sale_list_create_time'])}}
+                    Ngày tạo bảng : {{date('d/m/Y',$sale_list['sale_list_time'])}}
                     @if($sale_list['sale_list_bill'] != '')
                         &nbsp;&nbsp;&nbsp;Kèm HĐGTGT số {{$sale_list['sale_list_bill']}}
                     @endif

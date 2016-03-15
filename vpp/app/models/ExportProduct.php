@@ -76,7 +76,12 @@ class ExportProduct extends Eloquent{
         $data = $query->get($field_table);
         return $data;
     }
-    
+
+    public static function getCountExPort($ids,$time){
+        $count = ExportProductFake::whereIn('product_id',$ids)->where('export_product_create_time','>',$time)->where('export_product_create_time','<=',time())->count();
+        return $count;
+    }
+
     public static function reportSaleListNotVat($param)
     {
         $tbl_product = with(new Product())->getTable();

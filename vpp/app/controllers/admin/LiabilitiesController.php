@@ -8,6 +8,10 @@
 
 class LiabilitiesController extends BaseAdminController{
 
+
+    private $permission_view_liaCustomer = 'liaCustomer_view';
+    private $permission_view_liaProvider = 'liaProvider_view';
+
     public function __construct()
     {
         parent::__construct();
@@ -16,6 +20,9 @@ class LiabilitiesController extends BaseAdminController{
 
     public function liaCustomer(){
 
+        if (!in_array($this->permission_view_liaCustomer, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $param['customers_id'] = Request::get('customers_id',0);
         $param['customers_ManagedBy'] = Request::get('customers_ManagedBy',0);
         $param['sale_list_create_start'] = Request::get('sale_list_create_start','');
@@ -31,6 +38,9 @@ class LiabilitiesController extends BaseAdminController{
 
     public function liaProvider(){
 
+        if (!in_array($this->permission_view_liaProvider, $this->permission)) {
+            return Redirect::route('admin.dashboard');
+        }
         $param['providers_id'] = Request::get('providers_id',0);
         $param['import_create_start'] = Request::get('import_create_start','');
         $param['import_create_end'] = Request::get('import_create_end','');
