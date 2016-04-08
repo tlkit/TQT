@@ -21,6 +21,13 @@ $(document).ready(function(){
         dateFormat: 'dd-mm-yy'
     });
 
+    $( "#sale_list_time" ).datepicker({
+        showOtherMonths: true,
+        selectOtherMonths: false,
+        //setDate: new Date(),
+        dateFormat: 'dd-mm-yy'
+    }).datepicker( "setDate", new Date());
+
     $("#customers_id,#sale_list_type").on('change',function(){
         $("#sys_data_export").hide(1111,function(){
             $("#sys_data_export").html('');
