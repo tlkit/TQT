@@ -33,10 +33,10 @@
                                     {{ $item['category_name'] }}
                                 </td>
                                 <td class="text-center">
-                                    <input type="text" class="form-control input-sm" id="category_price_discount_id_{{$item['category_id']}}" name="category_price_discount" value="{{$item['category_price_discount']}}">
+                                    <input type="text" class="form-control input-sm" id="category_price_hide_discount_id_{{$item['category_id']}}" name="category_price_hide_discount" value="{{$item['category_price_hide_discount']}}">
                                 </td>
                                 <td class="text-center">
-                                    <input type="text" class="form-control input-sm" id="category_price_hide_discount_id_{{$item['category_id']}}" name="category_price_hide_discount" value="{{$item['category_price_hide_discount']}}">
+                                    <input type="text" class="form-control input-sm" id="category_price_discount_id_{{$item['category_id']}}" name="category_price_discount" value="{{$item['category_price_discount']}}">
                                 </td>
                                 <td class="text-center">
                                     @if($permission_edit ==1)
