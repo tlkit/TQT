@@ -95,7 +95,6 @@ class ProductController extends BaseAdminController
         if(!in_array($this->permission_edit,$this->permission) && !in_array($this->permission_create,$this->permission)){
             return Redirect::route('admin.dashboard');
         }
-
         $dataSave['product_Code'] = Request::get('product_Code');
         $dataSave['product_Name'] = Request::get('product_Name');
         $dataSave['product_Category'] = (int)Request::get('product_Category');
@@ -109,8 +108,46 @@ class ProductController extends BaseAdminController
         $dataSave['product_NameUnit'] = Request::get('product_NameUnit');
         $dataSave['product_NamePackedWay'] = Request::get('product_NamePackedWay');
         $dataSave['product_Description'] = Request::get('product_Description');
-
+        $file = $files = null;
+        if ( Input::hasFile('product_avatar')) {
+            $file = Input::file('product_avatar');
+            $extension = $file->getClientOriginalExtension();
+            $size = $file->getSize();
+            if(!in_array($extension,FunctionLib::$array_allow_image) || $size > FunctionLib::$size_image_max){
+                $this->error[] = 'Ảnh đại diện không hợp lệ';
+            }
+        }
+        $error_image = 0;
+        if ( Input::hasFile('product_image')) {
+            $files = Input::file('product_image');
+            foreach($files as $fi){
+                $extension = $fi->getClientOriginalExtension();
+                $size = $fi->getSize();
+                if(!in_array($extension,FunctionLib::$array_allow_image) || $size > FunctionLib::$size_image_max){
+                    $error_image = 1;
+                }
+            }
+        }
+        if($error_image == 1){
+            $this->error[] = 'Ảnh sản phẩm không hợp lệ';
+        }
         if ($this->valid($dataSave, $id) && empty($this->error)) {
+            if ($file) {
+                $name = time() . '-' . $file->getClientOriginalName();
+                $file->move('uploads/avatar', $name);
+                $dataSave['product_Avatar'] = $name;
+            }
+            if ($files) {
+                $image = array();
+                foreach ($files as $fi) {
+                    $name = time() . '-' . $fi->getClientOriginalName();
+                    $fi->move('uploads/image', $name);
+                    $image[] = $name;
+                }
+                if ($image) {
+                    $dataSave['product_Image'] = json_encode($image);
+                }
+            }
             if ($id > 0) {
                 if (Product::updData($id, $dataSave)) {
                     $dataSave['product_CreatedTime'] = time();

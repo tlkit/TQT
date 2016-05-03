@@ -423,7 +423,7 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class Application extends Container implements HttpKernelInterface, TerminableInterface, ResponsePreparerInterface
 {
-    const VERSION = '4.2.17';
+    const VERSION = '4.2.19';
     protected $booted = false;
     protected $bootingCallbacks = array();
     protected $bootedCallbacks = array();
@@ -8732,11 +8732,12 @@ class Logger implements LoggerInterface
     const ALERT = 550;
     const EMERGENCY = 600;
     const API = 1;
-    protected static $levels = array(100 => 'DEBUG', 200 => 'INFO', 250 => 'NOTICE', 300 => 'WARNING', 400 => 'ERROR', 500 => 'CRITICAL', 550 => 'ALERT', 600 => 'EMERGENCY');
+    protected static $levels = array(self::DEBUG => 'DEBUG', self::INFO => 'INFO', self::NOTICE => 'NOTICE', self::WARNING => 'WARNING', self::ERROR => 'ERROR', self::CRITICAL => 'CRITICAL', self::ALERT => 'ALERT', self::EMERGENCY => 'EMERGENCY');
     protected static $timezone;
     protected $name;
     protected $handlers;
     protected $processors;
+    protected $microsecondTimestamps = true;
     public function __construct($name, array $handlers = array(), array $processors = array())
     {
         $this->name = $name;
@@ -8746,6 +8747,12 @@ class Logger implements LoggerInterface
     public function getName()
     {
         return $this->name;
+    }
+    public function withName($name)
+    {
+        $new = clone $this;
+        $new->name = $name;
+        return $new;
     }
     public function pushHandler(HandlerInterface $handler)
     {
@@ -8790,6 +8797,10 @@ class Logger implements LoggerInterface
     {
         return $this->processors;
     }
+    public function useMicrosecondTimestamps($micro)
+    {
+        $this->microsecondTimestamps = (bool) $micro;
+    }
     public function addRecord($level, $message, array $context = array())
     {
         if (!$this->handlers) {
@@ -8797,11 +8808,13 @@ class Logger implements LoggerInterface
         }
         $levelName = static::getLevelName($level);
         $handlerKey = null;
-        foreach ($this->handlers as $key => $handler) {
+        reset($this->handlers);
+        while ($handler = current($this->handlers)) {
             if ($handler->isHandling(array('level' => $level))) {
-                $handlerKey = $key;
+                $handlerKey = key($this->handlers);
                 break;
             }
+            next($this->handlers);
         }
         if (null === $handlerKey) {
             return false;
@@ -8809,12 +8822,21 @@ class Logger implements LoggerInterface
         if (!static::$timezone) {
             static::$timezone = new \DateTimeZone(date_default_timezone_get() ?: 'UTC');
         }
-        $record = array('message' => (string) $message, 'context' => $context, 'level' => $level, 'level_name' => $levelName, 'channel' => $this->name, 'datetime' => \DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true)), static::$timezone)->setTimezone(static::$timezone), 'extra' => array());
+        if ($this->microsecondTimestamps) {
+            $ts = \DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true)), static::$timezone);
+        } else {
+            $ts = new \DateTime(null, static::$timezone);
+        }
+        $ts->setTimezone(static::$timezone);
+        $record = array('message' => (string) $message, 'context' => $context, 'level' => $level, 'level_name' => $levelName, 'channel' => $this->name, 'datetime' => $ts, 'extra' => array());
         foreach ($this->processors as $processor) {
             $record = call_user_func($processor, $record);
         }
-        while (isset($this->handlers[$handlerKey]) && false === $this->handlers[$handlerKey]->handle($record)) {
-            $handlerKey++;
+        while ($handler = current($this->handlers)) {
+            if (true === $handler->handle($record)) {
+                break;
+            }
+            next($this->handlers);
         }
         return true;
     }
@@ -9089,10 +9111,14 @@ class StreamHandler extends AbstractProcessingHandler
     }
     public function close()
     {
-        if (is_resource($this->stream)) {
+        if ($this->url && is_resource($this->stream)) {
             fclose($this->stream);
         }
         $this->stream = null;
+    }
+    public function getStream()
+    {
+        return $this->stream;
     }
     protected function write(array $record)
     {
@@ -9215,7 +9241,11 @@ class RotatingFileHandler extends StreamHandler
         });
         foreach (array_slice($logFiles, $this->maxFiles) as $file) {
             if (is_writable($file)) {
+                set_error_handler(function ($errno, $errstr, $errfile, $errline) {
+                    
+                });
                 unlink($file);
+                restore_error_handler();
             }
         }
         $this->mustRotate = false;
@@ -9777,10 +9807,15 @@ class View implements ArrayAccess, Renderable
     }
     public function render(Closure $callback = null)
     {
-        $contents = $this->renderContents();
-        $response = isset($callback) ? $callback($this, $contents) : null;
-        $this->factory->flushSectionsIfDoneRendering();
-        return $response ?: $contents;
+        try {
+            $contents = $this->renderContents();
+            $response = isset($callback) ? $callback($this, $contents) : null;
+            $this->factory->flushSectionsIfDoneRendering();
+            return $response ?: $contents;
+        } catch (Exception $e) {
+            $this->factory->flushSections();
+            throw $e;
+        }
     }
     protected function renderContents()
     {

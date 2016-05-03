@@ -122,6 +122,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Barryvdh\DomPDF\ServiceProvider',
+		'Bkwld\Croppa\ServiceProvider'
 
 	),
 
@@ -190,6 +191,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
         'PDF'             => 'Barryvdh\DomPDF\Facade',
+		'Croppa' 		  => 'Bkwld\Croppa\Facade'
 
 	),
 

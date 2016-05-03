@@ -8,6 +8,14 @@
 
 class FunctionLib {
 
+    public static $array_allow_image = array(
+        'jpg',
+        'png',
+        'jpeg'
+    );
+
+    public static $size_image_max = 1048576;
+
     public  static function numberToWord($s, $lang = 'vi') {
         $ds = 0;
         $so = $hang = array();
