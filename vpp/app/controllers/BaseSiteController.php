@@ -13,7 +13,6 @@ class BaseSiteController extends BaseController
     public function __construct()
     {
 
-
     }
 
 }

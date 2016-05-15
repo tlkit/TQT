@@ -15,7 +15,11 @@
 
 //Trang chu
 //Route::get('/',array('as' => 'site.index','uses' =>'SiteHomeController@index'));
-Route::get('/',array('as' => 'site.index','uses' =>'SiteHomeController@offSite'));
+
+Route::group(array('prefix' => '', 'before' => ''), function()
+{
+    Route::get('/',array('as' => 'site.home','uses' =>'SiteHomeController@index'));
+});
 
 Route::group(array('prefix' => 'admin', 'before' => ''), function()
 {
