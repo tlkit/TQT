@@ -9,18 +9,23 @@
     <link href="http://www.homenoffice.sg/image/data/cart.png" rel="icon">
     <link href="http://www.homenoffice.sg/" rel="canonical">
 
-    {{ HTML::style('assets/site/css/css.css'); }}
-    {{ HTML::style('assets/site/css/stylesheet.css'); }}
-    {{--<link rel="stylesheet" type="text/css" href="vpp_site_files/isearch.css" media="screen">--}}
-    {{--<link rel="stylesheet" type="text/css" href="vpp_site_files/slideshow.css" media="screen">--}}
-    {{--<script src="vpp_site_files/analytics.js" async=""></script>--}}
+    {{ HTML::style('assets/site/css/css.css') }}
+    {{ HTML::style('assets/site/css/stylesheet.css') }}
+    {{ HTML::style('assets/site/css/isearch.css', array('media' => 'screen')) }}
+    {{ HTML::style('assets/site/css/slideshow.css', array('media' => 'screen')) }}
     {{--<script type="text/javascript" src="vpp_site_files/jquery-1.js"></script>--}}
     {{--<script type="text/javascript" src="vpp_site_files/jquery-ui-1.js"></script>--}}
     {{--<link rel="stylesheet" type="text/css" href="vpp_site_files/jquery-ui-1.css">--}}
     {{--<script type="text/javascript" src="vpp_site_files/common.js"></script>--}}
     {{--<script type="text/javascript" src="vpp_site_files/isearch_corporate.js"></script>--}}
-    {{--<script type="text/javascript" src="vpp_site_files/jquery_004.js"></script>--}}
-
+    {{ HTML::script('assets/site/js/jquery-1.js') }}
+    {{ HTML::script('assets/site/js/jquery-ui-1.js') }}
+    {{ HTML::script('assets/site/js/common.js') }}
+    {{ HTML::script('assets/site/js/isearch_corporate.js') }}
+    {{ HTML::script('assets/site/js/jquery_002.js') }}
+    {{ HTML::script('assets/site/js/jquery_003.js') }}
+    {{ HTML::script('assets/site/js/jquery_004.js') }}
+    {{--{{ HTML::script('assets/site/js/jquery.nivo.slider.js') }}--}}
     {{--<link rel="stylesheet" type="text/css" href="vpp_site_files/bootstrap-modal.css">--}}
     {{--<link rel="stylesheet" type="text/css" href="vpp_site_files/bootstrap-theme.css">--}}
     {{--<script type="text/javascript" src="vpp_site_files/bootstrap.js"></script>--}}
@@ -96,19 +101,24 @@
         <div id="search">
             <div class="iSearchBoxWrapper">
                 <div class="button-search"></div>
-                <input autocomplete="off" name="search" placeholder="search for something :)" type="text">
+                <input autocomplete="off" name="search" placeholder="nhập từ khóa để tìm kiếm :)" type="text">
                 <div class="clearfix"></div>
                 <div style="width: 366px; display: none;" class="iSearchBox"></div>
                 <div style="position: relative; top: 5px; left: 335px; display: none; visibility: visible;" id="iSearchBoxLoadingImage"></div>
             </div>
         </div>
-
+        <div id="welcome">
+            <div id="divLogin" style="float:right">
+                <input class="login" id="btnLogin" value="Đăng nhập" onclick="window.location='http://www.homenoffice.sg/login'" type="button">
+                <input class="account" id="btnRegister" value="Đăng ký" onclick="window.location='http://www.homenoffice.sg/register'" type="button">
+            </div>
+        </div>
     </div>
     <div id="menu">
         <ul>
             <li><a href="{{URL::route('site.home')}}">Trang chủ</a></li>
             <li><a href="http://www.homenoffice.sg/index.php?route=product/category">Sản phẩm</a>
-                <span id="sub-menu"><img src="vpp_site_files/submenu_pointer.png"></span>
+                <span id="sub-menu"><img src="{{asset('assets/site/image/submenu_pointer.png')}}"></span>
                 <ul>
                     <li onmouseover="mouseover('0', 'image/data/1-r.png');" onmouseout="mouseout('0', 'image/data/1.png')" class="has-sub"><a href="http://www.homenoffice.sg/basic-stationery"><img id="icon-0" src="vpp_site_files/1.png" valign="middle">&nbsp;&nbsp;Basic Stationery</a>
                         <ul>
@@ -517,7 +527,7 @@
             <li id="cartLi">
                 <a id="icnCart">Giỏ hàng</a>
                 <div style="margin-left: -33.3167px;" id="cart"><div class="content">
-                        <div id="sub-menu"><img src="vpp_site_files/submenu_pointer.png"></div>
+                        <div id="sub-menu"><img src="{{asset('assets/site/image/submenu_pointer.png')}}"></div>
                         <div id="paperclip" style="margin-top:-15px;margin-left: 1px;"></div>
                         <div class="empty">Your shopping cart is empty!</div>
                     </div></div>
@@ -727,66 +737,35 @@
             }
         </style>
         <div class="slideshow">
-            <div id="slideshow0" class="nivoSlider" style="width: 1024px; height: 374px; position: relative; background: transparent url(&quot;http://www.homenoffice.sg/image/cache/data/HnO Arch File-1024x374.jpg&quot;) no-repeat scroll 0% 0%;">
-                <a style="display: none;" class="nivo-imageLink" href="http://www.homenoffice.sg/filing-and-storage/ring-and-arch-files">
-                    <img style="display: none;" src="vpp_site_files/HnO%2520Arch%2520File-1024x374.jpg" alt="HnO Arch File">
+            <div id="slideshow0" class="nivoSlider">
+                <a class="nivo-imageLink" href="http://www.homenoffice.sg/filing-and-storage/ring-and-arch-files">
+                    <img src="{{asset('assets/vpp_site_files/HnO%2520Arch%2520File-1024x374.jpg')}}" alt="HnO Arch File">
                 </a>
-                <a style="display: block;" class="nivo-imageLink" href="http://www.homenoffice.sg/writing-and-correction/highlighters">
-                    <img style="display: none;" src="vpp_site_files/HnO%2520Highlighter%25204-1024x374.jpg" alt="HnO Highlighter">
+                <a class="nivo-imageLink" href="http://www.homenoffice.sg/writing-and-correction/highlighters">
+                    <img src="{{asset('assets/vpp_site_files/HnO%2520Highlighter%25204-1024x374.jpg')}}" alt="HnO Highlighter">
                 </a>
-                <a style="display: none;" class="nivo-imageLink" href="http://www.homenoffice.sg/writing-and-correction/markers/whiteboard-markers">
-                    <img style="display: none;" src="vpp_site_files/HnO%2520Marker-1024x374.jpg" alt="HnO Marker">
+                <a class="nivo-imageLink" href="http://www.homenoffice.sg/writing-and-correction/markers/whiteboard-markers">
+                    <img src="{{asset('assets/vpp_site_files/HnO%2520Marker-1024x374.jpg')}}" alt="HnO Marker">
                 </a>
-                <a style="display: none;" class="nivo-imageLink" href="http://www.homenoffice.sg/basic-stationery/staplers-and-paper-punches/desktop-staplers">
-                    <img style="display: none;" src="vpp_site_files/HnO%25208802%2520Stapler-1024x374.jpg" alt="HnO Stapler">
+                <a class="nivo-imageLink" href="http://www.homenoffice.sg/basic-stationery/staplers-and-paper-punches/desktop-staplers">
+                    <img  src="{{asset('assets/vpp_site_files/HnO%25208802%2520Stapler-1024x374.jpg')}}" alt="HnO Stapler">
                 </a>
-                <a style="display: none;" class="nivo-imageLink" href="http://www.homenoffice.sg/basic-stationery/desk-accessories">
-                    <img style="display: none;" src="vpp_site_files/HnO%2520Holders-1024x374.jpg" alt="HnO Holders">
+                <a class="nivo-imageLink" href="http://www.homenoffice.sg/basic-stationery/desk-accessories">
+                    <img src="{{asset('assets/vpp_site_files/HnO%2520Holders-1024x374.jpg')}}" alt="HnO Holders">
                 </a>
-                <a style="display: none;" class="nivo-imageLink" href="http://www.homenoffice.sg/index.php?route=product/isearch&amp;search=sarasa">
-                    <img style="display: none;" src="vpp_site_files/Sarasa-1024x374.jpg" alt="Sarasa">
+                <a class="nivo-imageLink" href="http://www.homenoffice.sg/index.php?route=product/isearch&amp;search=sarasa">
+                    <img  src="{{asset('assets/vpp_site_files/Sarasa-1024x374.jpg')}}" alt="Sarasa">
                 </a>
-                <a style="display: none;" class="nivo-imageLink" href="http://www.homenoffice.sg/basic-stationery/clips-pins-and-tacks">
-                    <img style="display: none;" src="vpp_site_files/HnO%2520Basic%2520Stationery-1024x374.jpg" alt="HnO Basic">
+                <a class="nivo-imageLink" href="http://www.homenoffice.sg/basic-stationery/clips-pins-and-tacks">
+                    <img src="{{asset('assets/vpp_site_files/HnO%2520Basic%2520Stationery-1024x374.jpg')}}" alt="HnO Basic">
                 </a>
-                <div style="opacity: 0;" class="nivo-caption">
-                    <p></p>
-                </div>
-                <div style="display: none;" class="nivo-directionNav">
-                    <a class="nivo-prevNav">Prev</a>
-                    <a class="nivo-nextNav">Next</a>
-                </div>
-                <div class="nivo-controlNav">
-                    <a class="nivo-control" rel="0">1</a>
-                    <a class="nivo-control active" rel="1">2</a>
-                    <a class="nivo-control" rel="2">3</a>
-                    <a class="nivo-control" rel="3">4</a>
-                    <a class="nivo-control" rel="4">5</a>
-                    <a class="nivo-control" rel="5">6</a>
-                    <a class="nivo-control" rel="6">7</a>
-                </div>
-                <div style="left: 0px; width: 68px; height: 100%; opacity: 1; background: transparent url(&quot;http://www.homenoffice.sg/image/cache/data/HnO Highlighter 4-1024x374.jpg&quot;) no-repeat scroll 0px 0%; bottom: 0px;" class="nivo-slice"></div>
-                <div style="left: 68px; width: 68px; height: 100%; opacity: 1; background: transparent url(&quot;http://www.homenoffice.sg/image/cache/data/HnO Highlighter 4-1024x374.jpg&quot;) no-repeat scroll -68px 0%; bottom: 0px;" class="nivo-slice"></div>
-                <div style="left: 136px; width: 68px; height: 100%; opacity: 1; background: transparent url(&quot;http://www.homenoffice.sg/image/cache/data/HnO Highlighter 4-1024x374.jpg&quot;) no-repeat scroll -136px 0%; bottom: 0px;" class="nivo-slice"></div>
-                <div style="left: 204px; width: 68px; height: 100%; opacity: 1; background: transparent url(&quot;http://www.homenoffice.sg/image/cache/data/HnO Highlighter 4-1024x374.jpg&quot;) no-repeat scroll -204px 0%; bottom: 0px;" class="nivo-slice"></div>
-                <div style="left: 272px; width: 68px; height: 100%; opacity: 1; background: transparent url(&quot;http://www.homenoffice.sg/image/cache/data/HnO Highlighter 4-1024x374.jpg&quot;) no-repeat scroll -272px 0%; bottom: 0px;" class="nivo-slice"></div>
-                <div style="left: 340px; width: 68px; height: 100%; opacity: 1; background: transparent url(&quot;http://www.homenoffice.sg/image/cache/data/HnO Highlighter 4-1024x374.jpg&quot;) no-repeat scroll -340px 0%; bottom: 0px;" class="nivo-slice"></div>
-                <div style="left: 408px; width: 68px; height: 100%; opacity: 1; background: transparent url(&quot;http://www.homenoffice.sg/image/cache/data/HnO Highlighter 4-1024x374.jpg&quot;) no-repeat scroll -408px 0%; bottom: 0px;" class="nivo-slice"></div>
-                <div style="left: 476px; width: 68px; height: 100%; opacity: 1; background: transparent url(&quot;http://www.homenoffice.sg/image/cache/data/HnO Highlighter 4-1024x374.jpg&quot;) no-repeat scroll -476px 0%; bottom: 0px;" class="nivo-slice"></div>
-                <div style="left: 544px; width: 68px; height: 100%; opacity: 1; background: transparent url(&quot;http://www.homenoffice.sg/image/cache/data/HnO Highlighter 4-1024x374.jpg&quot;) no-repeat scroll -544px 0%; bottom: 0px;" class="nivo-slice"></div>
-                <div style="left: 612px; width: 68px; height: 100%; opacity: 1; background: transparent url(&quot;http://www.homenoffice.sg/image/cache/data/HnO Highlighter 4-1024x374.jpg&quot;) no-repeat scroll -612px 0%; bottom: 0px;" class="nivo-slice"></div>
-                <div style="left: 680px; width: 68px; height: 100%; opacity: 1; background: transparent url(&quot;http://www.homenoffice.sg/image/cache/data/HnO Highlighter 4-1024x374.jpg&quot;) no-repeat scroll -680px 0%; bottom: 0px;" class="nivo-slice"></div>
-                <div style="left: 748px; width: 68px; height: 100%; opacity: 1; background: transparent url(&quot;http://www.homenoffice.sg/image/cache/data/HnO Highlighter 4-1024x374.jpg&quot;) no-repeat scroll -748px 0%; bottom: 0px;" class="nivo-slice"></div>
-                <div style="left: 816px; width: 68px; height: 100%; opacity: 1; background: transparent url(&quot;http://www.homenoffice.sg/image/cache/data/HnO Highlighter 4-1024x374.jpg&quot;) no-repeat scroll -816px 0%; bottom: 0px;" class="nivo-slice"></div>
-                <div style="left: 884px; width: 68px; height: 100%; opacity: 1; background: transparent url(&quot;http://www.homenoffice.sg/image/cache/data/HnO Highlighter 4-1024x374.jpg&quot;) no-repeat scroll -884px 0%; bottom: 0px;" class="nivo-slice"></div>
-                <div style="left: 952px; width: 72px; height: 100%; opacity: 1; background: transparent url(&quot;http://www.homenoffice.sg/image/cache/data/HnO Highlighter 4-1024x374.jpg&quot;) no-repeat scroll -952px 0%; bottom: 0px;" class="nivo-slice"></div>
             </div>
         </div>
-        <script type="text/javascript"><!--
+        <script type="text/javascript">
             $(document).ready(function() {
                 $('#slideshow0').nivoSlider();
             });
-            --></script>
+        </script>
         <div style="margin-left: 75px;">
             <div class="home-column"><a href="http://www.homenoffice.sg/f-a-q"><img src="vpp_site_files/01%2520Online%2520Payment%2520200116.png" style="height:197px; width:197px"></a></div>
 
@@ -1025,7 +1004,7 @@
 <div id="footer-bar"></div>
 <div id="powered" align="center">
     <img id="footer-logo" src="vpp_site_files/footer-logo.png"><br>
-    Copyright 2016 � Home n Office Products Pte Ltd. All Rights Reserved.
+    Copyright 2016 ï¿½ Home n Office Products Pte Ltd. All Rights Reserved.
 </div>
 
 <div style="position: absolute; display: none;" id="cluetip-waitimage"></div>
