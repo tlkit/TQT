@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html class="" dir="ltr" lang="en"><head>
+<html class="" dir="ltr" lang="en">
+<head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
     <title>Home n Office: Office Stationery Supplier Singapore</title>
@@ -11,7 +12,6 @@
 
     {{ HTML::style('assets/site/css/css.css') }}
     {{ HTML::style('assets/site/css/stylesheet.css') }}
-    {{ HTML::style('assets/site/css/isearch.css', array('media' => 'screen')) }}
     {{ HTML::style('assets/site/css/slideshow.css', array('media' => 'screen')) }}
     {{--<script type="text/javascript" src="vpp_site_files/jquery-1.js"></script>--}}
     {{--<script type="text/javascript" src="vpp_site_files/jquery-ui-1.js"></script>--}}
@@ -19,11 +19,9 @@
     {{--<script type="text/javascript" src="vpp_site_files/common.js"></script>--}}
     {{--<script type="text/javascript" src="vpp_site_files/isearch_corporate.js"></script>--}}
     {{ HTML::script('assets/site/js/jquery-1.js') }}
-    {{ HTML::script('assets/site/js/jquery-ui-1.js') }}
-    {{ HTML::script('assets/site/js/common.js') }}
-    {{ HTML::script('assets/site/js/isearch_corporate.js') }}
-    {{ HTML::script('assets/site/js/jquery_002.js') }}
-    {{ HTML::script('assets/site/js/jquery_003.js') }}
+{{--    {{ HTML::script('assets/site/js/jquery-ui-1.js') }}--}}
+{{--    {{ HTML::script('assets/site/js/jquery_002.js') }}
+    {{ HTML::script('assets/site/js/jquery_003.js') }}--}}
     {{ HTML::script('assets/site/js/jquery_004.js') }}
     {{--{{ HTML::script('assets/site/js/jquery.nivo.slider.js') }}--}}
     {{--<link rel="stylesheet" type="text/css" href="vpp_site_files/bootstrap-modal.css">--}}
@@ -41,31 +39,14 @@
     {{--</script>--}}
     {{--<![endif]-->--}}
 
-    {{--<script type="text/javascript">--}}
-        {{--function mouseover(id, img_path) {--}}
-            {{--$('#icon-'+id).attr("src", img_path);--}}
-        {{--}--}}
-        {{--function mouseout(id, img_path) {--}}
-            {{--$('#icon-'+id).attr("src", img_path);--}}
-        {{--}--}}
-        {{--$(document).ready(function() {--}}
-            {{--$('#tips').click(function() {--}}
-                {{--// alert('Hello');--}}
-            {{--});--}}
-            {{--$.ajax({--}}
-                {{--url: 'index.php?route=checkout/cart/delivery',--}}
-                {{--type: 'post',--}}
-                {{--dataType: 'json',--}}
-                {{--success: function(json) {--}}
-                    {{--$('#delivery-status').html(json['message']);--}}
-
-                    {{--$( "#progressbar" ).progressbar({--}}
-                        {{--value: json['percentage']--}}
-                    {{--});--}}
-                {{--}--}}
-            {{--});--}}
-        {{--});--}}
-    {{--</script>--}}
+    <script type="text/javascript">
+        function mouseover(id, img_path) {
+            $('#icon-'+id).attr("src", img_path);
+        }
+        function mouseout(id, img_path) {
+            $('#icon-'+id).attr("src", img_path);
+        }
+    </script>
 
     {{--<link rel="stylesheet" href="vpp_site_files/jquery.css" type="text/css">--}}
     {{--<script src="vpp_site_files/jquery.js" type="text/javascript"></script>--}}
@@ -93,7 +74,8 @@
     {{--<link rel="stylesheet" type="text/css" media="screen,projection" href="vpp_site_files/ui.css">--}}
 
 
-    {{--<style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>--}}
+    {{--<style type="text/css">.fancybox-margin{margin-right:0px;}</style>--}}
+    </head>
 <body>
 <div id="container">
     <div id="header">
@@ -102,9 +84,6 @@
             <div class="iSearchBoxWrapper">
                 <div class="button-search"></div>
                 <input autocomplete="off" name="search" placeholder="nhập từ khóa để tìm kiếm :)" type="text">
-                <div class="clearfix"></div>
-                <div style="width: 366px; display: none;" class="iSearchBox"></div>
-                <div style="position: relative; top: 5px; left: 335px; display: none; visibility: visible;" id="iSearchBoxLoadingImage"></div>
             </div>
         </div>
         <div id="welcome">
@@ -529,213 +508,14 @@
                 <div style="margin-left: -33.3167px;" id="cart"><div class="content">
                         <div id="sub-menu"><img src="{{asset('assets/site/image/submenu_pointer.png')}}"></div>
                         <div id="paperclip" style="margin-top:-15px;margin-left: 1px;"></div>
-                        <div class="empty">Your shopping cart is empty!</div>
-                    </div></div>
-
-                <script type="text/javascript">
-                    function increase(key) {
-                        var quantity = $("input[name='quantity2[" + key + "]'").val();
-                        update(parseInt(quantity) + 1, key);
-                        $("input[name='quantity2[" + key + "]'").val(parseInt(quantity) + 1);
-                    }
-                    function decrease(key) {
-                        var quantity = $("input[name='quantity2[" + key + "]'").val();
-                        update(parseInt(quantity) - 1, key);
-                        $("input[name='quantity2[" + key + "]'").val(parseInt(quantity) - 1);
-                    }
-                    function update(qty, key) {
-                        if(getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout'){
-                            var quantity = {};  // = quantity = Object();
-                            quantity[key] = qty;
-                            var parameter = {quantity: quantity};
-
-                            $('#cart').load('index.php?route=checkout/cart #cart > *', parameter);
-                            $('.cart-info').load('index.php?route=checkout/cart .cart-info > *', parameter);
-                            $('#total-saving').load('index.php?route=checkout/cart #total-saving > *', parameter);
-                            $('.cart-total').load('index.php?route=checkout/cart .cart-total > *', parameter);
-                        }
-                        else{
-                            $('#cart').load('index.php?route=module/cart&product_id=' + key + '&quantity=' + qty + ' #cart > *');
-                        }
-
-                        setTimeout(function() {
-                            $.ajax({
-                                url: 'index.php?route=checkout/cart/delivery',
-                                type: 'post',
-                                dataType: 'json',
-                                success: function(json) {
-                                    $('#delivery-status').html(json['message']);
-
-                                    $( "#progressbar" ).progressbar({
-                                        value: json['percentage']
-                                    });
-
-                                }
-                            });
-                        }, 2000);
-
-                        $.ajax({
-                            url: 'index.php?route=checkout/cart/getProducts',
-                            type: 'post',
-                            dataType: 'json',
-                            success: function(json) {
-                                $('input[name^=\'quantity3[\'').val('');
-                                $('input[name^=\'quantity3[\'').css("background-color", "#055993");
-                                $('input[name^=\'quantity3[\'').css('background-image', 'url(catalog/view/theme/default/image/add-cart.png)');
-                                $('input[name^=\'quantity3[\'').attr('readonly', true);
-                                $.each(json, function(i,data) {
-                                    $('input[name=\'quantity3['+data.product_id+']\']').val(data.quantity);
-                                    $('input[name=\'quantity3['+data.product_id+']\']').css('background-image', 'none');
-                                    $('input[name=\'quantity3['+data.product_id+']\']').css("background-color", "#094269");
-                                    $('input[name=\'quantity3['+data.product_id+']\']').prop('readonly', false);
-                                });
-                            }
-                        });
-
-                    }
-                    function getURLVar(key) {
-                        var value = [];
-                        var query = String(document.location).split('?');
-
-                        if (query[1]) {
-                            var part = query[1].split('&');
-
-                            for (i = 0; i < part.length; i++) {
-                                var data = part[i].split('=');
-                                if (data[0] && data[1]) {
-                                    value[data[0]] = data[1];
-                                }
-                            }
-
-                            if (value[key]) {
-                                return value[key];
-                            } else {
-                                return '';
-                            }
-                        }
-                    }
-                    function removeProducts(key) {
-                        (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') ? location = 'index.php?route=checkout/cart&remove=' + key : $('#cart').load('index.php?route=module/cart&remove='+ key + ' #cart > *');
-
-                        setTimeout(function() {
-                            $.ajax({
-                                url: 'index.php?route=checkout/cart/getProducts',
-                                type: 'post',
-                                dataType: 'json',
-                                success: function(json) {
-                                    $('input[name^=\'quantity3[\'').val('');
-                                    $('input[name^=\'quantity3[\'').css("background-color", "#055993");
-                                    $('input[name^=\'quantity3[\'').css('background-image', 'url(catalog/view/theme/default/image/add-cart.png)');
-                                    $('input[name^=\'quantity3[\'').attr('readonly', true);
-                                    $.each(json, function(i,data) {
-                                        $('input[name=\'quantity3['+data.product_id+']\']').val(data.quantity);
-                                        $('input[name=\'quantity3['+data.product_id+']\']').css('background-image', 'none');
-                                        $('input[name=\'quantity3['+data.product_id+']\']').css("background-color", "#094269");
-                                        $('input[name=\'quantity3['+data.product_id+']\']').prop('readonly', false);
-                                    });
-                                }
-                            });
-                        }, 1500);
-
-                        setTimeout(function() {
-                            $.ajax({
-                                url: 'index.php?route=checkout/cart/delivery',
-                                type: 'post',
-                                dataType: 'json',
-                                success: function(json) {
-                                    $('#delivery-status').html(json['message']);
-
-                                    $( "#progressbar" ).progressbar({
-                                        value: json['percentage']
-                                    });
-
-                                }
-                            });
-                        }, 2000);
-
-                    }
-                </script>
+                        <div class="empty">Giỏ hàng trống !</div>
+                    </div>
+                </div>
             </li>
         </ul>
     </div>
     <div id="notification"></div>
     <div id="content">
-        <style type="text/css">
-            .iSearchBox li .iMarq {
-                background-color:#F7FF8C;
-            }
-            .iSearchBoxWrapper .iSearchBox {
-                width: 278px !important;
-            }
-
-            .iSearchBox li h3 {
-                width:42%;
-            }
-            .iSearchBox li h3 {
-                font-weight:bold;
-            }
-        </style>
-        <style type="text/css">
-            /*.saving-point {
-            display:none;
-            }
-
-            .product-grid .description {
-              display:block;
-              text-align:left;
-            }
-            */
-        </style>
-
-        <script type="text/javascript">
-            var ocVersion = "1.5.6.1";
-            var moreResultsText = 'View All Results';
-            var noResultsText = 'No Results Found';
-            //var SCWords = $.parseJSON('[{"incorrect":"cnema","correct":"cinema"}]');
-            //var spellCheckSystem = 'no';
-            var useAJAX = 'yes';
-            var loadImagesOnInstantSearch = 'yes';
-            var useStrictSearch = 'no';
-
-            var enableCategoriesInstant = 'LeftOfProducts';
-            var showProductCountInstant = false;
-            var categoryHeadingInstant = 'Top Category Results';
-            var productHeadingInstant = 'Top Product Results';
-            var matchesTextInstant = '(N) Matches';
-
-            var responsiveDesign = 'yes';
-            var afterHittingEnter = 'isearchengine1541';
-            var searchInModel = 'yes';
-            var searchInDescription = false;
-            var productsData = [];
-            var iSearchResultsLimit = '5';
-        </script>
-        <style type="text/css">
-            .iSearchBox ul li.iSearchHeading {
-                margin: 0 0 10px 0;
-                font-size: 18px;
-                padding-left: 5px;
-                position: relative;
-            }
-
-            .iSearchBox ul li.iSearchHeading:hover {
-                border-color: white;
-                cursor: default;
-                box-shadow: none;
-            }
-
-            .iSearchBox ul li.iSearchCategory {
-                padding: 5px;
-            }
-
-            .iSearchMatches {
-                position: absolute;
-                display: block;
-                right: 10px;
-                top: 0;
-                font-size: 14px;
-            }
-        </style>
         <div class="slideshow">
             <div id="slideshow0" class="nivoSlider">
                 <a class="nivo-imageLink" href="http://www.homenoffice.sg/filing-and-storage/ring-and-arch-files">
