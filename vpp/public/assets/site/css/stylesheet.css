@@ -1268,7 +1268,7 @@ a.button:hover, input.button:hover {
 	margin-bottom: 4px;
 }
 .box-product .button {
-	background: url('../image/add-cart.png') 10px 7px no-repeat, url('../image/btn-addcart.png') no-repeat;
+	background: url('../image/btn-addcart.png') no-repeat;
 	width: 145px;
 	height: 36px;
 	cursor: pointer;
@@ -1278,7 +1278,7 @@ a.button:hover, input.button:hover {
 	padding-left: 40px;
 }
 .box-product .button:hover {
-	background: url('../image/add-cart.png') 10px 7px no-repeat, url('../image/btn-addcart_r.png') no-repeat;
+	background: url('../image/btn-addcart_r.png') no-repeat;
 	width: 145px;
 	height: 33px;
 }
@@ -2801,7 +2801,7 @@ ul.box-filter > li ul {
 	padding-top: 6px;
 	padding-left: 0px;
 	padding-bottom: 6px;
-	background: #055993 url('../image/add-cart.png') 5px 7px no-repeat;
+	/*background: #055993 url('../image/add-cart.png') 5px 7px no-repeat;*/
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
 	border-radius: 0px;
