@@ -519,25 +519,25 @@
         <div class="slideshow">
             <div id="slideshow0" class="nivoSlider">
                 <a class="nivo-imageLink" href="http://www.homenoffice.sg/filing-and-storage/ring-and-arch-files">
-                    <img src="{{asset('assets/vpp_site_files/HnO%2520Arch%2520File-1024x374.jpg')}}" alt="HnO Arch File">
+                    <img src="{{asset('assets/vpp_site_files/demo-1.jpg')}}" alt="HnO Arch File">
                 </a>
                 <a class="nivo-imageLink" href="http://www.homenoffice.sg/writing-and-correction/highlighters">
-                    <img src="{{asset('assets/vpp_site_files/HnO%2520Highlighter%25204-1024x374.jpg')}}" alt="HnO Highlighter">
+                    <img src="{{asset('assets/vpp_site_files/demo-2.jpg')}}" alt="HnO Highlighter">
                 </a>
                 <a class="nivo-imageLink" href="http://www.homenoffice.sg/writing-and-correction/markers/whiteboard-markers">
-                    <img src="{{asset('assets/vpp_site_files/HnO%2520Marker-1024x374.jpg')}}" alt="HnO Marker">
+                    <img src="{{asset('assets/vpp_site_files/demo-3.jpg')}}" alt="HnO Marker">
                 </a>
                 <a class="nivo-imageLink" href="http://www.homenoffice.sg/basic-stationery/staplers-and-paper-punches/desktop-staplers">
-                    <img  src="{{asset('assets/vpp_site_files/HnO%25208802%2520Stapler-1024x374.jpg')}}" alt="HnO Stapler">
+                    <img  src="{{asset('assets/vpp_site_files/demo-4.jpg')}}" alt="HnO Stapler">
                 </a>
                 <a class="nivo-imageLink" href="http://www.homenoffice.sg/basic-stationery/desk-accessories">
-                    <img src="{{asset('assets/vpp_site_files/HnO%2520Holders-1024x374.jpg')}}" alt="HnO Holders">
+                    <img src="{{asset('assets/vpp_site_files/demo-5.jpg')}}" alt="HnO Holders">
                 </a>
                 <a class="nivo-imageLink" href="http://www.homenoffice.sg/index.php?route=product/isearch&amp;search=sarasa">
-                    <img  src="{{asset('assets/vpp_site_files/Sarasa-1024x374.jpg')}}" alt="Sarasa">
+                    <img  src="{{asset('assets/vpp_site_files/demo-6.jpg')}}" alt="Sarasa">
                 </a>
                 <a class="nivo-imageLink" href="http://www.homenoffice.sg/basic-stationery/clips-pins-and-tacks">
-                    <img src="{{asset('assets/vpp_site_files/HnO%2520Basic%2520Stationery-1024x374.jpg')}}" alt="HnO Basic">
+                    <img src="{{asset('assets/vpp_site_files/demo-7.jpg')}}" alt="HnO Basic">
                 </a>
             </div>
         </div>
