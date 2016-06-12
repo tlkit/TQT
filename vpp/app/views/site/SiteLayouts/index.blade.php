@@ -12,16 +12,9 @@
 
     {{ HTML::style('assets/site/css/css.css') }}
     {{ HTML::style('assets/site/css/stylesheet.css') }}
+    {{ HTML::style('assets/site/css/ui.css') }}
     {{ HTML::style('assets/site/css/slideshow.css', array('media' => 'screen')) }}
-    {{--<script type="text/javascript" src="vpp_site_files/jquery-1.js"></script>--}}
-    {{--<script type="text/javascript" src="vpp_site_files/jquery-ui-1.js"></script>--}}
-    {{--<link rel="stylesheet" type="text/css" href="vpp_site_files/jquery-ui-1.css">--}}
-    {{--<script type="text/javascript" src="vpp_site_files/common.js"></script>--}}
-    {{--<script type="text/javascript" src="vpp_site_files/isearch_corporate.js"></script>--}}
     {{ HTML::script('assets/site/js/jquery-1.js') }}
-{{--    {{ HTML::script('assets/site/js/jquery-ui-1.js') }}--}}
-{{--    {{ HTML::script('assets/site/js/jquery_002.js') }}
-    {{ HTML::script('assets/site/js/jquery_003.js') }}--}}
     {{ HTML::script('assets/site/js/jquery_004.js') }}
     {{--{{ HTML::script('assets/site/js/jquery.nivo.slider.js') }}--}}
     {{--<link rel="stylesheet" type="text/css" href="vpp_site_files/bootstrap-modal.css">--}}
@@ -33,10 +26,6 @@
     {{--<![endif]-->--}}
     {{--<!--[if lt IE 7]>--}}
     {{--<link rel="stylesheet" type="text/css" href="catalog/view/theme/default/stylesheet/ie6.css" />--}}
-    {{--<script type="text/javascript" src="catalog/view/javascript/DD_belatedPNG_0.0.8a-min.js"></script>--}}
-    {{--<script type="text/javascript">--}}
-        {{--DD_belatedPNG.fix('#logo img');--}}
-    {{--</script>--}}
     {{--<![endif]-->--}}
 
     <script type="text/javascript">
@@ -47,34 +36,6 @@
             $('#icon-'+id).attr("src", img_path);
         }
     </script>
-
-    {{--<link rel="stylesheet" href="vpp_site_files/jquery.css" type="text/css">--}}
-    {{--<script src="vpp_site_files/jquery.js" type="text/javascript"></script>--}}
-
-    {{--<script type="text/javascript">--}}
-        {{--$(document).ready(function() {--}}
-            {{--$('a.title').cluetip({splitTitle: '|'});--}}
-            {{--$('ol.rounded a:eq(0)').cluetip({splitTitle: '|', dropShadow: false, cluetipClass: 'rounded', showtitle: false});--}}
-            {{--$('ol.rounded a:eq(1)').cluetip({cluetipClass: 'rounded', dropShadow: false, showtitle: false, positionBy: 'mouse'});--}}
-            {{--$('ol.rounded a:eq(2)').cluetip({cluetipClass: 'rounded', dropShadow: false, showtitle: false, positionBy: 'bottomTop', topOffset: 70});--}}
-            {{--$('ol.rounded a:eq(3)').cluetip({cluetipClass: 'rounded', dropShadow: false, sticky: true, ajaxCache: false, arrows: true});--}}
-            {{--$('ol.rounded a:eq(4)').cluetip({cluetipClass: 'rounded', dropShadow: false});--}}
-        {{--});--}}
-    {{--</script>--}}
-
-    {{--<link href="vpp_site_files/cloud-zoom.css" rel="stylesheet" type="text/css">--}}
-    {{--<script type="text/JavaScript" src="vpp_site_files/cloud-zoom.js"></script>--}}
-
-    {{--<script type="text/javascript" src="vpp_site_files/common_ajaxcart.js"></script>--}}
-    {{--<link rel="stylesheet" type="text/css" href="vpp_site_files/jquery_002.css" media="screen">--}}
-    {{--<script type="text/javascript" src="vpp_site_files/jquery_003.js"></script>--}}
-
-
-
-    {{--<link rel="stylesheet" type="text/css" media="screen,projection" href="vpp_site_files/ui.css">--}}
-
-
-    {{--<style type="text/css">.fancybox-margin{margin-right:0px;}</style>--}}
     </head>
 <body>
 <div id="container">
@@ -99,7 +60,10 @@
             <li><a href="http://www.homenoffice.sg/index.php?route=product/category">Sản phẩm</a>
                 <span id="sub-menu"><img src="{{asset('assets/site/image/submenu_pointer.png')}}"></span>
                 <ul>
-                    <li onmouseover="mouseover('0', 'image/data/1-r.png');" onmouseout="mouseout('0', 'image/data/1.png')" class="has-sub"><a href="http://www.homenoffice.sg/basic-stationery"><img id="icon-0" src="vpp_site_files/1.png" valign="middle">&nbsp;&nbsp;Basic Stationery</a>
+                    <li onmouseover="mouseover('0', 'image/data/1-r.png');" onmouseout="mouseout('0', 'image/data/1.png')" class="has-sub">
+                        <a href="http://www.homenoffice.sg/basic-stationery">
+                            <img id="icon-0" src="vpp_site_files/1.png" valign="middle">&nbsp;&nbsp;Basic Stationery
+                        </a>
                         <ul>
                             <li class="">
                                 <a href="http://www.homenoffice.sg/basic-stationery/batteries">Batteries</a>
@@ -640,96 +604,111 @@
                             Bulk Quantity: <span>50 &amp; above</span><br>Bulk Price: <span>$3.00</span>&nbsp;&nbsp;(Save: <span id="save">25%</span>)<br>*same colour, same size etc
                         </div>
                         <div class="cart">
-                            <input value="Add to Cart" onclick="addToCart('422'); ga('send', 'event', 'Featured Product', 'Add to Cart', 'PaperOne Copier Paper 70gsm A4');" class="button" type="button">
-                            <span class="counter"><input readonly="readonly" style="background-color: rgb(5, 89, 147); background-image: url(&quot;catalog/view/theme/default/image/add-cart.png&quot;);" name="quantity3[422]" onkeyup="changeQuantity('422', this.value);" onclick="editableField(this.name)" type="text"></span></div>
+                            <input value="Add to Cart"  class="button" type="button">
+                            <span class="counter">
+                                <input style="background-color: rgb(5, 113, 175);" name="quantity[]" type="text" value="1">
+                            </span>
+                        </div>
                     </div>
                     <div class="box-column">
                         <div class="image">
-                            <a href="http://www.homenoffice.sg/ik-copy-paper-80gsm-a4"><img src="vpp_site_files/8991389139202-130x130.jpg" alt="IK Copy Paper 80gsm A4"></a>
+                            <a href="http://www.homenoffice.sg/paperone-copier-paper-70gsm-a4"><img src="vpp_site_files/8993242592544-130x130.jpg" alt="PaperOne Copier Paper 70gsm A4"></a>
                             <!--                       <img class="special" src="catalog/view/theme/default/image/save.png">
                                                    -->
                         </div>
-                        <div class="name"><a href="http://www.homenoffice.sg/ik-copy-paper-80gsm-a4">IK Copy Paper 80gsm A4</a></div>
-                        <div class="barcode" style="text-align:left"><small>8991389139202</small></div>
+                        <div class="name"><a href="http://www.homenoffice.sg/paperone-copier-paper-70gsm-a4">PaperOne Copier Paper 70gsm A4</a></div>
+                        <div class="barcode" style="text-align:left"><small>8993242592544</small></div>
                         <div class="price">
-                            <span class="price-new">$3.60</span>
+                            <span class="price-new">$3.45</span>
                         </div>
                         <div class="saving-point">
-                            Retail Price: $3.80<br>
-                            You Save: <span id="save">5%</span>
+                            Retail Price: $4.00<br>
+                            You Save: <span id="save">14%</span>
                         </div>
                         <div class="discount-msg">
-                            Bulk Quantity: <span>50 &amp; above</span><br>Bulk Price: <span>$3.20</span>&nbsp;&nbsp;(Save: <span id="save">16%</span>)<br>*same colour, same size etc
+                            Bulk Quantity: <span>50 &amp; above</span><br>Bulk Price: <span>$3.00</span>&nbsp;&nbsp;(Save: <span id="save">25%</span>)<br>*same colour, same size etc
                         </div>
                         <div class="cart">
-                            <input value="Add to Cart" onclick="addToCart('4260'); ga('send', 'event', 'Featured Product', 'Add to Cart', 'IK Copy Paper 80gsm A4');" class="button" type="button">
-                            <span class="counter"><input readonly="readonly" style="background-color: rgb(5, 89, 147); background-image: url(&quot;catalog/view/theme/default/image/add-cart.png&quot;);" name="quantity3[4260]" onkeyup="changeQuantity('4260', this.value);" onclick="editableField(this.name)" type="text"></span></div>
+                            <input value="Add to Cart"  class="button" type="button">
+                            <span class="counter">
+                                <input style="background-color: rgb(5, 113, 175);" name="quantity[]" type="text" value="1">
+                            </span>
+                        </div>
                     </div>
                     <div class="box-column">
                         <div class="image">
-                            <a href="http://www.homenoffice.sg/arch-file-pvc-3-a4-1315300466"><img src="vpp_site_files/HnO%2520Arch%2520Files-130x130.jpg" alt="Arch File PVC 3&quot; A4"></a>
+                            <a href="http://www.homenoffice.sg/paperone-copier-paper-70gsm-a4"><img src="vpp_site_files/8993242592544-130x130.jpg" alt="PaperOne Copier Paper 70gsm A4"></a>
                             <!--                       <img class="special" src="catalog/view/theme/default/image/save.png">
                                                    -->
                         </div>
-                        <div class="name"><a href="http://www.homenoffice.sg/arch-file-pvc-3-a4-1315300466">Arch File PVC 3" A4</a></div>
-                        <div class="barcode" style="text-align:left"><small></small></div>
+                        <div class="name"><a href="http://www.homenoffice.sg/paperone-copier-paper-70gsm-a4">PaperOne Copier Paper 70gsm A4</a></div>
+                        <div class="barcode" style="text-align:left"><small>8993242592544</small></div>
                         <div class="price">
-                            <span class="price-new">$2.00</span>
+                            <span class="price-new">$3.45</span>
                         </div>
                         <div class="saving-point">
-                            Retail Price: $3.50<br>
-                            You Save: <span id="save">43%</span>
+                            Retail Price: $4.00<br>
+                            You Save: <span id="save">14%</span>
                         </div>
                         <div class="discount-msg">
-                            Bulk Quantity: <span>6 &amp; above</span><br>Bulk Price: <span>$1.80</span>&nbsp;&nbsp;(Save: <span id="save">49%</span>)<br>*same colour, same size etc
+                            Bulk Quantity: <span>50 &amp; above</span><br>Bulk Price: <span>$3.00</span>&nbsp;&nbsp;(Save: <span id="save">25%</span>)<br>*same colour, same size etc
                         </div>
                         <div class="cart">
-                            <input value="Add to Cart" onclick="addToCart('5013'); ga('send', 'event', 'Featured Product', 'Add to Cart', 'Arch File PVC 3&amp;quot; A4');" class="button" type="button">
-                            <span class="counter"><input readonly="readonly" style="background-color: rgb(5, 89, 147); background-image: url(&quot;catalog/view/theme/default/image/add-cart.png&quot;);" name="quantity3[5013]" onkeyup="changeQuantity('5013', this.value);" onclick="editableField(this.name)" type="text"></span></div>
+                            <input value="Add to Cart"  class="button" type="button">
+                            <span class="counter">
+                                <input style="background-color: rgb(5, 113, 175);" name="quantity[]" type="text" value="1">
+                            </span>
+                        </div>
                     </div>
                     <div class="box-column">
                         <div class="image">
-                            <a href="http://www.homenoffice.sg/hno-pvc-l-shape-folder-25-s-a4-clear"><img src="vpp_site_files/6921696300042-130x130.jpg" alt="HnO PVC L-Shape Folder 25'S A4 Clear"></a>
+                            <a href="http://www.homenoffice.sg/paperone-copier-paper-70gsm-a4"><img src="vpp_site_files/8993242592544-130x130.jpg" alt="PaperOne Copier Paper 70gsm A4"></a>
                             <!--                       <img class="special" src="catalog/view/theme/default/image/save.png">
                                                    -->
                         </div>
-                        <div class="name"><a href="http://www.homenoffice.sg/hno-pvc-l-shape-folder-25-s-a4-clear">HnO PVC L-Shape Folder 25'S A4 Clear</a></div>
-                        <div class="barcode" style="text-align:left"><small>6921696300042</small></div>
+                        <div class="name"><a href="http://www.homenoffice.sg/paperone-copier-paper-70gsm-a4">PaperOne Copier Paper 70gsm A4</a></div>
+                        <div class="barcode" style="text-align:left"><small>8993242592544</small></div>
                         <div class="price">
-                            <span class="price-new">$5.50</span>
+                            <span class="price-new">$3.45</span>
                         </div>
                         <div class="saving-point">
-                            Retail Price: $6.12<br>
-                            You Save: <span id="save">10%</span>
+                            Retail Price: $4.00<br>
+                            You Save: <span id="save">14%</span>
                         </div>
                         <div class="discount-msg">
-                            Bulk Quantity: <span>5 &amp; above</span><br>Bulk Price: <span>$4.90</span>&nbsp;&nbsp;(Save: <span id="save">20%</span>)<br>*same colour, same size etc
+                            Bulk Quantity: <span>50 &amp; above</span><br>Bulk Price: <span>$3.00</span>&nbsp;&nbsp;(Save: <span id="save">25%</span>)<br>*same colour, same size etc
                         </div>
                         <div class="cart">
-                            <input value="Add to Cart" onclick="addToCart('657'); ga('send', 'event', 'Featured Product', 'Add to Cart', 'HnO PVC L-Shape Folder 25\'S A4 Clear');" class="button" type="button">
-                            <span class="counter"><input readonly="readonly" style="background-color: rgb(5, 89, 147); background-image: url(&quot;catalog/view/theme/default/image/add-cart.png&quot;);" name="quantity3[657]" onkeyup="changeQuantity('657', this.value);" onclick="editableField(this.name)" type="text"></span></div>
+                            <input value="Add to Cart"  class="button" type="button">
+                            <span class="counter">
+                                <input style="background-color: rgb(5, 113, 175);" name="quantity[]" type="text" value="1">
+                            </span>
+                        </div>
                     </div>
                     <div class="box-column">
                         <div class="image">
-                            <a href="http://www.homenoffice.sg/hno-translucent-pp-l-shape-folder-12-s-a4-colour"><img src="vpp_site_files/HnO%2520Translucent%2520LShape%2520Folder_NEW-130x130.jpg" alt="HnO Translucent PP L-Shape Folder 12'S A4 Colour"></a>
+                            <a href="http://www.homenoffice.sg/paperone-copier-paper-70gsm-a4"><img src="vpp_site_files/8993242592544-130x130.jpg" alt="PaperOne Copier Paper 70gsm A4"></a>
                             <!--                       <img class="special" src="catalog/view/theme/default/image/save.png">
                                                    -->
                         </div>
-                        <div class="name"><a href="http://www.homenoffice.sg/hno-translucent-pp-l-shape-folder-12-s-a4-colour">HnO Translucent PP L-Shape Folder 12'S A4 Colour</a></div>
-                        <div class="barcode" style="text-align:left"><small></small></div>
+                        <div class="name"><a href="http://www.homenoffice.sg/paperone-copier-paper-70gsm-a4">PaperOne Copier Paper 70gsm A4</a></div>
+                        <div class="barcode" style="text-align:left"><small>8993242592544</small></div>
                         <div class="price">
-                            <span class="price-new">$2.20</span>
+                            <span class="price-new">$3.45</span>
                         </div>
                         <div class="saving-point">
-                            Retail Price: $2.44<br>
-                            You Save: <span id="save">10%</span>
+                            Retail Price: $4.00<br>
+                            You Save: <span id="save">14%</span>
                         </div>
                         <div class="discount-msg">
-                            Bulk Quantity: <span>5 &amp; above</span><br>Bulk Price: <span>$1.95</span>&nbsp;&nbsp;(Save: <span id="save">20%</span>)<br>*same colour, same size etc
+                            Bulk Quantity: <span>50 &amp; above</span><br>Bulk Price: <span>$3.00</span>&nbsp;&nbsp;(Save: <span id="save">25%</span>)<br>*same colour, same size etc
                         </div>
                         <div class="cart">
-                            <input value="Add to Cart" onclick="addToCart('697'); ga('send', 'event', 'Featured Product', 'Add to Cart', 'HnO Translucent PP L-Shape Folder 12\'S A4 Colour');" class="button" type="button">
-                            <span class="counter"><input readonly="readonly" style="background-color: rgb(5, 89, 147); background-image: url(&quot;catalog/view/theme/default/image/add-cart.png&quot;);" name="quantity3[697]" onkeyup="changeQuantity('697', this.value);" onclick="editableField(this.name)" type="text"></span></div>
+                            <input value="Add to Cart"  class="button" type="button">
+                            <span class="counter">
+                                <input style="background-color: rgb(5, 113, 175);" name="quantity[]" type="text" value="1">
+                            </span>
+                        </div>
                     </div>
                     <div style="clear:both"></div>
                 </div>
@@ -785,16 +764,6 @@
 <div id="powered" align="center">
     <img id="footer-logo" src="vpp_site_files/footer-logo.png"><br>
     Copyright 2016 ï¿½ Home n Office Products Pte Ltd. All Rights Reserved.
-</div>
-
-<div style="position: absolute; display: none;" id="cluetip-waitimage"></div>
-<div style="display: none; position: absolute;" id="cluetip">
-    <div style="position: relative; z-index: 97;" id="cluetip-outer">
-        <h3 id="cluetip-title"></h3>
-        <div id="cluetip-inner"></div>
-    </div>
-    <div id="cluetip-extra"></div>
-    <div id="cluetip-arrows" class="cluetip-arrows"></div>
 </div>
 <a style="display: none;" href="#" id="toTop"><span id="toTopHover"></span>To Top</a>
 </body>
