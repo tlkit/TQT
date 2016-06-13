@@ -481,7 +481,7 @@
     <div id="notification"></div>
     <div id="content">
         <div class="slideshow">
-            <div id="slideshow0" class="nivoSlider">
+            <div id="slideshow0" class="nivoSlider" style="height: 374px">
                 <a class="nivo-imageLink" href="http://www.homenoffice.sg/filing-and-storage/ring-and-arch-files">
                     <img src="{{asset('assets/vpp_site_files/demo-1.jpg')}}" alt="HnO Arch File">
                 </a>
@@ -505,11 +505,6 @@
                 </a>
             </div>
         </div>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('#slideshow0').nivoSlider();
-            });
-        </script>
         <div style="margin-left: 75px;">
             <div class="home-column"><a href="http://www.homenoffice.sg/f-a-q"><img src="vpp_site_files/01%2520Online%2520Payment%2520200116.png" style="height:197px; width:197px"></a></div>
 
@@ -766,5 +761,22 @@
     Copyright 2016 ï¿½ Home n Office Products Pte Ltd. All Rights Reserved.
 </div>
 <a style="display: none;" href="#" id="toTop"><span id="toTopHover"></span>To Top</a>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#slideshow0').nivoSlider();
+        $(window).on("scroll", function () {
+            var pageOffetTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+
+            if (pageOffetTop > 200) {
+                $("#toTop").show();
+            } else
+                $("#toTop").hide();
+        });
+        $("#toTop").on("click", function () {
+            $("html, body").animate({scrollTop: 0}, 500);
+            return false;
+        });
+    });
+</script>
 </body>
 </html>

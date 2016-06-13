@@ -15,4 +15,8 @@ class BaseSiteController extends BaseController
 
     }
 
+    public function home(){
+
+    }
+
 }
