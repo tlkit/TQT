@@ -18,7 +18,8 @@
 
 Route::group(array('prefix' => '', 'before' => ''), function()
 {
-    Route::get('/',array('as' => 'site.home','uses' =>'SiteHomeController@index'));
+    Route::get('/',array('as' => 'site.home','uses' =>'BaseSiteController@home'));
+    Route::get('c{id}/{group}.html',array('as' => 'site.group','uses' =>'BaseSiteController@group'))->where('id', '[0-9]+');
 });
 
 Route::group(array('prefix' => 'admin', 'before' => ''), function()

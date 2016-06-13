@@ -16,7 +16,11 @@ class BaseSiteController extends BaseController
     }
 
     public function home(){
+        $this->layout->content = View::make('site.SiteLayouts.home');
+    }
 
+    public function group(){
+        $this->layout->content = View::make('site.SiteLayouts.group');
     }
 
 }
