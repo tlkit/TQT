@@ -14,7 +14,7 @@
                     </div><!--lnav-banner-->
                     <div class="lnav-link-container">
                         <ul class="box-category">
-                            <li><img style="margin-right:5px;" src="catalog/view/theme/default/image/bullet-point.png">
+                            <li><img style="margin-right:5px;" src="{{asset('assets/site/image/bullet-point.png')}}">
                                 <a class="active" href="http://www.homenoffice.sg/basic-stationery">Basic Stationery</a>
                                 <ul>
                                     <li>
@@ -251,7 +251,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><img style="margin-right:5px;" src="catalog/view/theme/default/image/bullet-point.png">
+                            <li><img style="margin-right:5px;" src="{{asset('assets/site/image/bullet-point.png')}}">
                                 <a href="http://www.homenoffice.sg/paper-products">Paper Products</a>
                                 <ul>
                                     <li>
@@ -291,7 +291,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><img style="margin-right:5px;" src="catalog/view/theme/default/image/bullet-point.png">
+                            <li><img style="margin-right:5px;" src="{{asset('assets/site/image/bullet-point.png')}}">
                                 <a href="http://www.homenoffice.sg/ink-cartridges-and-toners">Ink Cartridges &amp; Toners</a>
                                 <ul>
                                     <li>
@@ -317,10 +317,10 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><img style="margin-right:5px;" src="catalog/view/theme/default/image/bullet-point.png">
+                            <li><img style="margin-right:5px;" src="{{asset('assets/site/image/bullet-point.png')}}">
                                 <a href="http://www.homenoffice.sg/premium-diary-planner">Premium Diary / Planner</a>
                             </li>
-                            <li><img style="margin-right:5px;" src="catalog/view/theme/default/image/bullet-point.png">
+                            <li><img style="margin-right:5px;" src="{{asset('assets/site/image/bullet-point.png')}}">
                                 <a href="http://www.homenoffice.sg/it-and-travel-accessories">IT &amp; Travel Accessories</a>
                                 <ul>
                                     <li>
@@ -366,7 +366,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><img style="margin-right:5px;" src="catalog/view/theme/default/image/bullet-point.png">
+                            <li><img style="margin-right:5px;" src="{{asset('assets/site/image/bullet-point.png')}}">
                                 <a href="http://www.homenoffice.sg/filing-and-storage">Filing &amp; Storage</a>
                                 <ul>
                                     <li>
@@ -452,7 +452,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><img style="margin-right:5px;" src="catalog/view/theme/default/image/bullet-point.png">
+                            <li><img style="margin-right:5px;" src="{{asset('assets/site/image/bullet-point.png')}}">
                                 <a href="http://www.homenoffice.sg/office-equipment-and-accessories">Office Equipment &amp; Accessories</a>
                                 <ul>
                                     <li>
@@ -536,7 +536,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><img style="margin-right:5px;" src="catalog/view/theme/default/image/bullet-point.png">
+                            <li><img style="margin-right:5px;" src="{{asset('assets/site/image/bullet-point.png')}}">
                                 <a href="http://www.homenoffice.sg/writing-and-correction">Writing &amp; Correction</a>
                                 <ul>
                                     <li>
@@ -604,7 +604,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><img style="margin-right:5px;" src="catalog/view/theme/default/image/bullet-point.png">
+                            <li><img style="margin-right:5px;" src="{{asset('assets/site/image/bullet-point.png')}}">
                                 <a href="http://www.homenoffice.sg/gifts-and-novelties">Gifts &amp; Novelties</a>
                                 <ul>
                                     <li>
@@ -612,7 +612,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><img style="margin-right:5px;" src="catalog/view/theme/default/image/bullet-point.png">
+                            <li><img style="margin-right:5px;" src="{{asset('assets/site/image/bullet-point.png')}}">
                                 <a href="http://www.homenoffice.sg/miscellaneous">Miscellaneous</a>
                                 <ul>
                                     <li>
@@ -687,10 +687,10 @@
                 Bulk Quantity: <span>20 & above</span><br />Bulk Price: <span>$2.65</span>&nbsp;&nbsp;(Save: <span id="save">19%</span>)<br/>*same colour, same size etc
             </div>
             <div class="cart">
-
-                <input type="button" value="Add to Cart" onclick="addToCart('800'); ga('send', 'event', 'Category Page', 'Add to Cart', 'Energizer Alkaline Battery (AA, AAA) 4\'S');" class="button" />
-
-                <span class="counter2"><input type="text" name="quantity3[800]" onkeyup="changeQuantity('800', this.value);" onclick="editableField(this.name)" ></span>
+                <input value="Add to Cart"  class="button" type="button">
+                            <span class="counter2">
+                                <input style="background-color: rgb(5, 113, 175);" name="quantity[]" type="text" value="1" class="sys_quantity">
+                            </span>
             </div>
             <!-- <div class="wishlist">
                   <a onclick="addToWishList('800'); ga('send', 'event', 'Category Page', 'Add to Wishlist', 'Energizer Alkaline Battery (AA, AAA) 4\'S');">
@@ -1167,10 +1167,10 @@
                 Bulk Quantity: <span>10 & above</span><br />Bulk Price: <span>$1.65</span>&nbsp;&nbsp;(Save: <span id="save">10%</span>)<br/>*same colour, same size etc
             </div>
             <div class="cart">
-
-                <input type="button" value="Add to Cart" onclick="addToCart('811'); ga('send', 'event', 'Category Page', 'Add to Cart', 'Eveready Super Heavy Duty Battery AAA 4\'S');" class="button" />
-
-                <span class="counter2"><input type="text" name="quantity3[811]" onkeyup="changeQuantity('811', this.value);" onclick="editableField(this.name)" ></span>
+                <input value="Add to Cart"  class="button" type="button">
+                            <span class="counter2">
+                                <input style="background-color: rgb(5, 113, 175);" name="quantity[]" type="text" value="1" class="sys_quantity">
+                            </span>
             </div>
             <!-- <div class="wishlist">
                   <a onclick="addToWishList('811'); ga('send', 'event', 'Category Page', 'Add to Wishlist', 'Eveready Super Heavy Duty Battery AAA 4\'S');">
@@ -1182,94 +1182,3 @@
     </div>
     <div class="pagination"><div class="links"> <b>1</b>  <a href="http://www.homenoffice.sg/basic-stationery?page=2">2</a>  <a href="http://www.homenoffice.sg/basic-stationery?page=3">3</a>  <a href="http://www.homenoffice.sg/basic-stationery?page=4">4</a>  <a href="http://www.homenoffice.sg/basic-stationery?page=5">5</a>  <a href="http://www.homenoffice.sg/basic-stationery?page=6">6</a>  <a href="http://www.homenoffice.sg/basic-stationery?page=7">7</a>  <a href="http://www.homenoffice.sg/basic-stationery?page=8">8</a>  <a href="http://www.homenoffice.sg/basic-stationery?page=9">9</a>  <a href="http://www.homenoffice.sg/basic-stationery?page=10">10</a>  <a href="http://www.homenoffice.sg/basic-stationery?page=11">11</a></div><div class="results">Showing 1 to 16 of 697 (44 Pages)</div></div>
 </div>
-<script type="text/javascript"><!--
-    function display(view) {
-        if (view == 'list') {
-            $('.product-grid').attr('class', 'product-list');
-
-            $('.product-list > div').each(function(index, element) {
-                html  = '<div class="right">';
-                html += '  <div class="cart">' + $(element).find('.cart').html() + '</div>';
-                html += '  <div class="wishlist">' + $(element).find('.wishlist').html() + '</div>';
-                html += '  <div class="compare">' + $(element).find('.compare').html() + '</div>';
-                html += '</div>';
-
-                html += '<div class="left">';
-
-                var image = $(element).find('.image').html();
-
-                if (image != null) {
-                    html += '<div class="image">' + image + '</div>';
-                }
-
-                var price = $(element).find('.price').html();
-
-                if (price != null) {
-                    html += '<div class="price">' + price  + '</div>';
-                }
-
-                html += '  <div class="name">' + $(element).find('.name').html() + '</div>';
-                html += '  <div class="description">' + $(element).find('.description').html() + '</div>';
-
-                var rating = $(element).find('.rating').html();
-
-                if (rating != null) {
-                    html += '<div class="rating">' + rating + '</div>';
-                }
-
-                html += '</div>';
-
-                $(element).html(html);
-            });
-
-            $('.display').html('<b>Display:</b> List <b>/</b> <a onclick="display(\'grid\');">Grid</a>');
-
-            $.totalStorage('display', 'list');
-        } else {
-            $('.product-list').attr('class', 'product-grid');
-
-            $('.product-grid > div').each(function(index, element) {
-                html = '';
-
-                var image = $(element).find('.image').html();
-
-                if (image != null) {
-                    html += '<div class="image">' + image + '</div>';
-                }
-
-                html += '<div class="name">' + $(element).find('.name').html() + '</div>';
-                html += '<div class="description">' + $(element).find('.description').html() + '</div>';
-
-                var price = $(element).find('.price').html();
-
-                if (price != null) {
-                    html += '<div class="price">' + price  + '</div>';
-                }
-
-                var rating = $(element).find('.rating').html();
-
-                if (rating != null) {
-                    html += '<div class="rating">' + rating + '</div>';
-                }
-
-                html += '<div class="cart">' + $(element).find('.cart').html() + '</div>';
-                html += '<div class="wishlist">' + $(element).find('.wishlist').html() + '</div>';
-                html += '<div class="compare">' + $(element).find('.compare').html() + '</div>';
-
-                $(element).html(html);
-            });
-
-            $('.display').html('<b>Display:</b> <a onclick="display(\'list\');">List</a> <b>/</b> Grid');
-
-            $.totalStorage('display', 'grid');
-        }
-    }
-
-    view = $.totalStorage('display');
-
-    // if (view) {
-    // 	display1(view);
-    // } else {
-    // 	display1('list');
-    // }
-    //--></script>

@@ -19,7 +19,8 @@
 Route::group(array('prefix' => '', 'before' => ''), function()
 {
     Route::get('/',array('as' => 'site.home','uses' =>'BaseSiteController@home'));
-    Route::get('c{id}/{group}.html',array('as' => 'site.group','uses' =>'BaseSiteController@group'))->where('id', '[0-9]+');
+    Route::get('g{id}/{group}.html',array('as' => 'site.group','uses' =>'BaseSiteController@group'))->where('id', '[0-9]+');
+    Route::get('c{id}/{cate}.html',array('as' => 'site.cate','uses' =>'BaseSiteController@cate'))->where('id', '[0-9]+');
 });
 
 Route::group(array('prefix' => 'admin', 'before' => ''), function()
@@ -193,4 +194,9 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     /*Công nợ*/
     Route::get('lia/customer',array('as' => 'admin.lia_customer','uses' => 'LiabilitiesController@liaCustomer'));
     Route::get('lia/provider',array('as' => 'admin.lia_provider','uses' => 'LiabilitiesController@liaProvider'));
+
+    /*Quản trị site*/
+    Route::get('manage_site/banner/view',array('as' => 'admin.mngSite_banner_view','uses' => 'SiteManageController@viewBanner'));
+    Route::get('manage_site/banner/add/{id?}',array('as' => 'admin.mngSite_banner_add','uses' => 'SiteManageController@getAddBanner'))->where('id', '[0-9]+');
+    Route::post('manage_site/banner/add/{id?}',array('as' => 'admin.mngSite_banner_add','uses' => 'SiteManageController@postAddBanner'))->where('id', '[0-9]+');
 });

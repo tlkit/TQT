@@ -220,7 +220,7 @@
                     <div class="cart">
                         <input value="Add to Cart"  class="button" type="button">
                             <span class="counter">
-                                <input style="background-color: rgb(5, 113, 175);" name="quantity[]" type="text" value="1">
+                                <input style="background-color: rgb(5, 113, 175);" name="quantity[]" type="text" value="1" class="sys_quantity">
                             </span>
                     </div>
                 </div>
