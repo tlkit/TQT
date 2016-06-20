@@ -65,4 +65,9 @@ class SiteManageController extends BaseAdminController
         }
     }
 
+    public function viewGroupCategory(){
+
+
+    }
+
 }
