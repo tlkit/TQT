@@ -43,8 +43,8 @@
                         <span data-title="Chọn ảnh đại diện" class="ace-file-container"></span>
                     </label>
                     <div class="clearfix"></div>
-                    <div style="width: 306px;height: 160px;padding: 2px;border: 1px solid gainsboro;@if(isset($param['banner_image']) && $param['banner_image'] != '') @else display: none @endif" class="banner_image_preview">
-                        <img src="@if(isset($param['banner_image']) && $param['banner_image'] != '') {{Croppa::url(Constant::dir_banner.$param['banner_image'], 300, 120)}} @endif" alt="" width="300" height="120">
+                    <div style="width: 306px;height: 160px;padding: 2px;border: 1px solid gainsboro;display: none" class="banner_image_preview">
+                        <img src="" alt="" width="300" height="120">
                         <div class="clearfix"></div>
                         <div class="form-group">
                             <button class="btn btn-sm btn-danger col-sm-12 banner_image_remove" type="button">
@@ -52,6 +52,11 @@
                             </button>
                         </div>
                     </div>
+                    @if(isset($param['banner_image']) && $param['banner_image'] != '')
+                        <div style="width: 306px;height: 126px;padding: 2px;border: 1px solid gainsboro" class="banner_image_old">
+                            <img src="{{Croppa::url(Constant::dir_banner.$param['banner_image'], 300, 120)}}" alt="" width="300" height="120">
+                        </div>
+                    @endif
                 </div>
                 <div class="clearfix"></div>
                 <div class="form-group col-sm-6 sys_time">
@@ -105,6 +110,7 @@
         });
 
         $("#banner_image").change(function () {
+            $(".banner_image_old").hide();
             var fileSize = this.files[0].size;
             var fileType = this.files[0].type;
             if(fileSize>(5*1048576)){ //do something if file size more than 1 mb (1048576)
@@ -121,6 +127,7 @@
                     default:
                         bootbox.alert('File ảnh không đúng định dạng');
                         $(".banner_image_remove").trigger('click');
+                        $(".banner_image_old").show();
                         return false;
                 }
             }
