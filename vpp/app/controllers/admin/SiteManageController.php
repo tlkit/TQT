@@ -65,4 +65,15 @@ class SiteManageController extends BaseAdminController
         }
     }
 
+    public function viewGroupCategory(){
+        $data = GroupCategory::all();
+        $category = Categories::lists('categories_Name','categories_id');
+        $this->layout->content = View::make('admin.SiteManageLayouts.viewGroupCategory')->with('category',$category)->with('data',$data);
+    }
+
+    public function getAddGroupCategory($id = 0){
+        $param = GroupCategory::find($id);
+        $this->layout->content = View::make('admin.SiteManageLayouts.addGroupCategory')->with('id',$id)->with('param',$param);
+    }
+
 }

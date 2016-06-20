@@ -199,4 +199,8 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('manage_site/banner/view',array('as' => 'admin.mngSite_banner_view','uses' => 'SiteManageController@viewBanner'));
     Route::get('manage_site/banner/add/{id?}',array('as' => 'admin.mngSite_banner_add','uses' => 'SiteManageController@getAddBanner'))->where('id', '[0-9]+');
     Route::post('manage_site/banner/add/{id?}',array('as' => 'admin.mngSite_banner_add','uses' => 'SiteManageController@postAddBanner'))->where('id', '[0-9]+');
+
+    Route::get('manage_site/group_category/view',array('as' => 'admin.mngSite_group_category_view','uses' => 'SiteManageController@viewGroupCategory'));
+    Route::get('manage_site/group_category/add/{id?}',array('as' => 'admin.mngSite_group_category_add','uses' => 'SiteManageController@getGroupCategory'))->where('id', '[0-9]+');
+    Route::post('manage_site/group_category/add/{id?}',array('as' => 'admin.mngSite_group_category_add','uses' => 'SiteManageController@postGroupCategory'))->where('id', '[0-9]+');
 });
