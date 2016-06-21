@@ -22,11 +22,11 @@
                     <table class="table table-bordered">
                         <thead class="thin-border-bottom">
                         <tr class="">
-                            <th class="center" width="5%">STT</th>
+                            <th class="center" width="10%">STT</th>
                             <th class="center" width="30%">Tên</th>
-                            <th class="center" width="30%">Trạng thái</th>
-                            <th class="center" width="20%">Danh mục con</th>
-                            <th class="center" width="15%">Thao tác</th>
+                            <th class="center" width="10%">Trạng thái</th>
+                            <th class="center" width="40%">Danh mục con</th>
+                            <th class="center" width="10%">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -41,16 +41,16 @@
                                         <i class="ace-icon fa fa-check bigger-120"></i>
                                     </a>
                                 </td>
-                                <td class="center">
+                                <td class="left">
                                     @if($item['category_list_id'] != '')
-                                        <?php $child = implode(',',$item['category_list_id'])?>
+                                        <?php $child = explode(',',$item['category_list_id'])?>
                                         @foreach($child as $v)
                                             <p>[{{$v}}] {{isset($category[$v]) ? $category[$v] : ''}}</p>
                                         @endforeach
                                     @endif
                                 </td>
                                 <td class="center">
-                                    <a href="{{URL::route('admin.mngSite_banner_add',array('id' => $item['banner_id']))}}" class="btn btn-xs btn-warning" data-content="Sửa danh mục site" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                    <a href="{{URL::route('admin.mngSite_group_category_add',array('id' => $item['group_category_id']))}}" class="btn btn-xs btn-warning" data-content="Sửa danh mục site" data-placement="bottom" data-trigger="hover" data-rel="popover">
                                         <i class="ace-icon fa fa-edit bigger-120"></i>
                                     </a>
                                 </td>

@@ -19,8 +19,9 @@
 Route::group(array('prefix' => '', 'before' => ''), function()
 {
     Route::get('/',array('as' => 'site.home','uses' =>'BaseSiteController@home'));
-    Route::get('g{id}/{group}.html',array('as' => 'site.group','uses' =>'BaseSiteController@group'))->where('id', '[0-9]+');
-    Route::get('c{id}/{cate}.html',array('as' => 'site.cate','uses' =>'BaseSiteController@cate'))->where('id', '[0-9]+');
+    Route::get('g{id}/{name}.html',array('as' => 'site.group','uses' =>'BaseSiteController@group'))->where('id', '[0-9]+');
+    Route::get('c{id}/{name}.html',array('as' => 'site.cate','uses' =>'BaseSiteController@cate'))->where('id', '[0-9]+');
+    Route::get('p{id}/{name}.html',array('as' => 'site.product','uses' =>'BaseSiteController@product'))->where('id', '[0-9]+');
 });
 
 Route::group(array('prefix' => 'admin', 'before' => ''), function()

@@ -39,4 +39,13 @@ class GroupCategory extends Eloquent
             return false;
         }
     }
+
+    public static function getGroupForSite(){
+        try {
+            $data = GroupCategory::where('category_status',1)->get();
+            return $data;
+        } catch (PDOException $e) {
+            throw new PDOException();
+        }
+    }
 }

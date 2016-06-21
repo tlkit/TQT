@@ -1,102 +1,34 @@
 <div id="content">
+    @if($banner)
     <div class="slideshow">
         <div id="slideshow0" class="nivoSlider" style="height: 374px">
-            <a class="nivo-imageLink" href="http://www.homenoffice.sg/filing-and-storage/ring-and-arch-files">
-                <img src="{{asset('assets/vpp_site_files/demo-1.jpg')}}" alt="HnO Arch File">
+            @foreach($banner as $ban)
+            <a class="nivo-imageLink" href="{{$ban['banner_url']}}">
+                <img src="{{Croppa::url(Constant::dir_banner.$ban['banner_image'], 1024, 374)}}" alt="{{$ban['banner_name']}}">
             </a>
-            <a class="nivo-imageLink" href="http://www.homenoffice.sg/writing-and-correction/highlighters">
-                <img src="{{asset('assets/vpp_site_files/demo-2.jpg')}}" alt="HnO Highlighter">
-            </a>
-            <a class="nivo-imageLink" href="http://www.homenoffice.sg/writing-and-correction/markers/whiteboard-markers">
-                <img src="{{asset('assets/vpp_site_files/demo-3.jpg')}}" alt="HnO Marker">
-            </a>
-            <a class="nivo-imageLink" href="http://www.homenoffice.sg/basic-stationery/staplers-and-paper-punches/desktop-staplers">
-                <img  src="{{asset('assets/vpp_site_files/demo-4.jpg')}}" alt="HnO Stapler">
-            </a>
-            <a class="nivo-imageLink" href="http://www.homenoffice.sg/basic-stationery/desk-accessories">
-                <img src="{{asset('assets/vpp_site_files/demo-5.jpg')}}" alt="HnO Holders">
-            </a>
-            <a class="nivo-imageLink" href="http://www.homenoffice.sg/index.php?route=product/isearch&amp;search=sarasa">
-                <img  src="{{asset('assets/vpp_site_files/demo-6.jpg')}}" alt="Sarasa">
-            </a>
-            <a class="nivo-imageLink" href="http://www.homenoffice.sg/basic-stationery/clips-pins-and-tacks">
-                <img src="{{asset('assets/vpp_site_files/demo-7.jpg')}}" alt="HnO Basic">
-            </a>
+            @endforeach
         </div>
     </div>
-    <div style="margin-left: 75px;">
-        <div class="home-column"><a href="http://www.homenoffice.sg/f-a-q"><img src="vpp_site_files/01%2520Online%2520Payment%2520200116.png" style="height:197px; width:197px"></a></div>
-
-        <div class="home-column"><a href="http://www.homenoffice.sg/f-a-q"><img src="vpp_site_files/02%2520Delivery%2520200116.png" style="height:197px; width:197px"></a></div>
-
-        <div class="home-column"><a href="http://www.homenoffice.sg/outlet"><img src="vpp_site_files/03%2520Collection%2520200116.png" style="height:197px; width:197px"></a></div>
-
-        <div class="home-column"><a href="http://www.homenoffice.sg/index.php?route=product/category"><img src="vpp_site_files/04%2520Spend%252050%2520200116.png" style="height:197px; width:197px"></a></div>
-    </div>
-    <div style="clear:both;"></div><h1 style="display: none;">Home n Office: Office Stationery Supplier Singapore</h1>
-
+    @endif
     <div class="box">
-        <div class="box-heading"><span class="seeall"><a href="http://www.homenoffice.sg/index.php?route=product/category">See All</a></span><span class="title" style="margin-left:390px">Categories</span></div>
+        <div class="box-heading"><span class="seeall"><a href="http://www.homenoffice.sg/index.php?route=product/category">Xem tất cả</a></span><span class="title" style="margin-left:390px">Danh mục</span></div>
         <div class="box-content">
             <div class="box-product" align="center">
+                @foreach($treeCategory as $group)
                 <div class="box-column3">
-                    <a href="http://www.homenoffice.sg/basic-stationery">
-                        <img src="vpp_site_files/icon_basicstationery.png" height="150" width="150"><br><br>
-                        Basic Stationery		</a>
+                    <a href="{{URL::route('site.group',array('id' => $group["group_category_id"],'name' => FunctionLib::safe_title($group["group_category_name"])))}}">
+                        <img src="{{Croppa::url(Constant::dir_group_category.$group['group_category_image'], 150, 150)}}" height="150" width="150"><br><br>
+                        {{$group["group_category_name"]}}
+                    </a>
                 </div>
-                <div class="box-column3">
-                    <a href="http://www.homenoffice.sg/paper-products">
-                        <img src="vpp_site_files/icon_paper%2520products.png" height="150" width="150"><br><br>
-                        Paper Products		</a>
-                </div>
-                <div class="box-column3">
-                    <a href="http://www.homenoffice.sg/ink-cartridges-and-toners">
-                        <img src="vpp_site_files/icon_cartridges.png" height="150" width="150"><br><br>
-                        Ink Cartridges &amp; Toners		</a>
-                </div>
-                <div class="box-column3">
-                    <a href="http://www.homenoffice.sg/premium-diary-planner">
-                        <img src="vpp_site_files/icon_planner.png" height="150" width="150"><br><br>
-                        Premium Diary / Planner		</a>
-                </div>
-                <div class="box-column3">
-                    <a href="http://www.homenoffice.sg/it-and-travel-accessories">
-                        <img src="vpp_site_files/icon_it%2520travel.png" height="150" width="150"><br><br>
-                        IT &amp; Travel Accessories		</a>
-                </div>
-                <div style="clear:both"></div>
-                <div class="box-column3">
-                    <a href="http://www.homenoffice.sg/filing-and-storage">
-                        <img src="vpp_site_files/icon_fillingsupplies.png" height="150" width="150"><br><br>
-                        Filing &amp; Storage		</a>
-                </div>
-                <div class="box-column3">
-                    <a href="http://www.homenoffice.sg/office-equipment-and-accessories">
-                        <img src="vpp_site_files/icon_office%2520equipments.png" height="150" width="150"><br><br>
-                        Office Equipment &amp; Accessories		</a>
-                </div>
-                <div class="box-column3">
-                    <a href="http://www.homenoffice.sg/writing-and-correction">
-                        <img src="vpp_site_files/icon_writinginstruments_2.png" height="150" width="150"><br><br>
-                        Writing &amp; Correction		</a>
-                </div>
-                <div class="box-column3">
-                    <a href="http://www.homenoffice.sg/gifts-and-novelties">
-                        <img src="vpp_site_files/icon_gift%2520novelties.png" height="150" width="150"><br><br>
-                        Gifts &amp; Novelties		</a>
-                </div>
-                <div class="box-column3">
-                    <a href="http://www.homenoffice.sg/miscellaneous">
-                        <img src="vpp_site_files/icon_misc.png" height="150" width="150"><br><br>
-                        Miscellaneous		</a>
-                </div>
+                @endforeach
                 <div style="clear:both"></div>
             </div>
         </div>
     </div>
 
     <div class="box">
-        <div class="box-heading"><span class="title-best" style="background-image: none;">Featured Products</span></div>
+        <div class="box-heading"><span class="title-best" style="background-image: none;">Sản phẩm nổi bật</span></div>
         <div class="box-content">
             <div class="box-product" align="center">
                 <div class="box-column">

@@ -128,7 +128,7 @@ class SiteManageController extends BaseAdminController
                 $param['group_category_icon_hover'] = $gc['group_category_icon_hover'];
             }
             $category = Categories::lists('categories_Name','categories_id');
-            $this->layout->content = View::make('admin.SiteManageLayouts.addGroupCategory')->with('category',$category)->with('id',$id)->with('param',$param);;
+            $this->layout->content = View::make('admin.SiteManageLayouts.addGroupCategory')->with('error',$error)->with('category',$category)->with('id',$id)->with('param',$param);;
         }else{
             $dataSave['group_category_name'] = $param['group_category_name'];
             $dataSave['group_category_status'] = $param['group_category_status'];
@@ -140,13 +140,13 @@ class SiteManageController extends BaseAdminController
                 $dataSave['group_category_image'] = $name_image;
             }
             if ($icon) {
-                $name_icon = time() . '-' . $image->getClientOriginalName();
-                $image->move(Constant::dir_group_category, $name_icon);
+                $name_icon = time() . '-' . $icon->getClientOriginalName();
+                $icon->move(Constant::dir_group_category, $name_icon);
                 $dataSave['group_category_icon'] = $name_icon;
             }
             if ($icon_hover) {
-                $name_icon_hover = time() . '-' . $image->getClientOriginalName();
-                $image->move(Constant::dir_group_category, $name_icon_hover);
+                $name_icon_hover = time() . '-' . $icon_hover->getClientOriginalName();
+                $icon_hover->move(Constant::dir_group_category, $name_icon_hover);
                 $dataSave['group_category_icon_hover'] = $name_icon_hover;
             }
             if(GroupCategory::add($id,$dataSave)){

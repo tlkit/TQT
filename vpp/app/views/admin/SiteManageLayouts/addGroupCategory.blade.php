@@ -62,7 +62,7 @@
                     </label>
                     <div class="clearfix"></div>
                     <div style="width: 41px;height: 75px;padding: 2px;border: 1px solid gainsboro;display: none" class="group_category_icon_preview">
-                        <img src="" alt="" width="35" height="35">
+                        <img src="" alt="" width="30" height="30">
                         <div class="clearfix"></div>
                         <div class="form-group">
                             <button class="btn btn-sm btn-danger col-sm-12 group_category_icon_remove" type="button">
@@ -72,7 +72,7 @@
                     </div>
                     @if(isset($param['group_category_icon']) && $param['group_category_icon'] != '')
                         <div style="width: 41px;height: 41px;padding: 2px;border: 1px solid gainsboro" class="group_category_icon_old">
-                            <img src="{{Croppa::url(Constant::dir_group_category.$param['group_category_icon'], 35, 35)}}" alt="" width="35" height="35">
+                            <img src="{{Croppa::url(Constant::dir_group_category.$param['group_category_icon'], 30, 30)}}" alt="" width="30" height="30">
                         </div>
                     @endif
                 </div>
@@ -86,7 +86,7 @@
                     </label>
                     <div class="clearfix"></div>
                     <div style="width: 41px;height: 75px;padding: 2px;border: 1px solid gainsboro;display: none" class="group_category_icon_hover_preview">
-                        <img src="" alt="" width="35" height="35">
+                        <img src="" alt="" width="30" height="30">
                         <div class="clearfix"></div>
                         <div class="form-group">
                             <button class="btn btn-sm btn-danger col-sm-12 group_category_icon_hover_remove" type="button">
@@ -96,7 +96,7 @@
                     </div>
                     @if(isset($param['group_category_icon_hover']) && $param['group_category_icon_hover'] != '')
                         <div style="width: 41px;height: 41px;padding: 2px;border: 1px solid gainsboro" class="group_category_icon_hover_old">
-                            <img src="{{Croppa::url(Constant::dir_group_category.$param['group_category_icon_hover'], 35, 35)}}" alt="" width="35" height="35">
+                            <img src="{{Croppa::url(Constant::dir_group_category.$param['group_category_icon_hover'], 30, 30)}}" alt="" width="30" height="30">
                         </div>
                     @endif
                 </div>

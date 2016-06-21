@@ -12,4 +12,12 @@ class Constant
     const dir_group_category = 'uploads/groupcategory/';
     const dir_product = 'uploads/product/';
 
+    public static $sort = array(
+        'new' => array(
+            'label' => 'Mới nhất',
+            'field' => 'product_id',
+            'type' => 'DESC'
+        ),
+    );
+
 }

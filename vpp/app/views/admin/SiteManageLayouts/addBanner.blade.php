@@ -60,7 +60,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="form-group col-sm-6 sys_time">
-                    <label for="banner_start_time">Ngày tạo từ </label>
+                    <label for="banner_start_time">Ngày chạy từ</label>
                     <div class="input-group input-group-sm">
                         <input type="text" id="banner_start_time" name="banner_start_time" class="form-control" @if(isset($param['banner_start_time']) && $param['banner_start_time'] != '')value="{{$param['banner_start_time']}}"@endif/>
                         <span class="input-group-addon">
@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div class="form-group col-sm-6 sys_time">
-                    <label for="banner_end_time">Ngày tạo từ </label>
+                    <label for="banner_end_time">Đến ngày </label>
                     <div class="input-group input-group-sm">
                         <input type="text" id="banner_end_time" name="banner_end_time" class="form-control" @if(isset($param['banner_end_time']) && $param['banner_end_time'] != '')value="{{$param['banner_end_time']}}"@endif/>
                         <span class="input-group-addon">
