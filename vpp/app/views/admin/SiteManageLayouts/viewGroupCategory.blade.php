@@ -5,7 +5,7 @@
                 <i class="ace-icon fa fa-home home-icon"></i>
                 <a href="{{URL::route('admin.dashboard')}}">Home</a>
             </li>
-            <li class="active">Danh sách banner</li>
+            <li class="active">Danh mục trên site</li>
         </ul><!-- /.breadcrumb -->
     </div>
 
@@ -14,7 +14,7 @@
             <div class="col-xs-12">
                 <!-- PAGE CONTENT BEGINS -->
                 <div class="row pull-right">
-                    <a href="{{URL::route('admin.mngSite_banner_add')}}" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i> Tạo mới banner</a>
+                    <a href="{{URL::route('admin.mngSite_group_category_add')}}" class="btn btn-danger btn-sm"><i class="fa fa-plus"></i> Tạo mới danh mục site</a>
                 </div>
                 <div class="clearfix"></div>
                 <div class="space-6"></div>
@@ -23,9 +23,9 @@
                         <thead class="thin-border-bottom">
                         <tr class="">
                             <th class="center" width="5%">STT</th>
-                            <th class="center" width="30%">Banner</th>
-                            <th class="center" width="30%">Ảnh</th>
-                            <th class="center" width="20%">Thời gian chạy</th>
+                            <th class="center" width="30%">Tên</th>
+                            <th class="center" width="30%">Trạng thái</th>
+                            <th class="center" width="20%">Danh mục con</th>
                             <th class="center" width="15%">Thao tác</th>
                         </tr>
                         </thead>
@@ -34,18 +34,23 @@
                             <tr>
                                 <td class="center">{{$key+1 }}</td>
                                 <td class="left">
-                                    [{{$item['banner_id']}}] {{$item['banner_name']}}
-                                    <br>
-                                    <i style="font-size: 11px">{{$item['banner_url']}}</i>
+                                    [{{$item['group_category_id']}}] {{$item['group_category_name']}}
                                 </td>
                                 <td class="center">
-                                    <img src="{{Croppa::url(Constant::dir_banner.$item['banner_image'], 300, 120)}}" alt="{{$item['banner_name']}}">
+                                    <a href="javascript:void(0)" class="btn btn-xs btn-success" data-content="Hiện" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                        <i class="ace-icon fa fa-check bigger-120"></i>
+                                    </a>
                                 </td>
                                 <td class="center">
-                                    {{date('d/m/Y',$item['banner_start_time'])}} - {{date('d/m/Y',$item['banner_end_time'])}}
+                                    @if($item['category_list_id'] != '')
+                                        <?php $child = implode(',',$item['category_list_id'])?>
+                                        @foreach($child as $v)
+                                            <p>[{{$v}}] {{isset($category[$v]) ? $category[$v] : ''}}</p>
+                                        @endforeach
+                                    @endif
                                 </td>
                                 <td class="center">
-                                    <a href="{{URL::route('admin.mngSite_banner_add',array('id' => $item['banner_id']))}}" class="btn btn-xs btn-warning" data-content="Sửa banner" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                    <a href="{{URL::route('admin.mngSite_banner_add',array('id' => $item['banner_id']))}}" class="btn btn-xs btn-warning" data-content="Sửa danh mục site" data-placement="bottom" data-trigger="hover" data-rel="popover">
                                         <i class="ace-icon fa fa-edit bigger-120"></i>
                                     </a>
                                 </td>
@@ -57,8 +62,8 @@
                     <div class="alert">
                         Không có dữ liệu
                     </div>
-                @endif
-                <!-- PAGE CONTENT ENDS -->
+                    @endif
+                            <!-- PAGE CONTENT ENDS -->
             </div>
             <!-- /.col -->
         </div>

@@ -40,6 +40,7 @@ $(document).ready(function(){
     }
 
     $("#product_avatar").change(function () {
+        $(".product_avatar_old").hide();
         var fileSize = this.files[0].size;
         var fileType = this.files[0].type;
         if(fileSize>1048576){ //do something if file size more than 1 mb (1048576)
@@ -56,6 +57,7 @@ $(document).ready(function(){
                 default:
                     bootbox.alert('File ảnh không đúng định dạng');
                     $(".product_avatar_remove").trigger('click');
+                    $(".product_avatar_old").show();
                     return false;
             }
         }
@@ -70,6 +72,7 @@ $(document).ready(function(){
     });
 
     $("#product_image").change(function () {
+        $(".product_image_old").hide();
         var length = parseInt(this.files.length);
         var i = 0;
         while(i < length){
@@ -91,6 +94,7 @@ $(document).ready(function(){
                     default:
                         bootbox.alert('File ảnh "' + name + '" không đúng định dạng');
                         $(".product_image_remove").trigger('click');
+                        $(".product_image_old").show();
                         return false;
                 }
             }

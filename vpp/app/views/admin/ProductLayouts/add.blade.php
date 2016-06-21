@@ -105,6 +105,11 @@
                                 </button>
                             </div>
                         </div>
+                        @if(isset($param['product_Avatar']) && $param['product_Avatar'] != '')
+                            <div style="width: 156px;height: 156px;padding: 2px;border: 1px solid gainsboro" class="product_avatar_old">
+                                <img src="{{Croppa::url(Constant::dir_product.$param['product_Avatar'], 150, 150)}}" alt="" width="150" height="150">
+                            </div>
+                        @endif
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-group">
@@ -121,6 +126,17 @@
                         <div style="width: 100%;display: none;" class="product_image_preview">
 
                         </div>
+                        @if(isset($param['product_Image']) && $param['product_Image'] != '')
+                            <div style="width: 100%;display: none;" class="product_image_old">
+                                <?php $aryImage = json_decode($param['product_Image'],true)?>
+                                @foreach($aryImage as $image)
+                                        <div style="width: 156px;height: 156px;padding: 2px;margin: 2px;border: 1px solid gainsboro;float: left"><img src="{{Croppa::url(Constant::dir_product.$image, 150, 150)}}" alt="" width="150" height="150"></div>
+                                @endforeach
+                            </div>
+                            {{--<div style="width: 41px;height: 41px;padding: 2px;border: 1px solid gainsboro" class="product_avatar_old">
+                                <img src="{{Croppa::url(Constant::dir_product.$param['product_Avatar'], 35, 35)}}" alt="" width="35" height="35">
+                            </div>--}}
+                        @endif
                     </div>
                 </div>
                 <div class="form-group col-sm-6">

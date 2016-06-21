@@ -178,6 +178,35 @@
         </div><!-- /.sidebar-shortcuts -->
 
         <ul class="nav nav-list">
+            <li class="@if(Route::currentRouteName() == 'admin.mngSite_banner_view' || Route::currentRouteName() == 'admin.mngSite_group_category_view')active @endif">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-sitemap"></i>
+                    <span class="menu-text"> Quản trị site</span>
+
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+
+                <b class="arrow"></b>
+
+                <ul class="submenu  nav-show ">
+                    <li class="@if(Route::currentRouteName() == 'admin.mngSite_banner_view')active @endif">
+                        <a href="{{URL::route('admin.mngSite_banner_view')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Quản trị banner
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.mngSite_group_category_view')active @endif">
+                        <a href="{{URL::route('admin.mngSite_group_category_view')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Danh mục site
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
             <li class="@if(Route::currentRouteName() == 'admin.user_view' || Route::currentRouteName() == 'admin.personnel_list'|| Route::currentRouteName() == 'admin.permission_view'|| Route::currentRouteName() == 'admin.groupUser_view')active @endif">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-user"></i>

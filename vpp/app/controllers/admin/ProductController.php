@@ -134,14 +134,14 @@ class ProductController extends BaseAdminController
         if ($this->valid($dataSave, $id) && empty($this->error)) {
             if ($file) {
                 $name = time() . '-' . $file->getClientOriginalName();
-                $file->move('uploads/avatar', $name);
+                $file->move(Constant::dir_product, $name);
                 $dataSave['product_Avatar'] = $name;
             }
             if ($files) {
                 $image = array();
                 foreach ($files as $fi) {
                     $name = time() . '-' . $fi->getClientOriginalName();
-                    $fi->move('uploads/image', $name);
+                    $fi->move(Constant::dir_product, $name);
                     $image[] = $name;
                 }
                 if ($image) {
@@ -160,6 +160,11 @@ class ProductController extends BaseAdminController
                     return Redirect::route('admin.product_list');
                 }
             }
+        }
+        if ($id > 0) {
+            $pro = Product::find($id);
+            $dataSave['product_Image'] = $pro['product_Image'];
+            $dataSave['product_Avatar'] = $pro['product_Avatar'];
         }
         $this->layout->content = View::make('admin.ProductLayouts.add')
             ->with('id', $id)

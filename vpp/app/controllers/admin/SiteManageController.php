@@ -73,7 +73,88 @@ class SiteManageController extends BaseAdminController
 
     public function getAddGroupCategory($id = 0){
         $param = GroupCategory::find($id);
-        $this->layout->content = View::make('admin.SiteManageLayouts.addGroupCategory')->with('id',$id)->with('param',$param);
+        $category = Categories::lists('categories_Name','categories_id');
+        $this->layout->content = View::make('admin.SiteManageLayouts.addGroupCategory')->with('category',$category)->with('id',$id)->with('param',$param);
+    }
+
+    public function postAddGroupCategory($id = 0){
+        $param['group_category_name'] = htmlspecialchars(trim(Request::get('group_category_name','')));
+        $param['group_category_status'] = (int)Request::get('group_category_status',0);
+        $param['category_status'] = (int)Request::get('category_status',0);
+        $param['category_list_id'] = Request::get('category_list_id',array());
+        $param['category_list_id'] = ($param['category_list_id']) ? implode(',',$param['category_list_id']) : '';
+        $error = $image = $icon = $icon_hover = array();
+        if ( Input::hasFile('group_category_image')) {
+            $image = Input::file('group_category_image');
+            $extension_image = $image->getClientOriginalExtension();
+            $size_image = $image->getSize();
+            if(!in_array($extension_image,FunctionLib::$array_allow_image) || $size_image > FunctionLib::$size_image_max){
+                $error[] = 'Ảnh  không hợp lệ';
+            }
+        }else{
+            if($id == 0){
+                $error[] = 'Chưa nhập file ảnh';
+            }
+        }
+        if ( Input::hasFile('group_category_icon')) {
+            $icon = Input::file('group_category_icon');
+            $extension_icon = $icon->getClientOriginalExtension();
+            $size_icon = $icon->getSize();
+            if(!in_array($extension_icon,FunctionLib::$array_allow_image) || $size_icon > FunctionLib::$size_image_max){
+                $error[] = 'Icon không hợp lệ';
+            }
+        }else{
+            if($id == 0){
+                $error[] = 'Chưa nhập file icon';
+            }
+        }
+        if ( Input::hasFile('group_category_icon_hover')) {
+            $icon_hover = Input::file('group_category_icon_hover');
+            $extension_icon_hover = $icon_hover->getClientOriginalExtension();
+            $size_icon_hover = $icon_hover->getSize();
+            if(!in_array($extension_icon_hover,FunctionLib::$array_allow_image) || $size_icon_hover > FunctionLib::$size_image_max){
+                $error[] = 'Icon hover  không hợp lệ';
+            }
+        }else{
+            if($id == 0){
+                $error[] = 'Chưa nhập file icon hover';
+            }
+        }
+        if($error){
+            if($id > 0){
+                $gc = GroupCategory::find($id);
+                $param['group_category_image'] = $gc['group_category_image'];
+                $param['group_category_icon'] = $gc['group_category_icon'];
+                $param['group_category_icon_hover'] = $gc['group_category_icon_hover'];
+            }
+            $category = Categories::lists('categories_Name','categories_id');
+            $this->layout->content = View::make('admin.SiteManageLayouts.addGroupCategory')->with('category',$category)->with('id',$id)->with('param',$param);;
+        }else{
+            $dataSave['group_category_name'] = $param['group_category_name'];
+            $dataSave['group_category_status'] = $param['group_category_status'];
+            $dataSave['category_status'] = $param['category_status'];
+            $dataSave['category_list_id'] = $param['category_list_id'];
+            if ($image) {
+                $name_image = time() . '-' . $image->getClientOriginalName();
+                $image->move(Constant::dir_group_category, $name_image);
+                $dataSave['group_category_image'] = $name_image;
+            }
+            if ($icon) {
+                $name_icon = time() . '-' . $image->getClientOriginalName();
+                $image->move(Constant::dir_group_category, $name_icon);
+                $dataSave['group_category_icon'] = $name_icon;
+            }
+            if ($icon_hover) {
+                $name_icon_hover = time() . '-' . $image->getClientOriginalName();
+                $image->move(Constant::dir_group_category, $name_icon_hover);
+                $dataSave['group_category_icon_hover'] = $name_icon_hover;
+            }
+            if(GroupCategory::add($id,$dataSave)){
+                return Redirect::route('admin.mngSite_group_category_view');
+            }else{
+                return Redirect::route('admin.mngSite_group_category_add',array('id' => $id));
+            }
+        }
     }
 
 }
