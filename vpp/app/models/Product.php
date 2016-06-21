@@ -208,5 +208,23 @@ class Product extends Eloquent
         return $product;
     }
 
+    public static function getProductCate($cid = array(), $orderBy = '', $type = 'DESC', $offset = 0, $limit = 16, &$total)
+    {
+        try {
+            $query = Product::where('product_Status', 1);
+            if ($cid) {
+                $query->whereIn('product_Category', $cid);
+            }
+            $total = $query->count();
+            if ($orderBy != '') {
+                $query->orderBy($orderBy, $type);
+            }
+            $data = $query->skip($offset)->take($limit)->get();
+            return $data;
+        } catch (PDOException $e) {
+            throw new PDOException();
+        }
+    }
+
 
 }

@@ -18,6 +18,11 @@ class Constant
             'field' => 'product_id',
             'type' => 'DESC'
         ),
+        'name-az' => array(
+            'label' => 'Tên(A - Z)',
+            'field' => 'product_Name',
+            'type' => 'ASC'
+        ),
     );
 
 }
