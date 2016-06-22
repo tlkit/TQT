@@ -40,4 +40,6 @@ class Constant
         ),
     );
 
+    public static $limit = array(16, 20, 40, 60, 80);
+
 }

@@ -17,12 +17,12 @@
                             @foreach($treeCategory as $group)
                             <li>
                                 <img style="margin-right:5px;" src="{{asset('assets/site/image/bullet-point.png')}}">
-                                <a @if($id == $group['group_category_id']) class="active" @endif href="{{URL::route('site.group',array('id' => $group["group_category_id"],'name' => FunctionLib::safe_title($group["group_category_name"])))}}">{{$group["group_category_name"]}}</a>
+                                <a @if($gid == $group['group_category_id']) class="active" @endif href="{{URL::route('site.group',array('id' => $group["group_category_id"],'name' => FunctionLib::safe_title($group["group_category_name"])))}}">{{$group["group_category_name"]}}</a>
                                 @if(isset($group['child']) && $group['category_status'] == 1)
                                 <ul>
                                     @foreach($group['child'] as $k => $child)
                                     <li>
-                                        <a href="{{URL::route('site.cate',array('gid' => $id,'id' => $k,'name' => FunctionLib::safe_title($child)))}}">{{$child}}</a>
+                                        <a @if($k == $id) class="active" @endif href="{{URL::route('site.cate',array('gid' => $gid,'id' => $k,'name' => FunctionLib::safe_title($child)))}}">{{$child}}</a>
                                     </li>
                                     @endforeach
                                 </ul>
@@ -38,7 +38,7 @@
 </div>
 <div id="content">
     <!-- <h1>Batteries <a href="http://www.homenoffice.sg/index.php?route=feed/syndication&format=RSS2.0&catid=67" title="Batteries"><img src="image/data/rss.jpg" /></a></h1> -->
-    <h1>@if(isset($treeCategory[$id])) {{$treeCategory[$id]['group_category_name']}} @else Tất cả @endif</h1>
+    <h1>@if(isset($treeCategory[$gid]['child'][$id])) {{$treeCategory[$gid]['child'][$id]}} @endif</h1>
 
     <div class="product-filter">
         <!-- <div class="display"><b>Display:</b> List <b>/</b> <a onclick="display('grid');">Grid</a></div> -->

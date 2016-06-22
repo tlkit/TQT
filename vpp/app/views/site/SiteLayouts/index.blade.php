@@ -68,9 +68,9 @@
                         @if(isset($group['child']) && $group['category_status'] == 1)
                         <ul>
                             @foreach($group['child'] as $k => $child)
-                            <li class="">
-                                <a href="{{URL::route('site.cate',array('id' => $k,'name' => FunctionLib::safe_title($child)))}}">{{$child}}</a>
-                            </li>
+                                <li class="">
+                                    <a href="{{URL::route('site.cate',array('gid' => $group['group_category_id'],'id' => $k,'name' => FunctionLib::safe_title($child)))}}">{{$child}}</a>
+                                </li>
                             @endforeach
                         </ul>
                         @endif
