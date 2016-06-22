@@ -23,6 +23,21 @@ class Constant
             'field' => 'product_Name',
             'type' => 'ASC'
         ),
+        'name-za' => array(
+            'label' => 'Tên(Z - A)',
+            'field' => 'product_Name',
+            'type' => 'DESC'
+        ),
+        'price-az' => array(
+            'label' => 'Giá(Thấp - Cao)',
+            'field' => 'product_Price',
+            'type' => 'ASC'
+        ),
+        'price-za' => array(
+            'label' => 'Giá(Cao - Thấp)',
+            'field' => 'product_Price',
+            'type' => 'DESC'
+        ),
     );
 
 }

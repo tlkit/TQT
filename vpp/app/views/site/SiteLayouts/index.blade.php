@@ -57,7 +57,7 @@
     <div id="menu">
         <ul>
             <li><a href="{{URL::route('site.home')}}">Trang chủ</a></li>
-            <li><a href="http://www.homenoffice.sg/index.php?route=product/category">Sản phẩm</a>
+            <li><a href="{{URL::route('site.group',array('id' => 0,'name' => 'san-pham'))}}">Sản phẩm</a>
                 <span id="sub-menu"><img src="{{asset('assets/site/image/submenu_pointer.png')}}"></span>
                 <ul>
                     @foreach($treeCategory as $group)
