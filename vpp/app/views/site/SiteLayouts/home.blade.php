@@ -11,7 +11,7 @@
     </div>
     @endif
     <div class="box">
-        <div class="box-heading"><span class="seeall"><a href="http://www.homenoffice.sg/index.php?route=product/category">Xem tất cả</a></span><span class="title" style="margin-left:390px">Danh mục</span></div>
+        <div class="box-heading"><span class="seeall"><a href="{{URL::route('site.group',array('id' => 0,'name' => 'san-pham'))}}">Xem tất cả</a></span><span class="title" style="margin-left:390px">Danh mục</span></div>
         <div class="box-content">
             <div class="box-product" align="center">
                 @foreach($treeCategory as $group)

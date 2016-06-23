@@ -18,7 +18,7 @@
                             <li>
                                 <img style="margin-right:5px;" src="{{asset('assets/site/image/bullet-point.png')}}">
                                 <a @if($id == $group['group_category_id']) class="active" @endif href="{{URL::route('site.group',array('id' => $group["group_category_id"],'name' => FunctionLib::safe_title($group["group_category_name"])))}}">{{$group["group_category_name"]}}</a>
-                                @if(isset($group['child']) && $group['category_status'] == 1)
+                                @if(isset($group['child']) && $group['category_status'] == 1 && $id == $group['group_category_id'])
                                 <ul>
                                     @foreach($group['child'] as $k => $child)
                                     <li>
@@ -74,10 +74,6 @@
             <div class="description"></div>
             <div class="price">
                 <span class="price-new">{{number_format($v['product_Price'],0,'.','.')}}đ</span>
-            </div>
-            <div class="saving-point">
-                Giá bán lẻ: $3.27<br/>
-                Tiết kiệm: <span id="save">10%</span>
             </div>
             <div class="discount-msg">
                 SL bán buôn: <span>20 & hơn</span>

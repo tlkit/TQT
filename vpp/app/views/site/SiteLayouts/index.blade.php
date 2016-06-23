@@ -40,7 +40,7 @@
 <body>
 <div id="container">
     <div id="header">
-        <div id="logo"><a href="http://www.homenoffice.sg/"><img src="{{asset('assets/vpp_site_files/HOME-N-OFFICE-LOGO.png')}}" title="Home n Office Products Pte Ltd" alt="Home n Office Products Pte Ltd"></a></div>
+        <div id="logo"><a href="{{URL::route('site.home')}}"><img src="{{asset('assets/vpp_site_files/HOME-N-OFFICE-LOGO.png')}}" title="Home n Office Products Pte Ltd" alt="Home n Office Products Pte Ltd"></a></div>
         <div id="search">
             <div class="iSearchBoxWrapper">
                 <div class="button-search"></div>
@@ -49,8 +49,8 @@
         </div>
         <div id="welcome">
             <div id="divLogin" style="float:right">
-                <input class="login" id="btnLogin" value="Đăng nhập" onclick="window.location='http://www.homenoffice.sg/login'" type="button">
-                <input class="account" id="btnRegister" value="Đăng ký" onclick="window.location='http://www.homenoffice.sg/register'" type="button">
+                <input class="login" id="btnLogin" value="Đăng nhập" onclick="javascript:void(0)" type="button">
+                <input class="account" id="btnRegister" value="Đăng ký" onclick="window.location='javascript:void(0)'" type="button">
             </div>
         </div>
     </div>
@@ -78,8 +78,8 @@
                     @endforeach
                 </ul>
             </li>
-            <li><a href="http://www.homenoffice.sg/about-us">Giới thiệu</a></li>
-            <li><a href="http://www.homenoffice.sg/contact">Liên hệ</a></li>
+            <li><a href="javascript:void(0)">Giới thiệu</a></li>
+            <li><a href="javascript:void(0)">Liên hệ</a></li>
             {{--<li><a id="icnWishlist" href="http://www.homenoffice.sg/wishlist">My List</a></li>--}}
             <li id="cartLi">
                 <a id="icnCart">Giỏ hàng</a>

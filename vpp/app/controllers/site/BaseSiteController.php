@@ -60,7 +60,11 @@ class BaseSiteController extends BaseController
     }
 
     public function product($id,$name){
-
+        $product = Product::find($id);
+        if(!$product){
+            return Redirect::route('site.home');
+        }
+        $this->layout->content = View::make('site.SiteLayouts.product')->with('product',$product);
     }
 
     public function buildCategoryTree(){
