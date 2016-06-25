@@ -19,7 +19,8 @@ class BaseSiteController extends BaseController
 
     public function home(){
         $banner = Banner::getBannerRun();
-        $this->layout->content = View::make('site.SiteLayouts.home')->with('banner',$banner);
+        $product = Product::getProductHome();
+        $this->layout->content = View::make('site.SiteLayouts.home')->with('banner',$banner)->with('product',$product);
     }
 
     public function group($id,$name){
@@ -61,10 +62,11 @@ class BaseSiteController extends BaseController
 
     public function product($id,$name){
         $product = Product::find($id);
+        $product_relate = Product::getProductRelate($product);
         if(!$product){
             return Redirect::route('site.home');
         }
-        $this->layout->content = View::make('site.SiteLayouts.product')->with('product',$product);
+        $this->layout->content = View::make('site.SiteLayouts.product')->with('product',$product)->with('product_relate',$product_relate);
     }
 
     public function buildCategoryTree(){

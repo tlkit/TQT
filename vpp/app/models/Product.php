@@ -226,5 +226,30 @@ class Product extends Eloquent
         }
     }
 
+    public static function getProductRelate($product){
+        try {
+            //$product = Product::find($id);
+            $query = Product::where('product_Category',$product->product_Category);
+            $query->where('product_Status', 1);
+            $query->where('product_id','!=', $product->product_id);
+            //$query->where('product_NameUnit','LIKE','%'.$product->product_NameUnit.'%');
+            return $query->take(3)->get();
+        } catch (PDOException $e) {
+            throw new PDOException();
+        }
+    }
+
+    public static function getProductHome(){
+        try {
+            $category = Categories::lists('categories_Name','categories_id');
+            $id = array_rand($category,3);
+            $query = Product::whereIn('product_Category',$id);
+            $query->where('product_Status', 1);
+            return $query->take(5)->get();
+        } catch (PDOException $e) {
+            throw new PDOException();
+        }
+    }
+
 
 }

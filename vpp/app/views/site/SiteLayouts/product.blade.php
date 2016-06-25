@@ -86,19 +86,24 @@
             <!--        -->
         </div>
     </div>
+    @if($product_relate)
     <div class="box">
         <div class="box-heading"><span class="title">Sản phẩm liên quan</span></div>
         <div class="box-content">
             <div align="center" class="box-product">
+                @foreach($product_relate as $k => $v)
                 <div class="box-column2" style="width:29%;">
-                    <div class="image"><a href="http://www.homenoffice.sg/sinar-spectra-colour-paper-80gsm-a4-pastel"><img src="http://www.homenoffice.sg/image/cache/data/Product Pictures/Sinar Pastel Colours-130x130.jpg" alt="Sinar Spectra Colour Paper 80gsm A4 Pastel" style="padding:10px" /></a>
+                    <div class="image">
+                        <a href="{{URL::route('site.product',array('id' => $v["product_id"],'name' => FunctionLib::safe_title($v["product_Name"])))}}">
+                            <img src="http://www.homenoffice.sg/image/cache/data/Product Pictures/Sinar Pastel Colours-130x130.jpg" alt="{{$v["product_Name"]}}" style="padding:10px" />
+                        </a>
                         <!--                       <img class="special" src="catalog/view/theme/default/image/save.png">
                                                -->
                     </div>
-                    <div class="name"><a href="http://www.homenoffice.sg/sinar-spectra-colour-paper-80gsm-a4-pastel">Sinar Spectra Colour Paper 80gsm A4 Pastel</a></div>
+                    <div class="name"><a href="{{URL::route('site.product',array('id' => $v["product_id"],'name' => FunctionLib::safe_title($v["product_Name"])))}}">{{$v["product_Name"]}}</a></div>
                     <div class="barcode"><small></small></div>
                     <div class="price">
-                        <span class="price-new">{{number_format($product['product_Price'])}}</span>
+                        <span class="price-new">{{number_format($v['product_Price'])}}</span>
                     </div>
                     <div class="discount-msg">
                         SL bán buôn: <span>5 & nhiều hơn</span><br />Giá bán buôn: <span>$6.40</span>&nbsp;&nbsp;(Tiết kiệm: <span id="save">20%</span>)
@@ -110,50 +115,12 @@
                             </span>
                     </div>
                 </div>
-                <div class="box-column2" style="width:29%;">
-                    <div class="image"><a href="http://www.homenoffice.sg/sinar-spectra-colour-paper-80gsm-a4-pastel"><img src="http://www.homenoffice.sg/image/cache/data/Product Pictures/Sinar Pastel Colours-130x130.jpg" alt="Sinar Spectra Colour Paper 80gsm A4 Pastel" style="padding:10px" /></a>
-                        <!--                       <img class="special" src="catalog/view/theme/default/image/save.png">
-                                               -->
-                    </div>
-                    <div class="name"><a href="http://www.homenoffice.sg/sinar-spectra-colour-paper-80gsm-a4-pastel">Sinar Spectra Colour Paper 80gsm A4 Pastel</a></div>
-                    <div class="barcode"><small></small></div>
-                    <div class="price">
-                        <span class="price-new">{{number_format($product['product_Price'])}}</span>
-                    </div>
-                    <div class="discount-msg">
-                        SL bán buôn: <span>5 & nhiều hơn</span><br />Giá bán buôn: <span>$6.40</span>&nbsp;&nbsp;(Tiết kiệm: <span id="save">20%</span>)
-                    </div>
-                    <div class="cart">
-                        <input value="Add to Cart"  class="button" type="button">
-                            <span class="counter2">
-                                <input style="background-color: rgb(5, 113, 175);" name="quantity[]" type="text" value="1" class="sys_quantity">
-                            </span>
-                    </div>
-                </div>
-                <div class="box-column2" style="width:29%;">
-                    <div class="image"><a href="http://www.homenoffice.sg/sinar-spectra-colour-paper-80gsm-a4-pastel"><img src="http://www.homenoffice.sg/image/cache/data/Product Pictures/Sinar Pastel Colours-130x130.jpg" alt="Sinar Spectra Colour Paper 80gsm A4 Pastel" style="padding:10px" /></a>
-                        <!--                       <img class="special" src="catalog/view/theme/default/image/save.png">
-                                               -->
-                    </div>
-                    <div class="name"><a href="http://www.homenoffice.sg/sinar-spectra-colour-paper-80gsm-a4-pastel">Sinar Spectra Colour Paper 80gsm A4 Pastel</a></div>
-                    <div class="barcode"><small></small></div>
-                    <div class="price">
-                        <span class="price-new">{{number_format($product['product_Price'])}}</span>
-                    </div>
-                    <div class="discount-msg">
-                        SL bán buôn: <span>5 & nhiều hơn</span><br />Giá bán buôn: <span>$6.40</span>&nbsp;&nbsp;(Tiết kiệm: <span id="save">20%</span>)
-                    </div>
-                    <div class="cart">
-                        <input value="Add to Cart"  class="button" type="button">
-                            <span class="counter2">
-                                <input style="background-color: rgb(5, 113, 175);" name="quantity[]" type="text" value="1" class="sys_quantity">
-                            </span>
-                    </div>
-                </div>
+                @endforeach
                 <div style="clear:both"></div>
             </div>
         </div>
     </div>
+    @endif
     <div style="clear:both"></div>
 </div>
 <script type="text/javascript">
