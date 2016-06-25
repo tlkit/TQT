@@ -69,6 +69,10 @@ class BaseSiteController extends BaseController
         $this->layout->content = View::make('site.SiteLayouts.product')->with('product',$product)->with('product_relate',$product_relate);
     }
 
+    public function register(){
+        $this->layout->content = View::make('site.SiteLayouts.register');
+    }
+
     public function buildCategoryTree(){
         $category = Categories::lists('categories_Name','categories_id');
         $group = GroupCategory::getGroupForSite()->toArray();
