@@ -49,8 +49,13 @@
         </div>
         <div id="welcome">
             <div id="divLogin" style="float:right">
-                <input class="login" id="btnLogin" value="Đăng nhập" onclick="javascript:void(0)" type="button">
-                <input class="account" id="btnRegister" value="Đăng ký" onclick="window.location='javascript:void(0)'" type="button">
+                @if($customer_login)
+                    <input type="button" onclick="window.location='{{URL::route('site.logout')}}'" value="Đăng xuất" id="btnLogin" class="login">
+                    <input id="btnProfile" class="account" type="button" onclick="window.location=''" value="Hi, {{$customer_login['customers_username']}}">
+                @else
+                    <input class="login" id="btnLogin" value="Đăng nhập" onclick="window.location='{{URL::route('site.login')}}'" type="button">
+                    <input class="account" id="btnRegister" value="Đăng ký" onclick="window.location='{{URL::route('site.register')}}'" type="button">
+                @endif
             </div>
         </div>
     </div>
@@ -83,10 +88,88 @@
             {{--<li><a id="icnWishlist" href="http://www.homenoffice.sg/wishlist">My List</a></li>--}}
             <li id="cartLi">
                 <a id="icnCart">Giỏ hàng</a>
-                <div style="margin-left: -33.3167px;" id="cart"><div class="content">
+{{--                <div style="margin-left: -33.3167px;" id="cart">
+                    <div class="content">
                         <div id="sub-menu"><img src="{{asset('assets/site/image/submenu_pointer.png')}}"></div>
                         <div id="paperclip" style="margin-top:-15px;margin-left: 1px;"></div>
                         <div class="empty">Giỏ hàng trống !</div>
+                    </div>
+                </div>--}}
+                <div id="cart" style="margin-left: -33.3167px;">
+                    <div class="content">
+                        <div id="sub-menu"><img src="{{asset('assets/site/image/submenu_pointer.png')}}"></div>
+                        <div style="margin-top:-15px;margin-left: 1px;" id="paperclip"></div>
+                        <div style="margin-bottom:50px;">
+                            <div style="float:left;color:#055993;font-size:16px;margin-left:30px;margin-top:5px;">Just added to your cart</div>
+                            <div style="float:right;"><input type="button" onclick="window.location='http://www.homenoffice.sg/index.php?route=checkout/checkout'" value="Checkout" id="button"></div>
+                        </div>
+                        <div class="mini-cart-info">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td class="image">
+                                        <a href="http://www.homenoffice.sg/ik-copy-paper-80gsm-a4">
+                                            <img title="IK Copy Paper 80gsm A4" alt="IK Copy Paper 80gsm A4" src="http://www.homenoffice.sg/image/cache/data/Product Pictures/8991389139202-80x80.jpg"></a>
+                                    </td>
+                                    <td class="name"><a href="http://www.homenoffice.sg/ik-copy-paper-80gsm-a4">IK Copy Paper 80gsm A4</a>
+                                        <small>
+                                            <div class="barcode">8991389139202</div>
+                                            Category: <span id="category">Copier Paper</span><br>
+                                        </small>
+                                        <div>
+                                        </div>
+                                        <small><br>
+                                            Retail Price: $3.80<br>
+                                            Discounted Price: $3.60<br>
+                                            <!-- Bulk Discount Purchase Price: $3.60 (-$0.20)<br/> -->
+                                            You Save: <span id="save">5%</span><br>
+                                            <!--                             <div class="discount-msg">* Special offer for bulk orders</div>
+                                             -->
+                                        </small>
+                                    </td>
+                                    <td class="quantity">
+                                        <input type="text" size="1" value="1" name="quantity2[4260::]"><br>
+                                    <td class="total">$3.60</td>
+                                    <td class="remove"><img onclick="removeProducts('4260::')" title="Remove" alt="Remove" src="{{asset('assets/site/image/delete.png')}}"></td>
+                                </tr>
+                                <tr>
+                                    <td class="image">
+                                        <a href="http://www.homenoffice.sg/ik-copy-paper-80gsm-a4">
+                                            <img title="IK Copy Paper 80gsm A4" alt="IK Copy Paper 80gsm A4" src="http://www.homenoffice.sg/image/cache/data/Product Pictures/8991389139202-80x80.jpg"></a>
+                                    </td>
+                                    <td class="name"><a href="http://www.homenoffice.sg/ik-copy-paper-80gsm-a4">IK Copy Paper 80gsm A4</a>
+                                        <small>
+                                            <div class="barcode">8991389139202</div>
+                                            Category: <span id="category">Copier Paper</span><br>
+                                        </small>
+                                        <div>
+                                        </div>
+                                        <small><br>
+                                            Retail Price: $3.80<br>
+                                            Discounted Price: $3.60<br>
+                                            <!-- Bulk Discount Purchase Price: $3.60 (-$0.20)<br/> -->
+                                            You Save: <span id="save">5%</span><br>
+                                            <!--                             <div class="discount-msg">* Special offer for bulk orders</div>
+                                             -->
+                                        </small>
+                                    </td>
+                                    <td class="quantity">
+                                        <input type="text" size="1" value="1" name="quantity2[4260::]"><br>
+                                    <td class="total">$3.60</td>
+                                    <td class="remove"><img onclick="removeProducts('4260::')" title="Remove" alt="Remove" src="{{asset('assets/site/image/delete.png')}}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mini-cart-total">
+                            <table>
+                                <tbody><tr>
+                                    <td style="font-size:16px;color:#055993;">Subtotal</td>
+                                    <td align="right" style="width:388px;font-weight:bold;font-size:14px;">$3.60</td>
+                                </tr>
+                                </tbody></table>
+                        </div>
+                        <a href="http://www.homenoffice.sg/index.php?route=checkout/cart"><div class="checkout">View Your Cart</div></a>
                     </div>
                 </div>
             </li>

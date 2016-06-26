@@ -1,110 +1,80 @@
 <div id="content">
     <div id="register-content">
-        <div id="banner"><img src="catalog/view/theme/default/image/new.png"></div>
+        <div id="banner"><img src="{{asset('assets/site/image/new.png')}}"></div>
 
-        <p style="margin-top:15px;">If you already have an account with us, please login at the <a href="http://www.homenoffice.sg/login">login page</a>.</p>
-        <form enctype="multipart/form-data" method="post" action="http://www.homenoffice.sg/register">
-            <!-- <h2>Your Personal Details</h2> -->
+        <p style="margin-top:15px;">Nếu bạn đã có tài khoản vui lòng đăng nhập<a href="http://www.homenoffice.sg/login"> tại đây</a>.</p>
+        {{Form::open(array('method' => 'POST', 'role'=>'form', 'class'=>'form-horizontal', 'route' => 'site.register'))}}            <!-- <h2>Your Personal Details</h2> -->
             <!-- <div class="content"> -->
             <table class="form">
                 <tbody><tr>
-                    <td><!-- <span class="required">*</span> --> First Name</td>
-                    <td><input type="text" value="" name="firstname">
-                    </td>
-                </tr>
-                <tr>
-                    <td><!-- <span class="required">*</span> --> Last Name</td>
-                    <td><input type="text" value="" name="lastname">
+                    <td><!-- <span class="required">*</span> --> Tên khách hàng</td>
+                    <td>
+                        <input type="text" @if(isset($param['customers_FirstName'])) value="{{$param['customers_FirstName']}}" @endif name="customers_FirstName" placeholder="Cá nhân hoặc doanh nghiệp">
+                        @if(isset($error['customers_FirstName']))
+                        <span class="error">{{$error['customers_FirstName']}}</span>
+                        @endif
                     </td>
                 </tr>
                 <tr>
                     <td><!-- <span class="required">*</span> --> Email</td>
-                    <td><input type="text" value="" name="email">
+                    <td>
+                        <input type="text" @if(isset($param['customers_Email'])) value="{{$param['customers_Email']}}" @endif name="customers_Email">
+                        @if(isset($error['customers_Email']))
+                            <span class="error">{{$error['customers_Email']}}</span>
+                        @endif
                     </td>
                 </tr>
                 <tr>
-                    <td><!-- <span class="required">*</span> --> Telephone</td>
-                    <td><input type="text" value="" name="telephone">
+                    <td><!-- <span class="required">*</span> --> Số điện thoại</td>
+                    <td>
+                        <input type="text" @if(isset($param['customers_Phone'])) value="{{$param['customers_Phone']}}" @endif name="customers_Phone">
+                        @if(isset($error['customers_Phone']))
+                            <span class="error">{{$error['customers_Phone']}}</span>
+                        @endif
                     </td>
                 </tr>
-                <tr style="display:none;">
+                <tr>
                     <td>Fax</td>
-                    <td><input type="text" value="" name="fax"></td>
+                    <td><input type="text" @if(isset($param['customers_Fax'])) value="{{$param['customers_Fax']}}" @endif name="customers_Fax"></td>
                 </tr>
-                </tbody></table>
-            <!-- </div> -->
-            <!-- <h2>Your Address</h2> -->
-            <!-- <div class="content"> -->
+                <tr>
+                    <td>Địa chỉ</td>
+                    <td>
+                        <input type="text" @if(isset($param['customers_BizAddress'])) value="{{$param['customers_BizAddress']}}" @endif name="customers_BizAddress">
+                        @if(isset($error['customers_BizAddress']))
+                            <span class="error">{{$error['customers_BizAddress']}}</span>
+                        @endif
+                    </td>
+                </tr>
+                </tbody>
+            </table>
             <table class="form">
-                <tbody><tr>
-                    <td>Company</td>
-                    <td><input type="text" value="" name="company"></td>
-                </tr>
-                <tr style="display: none;">
-                    <td>Business Type</td>
-                    <td>                        <input type="radio" checked="checked" id="customer_group_id1" value="1" name="customer_group_id">
-                        <label for="customer_group_id1">Default</label>
-                        <br>
-                    </td>
-                </tr>
-                <tr id="company-id-display" style="display: none;">
-                    <td><!-- <span id="company-id-required" class="required">*</span> --> Company ID</td>
-                    <td><input type="text" value="" name="company_id">
-                    </td>
-                </tr>
-                <tr id="tax-id-display" style="display: none;">
-                    <td><!-- <span id="tax-id-required" class="required">*</span> --> Tax ID</td>
-                    <td><input type="text" value="" name="tax_id">
+                <tbody>
+                <tr>
+                    <td><!-- <span class="required">*</span> --> Tên đăng nhập</td>
+                    <td>
+                        <input type="text" @if(isset($param['customers_username'])) value="{{$param['customers_username']}}" @endif name="customers_username">
+                        @if(isset($error['customers_username']))
+                            <span class="error">{{$error['customers_username']}}</span>
+                        @endif
                     </td>
                 </tr>
                 <tr>
-                    <td><!-- <span id="postcode-required" class="required">*</span> --> Postal Code</td>
-                    <td><input type="text" autocomplete="off" onkeyup="search(this.value)" value="" name="postcode">
+                    <td><!-- <span class="required">*</span> --> Mật khẩu</td>
+                    <td>
+                        <input type="password" @if(isset($param['customers_password'])) value="{{$param['customers_password']}}" @endif name="customers_password">
+                        @if(isset($error['customers_password']))
+                            <span class="error">{{$error['customers_password']}}</span>
+                        @endif
                     </td>
                 </tr>
                 <tr>
-                    <td><!-- <span class="required">*</span> --> Address 1</td>
-                    <td><input type="text" value="" name="address_1" id="address_1">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Address 2</td>
-                    <td><input type="text" value="" name="address_2"></td>
-                </tr>
-                <tr>
-                    <td><!-- <span class="required">*</span> --> City</td>
-                    <td><input type="text" value="" name="city">
-                    </td>
-                </tr>
-                <tr>
-                    <td><!-- <span class="required">*</span> --> Country</td>
-                    <td><select disabled="">
-                            <option value=""> --- Please Select --- </option>
-                            <option selected="selected" value="188">Singapore</option>
-                        </select>
-                        <input type="hidden" value="188" name="country_id">
-                        <input type="hidden" value="0" name="zone_id">
-                    </td>
-                </tr>
-                <tr style="display:none">
-                    <td><!-- <span class="required">*</span> --> Region / State</td>
-                    <td><select disabled="">
-                        </select>
-                    </td>
-                </tr>
-                </tbody></table>
-            <!-- </div> -->
-            <!-- <h2>Your Password</h2> -->
-            <!-- <div class="content"> -->
-            <table class="form">
-                <tbody><tr>
-                    <td><!-- <span class="required">*</span> --> Password</td>
-                    <td><input type="password" value="" name="password">
-                    </td>
-                </tr>
-                <tr>
-                    <td><!-- <span class="required">*</span> --> Password Confirm</td>
-                    <td><input type="password" value="" name="confirm">
+                    <td><!-- <span class="required">*</span> --> Xác nhận mật khẩu</td>
+                    <td>
+                        <input type="password" @if(isset($param['customers_password_confirm'])) value="{{$param['customers_password_confirm']}}" @endif value="" name="customers_password_confirm">
+                        @if(isset($error['customers_password_confirm']))
+                            <span class="error">{{$error['customers_password_confirm']}}</span>
+                        @endif
                     </td>
                 </tr>
                 </tbody>
@@ -126,9 +96,9 @@
             <!-- </div> -->
             <div class="buttons">
                 <div class="left">
-                    <input type="submit" class="button" value="Continue">
+                    <input type="submit" class="button" value="Đăng ký">
                 </div>
             </div>
-        </form>
+        {{Form::close()}}
     </div>
 </div>

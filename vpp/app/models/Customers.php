@@ -11,7 +11,7 @@ class Customers extends Eloquent
     protected $table = 'customers';
     protected $primaryKey = 'customers_id';
     public $timestamps = false;
-    protected $fillable = array('customers_Type', 'customers_FirstName', 'customers_LastName', 'customers_Code', 'customers_ContractNo', 'customers_BizRegistrationNo', 'customers_IsNeededVAT', 'customers_TaxCode','customers_Phone', 'customers_Fax', 'customers_Email', 'customers_Website', 'customers_BizAddress', 'customers_ContactAddress', 'customers_Description', 'customers_ContactPhone','customers_ContactEmail', 'customers_ContactName', 'customers_TotalInvoice', 'customers_AmountOfCapital', 'customers_AmountOfRevenue', 'customers_NetProfit', 'customers_ManagedBy', 'customers_CreatedTime', 'customers_Type_Pay');
+    protected $fillable = array('customers_Type', 'customers_FirstName', 'customers_LastName', 'customers_Code', 'customers_ContractNo', 'customers_BizRegistrationNo', 'customers_IsNeededVAT', 'customers_TaxCode','customers_Phone', 'customers_Fax', 'customers_Email', 'customers_Website', 'customers_BizAddress', 'customers_ContactAddress', 'customers_Description', 'customers_ContactPhone','customers_ContactEmail', 'customers_ContactName', 'customers_TotalInvoice', 'customers_AmountOfCapital', 'customers_AmountOfRevenue', 'customers_NetProfit', 'customers_ManagedBy', 'customers_CreatedTime', 'customers_Type_Pay', 'customers_site', 'customers_username', 'customers_password');
 
     public static function getByID($id) {
         $customers = Customers::where('customers_id', $id)->first();
@@ -72,12 +72,9 @@ class Customers extends Eloquent
                     $data->$k = $v;
                 }
             }
-            if ($data->save()) {
-                DB::connection()->getPdo()->commit();
-                return $data->customers_id;
-            }
+            $data->save();
             DB::connection()->getPdo()->commit();
-            return false;
+            return $data->customers_id;
         } catch (PDOException $e) {
             DB::connection()->getPdo()->rollBack();
             throw new PDOException();
@@ -216,6 +213,14 @@ class Customers extends Eloquent
         $query->groupBy($tbl_sale_list.'.customers_id');
         $data = $query->get();
         return $data;
+    }
+
+    public static function customer_login(){
+        $user = array();
+        if(Session::has('customer')){
+            $user = Session::get('customer');
+        }
+        return $user;
     }
 
 }

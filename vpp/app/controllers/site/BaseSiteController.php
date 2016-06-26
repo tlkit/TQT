@@ -10,11 +10,14 @@ class BaseSiteController extends BaseController
 {
     protected $layout = 'site.SiteLayouts.index';
     protected $treeCategory = array();
+    protected $customer = array();
 
     public function __construct()
     {
         $this->treeCategory = $this->buildCategoryTree();
+        $this->customer = Customers::customer_login();
         View::share('treeCategory', $this->treeCategory);
+        View::share('customer_login', $this->customer);
     }
 
     public function home(){
@@ -71,6 +74,125 @@ class BaseSiteController extends BaseController
 
     public function register(){
         $this->layout->content = View::make('site.SiteLayouts.register');
+    }
+
+    public function submitRegister(){
+        $param['customers_FirstName'] = htmlspecialchars(trim(Request::get('customers_FirstName','')));
+        $param['customers_Email'] = htmlspecialchars(trim(Request::get('customers_Email','')));
+        $param['customers_Phone'] = htmlspecialchars(trim(Request::get('customers_Phone','')));
+        $param['customers_Fax'] = htmlspecialchars(trim(Request::get('customers_Fax','')));
+        $param['customers_BizAddress'] = htmlspecialchars(trim(Request::get('customers_BizAddress','')));
+        $param['customers_username'] = htmlspecialchars(trim(Request::get('customers_username','')));
+        $param['customers_password'] = htmlspecialchars(trim(Request::get('customers_password','')));
+        $param['customers_password_confirm'] = htmlspecialchars(trim(Request::get('customers_password_confirm','')));
+        $error = array();
+        if($param['customers_FirstName'] == '' || strlen($param['customers_FirstName']) <= 3){
+            $error['customers_FirstName'] = 'Tên khách hàng phải lớn hơn 3 ký tự';
+        }
+
+        if($param['customers_Email'] == '' || !filter_var($param['customers_Email'],FILTER_VALIDATE_EMAIL)){
+            $error['customers_Email'] = 'Email chưa đúng định dạng';
+        }
+
+        if($param['customers_Phone'] == ''){
+            $error['customers_Phone'] = 'Số điện thoại không được để trống';
+        }
+
+        if($param['customers_BizAddress'] == ''){
+            $error['customers_BizAddress'] = 'Địa chỉ không được để trống';
+        }
+
+        if($param['customers_username'] == '' || strlen($param['customers_username']) < 6 || strlen($param['customers_username']) > 32){
+            $error['customers_username'] = 'Tên đăng nhập phải nằm trong khoảng 6-32 ký tự';
+        }else{
+            $customer = Customers::where('customers_username', $param['customers_username'])->first();
+            $customer = $customer->toArray();
+            if($customer){
+                $error['customers_username'] = 'Tên đăng nhập đã tồn tại';
+            }
+        }
+
+        if($param['customers_password'] == '' || strlen($param['customers_password']) < 6 || strlen($param['customers_password']) > 32){
+            $error['customers_password'] = 'Mật khẩu phải nằm trong khoảng 6-32 ký tự';
+        }
+
+        if($param['customers_password'] !== $param['customers_password_confirm']){
+            $error['customers_password_confirm'] = 'Xác nhận mật khẩu không chính xác';
+        }
+
+        if($error){
+            $this->layout->content = View::make('site.SiteLayouts.register')->with('param',$param)->with('error',$error);
+        }else{
+            unset($param['customers_password_confirm']);
+            $param['customers_password'] = md5('xxx_'.$param['customers_password']);
+            $param['customers_site'] = 1;
+            $id = Customers::add($param);
+            $success = 0;
+            if($id > 0){
+                $success = 1;
+                $data = array(
+                    'customers_id' => $id,
+                    'customers_username' => $param['customers_username'],
+                );
+                Session::put('customer', $data, 60*60*24);
+            }
+            return Redirect::route('site.register_success',array('success' => $success));
+        }
+    }
+
+    public function registerSuccess(){
+        $success = (int)Request::get('success',1);
+        $this->layout->content = View::make('site.SiteLayouts.register_success')->with('success',$success);
+    }
+
+    public function loginInfo()
+    {
+        if (Session::has('customer')) {
+            return Redirect::route('site.home');
+        } else {
+            $this->layout->content = View::make('site.SiteLayouts.login');
+        }
+    }
+
+    public function login()
+    {
+        $username = Request::get('customers_username', '');
+        $password = Request::get('customers_password', '');
+        $error = '';
+        if ($username != '' && $password != '') {
+            if (strlen($username) < 6 || strlen($username) > 32 || strlen($password) < 6) {
+                $error = 'Không tồn tại tên đăng nhập!';
+            } else {
+                $user = Customers::where('customers_username', $username)->first();
+                $user = $user->toArray();
+                if ($user) {
+                    if ($user['customers_password'] == md5('xxx_' . $password)) {
+                        $data = array(
+                            'customers_id' => $user['customers_id'],
+                            'customers_username' => $user['customers_username'],
+                        );
+                        Session::put('customer', $data, 60*60*24);
+                        return Redirect::route('site.home');
+                    } else {
+                        $error = 'Mật khẩu không đúng!';
+                    }
+                } else {
+                    $error = 'Không tồn tại tên đăng nhập!';
+                }
+            }
+        } else {
+            $error = 'Chưa nhập thông tin đăng nhập!';
+        }
+        $this->layout->content = View::make('site.SiteLayouts.login')
+            ->with('error', $error)->with('username', $username);
+    }
+
+    public function logout()
+    {
+        if (Session::has('customer')) {
+            Session::forget('customer');
+        }
+        return Redirect::to(URL::previous());
     }
 
     public function buildCategoryTree(){
