@@ -6,7 +6,7 @@
             <div style="float:left;color:#055993;font-size:16px;margin-left:30px;margin-top:5px;">Giỏ hàng của bạn</div>
             <div style="float:right;"><input type="button" onclick="window.location=''" value="Thanh toán" id="button"></div>
         </div>
-        <div class="mini-cart-info">
+        <div class="mini-cart-info" style="max-height: 380px; overflow-y: scroll;">
             <table>
                 <tbody>
                 <?php $sub_total = 0;?>
@@ -16,7 +16,8 @@
                         <a href="{{URL::route('site.product',array('id' => $k,'name'=>FunctionLib::safe_title($v['product_Name'])))}}">
                             <img title="{{$v['product_Name']}}" alt="{{$v['product_Name']}}" src="http://www.homenoffice.sg/image/cache/data/Product Pictures/8991389139202-80x80.jpg"></a>
                     </td>
-                    <td class="name"><a href="{{URL::route('site.product',array('id' => $k,'name'=>FunctionLib::safe_title($v['product_Name'])))}}">{{$v['product_Name']}}</a>
+                    <td class="name">
+                        <a href="{{URL::route('site.product',array('id' => $k,'name'=>FunctionLib::safe_title($v['product_Name'])))}}">{{$v['product_Name']}}</a>
                         <small>
                             <br>
                             Giá bán: {{number_format($v['product_price_buy'],0,'.','.')}}đ<br>
@@ -47,7 +48,7 @@
                 </tbody>
             </table>
         </div>
-        <a href="http://www.homenoffice.sg/index.php?route=checkout/cart"><div class="checkout">Xem giỏ hàng</div></a>
+        <a href="{{URL::route('cart.view_cart')}}"><div class="checkout">Xem giỏ hàng</div></a>
     </div>
     @else
     <div class="content">

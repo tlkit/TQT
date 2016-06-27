@@ -108,7 +108,6 @@ class BaseSiteController extends BaseController
             $error['customers_username'] = 'Tên đăng nhập phải nằm trong khoảng 6-32 ký tự';
         }else{
             $customer = Customers::where('customers_username', $param['customers_username'])->first();
-            $customer = $customer->toArray();
             if($customer){
                 $error['customers_username'] = 'Tên đăng nhập đã tồn tại';
             }
@@ -170,7 +169,7 @@ class BaseSiteController extends BaseController
                 $error = 'Không tồn tại tên đăng nhập!';
             } else {
                 $user = Customers::where('customers_username', $username)->first();
-                $user = $user->toArray();
+                //$user = $user->toArray();
                 if ($user) {
                     if ($user['customers_password'] == md5('xxx_' . $password)) {
                         $data = array(
@@ -203,6 +202,10 @@ class BaseSiteController extends BaseController
             Session::forget('customer');
         }
         return Redirect::to(URL::previous());
+    }
+
+    public function viewCart(){
+        $this->layout->content = View::make('site.SiteLayouts.view_cart');
     }
 
     public function buildCategoryTree(){

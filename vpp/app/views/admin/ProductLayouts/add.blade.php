@@ -28,12 +28,12 @@
                            class="form-control input-sm"
                            value="@if(isset($data['product_Name'])){{$data['product_Name']}}@endif">
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-3">
                     <label for="customers_Code"><i>Mã sản phẩm</i><span style="color: red"> *</span></label>
                     <input type="text" id="product_Code" name="product_Code" class="form-control input-sm"
                            value="@if(isset($data['product_Code'])){{$data['product_Code']}}@endif">
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-3">
                     <label for="customers_Code"><i>Danh mục</i></label>
                     <select name="product_Category" id="product_Category" class="form-control input-sm">
                         <option value="0">--- Chọn danh mục ---</option>
@@ -50,6 +50,15 @@
                     <label for="customers_Code"><i>SL tối thiểu</i></label>
                     <input type="text" id="product_MinimumQuantity" name="product_MinimumQuantity" class="form-control input-sm"
                            value="@if(isset($data['product_MinimumQuantity'])){{$data['product_MinimumQuantity']}}@endif">
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="product_bulk_price"><i>Giá bán buôn</i></label>
+                    <input type="text" class="form-control input-sm" id="product_bulk_price" name="product_bulk_price" value="@if(isset($data['product_bulk_price'])){{number_format($data['product_bulk_price'],0,'.','.')}}@endif">
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="customers_Code"><i>SL bán buôn(tối thiểu)</i></label>
+                    <input type="text" id="product_bulk_quantity" name="product_bulk_quantity" class="form-control input-sm"
+                           value="@if(isset($data['product_bulk_quantity'])){{$data['product_bulk_quantity']}}@endif">
                 </div>
 
                  <div class="form-group col-sm-6">
@@ -158,6 +167,9 @@
     $("#product_Price").on('keyup', function (event) {
             Import.fomatNumber('product_Price');
         });
+    $("#product_bulk_price").on('keyup', function (event) {
+        Import.fomatNumber('product_bulk_price');
+    });
 </script>
 {{HTML::script('assets/admin/js/import.js');}}
 {{HTML::script('assets/admin/js/product.js');}}

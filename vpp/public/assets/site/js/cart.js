@@ -26,8 +26,16 @@ var cart = {
                     cart.conf.ajax_sending == false;
                     if (res.success == 1) {
                         $("#cart").html(res.html);
+                        $('#cart').fadeIn();
+                        setTimeout(function() {
+                            $('#cart').fadeOut();
+                        }, 2000);
                     } else {
-                        alert(res.mess);
+                        var html = '<div style="" class="warning">Lỗi: ' + res.mess + '!<img class="close" alt="" src="assets/site/image/close.png"></div>'
+                        $("#notification").html(html);
+                        $(".close").on('click',function(){
+                            $("#notification").html('');
+                        });
                     }
                     $("html, body").animate({scrollTop: 0}, 1000);
                     return false;
@@ -42,5 +50,11 @@ $(document).ready(function () {
         var product_id = parseInt($(this).data('id'));
         var product_num = $('input[name=\'quantity['+product_id+']\']').val();
         cart.addCart(product_id,product_num);
-    })
+    });
+    $("#cartLi").mouseover(function(){
+        $("#cart").css("display", "block");
+    });
+    $("#cartLi").mouseout(function(){
+        $("#cart").css("display", "none");
+    });
 });

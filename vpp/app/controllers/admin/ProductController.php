@@ -102,7 +102,9 @@ class ProductController extends BaseAdminController
 
         $product_Price = Request::get('product_Price');
         $dataSave['product_Price'] =  str_replace('.','',$product_Price);
-
+        $product_bulk_price = Request::get('product_bulk_price','');
+        $dataSave['product_bulk_price'] = ($product_bulk_price != '') ? str_replace('.', '', $product_bulk_price) : 0;
+        $dataSave['product_bulk_quantity'] = (int)Request::get('product_bulk_quantity');
         $dataSave['product_MinimumQuantity'] = Request::get('product_MinimumQuantity');
         $dataSave['product_NameOrigin'] = Request::get('product_NameOrigin');
         $dataSave['product_NameUnit'] = Request::get('product_NameUnit');

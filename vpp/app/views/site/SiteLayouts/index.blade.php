@@ -98,7 +98,7 @@
                                 <div style="float:left;color:#055993;font-size:16px;margin-left:30px;margin-top:5px;">Giỏ hàng của bạn</div>
                                 <div style="float:right;"><input type="button" onclick="window.location=''" value="Thanh toán" id="button"></div>
                             </div>
-                            <div class="mini-cart-info">
+                            <div class="mini-cart-info" style="max-height: 380px; overflow-y: scroll;">
                                 <table>
                                     <tbody>
                                     <?php $sub_total = 0;?>
@@ -139,7 +139,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <a href="http://www.homenoffice.sg/index.php?route=checkout/cart"><div class="checkout">Xem giỏ hàng</div></a>
+                            <a href="{{URL::route('cart.view_cart')}}"><div class="checkout">Xem giỏ hàng</div></a>
                         </div>
                     @else
                         <div class="content">
@@ -156,17 +156,17 @@
     {{$content}}
     <div id="footer">
         <div class="column">
-            <h3>Need Help?</h3>
+            <h3>Giúp đỡ</h3>
             <img class="footer-img" src="{{asset('assets/site/image/help.png')}}">
             <p>Email us at <a id="mailto" href="mailto:enquiry@homenoffice.com.sg">enquiry@homenoffice.com.sg</a> and we will get back to you shortly.</p>
         </div>
         <div class="column">
-            <h3>Information</h3>
+            <h3>Thông tin</h3>
             <img class="footer-img" src="{{asset('assets/site/image/info2.png')}}">
             <ul>
-                <li><a href="http://www.homenoffice.sg/f-a-q">F.A.Q</a></li>
-                <li><a href="http://www.homenoffice.sg/privacy-policy">Privacy Policy</a></li>
-                <li><a href="http://www.homenoffice.sg/terms-and-conditions">Terms &amp; Conditions</a></li>
+                <li><a href="javascript:void(0)">F.A.Q</a></li>
+                <li><a href="javascript:void(0)">Privacy Policy</a></li>
+                <li><a href="javascript:void(0)">Terms &amp; Conditions</a></li>
                 <!-- <li><a href="http://www.homenoffice.sg/contact">Contact Us</a></li> -->
             </ul>
         </div>
@@ -180,20 +180,19 @@
         </ul>
       </div> -->
         <div class="column">
-            <h3>My Account</h3>
+            <h3>Tài khoản</h3>
             <img class="footer-img" src="{{asset('assets/site/image/account.png')}}">
             <ul>
-                <li><a href="http://www.homenoffice.sg/account">My Account</a></li>
-                <li><a href="http://www.homenoffice.sg/index.php?route=account/order">My Invoices</a></li>
-                <li><a href="http://www.homenoffice.sg/wishlist">My Wishlist</a></li>
+                <li><a href="javascript:void(0)">Tài khoản</a></li>
+                <li><a href="javascript:void(0)">Đơn hàng</a></li>
                 <!-- <li><a href="http://www.homenoffice.sg/newsletter">Newsletter</a></li> -->
             </ul>
         </div>
         <div class="column">
-            <h3>Brochures</h3>
+            <h3>Giới thiệu</h3>
             <img class="footer-img" src="{{asset('assets/site/image/brochure.png')}}">
             <ul>
-                <li><a href="http://www.homenoffice.sg/catalogs-brochures">Catalogs / Brochures</a></li>
+                <li><a href="javascript:void(0)">Danh mục</a></li>
             </ul>
         </div>
         <div class="column"></div>

@@ -82,10 +82,10 @@
                 &nbsp;&nbsp;(Tiết kiệm: <span id="save">19%</span>)
             </div>
             <div class="cart">
-                <input value="Add to Cart"  class="button" type="button">
-                            <span class="counter2">
-                                <input style="background-color: rgb(5, 113, 175);" name="quantity[]" type="text" value="1" class="sys_quantity">
-                            </span>
+                <input value="Add to Cart"  class="button btn_add_cart" type="button" data-id="{{$v['product_id']}}">
+                <span class="counter2">
+                    <input style="background-color: rgb(5, 113, 175);" name="quantity[{{$v['product_id']}}]" type="text" @if(isset($cart[$v['product_id']])) value="{{$cart[$v['product_id']]['product_num']}}" @else value="1" @endif class="sys_quantity">
+                </span>
             </div>
         </div>
             @if($i%4 == 0)

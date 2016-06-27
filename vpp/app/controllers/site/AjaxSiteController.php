@@ -18,7 +18,6 @@ class AjaxSiteController extends BaseController
         $product_num = (int)Request::get('product_num',0);
         $data['success'] = 0;
         $product = Product::find($product_id);
-        $product = $product->toArray();
         if(!$product || ($product && $product['product_Status'] != 1)){
             $data['mess'] = 'Không tìm thấy sản phẩm bạn đặt mua';
             return Response::json($data);
@@ -42,7 +41,7 @@ class AjaxSiteController extends BaseController
         }
         Session::put('cart', $cart);
         $data['success'] = 1;
-        $data['html'] = View::make('site.SiteLayouts.cart')->with('cart',$cart);
+        $data['html'] = View::make('site.SiteLayouts.cart')->with('cart',$cart)->render();
         return Response::json($data);
     }
 
