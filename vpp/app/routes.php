@@ -22,13 +22,19 @@ Route::group(array('prefix' => '', 'before' => ''), function()
     Route::get('g{id}/{name}.html',array('as' => 'site.group','uses' =>'BaseSiteController@group'))->where('id', '[0-9]+');
     Route::get('g{gid}/c{id}/{name}.html',array('as' => 'site.cate','uses' =>'BaseSiteController@cate'))->where('id', '[0-9]+')->where('gid', '[0-9]+');
     Route::get('p{id}/{name}.html',array('as' => 'site.product','uses' =>'BaseSiteController@product'))->where('id', '[0-9]+');
+
+
     Route::get('dang-ky.html',array('as' => 'site.register','uses' =>'BaseSiteController@register'));
     Route::post('dang-ky.html',array('as' => 'site.register','uses' =>'BaseSiteController@submitRegister'));
     Route::get('dang-ky-thanh-cong.html',array('as' => 'site.register_success','uses' =>'BaseSiteController@registerSuccess'));
-
     Route::get('dang-nhap.html',array('as' => 'site.login','uses' =>'BaseSiteController@loginInfo'));
     Route::post('dang-nhap.html',array('as' => 'site.login','uses' =>'BaseSiteController@login'));
     Route::get('logout',array('as' => 'site.logout','uses' =>'BaseSiteController@logout'));
+
+
+    Route::post('cart/add',array('as' => 'cart.add','uses' =>'AjaxSiteController@addCart'));
+
+
 });
 
 Route::group(array('prefix' => 'admin', 'before' => ''), function()

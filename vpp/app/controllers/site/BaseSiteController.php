@@ -16,8 +16,10 @@ class BaseSiteController extends BaseController
     {
         $this->treeCategory = $this->buildCategoryTree();
         $this->customer = Customers::customer_login();
+        $cart = Session::has('cart') ? Session::get('cart') : array();
         View::share('treeCategory', $this->treeCategory);
         View::share('customer_login', $this->customer);
+        View::share('cart', $cart);
     }
 
     public function home(){
@@ -133,6 +135,10 @@ class BaseSiteController extends BaseController
                 $data = array(
                     'customers_id' => $id,
                     'customers_username' => $param['customers_username'],
+                    'customers_FirstName' => $param['customers_FirstName'],
+                    'customers_Email' => $param['customers_Email'],
+                    'customers_Phone' => $param['customers_Phone'],
+                    'customers_BizAddress' => $param['customers_BizAddress'],
                 );
                 Session::put('customer', $data, 60*60*24);
             }
@@ -170,6 +176,10 @@ class BaseSiteController extends BaseController
                         $data = array(
                             'customers_id' => $user['customers_id'],
                             'customers_username' => $user['customers_username'],
+                            'customers_FirstName' => $user['customers_FirstName'],
+                            'customers_Email' => $user['customers_Email'],
+                            'customers_Phone' => $user['customers_Phone'],
+                            'customers_BizAddress' => $user['customers_BizAddress'],
                         );
                         Session::put('customer', $data, 60*60*24);
                         return Redirect::route('site.home');

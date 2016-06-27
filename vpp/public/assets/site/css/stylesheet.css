@@ -290,7 +290,7 @@ label {
 	text-align: center;
 }
 .mini-cart-info .quantity input[type='text'] {
-	background-color: #ffffff;
+	/*background-color: #ffffff;*/
 	border: none;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
