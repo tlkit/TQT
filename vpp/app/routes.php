@@ -34,6 +34,7 @@ Route::group(array('prefix' => '', 'before' => ''), function()
 
     Route::post('cart/add',array('as' => 'cart.add','uses' =>'AjaxSiteController@addCart'));
     Route::get('gio-hang.html',array('as' => 'cart.view_cart','uses' =>'BaseSiteController@viewCart'));
+    Route::get('thanh-toan.html',array('as' => 'cart.checkout_cart','uses' =>'BaseSiteController@checkoutCart'));
 
 
 });

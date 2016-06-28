@@ -208,6 +208,10 @@ class BaseSiteController extends BaseController
         $this->layout->content = View::make('site.SiteLayouts.view_cart');
     }
 
+    public function checkoutCart(){
+        $this->layout->content = View::make('site.SiteLayouts.checkout');
+    }
+
     public function buildCategoryTree(){
         $category = Categories::lists('categories_Name','categories_id');
         $group = GroupCategory::getGroupForSite()->toArray();
