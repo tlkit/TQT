@@ -40,9 +40,9 @@
                 <tr>
                     <td>Địa chỉ</td>
                     <td>
-                        <input type="text" @if(isset($param['customers_BizAddress'])) value="{{$param['customers_BizAddress']}}" @endif name="customers_BizAddress">
-                        @if(isset($error['customers_BizAddress']))
-                            <span class="error">{{$error['customers_BizAddress']}}</span>
+                        <input type="text" @if(isset($param['customers_ContactAddress'])) value="{{$param['customers_ContactAddress']}}" @endif name="customers_ContactAddress">
+                        @if(isset($error['customers_ContactAddress']))
+                            <span class="error">{{$error['customers_ContactAddress']}}</span>
                         @endif
                     </td>
                 </tr>

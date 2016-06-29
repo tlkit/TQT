@@ -14,7 +14,7 @@ class Order extends Eloquent
 
     protected $primaryKey = 'order_id';
 
-    protected $fillable = array('customers_id','customers_name','customer_phone','customer_email','customers_address', 'order_create_time', 'order_status', 'order_price_total', 'order_vat', 'order_price_item');
+    protected $fillable = array('customers_id','customers_name','customer_phone','customer_email','customers_address', 'order_create_time', 'order_status', 'order_price_total', 'order_vat', 'order_price_item', 'customer_note');
 
     public function orderitem()
     {

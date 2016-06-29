@@ -83,7 +83,7 @@ class BaseSiteController extends BaseController
         $param['customers_Email'] = htmlspecialchars(trim(Request::get('customers_Email','')));
         $param['customers_Phone'] = htmlspecialchars(trim(Request::get('customers_Phone','')));
         $param['customers_Fax'] = htmlspecialchars(trim(Request::get('customers_Fax','')));
-        $param['customers_BizAddress'] = htmlspecialchars(trim(Request::get('customers_BizAddress','')));
+        $param['customers_ContactAddress'] = htmlspecialchars(trim(Request::get('customers_ContactAddress','')));
         $param['customers_username'] = htmlspecialchars(trim(Request::get('customers_username','')));
         $param['customers_password'] = htmlspecialchars(trim(Request::get('customers_password','')));
         $param['customers_password_confirm'] = htmlspecialchars(trim(Request::get('customers_password_confirm','')));
@@ -100,8 +100,8 @@ class BaseSiteController extends BaseController
             $error['customers_Phone'] = 'Số điện thoại không được để trống';
         }
 
-        if($param['customers_BizAddress'] == ''){
-            $error['customers_BizAddress'] = 'Địa chỉ không được để trống';
+        if($param['customers_ContactAddress'] == ''){
+            $error['customers_ContactAddress'] = 'Địa chỉ không được để trống';
         }
 
         if($param['customers_username'] == '' || strlen($param['customers_username']) < 6 || strlen($param['customers_username']) > 32){
@@ -137,7 +137,7 @@ class BaseSiteController extends BaseController
                     'customers_FirstName' => $param['customers_FirstName'],
                     'customers_Email' => $param['customers_Email'],
                     'customers_Phone' => $param['customers_Phone'],
-                    'customers_BizAddress' => $param['customers_BizAddress'],
+                    'customers_ContactAddress' => $param['customers_ContactAddress'],
                 );
                 Session::put('customer', $data, 60*60*24);
             }
@@ -178,7 +178,7 @@ class BaseSiteController extends BaseController
                             'customers_FirstName' => $user['customers_FirstName'],
                             'customers_Email' => $user['customers_Email'],
                             'customers_Phone' => $user['customers_Phone'],
-                            'customers_BizAddress' => $user['customers_BizAddress'],
+                            'customers_ContactAddress' => $user['customers_ContactAddress'],
                         );
                         Session::put('customer', $data, 60*60*24);
                         return Redirect::route('site.home');

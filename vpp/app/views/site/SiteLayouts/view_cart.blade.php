@@ -10,8 +10,8 @@
                 <td class="name" colspan="2">Sản phẩm</td>
                 <!-- <td class="model">Model</td> -->
                 <td class="quantity">Số lượng</td>
-                <td class="price" style="text-align: right">Đơn giá(đ)</td>
-                <td class="price" style="text-align: right">Thành tiền(đ)</td>
+                <td class="price" style="text-align: right">Đơn giá(VNĐ)</td>
+                <td class="price" style="text-align: right">Thành tiền(VNĐ)</td>
                 <td class="total"></td>
             </tr>
             </thead>
@@ -67,7 +67,7 @@
                 <td style="font-weight:bold;font-size:18px;" class="price">Thành tiền</td>
                 <td style="font-weight:bold;font-size:18px;" class="total">{{number_format($sub_total,0,'.','.')}}</td>
             </tr>
-            </tbody></table>
+        </table>
     </div>
     <div class="cart-buttons">
         <div class="right"><input type="button" onclick="window.location=''" class="button" value="Checkout"></div>
