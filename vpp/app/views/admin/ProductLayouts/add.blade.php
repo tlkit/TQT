@@ -114,9 +114,9 @@
                                 </button>
                             </div>
                         </div>
-                        @if(isset($param['product_Avatar']) && $param['product_Avatar'] != '')
+                        @if(isset($data['product_Avatar']) && $data['product_Avatar'] != '')
                             <div style="width: 156px;height: 156px;padding: 2px;border: 1px solid gainsboro" class="product_avatar_old">
-                                <img src="{{Croppa::url(Constant::dir_product.$param['product_Avatar'], 150, 150)}}" alt="" width="150" height="150">
+                                <img src="{{Croppa::url(Constant::dir_product.$data['product_Avatar'], 150, 150)}}" alt="" width="150" height="150">
                             </div>
                         @endif
                     </div>
@@ -135,9 +135,9 @@
                         <div style="width: 100%;display: none;" class="product_image_preview">
 
                         </div>
-                        @if(isset($param['product_Image']) && $param['product_Image'] != '')
-                            <div style="width: 100%;display: none;" class="product_image_old">
-                                <?php $aryImage = json_decode($param['product_Image'],true)?>
+                        @if(isset($data['product_Image']) && $data['product_Image'] != '')
+                            <div style="width: 100%;" class="product_image_old">
+                                <?php $aryImage = json_decode($data['product_Image'],true);?>
                                 @foreach($aryImage as $image)
                                         <div style="width: 156px;height: 156px;padding: 2px;margin: 2px;border: 1px solid gainsboro;float: left"><img src="{{Croppa::url(Constant::dir_product.$image, 150, 150)}}" alt="" width="150" height="150"></div>
                                 @endforeach

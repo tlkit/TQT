@@ -20,6 +20,7 @@
                     <br>
                     <input type="submit" class="button" value="Đăng nhập">
                 </div>
+            <input type="hidden" name="url" value="{{$url}}">
                 <!-- </div> -->
             {{Form::close()}}
         </div>

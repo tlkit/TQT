@@ -21,7 +21,7 @@
             <tr>
                 <td class="image">
                     <a href="{{URL::route('site.product',array('id' => $k,'name'=>FunctionLib::safe_title($v['product_Name'])))}}">
-                        <img title="IK Copy Paper 80gsm A4" alt="IK Copy Paper 80gsm A4" src="http://www.homenoffice.sg/image/cache/data/Product Pictures/8991389139202-80x80.jpg">
+                        <img title="{{$v['product_Name']}}" alt="{{$v['product_Name']}}" src="{{Croppa::url(Constant::dir_product.$v['product_Avatar'], 80, 80)}}">
                     </a>
                 </td>
                 <td class="name">
@@ -70,8 +70,8 @@
         </table>
     </div>
     <div class="cart-buttons">
-        <div class="right"><input type="button" onclick="window.location=''" class="button" value="Checkout"></div>
-        <div class="center"><input type="button" onclick="window.location='{{URL::route('site.home')}}}'" class="btncontinue" value="Tiếp tục mua sắm"></div>
+        <div class="right"><input type="button" onclick="window.location='{{URL::route('cart.checkout_cart')}}'" class="button" value="Thanh toán"></div>
+        <div class="center"><input type="button" onclick="window.location='{{URL::route('site.home')}}'" class="btncontinue" value="Tiếp tục mua sắm"></div>
     </div>
 </div>
 @endif

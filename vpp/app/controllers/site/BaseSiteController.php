@@ -152,10 +152,15 @@ class BaseSiteController extends BaseController
 
     public function loginInfo()
     {
+        $url = htmlspecialchars(trim(Request::get('url','')));
         if (Session::has('customer')) {
-            return Redirect::route('site.home');
+            if($url == ''){
+                return Redirect::route('site.home');
+            }else{
+                return Redirect::to(base64_decode($url));
+            }
         } else {
-            $this->layout->content = View::make('site.SiteLayouts.login');
+            $this->layout->content = View::make('site.SiteLayouts.login')->with('url',$url);
         }
     }
 
@@ -163,6 +168,7 @@ class BaseSiteController extends BaseController
     {
         $username = Request::get('customers_username', '');
         $password = Request::get('customers_password', '');
+        $url = htmlspecialchars(trim(Request::get('url','')));
         $error = '';
         if ($username != '' && $password != '') {
             if (strlen($username) < 6 || strlen($username) > 32 || strlen($password) < 6) {
@@ -181,7 +187,11 @@ class BaseSiteController extends BaseController
                             'customers_ContactAddress' => $user['customers_ContactAddress'],
                         );
                         Session::put('customer', $data, 60*60*24);
-                        return Redirect::route('site.home');
+                        if($url == ''){
+                            return Redirect::route('site.home');
+                        }else{
+                            return Redirect::to(base64_decode($url));
+                        }
                     } else {
                         $error = 'Mật khẩu không đúng!';
                     }
@@ -193,7 +203,7 @@ class BaseSiteController extends BaseController
             $error = 'Chưa nhập thông tin đăng nhập!';
         }
         $this->layout->content = View::make('site.SiteLayouts.login')
-            ->with('error', $error)->with('username', $username);
+            ->with('error', $error)->with('url', $url)->with('username', $username);
     }
 
     public function logout()
@@ -209,7 +219,83 @@ class BaseSiteController extends BaseController
     }
 
     public function checkoutCart(){
-        $this->layout->content = View::make('site.SiteLayouts.checkout');
+        $this->layout->content = View::make('site.SiteLayouts.checkout')->with('payment_address',1);
+    }
+
+    public function submitCheckoutCart(){
+        $cart = Session::has('cart') ? Session::get('cart') : array();
+        if(!$cart){
+            return Redirect::route('cart.checkout_cart');
+        }
+        $payment_address = (int)Request::get('payment_address',1);
+        $param['customers_name'] = htmlspecialchars(trim(Request::get('customers_name', '')));
+        $param['customers_email'] = htmlspecialchars(trim(Request::get('customers_email', '')));
+        $param['customers_phone'] = htmlspecialchars(trim(Request::get('customers_phone', '')));
+        $param['customers_address'] = htmlspecialchars(trim(Request::get('customers_address', '')));
+        $param['customers_note'] = htmlspecialchars(trim(Request::get('customers_note', '')));
+        $error = array();
+        $dataOrder = $dataOrderItem = array();
+        if($this->customer){
+            $dataOrder['customers_id'] = $this->customer['customers_id'];
+            $dataOrder['customers_name'] = $this->customer['customers_FirstName'];
+            $dataOrder['customers_email'] = $this->customer['customers_Email'];
+            $dataOrder['customers_phone'] = $this->customer['customers_Phone'];
+            if($payment_address == 1){
+                $dataOrder['customers_address'] = $this->customer['customers_ContactAddress'];
+            }else{
+                if($param['customers_address'] == ''){
+                    $error['address'] = 'Chưa nhập địa chỉ giao hàng';
+                }else{
+                    $dataOrder['customers_address'] = $param['customers_address'];
+                }
+            }
+        }else{
+            if($param['customers_name'] == ''){
+                $error['name'] = 'Chưa nhập tên khách hàng';
+            }
+            if($param['customers_email'] == '' || !filter_var($param['customers_email'],FILTER_VALIDATE_EMAIL)){
+                $error['email'] = 'Email không đúng định dạng';
+            }
+            if($param['customers_phone'] == ''){
+                $error['phone'] = 'Chưa nhập số điện thoại';
+            }
+            if($param['customers_address'] == ''){
+                $error['address'] = 'Chưa nhập địa chỉ giao hàng';
+            }
+            if(!$error){
+                $dataOrder['customers_name'] = $param['customers_name'];
+                $dataOrder['customers_email'] = $param['customers_email'];
+                $dataOrder['customers_phone'] = $param['customers_phone'];
+                $dataOrder['customers_address'] = $param['customers_address'];
+            }
+        }
+        $dataOrder['customers_note'] = $param['customers_note'];
+        if($error){
+            $this->layout->content = View::make('site.SiteLayouts.checkout')->with('error',$error)->with('param',$param)->with('payment_address',$payment_address);
+        }else{
+            $sub_total = 0;
+            foreach($cart as $k => $v){
+                $dataOrderItem[$k]['product_id'] = $v['product_id'];
+                $dataOrderItem[$k]['product_name'] = $v['product_Name'];
+                $dataOrderItem[$k]['product_price'] = $v['product_price_buy'];
+                $dataOrderItem[$k]['product_num'] = $v['product_num'];
+                $dataOrderItem[$k]['order_item_price'] = ($v['product_num'] * $v['product_price_buy']);
+                $dataOrderItem[$k]['order_item_create'] = time();
+                $sub_total += $v['product_num'] * $v['product_price_buy'];
+            }
+            $dataOrder['order_create_time'] = time();
+            $dataOrder['order_status'] = 1;
+            $dataOrder['order_price_item'] = $sub_total;
+            $dataOrder['order_vat'] = 0;
+            $dataOrder['order_price_total'] = $dataOrder['order_vat'] + $dataOrder['order_price_item'];
+            Order::add($dataOrder,$dataOrderItem);
+            return Redirect::route('cart.checkout_cart_success');
+        }
+
+    }
+
+    public function successOrder(){
+        $this->layout->content = View::make('site.SiteLayouts.order_success');
     }
 
     public function buildCategoryTree(){

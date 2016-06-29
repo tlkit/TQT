@@ -96,7 +96,7 @@
                             <div style="margin-top:-15px;margin-left: 1px;" id="paperclip"></div>
                             <div style="margin-bottom:50px;">
                                 <div style="float:left;color:#055993;font-size:16px;margin-left:30px;margin-top:5px;">Giỏ hàng của bạn</div>
-                                <div style="float:right;"><input type="button" onclick="window.location=''" value="Thanh toán" id="button"></div>
+                                <div style="float:right;"><input type="button" onclick="window.location='{{URL::route('cart.checkout_cart')}}'" value="Thanh toán" id="button"></div>
                             </div>
                             <div class="mini-cart-info" style="max-height: 380px; overflow-y: scroll;">
                                 <table>
@@ -106,7 +106,7 @@
                                         <tr>
                                             <td class="image">
                                                 <a href="{{URL::route('site.product',array('id' => $k,'name'=>FunctionLib::safe_title($v['product_Name'])))}}">
-                                                    <img title="{{$v['product_Name']}}" alt="{{$v['product_Name']}}" src="http://www.homenoffice.sg/image/cache/data/Product Pictures/8991389139202-80x80.jpg"></a>
+                                                    <img title="{{$v['product_Name']}}" alt="{{$v['product_Name']}}" src="{{Croppa::url(Constant::dir_product.$v['product_Avatar'], 80, 80)}}"></a>
                                             </td>
                                             <td class="name"><a href="{{URL::route('site.product',array('id' => $k,'name'=>FunctionLib::safe_title($v['product_Name'])))}}">{{$v['product_Name']}}</a>
                                                 <small>
@@ -158,16 +158,13 @@
         <div class="column">
             <h3>Giúp đỡ</h3>
             <img class="footer-img" src="{{asset('assets/site/image/help.png')}}">
-            <p>Email us at <a id="mailto" href="mailto:enquiry@homenoffice.com.sg">enquiry@homenoffice.com.sg</a> and we will get back to you shortly.</p>
+            <p>Gửi mail cho chúng tôi tại <a id="mailto" href="mailto:enquiry@homenoffice.com.sg">enquiry@homenoffice.com.sg</a></p>
         </div>
         <div class="column">
             <h3>Thông tin</h3>
             <img class="footer-img" src="{{asset('assets/site/image/info2.png')}}">
             <ul>
-                <li><a href="javascript:void(0)">F.A.Q</a></li>
-                <li><a href="javascript:void(0)">Privacy Policy</a></li>
-                <li><a href="javascript:void(0)">Terms &amp; Conditions</a></li>
-                <!-- <li><a href="http://www.homenoffice.sg/contact">Contact Us</a></li> -->
+                <li><a href="javascript:void(0)">Về chúng tôi</a></li>
             </ul>
         </div>
         <!-- <div class="column">
@@ -189,7 +186,7 @@
             </ul>
         </div>
         <div class="column">
-            <h3>Giới thiệu</h3>
+            <h3>Website</h3>
             <img class="footer-img" src="{{asset('assets/site/image/brochure.png')}}">
             <ul>
                 <li><a href="javascript:void(0)">Danh mục</a></li>

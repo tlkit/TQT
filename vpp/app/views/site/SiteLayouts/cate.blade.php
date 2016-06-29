@@ -64,7 +64,7 @@
         <div align="center" class="product-column" style="width:22.1%">
             <div class="image">
                 <a href="{{URL::route('site.product',array('id' => $v["product_id"],'name' => FunctionLib::safe_title($v["product_Name"])))}}">
-                    <img src="http://www.homenoffice.sg/image/cache/data/Product Pictures/Energizer Battery E91 E92-130x130.jpg" title="{{$v["product_Name"]}}" alt="{{$v["product_Name"]}}" />
+                    <img src="{{Croppa::url(Constant::dir_product.$v['product_Avatar'], 130, 130)}}" title="{{$v["product_Name"]}}" alt="{{$v["product_Name"]}}" />
                 </a>
             </div>
             <div class="name">
@@ -75,12 +75,14 @@
             <div class="price">
                 <span class="price-new">{{number_format($v['product_Price'],0,'.','.')}}đ</span>
             </div>
-            <div class="discount-msg">
-                SL bán buôn: <span>20 & hơn</span>
-                <br />
-                Giá bán buôn: <span>$2.65</span>
-                &nbsp;&nbsp;(Tiết kiệm: <span id="save">19%</span>)
-            </div>
+            @if($v['product_bulk_quantity'] > 0)
+                <div class="discount-msg">
+                    SL bán buôn: <span>{{$v['product_bulk_quantity']}} & nhiều hơn</span><br />
+                    @if($v['product_bulk_price'] > 0)
+                        Giá bán buôn: <span>{{number_format($v['product_bulk_price'],0,'.','.')}}</span>&nbsp;&nbsp;(Tiết kiệm: <span id="save">{{ceil(($v['product_Price'] - $v['product_bulk_price'])/$v['product_Price']*100)}}%</span>)
+                    @endif
+                </div>
+            @endif
             <div class="cart">
                 <input value="Add to Cart"  class="button btn_add_cart" type="button" data-id="{{$v['product_id']}}">
                 <span class="counter2">

@@ -36,17 +36,20 @@
     <div class="product-info">
         <div class="left">
 
-            <div class="image"><a href="http://www.homenoffice.sg/image/cache/data/Product Pictures/Sinar Deep Colours-1000x1000.jpg" title="{{$product['product_Name']}}" class="cloud-zoom" id='zoom1' rel="adjustX: 10, adjustY:-4, tint:'#000000',tintOpacity:0.2, zoomWidth:360"><img src="http://www.homenoffice.sg/image/cache/data/Product Pictures/Sinar Deep Colours-228x228.jpg" title="{{$product['product_Name']}}" alt="" id="image" /></a></div>
-
-
+            <div class="image">
+                <a href="{{Croppa::url(Constant::dir_product.$product['product_Avatar'])}}" title="{{$product['product_Name']}}" class="cloud-zoom" id='zoom1' rel="adjustX: 10, adjustY:-4, tint:'#000000',tintOpacity:0.2, zoomWidth:360">
+                    <img src="{{Croppa::url(Constant::dir_product.$product['product_Avatar'], 228, 228)}}" title="{{$product['product_Name']}}" alt="" id="image" />
+                </a>
+            </div>
             <div class="image-additional">
-
-                <a href="http://www.homenoffice.sg/image/cache/data/Product Pictures/Sinar Deep Colours-1000x1000.jpg" title="{{$product['product_Name']}}" class="cloud-zoom-gallery" rel="useZoom: 'zoom1', smallImage: 'http://www.homenoffice.sg/image/cache/data/Product Pictures/Sinar Deep Colours-228x228.jpg' "><img src="http://www.homenoffice.sg/image/cache/data/Product Pictures/Sinar Deep Colours-74x74.jpg" title="{{$product['product_Name']}}" alt="" id="image" onclick="largelink('http://www.homenoffice.sg/image/cache/data/Product Pictures/Sinar Deep Colours-500x500.jpg')"/></a>
-
-
-                <a href="http://www.homenoffice.sg/image/cache/data/Product Pictures/sinar-spectra-colour-paper-80gsm-a4-pastel-a3409-1000x1000.jpg" title="{{$product['product_Name']}}" class="cloud-zoom-gallery" rel="useZoom: 'zoom1', smallImage: 'http://www.homenoffice.sg/image/cache/data/Product Pictures/sinar-spectra-colour-paper-80gsm-a4-pastel-a3409-228x228.jpg' "><img src="http://www.homenoffice.sg/image/cache/data/Product Pictures/sinar-spectra-colour-paper-80gsm-a4-pastel-a3409-74x74.jpg" title="{{$product['product_Name']}}" alt="" onclick="largelink('http://www.homenoffice.sg/image/cache/data/Product Pictures/sinar-spectra-colour-paper-80gsm-a4-pastel-a3409-500x500.jpg')" /></a>
-
-
+                <?php $aryImage = json_decode($product['product_Image'],true);?>
+                @if($aryImage)
+                @foreach($aryImage as $image)
+                        <a href="{{Croppa::url(Constant::dir_product.$image)}}" title="{{$product['product_Name']}}" class="cloud-zoom-gallery" rel="useZoom: 'zoom1', smallImage: '{{Croppa::url(Constant::dir_product.$image,228,228)}}' ">
+                            <img src="{{Croppa::url(Constant::dir_product.$image,74,74)}}" title="{{$product['product_Name']}}" alt="" id="image" onclick="largelink('{{Croppa::url(Constant::dir_product.$image,500,500)}}')"/>
+                        </a>
+                @endforeach
+                @endif
             </div>
         </div>
         <div class="right">
@@ -94,7 +97,7 @@
                 <div class="box-column2" style="width:29%;">
                     <div class="image">
                         <a href="{{URL::route('site.product',array('id' => $v["product_id"],'name' => FunctionLib::safe_title($v["product_Name"])))}}">
-                            <img src="http://www.homenoffice.sg/image/cache/data/Product Pictures/Sinar Pastel Colours-130x130.jpg" alt="{{$v["product_Name"]}}" style="padding:10px" />
+                            <img src="{{Croppa::url(Constant::dir_product.$v['product_Avatar'], 130, 130)}}" alt="{{$v["product_Name"]}}" style="padding:10px" />
                         </a>
                         <!--                       <img class="special" src="catalog/view/theme/default/image/save.png">
                                                -->
@@ -104,9 +107,14 @@
                     <div class="price">
                         <span class="price-new">{{number_format($v['product_Price'])}}</span>
                     </div>
+                    @if($v['product_bulk_quantity'] > 0)
                     <div class="discount-msg">
-                        SL bán buôn: <span>5 & nhiều hơn</span><br />Giá bán buôn: <span>$6.40</span>&nbsp;&nbsp;(Tiết kiệm: <span id="save">20%</span>)
+                        SL bán buôn: <span>{{$v['product_bulk_quantity']}} & nhiều hơn</span><br />
+                        @if($v['product_bulk_price'] > 0)
+                        Giá bán buôn: <span>{{number_format($v['product_bulk_price'],0,'.','.')}}</span>&nbsp;&nbsp;(Tiết kiệm: <span id="save">{{ceil(($v['product_Price'] - $v['product_bulk_price'])/$v['product_Price']*100)}}%</span>)
+                        @endif
                     </div>
+                    @endif
                     <div class="cart">
                         <input value="Add to Cart"  class="button btn_add_cart" type="button" data-id="{{$v['product_id']}}">
                         <span class="counter2">

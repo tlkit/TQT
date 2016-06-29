@@ -135,14 +135,15 @@ class ProductController extends BaseAdminController
         }
         if ($this->valid($dataSave, $id) && empty($this->error)) {
             if ($file) {
-                $name = time() . '-' . $file->getClientOriginalName();
+                $name = time() . '-av-' . $file->getClientOriginalName();
                 $file->move(Constant::dir_product, $name);
+                chmod (Constant::dir_product.$name, 777);
                 $dataSave['product_Avatar'] = $name;
             }
             if ($files) {
                 $image = array();
                 foreach ($files as $fi) {
-                    $name = time() . '-' . $fi->getClientOriginalName();
+                    $name = time() . '-img-' . $fi->getClientOriginalName();
                     $fi->move(Constant::dir_product, $name);
                     $image[] = $name;
                 }

@@ -4,7 +4,7 @@
         <div style="margin-top:-15px;margin-left: 1px;" id="paperclip"></div>
         <div style="margin-bottom:50px;">
             <div style="float:left;color:#055993;font-size:16px;margin-left:30px;margin-top:5px;">Giỏ hàng của bạn</div>
-            <div style="float:right;"><input type="button" onclick="window.location=''" value="Thanh toán" id="button"></div>
+            <div style="float:right;"><input type="button" onclick="window.location='{{URL::route('cart.checkout_cart')}}'" value="Thanh toán" id="button"></div>
         </div>
         <div class="mini-cart-info" style="max-height: 380px; overflow-y: scroll;">
             <table>
@@ -14,7 +14,7 @@
                 <tr>
                     <td class="image">
                         <a href="{{URL::route('site.product',array('id' => $k,'name'=>FunctionLib::safe_title($v['product_Name'])))}}">
-                            <img title="{{$v['product_Name']}}" alt="{{$v['product_Name']}}" src="http://www.homenoffice.sg/image/cache/data/Product Pictures/8991389139202-80x80.jpg"></a>
+                            <img title="{{$v['product_Name']}}" alt="{{$v['product_Name']}}" src="{{Croppa::url(Constant::dir_product.$v['product_Avatar'], 80, 80)}}"></a>
                     </td>
                     <td class="name">
                         <a href="{{URL::route('site.product',array('id' => $k,'name'=>FunctionLib::safe_title($v['product_Name'])))}}">{{$v['product_Name']}}</a>
