@@ -49,10 +49,9 @@ class Order extends Eloquent
             DB::connection()->getPdo()->commit();
             return $order_id;
         } catch (\PDOException $e) {
-            var_dump($e->getMessage());die;
+            //var_dump($e->getMessage());die;
             DB::connection()->getPdo()->rollBack();
-            //throw new PDOException();
-            return false;
+            throw new PDOException();
         }
 
     }
@@ -98,11 +97,12 @@ class Order extends Eloquent
         }
     }
 
-    public static function upDateStatusById($id,$status){
+    public static function upDateStatusById($id,$status)
+    {
         try {
             $orders = Order::find($id);
             if ($orders) {
-                $orders->order_status= $status;
+                $orders->order_status = $status;
                 $orders->save();
                 return $orders;
             } else {
@@ -111,6 +111,13 @@ class Order extends Eloquent
         } catch (\PDOException $e) {
             throw new PDOException();
             return false;
+        }
+    }
+    public static function getByCustomerId($customer_id){
+        try {
+            return Order::where('customers_id',$customer_id)->orderBy('order_create_time','DESC')->get();
+        } catch (\PDOException $e) {
+            throw new PDOException();
         }
     }
 

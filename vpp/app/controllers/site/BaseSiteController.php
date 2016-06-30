@@ -289,6 +289,7 @@ class BaseSiteController extends BaseController
             $dataOrder['order_vat'] = 0;
             $dataOrder['order_price_total'] = $dataOrder['order_vat'] + $dataOrder['order_price_item'];
             Order::add($dataOrder,$dataOrderItem);
+            Session::forget('cart');
             return Redirect::route('cart.checkout_cart_success');
         }
 
@@ -296,6 +297,136 @@ class BaseSiteController extends BaseController
 
     public function successOrder(){
         $this->layout->content = View::make('site.SiteLayouts.order_success');
+    }
+
+    public function changeInfo(){
+        if(!$this->customer){
+            return Redirect::route('site.login');
+        }
+        $customer = Customers::find($this->customer['customers_id']);
+        $this->layout->content = View::make('site.SiteLayouts.changeInfo')->with('customer',$customer);
+    }
+
+    public function submitChangeInfo(){
+        if(!$this->customer){
+            return Redirect::route('site.login');
+        }
+        $param['customers_FirstName'] = htmlspecialchars(trim(Request::get('customers_FirstName','')));
+        $param['customers_Email'] = htmlspecialchars(trim(Request::get('customers_Email','')));
+        $param['customers_Phone'] = htmlspecialchars(trim(Request::get('customers_Phone','')));
+        $param['customers_ContactAddress'] = htmlspecialchars(trim(Request::get('customers_ContactAddress','')));
+        $error = array();
+        if($param['customers_FirstName'] == '' || strlen($param['customers_FirstName']) <= 3){
+            $error['customers_FirstName'] = 'Tên khách hàng phải lớn hơn 3 ký tự';
+        }
+
+        if($param['customers_Email'] == '' || !filter_var($param['customers_Email'],FILTER_VALIDATE_EMAIL)){
+            $error['customers_Email'] = 'Email chưa đúng định dạng';
+        }
+
+        if($param['customers_Phone'] == ''){
+            $error['customers_Phone'] = 'Số điện thoại không được để trống';
+        }
+
+        if($param['customers_ContactAddress'] == ''){
+            $error['customers_ContactAddress'] = 'Địa chỉ không được để trống';
+        }
+        if($error){
+            $this->layout->content = View::make('site.SiteLayouts.changeInfo')->with('customer',$param)->with('error',$error);
+        }else{
+            if(Customers::updData($this->customer['customers_id'],$param)){
+                $data = array(
+                    'customers_id' => $this->customer['customers_id'],
+                    'customers_username' => $this->customer['customers_username'],
+                    'customers_FirstName' => $param['customers_FirstName'],
+                    'customers_Email' => $param['customers_Email'],
+                    'customers_Phone' => $param['customers_Phone'],
+                    'customers_ContactAddress' => $param['customers_ContactAddress'],
+                );
+                Session::put('customer', $data, 60*60*24);
+            }
+            return Redirect::route('site.changeInfo_success');
+        }
+    }
+
+    public function changeInfoSuccess(){
+        if(!$this->customer){
+            return Rediect::route('site.login');
+        }
+        $this->layout->content = View::make('site.SiteLayouts.changeInfo_success');
+    }
+
+    public function changePass(){
+        if(!$this->customer){
+            return Redirect::route('site.login');
+        }
+        $this->layout->content = View::make('site.SiteLayouts.changePass');
+    }
+
+    public function submitChangePass(){
+        if(!$this->customer){
+            return Redirect::route('site.login');
+        }
+        $param['customers_password_old'] = htmlspecialchars(trim(Request::get('customers_password_old','')));
+        $param['customers_password'] = htmlspecialchars(trim(Request::get('customers_password','')));
+        $param['customers_password_confirm'] = htmlspecialchars(trim(Request::get('customers_password_confirm','')));
+        $error = array();
+        $customer = Customers::find($this->customer['customers_id']);
+        if($customer['customers_password'] !== md5('xxx_'.$param['customers_password_old'])){
+            $error['customers_password_old'] = 'Mật khẩu hiện tại không đúng';
+        }
+        if($param['customers_password'] == '' || strlen($param['customers_password']) < 6 || strlen($param['customers_password']) > 32){
+            $error['customers_password'] = 'Mật khẩu phải nằm trong khoảng 6-32 ký tự';
+        }
+
+        if($param['customers_password'] !== $param['customers_password_confirm']){
+            $error['customers_password_confirm'] = 'Xác nhận mật khẩu không chính xác';
+        }
+        if($error){
+            $this->layout->content = View::make('site.SiteLayouts.changePass')->with('error',$error);
+        }else{
+            unset($param['customers_password_old']);
+            unset($param['customers_password_confirm']);
+            $param['customers_password'] = md5('xxx_'.$param['customers_password']);
+            Customers::updData($this->customer['customers_id'],$param);
+            return Redirect::route('site.changePass_success');
+        }
+    }
+
+    public function changePassSuccess(){
+        if(!$this->customer){
+            return Redirect::route('site.login');
+        }
+        $this->layout->content = View::make('site.SiteLayouts.changePass_success');
+    }
+
+    public function account(){
+        if(!$this->customer){
+            return Redirect::route('site.login');
+        }
+        $this->layout->content = View::make('site.SiteLayouts.account');
+    }
+
+    public function orderHistory(){
+        if(!$this->customer){
+            return Redirect::route('site.login');
+        }
+        $aryStatus = array(-1 => 'Đã hủy', 1 => 'Đang xử lý', 2 => 'Đã xác nhận, chờ giao', 3 => 'Hoàn thành');
+        $orders = Order::getByCustomerId($this->customer['customers_id']);
+        $this->layout->content = View::make('site.SiteLayouts.order_history')->with('orders',$orders)->with('aryStatus',$aryStatus);
+    }
+
+    public function orderDetail($id){
+        if(!$this->customer){
+            return Redirect::route('site.login');
+        }
+        $order = Order::find($id);
+        if(!$order || $order['customers_id'] != $this->customer['customers_id']){
+            return Redirect::route('site.home');
+        }
+        $item = $order->orderitem;
+        $aryStatus = array(-1 => 'Đã hủy', 1 => 'Đang xử lý', 2 => 'Đã xác nhận, chờ giao', 3 => 'Hoàn thành');
+        $this->layout->content = View::make('site.SiteLayouts.order_detail')->with('order',$order)->with('aryStatus',$aryStatus)->with('item',$item);
     }
 
     public function buildCategoryTree(){

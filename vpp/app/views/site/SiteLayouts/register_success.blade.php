@@ -5,7 +5,7 @@
     <p>Ngay bây giờ bạn có thể sử dụng tài khoản để mua sắm trực tuyến trên website của chúng tôi</p>
     <p>Nếu có bạn có bất kỳ thắc mắc gì, vui lòng liên hệ với chúng tôi theo địa chỉ email <a href="mailto:enquiry@homenoffice.com.sg">enquiry@homenoffice.com.sg</a>.</p>
     <div class="buttons">
-        <div class="right"><input type="button" class="button" value="Tài khoản"></div>
+        <div class="right"><input type="button" class="button" value="Tài khoản" onclick="window.location='{{URL::route('site.account')}}'"></div>
     </div>
     @else
         <h1>Đăng ký tài khoản không thành công !</h1>

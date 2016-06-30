@@ -32,6 +32,8 @@ class AjaxSiteController extends BaseController
                 'product_Name' => $product['product_Name'],
                 'product_Avatar' => $product['product_Avatar'],
                 'product_Price' => $product['product_Price'],
+                'product_bulk_quantity' => $product['product_bulk_quantity'],
+                'product_bulk_price' => $product['product_bulk_price'],
             );
         }
         if($cart[$product_id]['product_num'] >= $product['product_bulk_quantity'] && $product['product_bulk_quantity'] > 0){
@@ -43,6 +45,50 @@ class AjaxSiteController extends BaseController
         $data['success'] = 1;
         $data['html'] = View::make('site.SiteLayouts.cart')->with('cart',$cart)->render();
         return Response::json($data);
+    }
+
+    public function updateNumber(){
+        $product_id = (int)Request::get('product_id',0);
+        $product_num = (int)Request::get('product_num',0);
+        $cart = Session::has('cart') ? Session::get('cart') : array();
+        $data['success'] = 0;
+        if(isset($cart[$product_id])){
+            $cart[$product_id]['product_num'] = $product_num;
+            if($cart[$product_id]['product_num'] >= $cart[$product_id]['product_bulk_quantity'] && $cart[$product_id]['product_bulk_quantity'] > 0){
+                $cart[$product_id]['product_price_buy'] = $cart[$product_id]['product_bulk_price'];
+            }else{
+                $cart[$product_id]['product_price_buy'] = $cart[$product_id]['product_Price'];
+            }
+            Session::put('cart', $cart);
+            $data['success'] = 1;
+            $data['price'] = $cart[$product_id]['product_price_buy'];
+            $data['price_item'] = $cart[$product_id]['product_num'] * $cart[$product_id]['product_price_buy'];
+            $total = 0;
+            foreach($cart as $k => $v){
+                $total += $v['product_num'] * $v['product_price_buy'];
+            }
+            $data['price_total'] = $total;
+        }
+        return Response::json($data);
+
+    }
+
+    public function removeProduct(){
+        $product_id = (int)Request::get('product_id',0);
+        $cart = Session::has('cart') ? Session::get('cart') : array();
+        $data['success'] = 0;
+        if(isset($cart[$product_id])){
+            unset($cart[$product_id]);
+            Session::put('cart', $cart);
+            $data['success'] = 1;
+            $total = 0;
+            foreach($cart as $k => $v){
+                $total += $v['product_num'] * $v['product_price_buy'];
+            }
+            $data['price_total'] = $total;
+        }
+        return Response::json($data);
+
     }
 
 }

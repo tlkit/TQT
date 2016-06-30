@@ -33,10 +33,22 @@ Route::group(array('prefix' => '', 'before' => ''), function()
 
 
     Route::post('cart/add',array('as' => 'cart.add','uses' =>'AjaxSiteController@addCart'));
+    Route::post('cart/remove',array('as' => 'cart.remove','uses' =>'AjaxSiteController@removeProduct'));
+    Route::post('cart/update',array('as' => 'cart.update','uses' =>'AjaxSiteController@updateNumber'));
     Route::get('gio-hang.html',array('as' => 'cart.view_cart','uses' =>'BaseSiteController@viewCart'));
     Route::get('thanh-toan.html',array('as' => 'cart.checkout_cart','uses' =>'BaseSiteController@checkoutCart'));
     Route::post('thanh-toan.html',array('as' => 'cart.checkout_cart','uses' =>'BaseSiteController@submitCheckoutCart'));
     Route::get('thanh-toan-thanh-cong.html',array('as' => 'cart.checkout_cart_success','uses' =>'BaseSiteController@successOrder'));
+    Route::get('thong-tin-tai-khoan.html',array('as' => 'site.changeInfo','uses' =>'BaseSiteController@changeInfo'));
+    Route::post('thong-tin-tai-khoan.html',array('as' => 'site.changeInfo','uses' =>'BaseSiteController@submitChangeInfo'));
+    Route::get('thay-doi-thong-tin-thanh-cong.html',array('as' => 'site.changeInfo_success','uses' =>'BaseSiteController@changeInfoSuccess'));
+
+    Route::get('tai-khoan.html',array('as' => 'site.account','uses' =>'BaseSiteController@account'));
+    Route::get('lich-su-don-hang.html',array('as' => 'site.order_history','uses' =>'BaseSiteController@orderHistory'));
+    Route::get('o{id}/chi-tiet-don-hang.html',array('as' => 'site.order_detail','uses' =>'BaseSiteController@orderDetail'));
+    Route::get('thay-doi-mat-khau.html',array('as' => 'site.changePass','uses' =>'BaseSiteController@changePass'));
+    Route::post('thay-doi-mat-khau.html',array('as' => 'site.changePass','uses' =>'BaseSiteController@submitChangePass'));
+    Route::get('thay-doi-mat-khau-thanh-cong.html',array('as' => 'site.changePass_success','uses' =>'BaseSiteController@changePassSuccess'));
 
 
 });

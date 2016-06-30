@@ -49,7 +49,7 @@
                 <div id="payment-address">
                     <div class="onecheckout-heading"><span>Chi tiết giao hàng</span></div>
                     <div class="onecheckout-content">
-                        <input type="radio" checked="checked" id="payment-address-existing" value="1" name="payment_address">
+                        <input type="radio" @if($payment_address == 1) checked="checked" @endif id="payment-address-existing" value="1" name="payment_address">
                         <label for="payment-address-existing">Sử dụng địa chỉ giao hàng này</label>
                         <div id="payment-existing">
                             <select size="5" style="width: 100%; margin-bottom: 15px;" name="address_id">
@@ -57,14 +57,20 @@
                             </select>
                         </div>
                         <p>
-                            <input type="radio" id="payment-address-new" value="2" name="payment_address">
+                            <input type="radio" id="payment-address-new" value="2" name="payment_address" @if($payment_address == 2) checked="checked" @endif>
                             <label for="payment-address-new">Sử dụng địa chỉ giao hàng mới</label>
                         </p>
-                        <div style="display: none;" id="payment-new">
+                        <div @if($payment_address != 2) style="display: none" @endif id="payment-new">
                             <table class="form">
+                                <tbody>
                                 <tr>
                                     <td><span class="required">*</span> Địa chỉ:</td>
-                                    <td><input type="text" class="large-field" value="" name="customers_address" id="customers_address"><br></td>
+                                    <td>
+                                        <input type="text" class="large-field" value="" name="customers_address" id="customers_address"><br>
+                                        @if(isset($error['address']))
+                                            <span class="error">{{$error['address']}}</span>
+                                        @endif
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -166,6 +172,13 @@
 @endif
 <script type="text/javascript">
     $(document).ready(function(){
-
+        $('input[type=radio][name=payment_address]').change(function() {
+            if (this.value == 1) {
+                $("#payment-new").hide();
+            }
+            else if (this.value == 2) {
+                $("#payment-new").show();
+            }
+        });
     })
 </script>

@@ -11,7 +11,7 @@
                 <tbody>
                 <?php $sub_total = 0;?>
                 @foreach($cart as $k => $v)
-                <tr>
+                <tr class="row_{{$v['product_id']}}">
                     <td class="image">
                         <a href="{{URL::route('site.product',array('id' => $k,'name'=>FunctionLib::safe_title($v['product_Name'])))}}">
                             <img title="{{$v['product_Name']}}" alt="{{$v['product_Name']}}" src="{{Croppa::url(Constant::dir_product.$v['product_Avatar'], 80, 80)}}"></a>
@@ -20,20 +20,20 @@
                         <a href="{{URL::route('site.product',array('id' => $k,'name'=>FunctionLib::safe_title($v['product_Name'])))}}">{{$v['product_Name']}}</a>
                         <small>
                             <br>
-                            Giá bán: {{number_format($v['product_price_buy'],0,'.','.')}}đ<br>
+                            Giá bán: {{number_format($v['product_price_buy'],0,'.','.')}}<br>
                             @if($v['product_price_buy'] < $v['product_Price'])
-                            Giá bán lẻ: {{number_format($v['product_Price'],0,'.','.')}}đ<br>
+                            Giá bán lẻ: {{number_format($v['product_Price'],0,'.','.')}}<br>
                             Tiết kiệm: <span id="save">{{ceil(100 - ($v['product_price_buy']/$v['product_Price'])*100)}}%</span><br>
                             @endif
                         </small>
                     </td>
                     <td class="quantity">
-                        <input type="text" size="2" value="{{$v['product_num']}}"><br>
-                    <td class="total">{{number_format($v['product_price_buy']*$v['product_num'],0,'.','.')}}đ</td>
+                        <input type="text" size="2" value="{{$v['product_num']}}" data-id="{{$v['product_id']}}" class="sys_number_cart" id="cart_number_{{$v['product_id']}}"><br>
+                    <td class="total sys_total_item_{{$v['product_id']}}">{{number_format($v['product_price_buy']*$v['product_num'],0,'.','.')}}</td>
                     <?php
                     $sub_total += $v['product_price_buy']*$v['product_num']
                     ?>
-                    <td class="remove"><img alt="Remove" src="{{asset('assets/site/image/delete.png')}}"></td>
+                    <td class="remove"><img alt="Remove" src="{{asset('assets/site/image/delete.png')}}" class="sys_remove" data-id="{{$v['product_id']}}"></td>
                 </tr>
                 @endforeach
                 </tbody>
@@ -43,7 +43,7 @@
             <table>
                 <tbody><tr>
                     <td style="font-size:16px;color:#055993;">Tổng tiền</td>
-                    <td align="right" style="width:388px;font-weight:bold;font-size:14px;">{{number_format($sub_total,0,'.','.')}}đ</td>
+                    <td align="right" style="width:388px;font-weight:bold;font-size:14px;" class="sys_total_order">{{number_format($sub_total,0,'.','.')}}</td>
                 </tr>
                 </tbody>
             </table>
