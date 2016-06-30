@@ -400,6 +400,35 @@ class BaseSiteController extends BaseController
         $this->layout->content = View::make('site.SiteLayouts.changePass_success');
     }
 
+    public function account(){
+        if(!$this->customer){
+            return Redirect::route('site.login');
+        }
+        $this->layout->content = View::make('site.SiteLayouts.account');
+    }
+
+    public function orderHistory(){
+        if(!$this->customer){
+            return Redirect::route('site.login');
+        }
+        $aryStatus = array(-1 => 'Đã hủy', 1 => 'Đang xử lý', 2 => 'Đã xác nhận, chờ giao', 3 => 'Hoàn thành');
+        $orders = Order::getByCustomerId($this->customer['customers_id']);
+        $this->layout->content = View::make('site.SiteLayouts.order_history')->with('orders',$orders)->with('aryStatus',$aryStatus);
+    }
+
+    public function orderDetail($id){
+        if(!$this->customer){
+            return Redirect::route('site.login');
+        }
+        $order = Order::find($id);
+        if(!$order || $order['customers_id'] != $this->customer['customers_id']){
+            return Redirect::route('site.home');
+        }
+        $item = $order->orderitem;
+        $aryStatus = array(-1 => 'Đã hủy', 1 => 'Đang xử lý', 2 => 'Đã xác nhận, chờ giao', 3 => 'Hoàn thành');
+        $this->layout->content = View::make('site.SiteLayouts.order_detail')->with('order',$order)->with('aryStatus',$aryStatus)->with('item',$item);
+    }
+
     public function buildCategoryTree(){
         $category = Categories::lists('categories_Name','categories_id');
         $group = GroupCategory::getGroupForSite()->toArray();

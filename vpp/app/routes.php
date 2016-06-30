@@ -43,6 +43,9 @@ Route::group(array('prefix' => '', 'before' => ''), function()
     Route::post('thong-tin-tai-khoan.html',array('as' => 'site.changeInfo','uses' =>'BaseSiteController@submitChangeInfo'));
     Route::get('thay-doi-thong-tin-thanh-cong.html',array('as' => 'site.changeInfo_success','uses' =>'BaseSiteController@changeInfoSuccess'));
 
+    Route::get('tai-khoan.html',array('as' => 'site.account','uses' =>'BaseSiteController@account'));
+    Route::get('lich-su-don-hang.html',array('as' => 'site.order_history','uses' =>'BaseSiteController@orderHistory'));
+    Route::get('o{id}/chi-tiet-don-hang.html',array('as' => 'site.order_detail','uses' =>'BaseSiteController@orderDetail'));
     Route::get('thay-doi-mat-khau.html',array('as' => 'site.changePass','uses' =>'BaseSiteController@changePass'));
     Route::post('thay-doi-mat-khau.html',array('as' => 'site.changePass','uses' =>'BaseSiteController@submitChangePass'));
     Route::get('thay-doi-mat-khau-thanh-cong.html',array('as' => 'site.changePass_success','uses' =>'BaseSiteController@changePassSuccess'));

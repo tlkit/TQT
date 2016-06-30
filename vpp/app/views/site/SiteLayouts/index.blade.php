@@ -3,12 +3,12 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
-    <title>Home n Office: Office Stationery Supplier Singapore</title>
+    <title>Bán buôn văn phòng phẩm</title>
     <!-- base href="http://www.homenoffice.sg/" -->
-    <meta name="description" content="Home n Office is your one stop office stationery supplier, offering basic stationery, accessories, IT products, &amp; high end office equipment in Singapore.">
-    <meta name="keywords" content="Home n Office, office stationery, stationery online, stationery supplier">
+    <meta name="description" content="Thiều Sơn Company chuyên bán buôn bán lẻ các sản phẩm văn phòng phẩm">
+    <meta name="keywords" content="Thiều Sơn, văn phòng phẩm, bán buôn">
     <link href="http://www.homenoffice.sg/image/data/cart.png" rel="icon">
-    <link href="http://www.homenoffice.sg/" rel="canonical">
+    <link href="{{URL::current()}}" rel="canonical">
 
     {{ HTML::style('assets/site/css/css.css') }}
     {{ HTML::style('assets/site/css/stylesheet.css') }}
@@ -52,7 +52,7 @@
             <div id="divLogin" style="float:right">
                 @if($customer_login)
                     <input type="button" onclick="window.location='{{URL::route('site.logout')}}'" value="Đăng xuất" id="btnLogin" class="login">
-                    <input id="btnProfile" class="account" type="button" onclick="window.location=''" value="Hi, {{$customer_login['customers_username']}}">
+                    <input id="btnProfile" class="account" type="button" onclick="window.location='{{URL::route('site.account')}}'" value="Hi, {{$customer_login['customers_username']}}">
                 @else
                     <input class="login" id="btnLogin" value="Đăng nhập" onclick="window.location='{{URL::route('site.login')}}'" type="button">
                     <input class="account" id="btnRegister" value="Đăng ký" onclick="window.location='{{URL::route('site.register')}}'" type="button">
@@ -180,8 +180,8 @@
             <h3>Tài khoản</h3>
             <img class="footer-img" src="{{asset('assets/site/image/account.png')}}">
             <ul>
-                <li><a href="javascript:void(0)">Tài khoản</a></li>
-                <li><a href="javascript:void(0)">Đơn hàng</a></li>
+                <li><a href="{{URL::route('site.account')}}">Tài khoản</a></li>
+                <li><a href="{{URL::route('site.order_history')}}">Đơn hàng</a></li>
                 <!-- <li><a href="http://www.homenoffice.sg/newsletter">Newsletter</a></li> -->
             </ul>
         </div>

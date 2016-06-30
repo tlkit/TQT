@@ -12,7 +12,7 @@
         <h2>Đơn hàng</h2>
         <div class="content">
             <ul>
-                <li><a href="http://www.homenoffice.sg/index.php?route=account/order">Lịch sử đơn hàng</a></li>
+                <li><a href="{{URL::route('site.order_history')}}">Lịch sử đơn hàng</a></li>
                 <!-- <li><a href="http://www.homenoffice.sg/your-downloads">Downloads</a></li>
                  -->
                 <!-- <li><a href="http://www.homenoffice.sg/returns">View your return requests</a></li> -->

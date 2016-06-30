@@ -49,12 +49,19 @@ class Order extends Eloquent
             DB::connection()->getPdo()->commit();
             return $order_id;
         } catch (\PDOException $e) {
-            var_dump($e->getMessage());die;
+            //var_dump($e->getMessage());die;
             DB::connection()->getPdo()->rollBack();
-            //throw new PDOException();
-            return false;
+            throw new PDOException();
         }
 
+    }
+
+    public static function getByCustomerId($customer_id){
+        try {
+            return Order::where('customers_id',$customer_id)->orderBy('order_create_time','DESC')->get();
+        } catch (\PDOException $e) {
+            throw new PDOException();
+        }
     }
 
 }
