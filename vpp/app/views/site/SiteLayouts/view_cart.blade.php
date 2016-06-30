@@ -18,7 +18,7 @@
             <tbody>
             <?php $sub_total = 0;?>
             @foreach($cart as $k => $v)
-            <tr>
+            <tr class="row_{{$v['product_id']}}">
                 <td class="image">
                     <a href="{{URL::route('site.product',array('id' => $k,'name'=>FunctionLib::safe_title($v['product_Name'])))}}">
                         <img title="{{$v['product_Name']}}" alt="{{$v['product_Name']}}" src="{{Croppa::url(Constant::dir_product.$v['product_Avatar'], 80, 80)}}">
@@ -38,14 +38,17 @@
                 </td>
                 <!-- <td class="model">IK Copy Paper 80gsm A4</td> -->
                 <td class="quantity">
-                    <input type="text" size="2" value="{{$v['product_num']}}"><br>
+                    <input type="text" size="2" value="{{$v['product_num']}}" data-id="{{$v['product_id']}}" class="sys_number_cart" id="cart_view_number_{{$v['product_id']}}"><br>
                 </td>
                 <td class="price" style="text-align: right">{{number_format($v['product_price_buy'],0,'.','.')}}</td>
-                <td class="price" style="text-align: right">{{number_format($v['product_price_buy']*$v['product_num'],0,'.','.')}}</td>
+                <td class="price sys_total_item_{{$v['product_id']}}" style="text-align: right">{{number_format($v['product_price_buy']*$v['product_num'],0,'.','.')}}</td>
                 <?php
                 $sub_total += $v['product_price_buy']*$v['product_num']
                 ?>
                 <td class="total">
+                    <a href="javascript:void(0)">
+                        <img title="Remove" alt="Remove" src="{{asset('assets/site/image/delete.png')}}" class="sys_remove" data-id="{{$v['product_id']}}">
+                    </a>
                 </td>
             </tr>
             @endforeach
@@ -65,7 +68,7 @@
             <tr><td colspan="5"></td></tr>
             <tr bgcolor="#055993" style="color:#ffffff; height: 45px;">
                 <td style="font-weight:bold;font-size:18px;" class="price">Thành tiền</td>
-                <td style="font-weight:bold;font-size:18px;" class="total">{{number_format($sub_total,0,'.','.')}}</td>
+                <td style="font-weight:bold;font-size:18px;" class="total sys_total_order" >{{number_format($sub_total,0,'.','.')}}</td>
             </tr>
         </table>
     </div>
