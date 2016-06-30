@@ -30,7 +30,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <b>Trạng thái đơn hàng :</b>  @if($data->order_status == 1) Mới @elseif($data->order_status == 2 ) Đã xác nhận @elseif($data->order_status == 3 ) Đã tạo bản kê @elseif($data->order_status == -1 ) Đã hủy @endif
+                        <b>Trạng thái đơn hàng :</b>  @if($data->order_status == 1) Mới @elseif($data->order_status == 2 ) Đã xác nhận @elseif($data->order_status == 3 ) Đã tạo bản kê @elseif($data->order_status == 0 ) Đã hủy @endif
                     </div>
                 </div>
                 <div class="row">

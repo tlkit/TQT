@@ -11,7 +11,7 @@ class CartsController extends BaseAdminController{
     private $permission_delete = 'cart_delete';
     private $permission_create = 'cart_create';
     private $permission_edit = 'cart_edit';
-    private $arrStatus = array(-1 => 'Chọn trạng thái', 0 => 'Ẩn', 1 => 'Hiện');
+    private $arrStatus = array(-1 => 'Chọn trạng thái', 0 => 'Xóa', 1 => 'Mới',2=>'Xác nhận',3=>'Tạo Bản Kê');
 
     public function __construct()
     {
@@ -112,10 +112,10 @@ class CartsController extends BaseAdminController{
     public function deleteItem(){
         $id = (int)Request::get('id',-1);
         if($id >0){
-            $status = Order::upDateStatusById($id,-1);
+            $status = Order::upDateStatusById($id,0);
             if($status !== false){
                 $data['success'] = 1;
-                $data['mess'] = 'Xóa đơn hàng thành công';
+                $data['mess'] = 'Hủy đơn hàng thành công';
                 return Response::json($data);
             }
             $data['success'] = 2;

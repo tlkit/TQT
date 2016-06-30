@@ -83,10 +83,13 @@
                                 </td>
                                 <td class="text-center">
                                     @if($item['order_status'] == 1)
-                                        <a href="javascript:void(0);" title="Mới"><i class="fa fa-check"></i></a>
-                                    @elseif($item['order_status'] == -1)
-                                        <a href="javascript:void(0);" style="color: red" title="Hủy"><i
-                                                    class="fa fa-close"></i></a>
+                                        <a href="javascript:void(0);" title="Mới"><span class="glyphicon glyphicon-asterisk"></span></a>
+                                    @elseif($item['order_status'] == 2)
+                                        <a href="javascript:void(0);" title="Xác nhận"><span class="glyphicon glyphicon-off"></span></a>
+                                    @elseif($item['order_status'] == 3)
+                                        <a href="javascript:void(0);" title="Đã tạo bản kê"><span class="glyphicon glyphicon-ok"></span></a>
+                                    @elseif($item['order_status'] == 0)
+                                        <a href="javascript:void(0);" title="Hủy"><span class="glyphicon glyphicon-remove"></span></a>
                                     @endif
                                 </td>
                                 <td class="text-center">

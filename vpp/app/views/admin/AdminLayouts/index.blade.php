@@ -86,7 +86,7 @@
 
     {{ HTML::script('assets/admin/js/admin.js'); }}
     {{ HTML::script('assets/admin/js/format.js'); }}
-    {{ HTML::script('http://maps.google.com/maps/api/js?sensor=false'); }}
+    {{ HTML::script('http://maps.google.com/maps/api/js?key=AIzaSyASJr6do8IU7P4h4nTg2n1F3DP7NeqZG9s'); }}
     {{ HTML::script('assets/admin/js/cart.js'); }}
 </head>
 
