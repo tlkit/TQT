@@ -20,4 +20,8 @@ class OrderItem extends Eloquent
     {
         return $this->belongsTo('Order', 'order_id');
     }
+    public function product()
+    {
+        return $this->belongsTo('Product');
+    }
 }

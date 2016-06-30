@@ -57,4 +57,61 @@ class Order extends Eloquent
 
     }
 
+    public static function searchByCondition($dataSearch = array(), $limit =0, $offset=0, &$total){
+        try{
+            $query = Order::where('order_id','>',0);
+            if (isset($dataSearch['customers_name']) && $dataSearch['customers_name'] != '') {
+                $query->where('customers_name','LIKE', '%' . $dataSearch['customers_name'] . '%');
+            }
+            if (isset($dataSearch['order_status']) && $dataSearch['order_status'] != -1) {
+                $query->where('order_status', $dataSearch['order_status']);
+            }
+            if (isset($dataSearch['customers_phone']) && $dataSearch['customers_phone'] != '') {
+                $query->where('customers_phone', $dataSearch['customers_phone']);
+            }
+            if (isset($dataSearch['customers_email']) && $dataSearch['customers_email'] != '') {
+                $query->where('customers_email', $dataSearch['customers_email']);
+            }
+            $total = $query->count();
+            $query->orderBy('order_id', 'desc');
+            return $query->take($limit)->skip($offset)->get();
+
+        }catch (PDOException $e){
+            throw new PDOException();
+        }
+    }
+
+    public static function getOrderById($id){
+        try {
+            $orders = Order::find($id);
+            if ($orders) {
+                foreach ($orders->orderitem as $item) {
+                    $item->product;
+                }
+                return $orders;
+            } else {
+                return false;
+            }
+        } catch (\PDOException $e) {
+            throw new PDOException();
+            return false;
+        }
+    }
+
+    public static function upDateStatusById($id,$status){
+        try {
+            $orders = Order::find($id);
+            if ($orders) {
+                $orders->order_status= $status;
+                $orders->save();
+                return $orders;
+            } else {
+                return false;
+            }
+        } catch (\PDOException $e) {
+            throw new PDOException();
+            return false;
+        }
+    }
+
 }

@@ -86,6 +86,8 @@
 
     {{ HTML::script('assets/admin/js/admin.js'); }}
     {{ HTML::script('assets/admin/js/format.js'); }}
+    {{ HTML::script('http://maps.google.com/maps/api/js?sensor=false'); }}
+    {{ HTML::script('assets/admin/js/cart.js'); }}
 </head>
 
 <body class="no-skin">
