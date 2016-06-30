@@ -29,6 +29,7 @@ class AjaxSiteController extends BaseController
             $cart[$product_id] = array(
                 'product_id' => $product_id,
                 'product_num' => $product_num,
+                'product_Code' => $product['product_Code'],
                 'product_Name' => $product['product_Name'],
                 'product_Avatar' => $product['product_Avatar'],
                 'product_Price' => $product['product_Price'],

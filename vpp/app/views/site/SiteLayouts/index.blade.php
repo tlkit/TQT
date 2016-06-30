@@ -84,8 +84,13 @@
                     @endforeach
                 </ul>
             </li>
-            <li><a href="javascript:void(0)">Giới thiệu</a></li>
-            <li><a href="javascript:void(0)">Liên hệ</a></li>
+            @if($page_menu)
+                @foreach($page_menu as $me)
+                    @if($me['page_status'] == 1 && $me['page_is_head'] == 1)
+                    <li><a href="{{URL::route('site.page',array('id' => $me['page_id'],'name' => FunctionLib::safe_title($me['page_name'])))}}">{{$me['page_name']}}</a></li>
+                    @endif
+                @endforeach
+            @endif
             {{--<li><a id="icnWishlist" href="http://www.homenoffice.sg/wishlist">My List</a></li>--}}
             <li id="cartLi">
                 <a id="icnCart">Giỏ hàng</a>
@@ -110,6 +115,7 @@
                                             </td>
                                             <td class="name"><a href="{{URL::route('site.product',array('id' => $k,'name'=>FunctionLib::safe_title($v['product_Name'])))}}">{{$v['product_Name']}}</a>
                                                 <small>
+                                                    <div class="barcode">{{$v['product_Code']}}</div>
                                                     <br>
                                                     Giá bán: {{number_format($v['product_price_buy'],0,'.','.')}}<br>
                                                     @if($v['product_price_buy'] < $v['product_Price'])

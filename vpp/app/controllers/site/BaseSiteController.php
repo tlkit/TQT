@@ -17,9 +17,11 @@ class BaseSiteController extends BaseController
         $this->treeCategory = $this->buildCategoryTree();
         $this->customer = Customers::customer_login();
         $cart = Session::has('cart') ? Session::get('cart') : array();
+        $page = Page::all();
         View::share('treeCategory', $this->treeCategory);
         View::share('customer_login', $this->customer);
         View::share('cart', $cart);
+        View::share('page_menu', $page);
     }
 
     public function home(){
@@ -277,6 +279,7 @@ class BaseSiteController extends BaseController
             foreach($cart as $k => $v){
                 $dataOrderItem[$k]['product_id'] = $v['product_id'];
                 $dataOrderItem[$k]['product_name'] = $v['product_Name'];
+                $dataOrderItem[$k]['product_code'] = $v['product_Code'];
                 $dataOrderItem[$k]['product_price'] = $v['product_price_buy'];
                 $dataOrderItem[$k]['product_num'] = $v['product_num'];
                 $dataOrderItem[$k]['order_item_price'] = ($v['product_num'] * $v['product_price_buy']);
@@ -411,7 +414,7 @@ class BaseSiteController extends BaseController
         if(!$this->customer){
             return Redirect::route('site.login');
         }
-        $aryStatus = array(-1 => 'Đã hủy', 1 => 'Đang xử lý', 2 => 'Đã xác nhận, chờ giao', 3 => 'Hoàn thành');
+        $aryStatus = array(0 => 'Đã hủy', 1 => 'Đang xử lý', 2 => 'Đã xác nhận, chờ giao', 3 => 'Hoàn thành');
         $orders = Order::getByCustomerId($this->customer['customers_id']);
         $this->layout->content = View::make('site.SiteLayouts.order_history')->with('orders',$orders)->with('aryStatus',$aryStatus);
     }
@@ -425,8 +428,13 @@ class BaseSiteController extends BaseController
             return Redirect::route('site.home');
         }
         $item = $order->orderitem;
-        $aryStatus = array(-1 => 'Đã hủy', 1 => 'Đang xử lý', 2 => 'Đã xác nhận, chờ giao', 3 => 'Hoàn thành');
+        $aryStatus = array(0 => 'Đã hủy', 1 => 'Đang xử lý', 2 => 'Đã xác nhận, chờ giao', 3 => 'Hoàn thành');
         $this->layout->content = View::make('site.SiteLayouts.order_detail')->with('order',$order)->with('aryStatus',$aryStatus)->with('item',$item);
+    }
+
+    public function page($id,$name){
+        $page = Page::find($id);
+        $this->layout->content = View::make('site.SiteLayouts.page')->with('page',$page);
     }
 
     public function buildCategoryTree(){

@@ -32,7 +32,7 @@
 
 <div id="content">
     <h1 style="font-weight:bold; margin-top:25px; margin-bottom:0px;">{{$product['product_Name']}}</h1>
-    <div class="barcode" style="margin-bottom: 25px;"></div>
+    <div class="barcode" style="margin-bottom: 25px;">{{$product['product_Code']}}</div>
     <div class="product-info">
         <div class="left">
 
@@ -103,7 +103,7 @@
                                                -->
                     </div>
                     <div class="name"><a href="{{URL::route('site.product',array('id' => $v["product_id"],'name' => FunctionLib::safe_title($v["product_Name"])))}}">{{$v["product_Name"]}}</a></div>
-                    <div class="barcode"><small></small></div>
+                    <div style="text-align:left" class="barcode"><small>{{$v['product_Code']}}</small></div>
                     <div class="price">
                         <span class="price-new">{{number_format($v['product_Price'])}}</span>
                     </div>
