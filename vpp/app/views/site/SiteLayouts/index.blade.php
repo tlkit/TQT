@@ -42,12 +42,14 @@
 <div id="container">
     <div id="header">
         <div id="logo"><a href="{{URL::route('site.home')}}"><img src="{{asset('assets/vpp_site_files/HOME-N-OFFICE-LOGO.png')}}" title="Home n Office Products Pte Ltd" alt="Home n Office Products Pte Ltd"></a></div>
+        {{Form::open(array('method' => 'GET', 'role'=>'form', 'class'=>'form-horizontal' ,'id' => 'frm-search', 'route' => 'site.search'))}}
         <div id="search">
             <div class="iSearchBoxWrapper">
                 <div class="button-search"></div>
-                <input autocomplete="off" name="search" placeholder="nhập từ khóa để tìm kiếm :)" type="text">
+                <input autocomplete="off" name="q" id="inp_search" placeholder="nhập từ khóa để tìm kiếm :)" type="text" @if($keyword != '') value="{{$keyword}}" @endif>
             </div>
         </div>
+        {{Form::close()}}
         <div id="welcome">
             <div id="divLogin" style="float:right">
                 @if($customer_login)
@@ -84,8 +86,13 @@
                     @endforeach
                 </ul>
             </li>
-            <li><a href="javascript:void(0)">Giới thiệu</a></li>
-            <li><a href="javascript:void(0)">Liên hệ</a></li>
+            @if($page_menu)
+                @foreach($page_menu as $me)
+                    @if($me['page_status'] == 1 && $me['page_is_head'] == 1)
+                    <li><a href="{{URL::route('site.page',array('id' => $me['page_id'],'name' => FunctionLib::safe_title($me['page_name'])))}}">{{$me['page_name']}}</a></li>
+                    @endif
+                @endforeach
+            @endif
             {{--<li><a id="icnWishlist" href="http://www.homenoffice.sg/wishlist">My List</a></li>--}}
             <li id="cartLi">
                 <a id="icnCart">Giỏ hàng</a>
@@ -110,6 +117,7 @@
                                             </td>
                                             <td class="name"><a href="{{URL::route('site.product',array('id' => $k,'name'=>FunctionLib::safe_title($v['product_Name'])))}}">{{$v['product_Name']}}</a>
                                                 <small>
+                                                    <div class="barcode">{{$v['product_Code']}}</div>
                                                     <br>
                                                     Giá bán: {{number_format($v['product_price_buy'],0,'.','.')}}<br>
                                                     @if($v['product_price_buy'] < $v['product_Price'])
@@ -216,6 +224,22 @@
             return false;
         });
         $('.sys_quantity').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+        $("#inp_search").on('keypress', function (event) {
+            if (event.which == 13 || event.keyCode == 13) {
+                var key = $(this).val().trim();
+                if(key.length < 3){
+                    return false;
+                }
+            }
+        });
+        $(".button-search").on('click',function(){
+            var key = $("#inp_search").val().trim();
+            if(key.length < 3){
+                return false;
+            }else{
+                $("#frm-search").submit();
+            }
+        })
     });
 </script>
 </body>

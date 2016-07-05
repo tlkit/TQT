@@ -180,7 +180,7 @@
         </div><!-- /.sidebar-shortcuts -->
 
         <ul class="nav nav-list">
-            <li class="@if(Route::currentRouteName() == 'admin.mngSite_banner_view' || Route::currentRouteName() == 'admin.mngSite_group_category_view')active @endif">
+            <li class="@if(Route::currentRouteName() == 'admin.mngSite_banner_view' || Route::currentRouteName() == 'admin.mngSite_group_category_view' )active @endif">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-sitemap"></i>
                     <span class="menu-text"> Quản trị site</span>
@@ -203,6 +203,14 @@
                         <a href="{{URL::route('admin.mngSite_group_category_view')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Danh mục site
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.mngSite_page_view')active @endif">
+                        <a href="{{URL::route('admin.mngSite_page_view')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Quản trị page
                         </a>
 
                         <b class="arrow"></b>

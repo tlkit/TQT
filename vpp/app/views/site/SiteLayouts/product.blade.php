@@ -32,7 +32,7 @@
 
 <div id="content">
     <h1 style="font-weight:bold; margin-top:25px; margin-bottom:0px;">{{$product['product_Name']}}</h1>
-    <div class="barcode" style="margin-bottom: 25px;"></div>
+    <div class="barcode" style="margin-bottom: 25px;">{{$product['product_Code']}}</div>
     <div class="product-info">
         <div class="left">
 
@@ -70,11 +70,17 @@
             </div>
             <div class="price2">
                 <div id="discount-title" style="display:none">Different Price Tiers</div>
+                @if($product['product_bulk_quantity'] > 0)
                 <div class="discount">
                     <ul>
-                        <li>SL bán buôn: <span>5 & nhiều hơn</span><br />Giá bán buôn: <span>$9.60</span>&nbsp;&nbsp;(Tiết kiệm: <span id="save">20%</span>)</li>
+                        <li>SL bán buôn: <span>{{$product['product_bulk_quantity']}} & nhiều hơn</span><br />
+                            @if($product['product_bulk_price'] > 0)
+                            Giá bán buôn: <span>{{number_format($product['product_bulk_price'],0,'.','.')}}</span>&nbsp;&nbsp;(Tiết kiệm: <span id="save">{{ceil(($product['product_Price'] - $product['product_bulk_price'])/$product['product_Price']*100)}}%</span>)
+                            @endif
+                        </li>
                     </ul>
                 </div>
+                @endif
             </div>
             <div class="cart">
                 <div>
@@ -103,7 +109,7 @@
                                                -->
                     </div>
                     <div class="name"><a href="{{URL::route('site.product',array('id' => $v["product_id"],'name' => FunctionLib::safe_title($v["product_Name"])))}}">{{$v["product_Name"]}}</a></div>
-                    <div class="barcode"><small></small></div>
+                    <div style="text-align:left" class="barcode"><small>{{$v['product_Code']}}</small></div>
                     <div class="price">
                         <span class="price-new">{{number_format($v['product_Price'])}}</span>
                     </div>

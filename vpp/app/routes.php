@@ -22,6 +22,8 @@ Route::group(array('prefix' => '', 'before' => ''), function()
     Route::get('g{id}/{name}.html',array('as' => 'site.group','uses' =>'BaseSiteController@group'))->where('id', '[0-9]+');
     Route::get('g{gid}/c{id}/{name}.html',array('as' => 'site.cate','uses' =>'BaseSiteController@cate'))->where('id', '[0-9]+')->where('gid', '[0-9]+');
     Route::get('p{id}/{name}.html',array('as' => 'site.product','uses' =>'BaseSiteController@product'))->where('id', '[0-9]+');
+    Route::get('s{id}/{name}.html',array('as' => 'site.page','uses' =>'BaseSiteController@page'))->where('id', '[0-9]+');
+    Route::get('tim-kiem.html',array('as' => 'site.search','uses' =>'BaseSiteController@search'))->where('id', '[0-9]+');
 
 
     Route::get('dang-ky.html',array('as' => 'site.register','uses' =>'BaseSiteController@register'));
@@ -238,5 +240,9 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('manage_site/carts/detail/{id?}',array('as' => 'admin.mngSite_carts_detail','uses' => 'CartsController@detail'));
     Route::post('manage_site/carts/confirm',array('as' => 'admin.mngSite_carts_confirm','uses' => 'CartsController@confirm'));
     Route::post('manage_site/carts/deleteItem',array('as' => 'admin.mngSite_carts_deleteItem','uses' => 'CartsController@deleteItem'));
+
+    Route::get('manage_site/page/view',array('as' => 'admin.mngSite_page_view','uses' => 'SiteManageController@viewpage'));
+    Route::get('manage_site/page/add/{id?}',array('as' => 'admin.mngSite_page_add','uses' => 'SiteManageController@getAddPage'))->where('id', '[0-9]+');
+    Route::post('manage_site/page/add/{id?}',array('as' => 'admin.mngSite_page_add','uses' => 'SiteManageController@postAddPage'))->where('id', '[0-9]+');
 
 });

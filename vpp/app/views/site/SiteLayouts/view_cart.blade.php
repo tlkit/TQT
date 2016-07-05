@@ -27,6 +27,7 @@
                 <td class="name">
                     <a href="{{URL::route('site.product',array('id' => $k,'name'=>FunctionLib::safe_title($v['product_Name'])))}}">{{$v['product_Name']}}</a>
                     <small>
+                        <div class="barcode">{{$v['product_Code']}}</div>
                         <br>
                         Giá bán: {{number_format($v['product_price_buy'],0,'.','.')}}đ<br>
                         @if($v['product_price_buy'] < $v['product_Price'])

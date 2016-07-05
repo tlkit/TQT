@@ -157,4 +157,32 @@ class SiteManageController extends BaseAdminController
         }
     }
 
+    public function viewPage(){
+        $data = Page::all();
+        $this->layout->content = View::make('admin.SiteManageLayouts.viewPage')->with('data',$data);
+    }
+
+    public function getAddPage($id = 0)
+    {
+        $param = Page::find($id);
+        $this->layout->content = View::make('admin.SiteManageLayouts.addPage')->with('id',$id)->with('param',$param);
+    }
+
+    public function postAddPage($id = 0){
+        $param['page_content'] = htmlspecialchars(Request::get('page_content',''));
+        $param['page_name'] = htmlspecialchars(trim(Request::get('page_name','')));
+        $param['page_status'] = (int)Request::get('page_status',0);
+        $param['page_is_head'] = (int)Request::get('page_is_head',0);
+        $error = array();
+        if($error){
+            $this->layout->content = View::make('admin.SiteManageLayouts.addBanner')->with('id',$id)->with('param',$param)->with('error',$error);
+        }else{
+            if(Page::add($id,$param)){
+                return Redirect::route('admin.mngSite_page_view');
+            }else{
+                return Redirect::route('admin.mngSite_page_add',array('id' => $id));
+            }
+        }
+    }
+
 }
