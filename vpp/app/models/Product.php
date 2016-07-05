@@ -226,6 +226,28 @@ class Product extends Eloquent
         }
     }
 
+    public static function getProductSearch($keyword, $orderBy = '', $type = 'DESC', $offset = 0, $limit = 16, &$total){
+        try {
+            $query = Product::where('product_Status', 1);
+            $query->where(function($qu) use ($keyword)
+            {
+                $qu->where('product_Name', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('product_Code', $keyword)
+                    ->orWhere('product_CategoryName', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('product_Description', 'LIKE', '%' . $keyword . '%');
+            });
+            $total = $query->count();
+            if ($orderBy != '') {
+                $query->orderBy($orderBy, $type);
+            }
+            $data = $query->skip($offset)->take($limit)->get();
+            return $data;
+        } catch (PDOException $e) {
+            var_dump($e->getMessage());
+            throw new PDOException();
+        }
+    }
+
     public static function getProductRelate($product){
         try {
             //$product = Product::find($id);

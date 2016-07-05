@@ -18,10 +18,12 @@ class BaseSiteController extends BaseController
         $this->customer = Customers::customer_login();
         $cart = Session::has('cart') ? Session::get('cart') : array();
         $page = Page::all();
+        $keyword = htmlspecialchars(trim(Request::get('q','')));
         View::share('treeCategory', $this->treeCategory);
         View::share('customer_login', $this->customer);
         View::share('cart', $cart);
         View::share('page_menu', $page);
+        View::share('keyword', $keyword);
     }
 
     public function home(){
@@ -65,6 +67,24 @@ class BaseSiteController extends BaseController
         $data = Product::getProductCate($c_ids, $orderBy, $orderType, $offset, $param['limit'], $total);
         $paging = $this->buildPaging(10,$page,$total,$param['limit'],$param);
         $this->layout->content = View::make('site.SiteLayouts.cate')->with('data',$data)->with('gid',$gid)->with('id',$id)->with('param',$param)->with('paging',$paging);
+    }
+
+    public function search(){
+        $param['q'] = htmlspecialchars(trim(Request::get('q','')));
+        $param['sort'] = trim(Request::get('sort', 'new'));
+        $param['limit'] = (int)Request::get('limit', 16);
+        $page = (int)Request::get('page', 1);
+        $offset = ($page - 1) * $param['limit'];
+        $orderBy = isset(Constant::$sort[$param['sort']]['field']) ? Constant::$sort[$param['sort']]['field'] : '';
+        $orderType = isset(Constant::$sort[$param['sort']]['type']) ? Constant::$sort[$param['sort']]['type'] : '';
+        $total = 0;
+        if(strlen($param['q']) >= 3 ){
+            $data = Product::getProductSearch($param['q'], $orderBy, $orderType, $offset, $param['limit'], $total);
+        }else{
+            $data = array();
+        }
+        $paging = $this->buildPaging(10,$page,$total,$param['limit'],$param);
+        $this->layout->content = View::make('site.SiteLayouts.search')->with('data',$data)->with('param',$param)->with('paging',$paging);
     }
 
     public function product($id,$name){
