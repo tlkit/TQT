@@ -223,6 +223,14 @@
 
                         <b class="arrow"></b>
                     </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.mngSite_carts_map')active @endif">
+                        <a href="{{URL::route('admin.mngSite_carts_map')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Bản đồ đơn hàng
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
                 </ul>
             </li>
             <li class="@if(Route::currentRouteName() == 'admin.user_view' || Route::currentRouteName() == 'admin.personnel_list'|| Route::currentRouteName() == 'admin.permission_view'|| Route::currentRouteName() == 'admin.groupUser_view')active @endif">

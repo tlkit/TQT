@@ -237,6 +237,7 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::post('manage_site/group_category/add/{id?}',array('as' => 'admin.mngSite_group_category_add','uses' => 'SiteManageController@postAddGroupCategory'))->where('id', '[0-9]+');
 
     Route::get('manage_site/carts/view',array('as' => 'admin.mngSite_carts_view','uses' => 'CartsController@view'));
+    Route::get('manage_site/carts/map',array('as' => 'admin.mngSite_carts_map','uses' => 'CartsController@mapDirection'));
     Route::get('manage_site/carts/detail/{id?}',array('as' => 'admin.mngSite_carts_detail','uses' => 'CartsController@detail'));
     Route::post('manage_site/carts/confirm',array('as' => 'admin.mngSite_carts_confirm','uses' => 'CartsController@confirm'));
     Route::post('manage_site/carts/deleteItem',array('as' => 'admin.mngSite_carts_deleteItem','uses' => 'CartsController@deleteItem'));

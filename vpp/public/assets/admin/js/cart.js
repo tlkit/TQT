@@ -71,7 +71,7 @@ var AdminCart = {
         });
         directionsDisplay.setMap(map);
         directionsDisplay.setPanel($('#panel')[0]);
-        /*var request = {
+        var request = {
             origin: start,
             destination: end,
             travelMode: google.maps.DirectionsTravelMode.DRIVING
@@ -81,14 +81,23 @@ var AdminCart = {
                 directionsDisplay.setDirections(response);
             }
         });
-*/
-        ///
-        var waypts = [
-            {location:'số 1 nguyễn huy tưởng thanh xuân hà nội',stopover:true},
-            {location:'số 10 thái hà hà nội',stopover:true},
-            {location:'số 4 phương mai đồng đa hà nội',stopover:true}
-        ]
+    },
 
+    findAllMap : function(waypts){
+
+        $('#sys_map').show();
+        var start =$('#sys_start').val();
+        var end =$('#sys_end').val();
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        var map = new google.maps.Map($('#map')[0], {
+            zoom:10,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel($('#panel')[0]);
+        //console.log($('#sys_address').attr("data-value"));
+        // var waypts =$('#sys_address').data("value").parseJSON();
         directionsService.route({
             origin: start,
             destination: start,
@@ -98,25 +107,50 @@ var AdminCart = {
         }, function(response, status) {
             if (status === google.maps.DirectionsStatus.OK) {
                 directionsDisplay.setDirections(response);
-                var route = response.routes[0];
-                var summaryPanel = document.getElementById('directions-panel');
-                summaryPanel.innerHTML = '';
-                // For each route, display summary information.
-                /*for (var i = 0; i < route.legs.length; i++) {
-                    var routeSegment = i + 1;
-                    summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-                    '</b><br>';
-                    summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-                    summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-                    summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
-                }*/
+
             } else {
                 window.alert('Directions request failed due to ' + status);
             }
         });
-
-
     },
+    findAllMapSelect : function(){
+
+        $('#sys_map').show();
+        var start =$('#sys_add_start').val();
+        var end =$('#sys_add_end').val();
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        var map = new google.maps.Map($('#map')[0], {
+            zoom:10,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel($('#panel')[0]);
+        var waypts = [];
+
+        $('#sys_add_go :selected').each(function(i, selected){
+            waypts.push({
+                location: $(selected).text(),
+                stopover: true
+            });
+        });
+
+        directionsService.route({
+            origin: start,
+            destination: end,
+            waypoints: waypts,
+            optimizeWaypoints: true,
+            travelMode: google.maps.TravelMode.DRIVING
+        }, function(response, status) {
+            if (status === google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    },
+
     hiddenMap : function(){
         $('#sys_map').hide();
     }
