@@ -144,9 +144,9 @@
                                                 <label for="sys_add_start">Điểm bắt đầu</label>
                                                 <input type="text" class="form-control input-sm" id="sys_add_start" name="sys_add_start" placeholder="Số 64, Phố Yên Bái II, Phường Phố Huế, Quận Hai Bà Trưng, TP Hà Nội" value="{{$start}}">
                                             </div>
-                                            <div class="form-group col-lg-3">
+                                            <div class="form-group col-lg-5">
                                                 <label for="sys_add_go">Các điểm cần đến</label>
-                                                <i>(Ctrl-Click để chọn nhiều địa điểm)</i> <br>
+                                                <i>(Ctrl-Click để chọn nhiều địa điểm, tối đa 8 điểm đến)</i> <br>
                                                 <select multiple id="sys_add_go">
                                                     @foreach ($data as $key => $item)
                                                         <option value="{{$item['export_customers_address']}}" selected>{{$item['export_customers_address']}}</option>
