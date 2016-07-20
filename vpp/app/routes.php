@@ -245,5 +245,6 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('manage_site/page/view',array('as' => 'admin.mngSite_page_view','uses' => 'SiteManageController@viewpage'));
     Route::get('manage_site/page/add/{id?}',array('as' => 'admin.mngSite_page_add','uses' => 'SiteManageController@getAddPage'))->where('id', '[0-9]+');
     Route::post('manage_site/page/add/{id?}',array('as' => 'admin.mngSite_page_add','uses' => 'SiteManageController@postAddPage'))->where('id', '[0-9]+');
+    Route::post('export/assignCoD',array('as' => 'admin.export_assignCoD','uses' => 'ExportController@assignCoD'));
 
 });

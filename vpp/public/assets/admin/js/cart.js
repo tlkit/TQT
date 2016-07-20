@@ -85,6 +85,7 @@ var AdminCart = {
 
     findAllMap : function(waypts){
 
+        console.log(waypts);
         $('#sys_map').show();
         var start =$('#sys_start').val();
         var end =$('#sys_end').val();
@@ -153,6 +154,47 @@ var AdminCart = {
 
     hiddenMap : function(){
         $('#sys_map').hide();
+    },
+
+    assignCOD : function(){
+        var content_id = parseInt($('#sys_list_user_content').val());
+        if(content_id <= 0) {
+            alert('Bạn chưa chọn nhân viên COD để gán');
+            return false;
+        }
+        var data = [];
+        var i = 0;
+        $("input[name*='checkProductId']").each(function () {
+            if ($(this).is(":checked")) {
+                data[i] = $(this).val();
+                i++;
+            }
+        });
+        //console.log(content_id);
+        if(data.length == 0) {
+            alert('Bạn chưa chọn bản xuất kho để gán.');
+            return false;
+        }
+        if(confirm('Bạn có muốn thực hiện thao tác này?')) {
+            $('#img_loading').show();
+            $.ajax({
+                type: "POST",
+                url: WEB_ROOT + '/admin/export/assignCoD',
+                data: {codId: content_id, listEx: data},
+                dataType: 'json',
+                success: function(res) {
+                    $('#show_button_action_coupon').show();
+                    $('#img_loading').hide();
+                    if(res.success == 1){
+                        alert(res.mess);
+                        window.location.reload();
+                    }else{
+                        alert(res.mess);
+                    }
+                }
+            });
+
+        }
     }
 
 }
