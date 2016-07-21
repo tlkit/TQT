@@ -42,12 +42,14 @@
 <div id="container">
     <div id="header">
         <div id="logo"><a href="{{URL::route('site.home')}}"><img src="{{asset('assets/vpp_site_files/HOME-N-OFFICE-LOGO.png')}}" title="Home n Office Products Pte Ltd" alt="Home n Office Products Pte Ltd"></a></div>
+        {{Form::open(array('method' => 'GET', 'role'=>'form', 'class'=>'form-horizontal' ,'id' => 'frm-search', 'route' => 'site.search'))}}
         <div id="search">
             <div class="iSearchBoxWrapper">
                 <div class="button-search"></div>
-                <input autocomplete="off" name="search" placeholder="nhập từ khóa để tìm kiếm :)" type="text">
+                <input autocomplete="off" name="q" id="inp_search" placeholder="nhập từ khóa để tìm kiếm :)" type="text" @if($keyword != '') value="{{$keyword}}" @endif>
             </div>
         </div>
+        {{Form::close()}}
         <div id="welcome">
             <div id="divLogin" style="float:right">
                 @if($customer_login)
@@ -222,7 +224,34 @@
             return false;
         });
         $('.sys_quantity').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+        $("#inp_search").on('keypress', function (event) {
+            if (event.which == 13 || event.keyCode == 13) {
+                var key = $(this).val().trim();
+                if(key.length < 3){
+                    return false;
+                }
+            }
+        });
+        $(".button-search").on('click',function(){
+            var key = $("#inp_search").val().trim();
+            if(key.length < 3){
+                return false;
+            }else{
+                $("#frm-search").submit();
+            }
+        })
     });
+    <!--Start of Tawk.to Script-->
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/578a4b86ff50d4690f7bfd53/default';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+    })();
+<!--End of Tawk.to Script-->
 </script>
 </body>
 </html>

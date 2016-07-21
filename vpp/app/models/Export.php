@@ -199,5 +199,19 @@ class Export extends Eloquent{
         return $ids;
     }
 
+    public static function assignCOD($cod_id=0, $ex_id =array()){
+        try {
+           // $status= Export::where('export_id','IN','('. $ex_id.')')->update(array('export_user_cod' => $cod_id,'export_status'=>2));
+           $status= Export::whereIn('export_id',$ex_id)->update(array('export_user_cod' => $cod_id,'export_status'=>2));
+            return $status;
+        } catch (\PDOException $e) {
+            var_dump($e->getMessage());die;
+            DB::connection()->getPdo()->rollBack();
+            //throw new PDOException();
+            return false;
+        }
+
+    }
+
     /*end bảng kê*/
 }

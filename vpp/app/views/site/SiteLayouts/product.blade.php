@@ -70,11 +70,17 @@
             </div>
             <div class="price2">
                 <div id="discount-title" style="display:none">Different Price Tiers</div>
+                @if($product['product_bulk_quantity'] > 0)
                 <div class="discount">
                     <ul>
-                        <li>SL bán buôn: <span>5 & nhiều hơn</span><br />Giá bán buôn: <span>$9.60</span>&nbsp;&nbsp;(Tiết kiệm: <span id="save">20%</span>)</li>
+                        <li>SL bán buôn: <span>{{$product['product_bulk_quantity']}} & nhiều hơn</span><br />
+                            @if($product['product_bulk_price'] > 0)
+                            Giá bán buôn: <span>{{number_format($product['product_bulk_price'],0,'.','.')}}</span>&nbsp;&nbsp;(Tiết kiệm: <span id="save">{{ceil(($product['product_Price'] - $product['product_bulk_price'])/$product['product_Price']*100)}}%</span>)
+                            @endif
+                        </li>
                     </ul>
                 </div>
+                @endif
             </div>
             <div class="cart">
                 <div>

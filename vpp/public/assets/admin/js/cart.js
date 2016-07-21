@@ -81,10 +81,120 @@ var AdminCart = {
                 directionsDisplay.setDirections(response);
             }
         });
-
     },
+
+    findAllMap : function(waypts){
+
+        console.log(waypts);
+        $('#sys_map').show();
+        var start =$('#sys_start').val();
+        var end =$('#sys_end').val();
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        var map = new google.maps.Map($('#map')[0], {
+            zoom:10,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel($('#panel')[0]);
+        //console.log($('#sys_address').attr("data-value"));
+        // var waypts =$('#sys_address').data("value").parseJSON();
+        directionsService.route({
+            origin: start,
+            destination: start,
+            waypoints: waypts,
+            optimizeWaypoints: true,
+            travelMode: google.maps.TravelMode.DRIVING
+        }, function(response, status) {
+            if (status === google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    },
+    findAllMapSelect : function(){
+
+        $('#sys_map').show();
+        var start =$('#sys_add_start').val();
+        var end =$('#sys_add_end').val();
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        var map = new google.maps.Map($('#map')[0], {
+            zoom:10,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel($('#panel')[0]);
+        var waypts = [];
+
+        $('#sys_add_go :selected').each(function(i, selected){
+            waypts.push({
+                location: $(selected).text(),
+                stopover: true
+            });
+        });
+
+        directionsService.route({
+            origin: start,
+            destination: end,
+            waypoints: waypts,
+            optimizeWaypoints: true,
+            travelMode: google.maps.TravelMode.DRIVING
+        }, function(response, status) {
+            if (status === google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    },
+
     hiddenMap : function(){
         $('#sys_map').hide();
+    },
+
+    assignCOD : function(){
+        var content_id = parseInt($('#sys_list_user_content').val());
+        if(content_id <= 0) {
+            alert('Bạn chưa chọn nhân viên COD để gán');
+            return false;
+        }
+        var data = [];
+        var i = 0;
+        $("input[name*='checkProductId']").each(function () {
+            if ($(this).is(":checked")) {
+                data[i] = $(this).val();
+                i++;
+            }
+        });
+        //console.log(content_id);
+        if(data.length == 0) {
+            alert('Bạn chưa chọn bản xuất kho để gán.');
+            return false;
+        }
+        if(confirm('Bạn có muốn thực hiện thao tác này?')) {
+            $('#img_loading').show();
+            $.ajax({
+                type: "POST",
+                url: WEB_ROOT + '/admin/export/assignCoD',
+                data: {codId: content_id, listEx: data},
+                dataType: 'json',
+                success: function(res) {
+                    $('#show_button_action_coupon').show();
+                    $('#img_loading').hide();
+                    if(res.success == 1){
+                        alert(res.mess);
+                        window.location.reload();
+                    }else{
+                        alert(res.mess);
+                    }
+                }
+            });
+
+        }
     }
 
 }

@@ -1,3 +1,7 @@
+<script type="text/javascript">
+    var waypts = [];
+
+</script>
 <div class="main-content-inner">
     <div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
         <ul class="breadcrumb">
@@ -96,6 +100,12 @@
                         <span class="">
                             <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
                         </span>
+                        @if($param['export_status'] == 1)
+                        <span class="">
+                            <a class="btn btn-danger btn-sm" href="javascript:void(0)" onclick="AdminCart.findAllMap(waypts)">Xem đường đi</a>
+                        </span>
+                        @endif
+
                     </div>
                     {{ Form::close() }}
                 </div>
@@ -106,6 +116,7 @@
                         <thead class="thin-border-bottom">
                         <tr class="">
                             <th class="center" width="5%">STT</th>
+                            <th class="center" width="5%">Chọn COD</th>
                             <th class="center" width="10%">Mã HĐ</th>
                             <th class="center" width="30%">Khách hàng</th>
                             <th class="center" width="10%">Thủ kho</th>
@@ -115,10 +126,60 @@
                             <th class="center" width="15%">Thao tác</th>
                         </tr>
                         </thead>
+                        @if($param['export_status'] == 1)
+                        <div style="clear: both"></div>
+                        <select name="list_user_content" id="sys_list_user_content" class="form-control" style="width: 200px; display: inline-block;">
+                            <option value="0">Chọn nhân viên giao hàng</option>
+                            @foreach($admin as $k => $v)
+                                <option value="{{$k}}">{{$v}}</option>
+                            @endforeach
+                        </select>
+                        <button type="button" class="btn btn-warning" id="sys_test_not_approve" onclick="AdminCart.assignCOD();">Assign</button>
+                        <img src="{{Config::get('config.WEB_ROOT')}}assets/admin/img/ajax-loader.gif" width="20" style="display: none" id="img_loading">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="panel panel-info">
+                                        <div class="panel-body">
+                                            <div class="form-group col-lg-3">
+                                                <label for="sys_add_start">Điểm bắt đầu</label>
+                                                <input type="text" class="form-control input-sm" id="sys_add_start" name="sys_add_start" placeholder="Số 64, Phố Yên Bái II, Phường Phố Huế, Quận Hai Bà Trưng, TP Hà Nội" value="{{$start}}">
+                                            </div>
+                                            <div class="form-group col-lg-5">
+                                                <label for="sys_add_go">Các điểm cần đến</label>
+                                                <i>(Ctrl-Click để chọn nhiều địa điểm, tối đa 8 điểm đến)</i> <br>
+                                                <select multiple id="sys_add_go">
+                                                    @foreach ($data as $key => $item)
+                                                        <option value="{{$item['export_customers_address']}}" selected>{{$item['export_customers_address']}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-lg-3">
+                                                <label for="sys_add_end">Điểm về</label>
+                                                <input type="text" class="form-control input-sm" id="sys_add_end" name="sys_add_end" placeholder="Số 64, Phố Yên Bái II, Phường Phố Huế, Quận Hai Bà Trưng, TP Hà Nội" value="{{$end}}">
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer text-right">
+                                    <span class="">
+                                        <a class="btn btn-primary btn-sm" href="javascript:void(0);" onclick="AdminCart.findAllMapSelect()" ><i class="fa fa-search"></i> Xem đường đi</a>
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="row" id="sys_map" style="display: none; padding: 10px;">
+                            <div class="col-sm-12">
+                                <div id="map" style="width: 80%; height:1000px;float: left; margin-right: 5px;"></div>
+                                <div id="panel" style="width: 200px;height:1000px; max-height:1000px;float: left;overflow-y: scroll;"></div>
+                            </div>
+                        </div>
+                        @endif
                         <tbody>
                         @foreach ($data as $key => $item)
                             <tr id="{{$item['export_code']}}" @if($item['export_status'] == 0)class="orange bg-warning" @endif>
                                 <td class="center">{{ $start + $key+1 }}</td>
+                                <td class="center">
+                                    <input @if(isset($admin[$item['export_user_cod']])) disabled class="nocheck" @else class="check" @endif  type="checkbox" name="checkProductId[]" value="{{$item['export_id']}}">
+                                </td>
                                 <td class="center">{{ $item['export_code'] }}</td>
                                 <td class="center">@if(isset($customers[$item['customers_id']])){{$customers[$item['customers_id']]}}@endif</td>
                                 <td class="center">@if(isset($admin[$item['export_user_store']])){{$admin[$item['export_user_store']]}}@endif</td>
@@ -126,7 +187,13 @@
                                 <td class="text-right">{{number_format($item['export_total_pay'],0,'.','.')}}</td>
                                 <td class="center">{{date('d-m-Y H:i',$item['export_create_time'])}}</td>
                                 <td>
-                                    @if($item['export_status'] == 1)
+                                    @if($item['export_status'] >= 1)
+                                        <script type="text/javascript">
+                                            waypts.push({
+                                                location: "{{$item['export_customers_address']}}" ,
+                                                stopover: true
+                                            });
+                                        </script>
                                         <a href="{{URL::route('admin.export_detail',array('id' => base64_encode($item['export_id'])))}}" class="btn btn-xs btn-primary" data-content="Chi tiết hóa đơn" data-placement="bottom" data-trigger="hover" data-rel="popover">
                                             <i class="ace-icon fa fa-file-text-o bigger-120"></i>
                                         </a>
@@ -226,4 +293,5 @@
 //        numberOfMonths: 2,
         dateFormat: 'dd-mm-yy'
     });
+
 </script>

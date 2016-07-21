@@ -8,7 +8,7 @@
 
 class ExportController extends BaseAdminController{
 
-    private $aryStatus = array(-1 => 'Chọn trạng thái', 0 => 'Hóa đơn hủy', 1 => 'Hóa đơn bình thường');
+    private $aryStatus = array(-1 => 'Chọn trạng thái', 0 => 'Hóa đơn hủy', 1 => 'Hóa đơn bình thường & Chưa gán COD', 2=>' Hóa đơn đã xuất',3=>'Hóa đơn đã giao');
     private $permission_view = 'export_view';
     private $permission_create = 'export_create';
     private $permission_edit = 'export_edit';
@@ -23,6 +23,7 @@ class ExportController extends BaseAdminController{
         if (!in_array($this->permission_view, $this->permission)) {
             return Redirect::route('admin.dashboard');
         }
+        $addRess = array();
         $dataSearch['export_create_id'] = Request::get('export_create_id', 0);
         $dataSearch['export_code'] = Request::get('export_code', '');
         $dataSearch['export_status'] = Request::get('export_status', -1);
@@ -54,6 +55,8 @@ class ExportController extends BaseAdminController{
             ->with('start', ($page_no - 1) * $limit)
             ->with('paging',$paging)
             ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
+            ->with('start', 'Số 64, Phố Yên Bái II, Phường Phố Huế, Quận Hai Bà Trưng, TP Hà Nội')
+            ->with('end', 'Số 64, Phố Yên Bái II, Phường Phố Huế, Quận Hai Bà Trưng, TP Hà Nội')
             ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0);
     }
 
@@ -116,6 +119,7 @@ class ExportController extends BaseAdminController{
                 $total_discount += $aryExportProduct[$k]['export_product_discount'];
                 $total_discount_customer += $aryExportProduct[$k]['export_product_discount_customer'];
                 $price_origin += $aryExportProduct[$k]['export_product_price_origin'];
+
             }
 
 
@@ -409,6 +413,25 @@ class ExportController extends BaseAdminController{
         $admin = User::getListAllUser();
         $html = View::make('admin.SaleListLayouts.export_sale')->with('export',$export)->with('admin',$admin)->render();
         $data['html'] = $html;
+        return Response::json($data);
+    }
+
+    public function assignCoD(){
+        $id = (int)Request::get('codId',-1);
+        $listIdEx = Request::get('listEx','');
+        if($id >0 || $listIdEx !== ''){
+            $status = Export::assignCOD($id,$listIdEx);
+            if((int)$status > 0){
+                $data['success'] = 1;
+                $data['mess'] = 'Gắn COD thành công';
+                return Response::json($data);
+            }
+            $data['success'] = 2;
+            $data['mess'] = 'Có lỗi xảy ra khi thao tác';
+            return Response::json($data);
+        }
+        $data['success'] = -1;
+        $data['mess'] = 'Không tìm thấy CoD hoặc bạn chưa chọn danh sách xuất kho';
         return Response::json($data);
     }
 

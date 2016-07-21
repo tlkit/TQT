@@ -90,6 +90,35 @@ class CartsController extends BaseAdminController{
             ->with('arrStatus', $this->arrStatus);
     }
 
+    public function mapDirection(){
+        $dataSearch['order_status'] = 2;$total =0;
+        $data = Order::searchByCondition($dataSearch,30,0,$total);
+        $addRess = array();
+        $Orders = array();
+        if(!empty($data)){
+            foreach($data as $k=> $val){
+                $Orders[] = array('order_id'=>$val->order_id,
+                    'customers_name'=>$val->customers_name,
+                    'order_status'=>$val->order_status,
+                    'customers_phone'=>$val->customers_phone,
+                    'customers_email'=>$val->customers_email,
+                    'customers_address'=>$val->customers_address,
+                    'order_create_time'=>$val->order_create_time,
+                    'order_price_total'=>$val->order_price_total,
+                    'order_vat'=>$val->order_vat,
+                    'customer_note'=>$val->customer_note,
+                );
+                $addRess[]=$val->customers_address;
+            }
+        }
+        $this->layout->content = View::make('admin.CartsLayouts.map')
+            ->with('total', $total)
+            ->with('address', ($addRess))
+            ->with('start', 'Số 64, Phố Yên Bái II, Phường Phố Huế, Quận Hai Bà Trưng, TP Hà Nội')
+            ->with('end', 'Số 64, Phố Yên Bái II, Phường Phố Huế, Quận Hai Bà Trưng, TP Hà Nội')
+            ->with('data', $Orders);
+    }
+
     public function confirm() {
         //Check phan quyen.
         $id = (int)Request::get('id',-1);

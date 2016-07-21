@@ -86,7 +86,7 @@
 
     {{ HTML::script('assets/admin/js/admin.js'); }}
     {{ HTML::script('assets/admin/js/format.js'); }}
-    {{ HTML::script('http://maps.google.com/maps/api/js?key=AIzaSyASJr6do8IU7P4h4nTg2n1F3DP7NeqZG9s'); }}
+    {{ HTML::script('http://maps.google.com/maps/api/js?sensor=false'); }}
     {{ HTML::script('assets/admin/js/cart.js'); }}
 </head>
 
@@ -219,6 +219,14 @@
                         <a href="{{URL::route('admin.mngSite_carts_view')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Danh sách đơn hàng
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="@if(Route::currentRouteName() == 'admin.mngSite_carts_map')active @endif">
+                        <a href="{{URL::route('admin.mngSite_carts_map')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Bản đồ đơn hàng
                         </a>
 
                         <b class="arrow"></b>
