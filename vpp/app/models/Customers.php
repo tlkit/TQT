@@ -44,6 +44,9 @@ class Customers extends Eloquent
             if (isset($dataSearch['customers_FirstName']) && $dataSearch['customers_FirstName'] != '') {
                 $query->where('customers_FirstName','LIKE', '%' . $dataSearch['customers_FirstName'] . '%');
             }
+            if (isset($dataSearch['customers_Phone']) && $dataSearch['customers_Phone'] != '') {
+                $query->where('customers_Phone','LIKE', '%' . $dataSearch['customers_Phone'] . '%');
+            }
             if (isset($dataSearch['customers_Type']) && $dataSearch['customers_Type'] != -1) {
                 $query->where('customers_Type', $dataSearch['customers_Type']);
             }

@@ -31,6 +31,7 @@ class CustomersController extends BaseAdminController
         $search = $data = array();
         $total = 0;
         $search['customers_FirstName'] = addslashes(Request::get('customers_FirstName',''));
+        $search['customers_Phone'] = addslashes(Request::get('customers_Phone',''));
         $search['customers_Type'] = (int)Request::get('customers_Type',-1);
 
         $dataSearch = Customers::searchByCondition($search, $limit, $offset,$total);
@@ -41,6 +42,7 @@ class CustomersController extends BaseAdminController
                 $data[] = array('customers_id'=>$val->customers_id,
                     'customers_FirstName'=>$val->customers_FirstName,
                     'customers_Phone'=>$val->customers_Phone,
+                    'customers_username'=>$val->customers_username,
                     'customers_ContactEmail'=>$val->customers_ContactEmail,
                     'customers_ContactAddress'=>$val->customers_ContactAddress,
                     'customers_Type'=>(isset($this->arrType[$val->customers_Type]) && $val->customers_Type > 0 )? $this->arrType[$val->customers_Type] :'---',

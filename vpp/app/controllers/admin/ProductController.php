@@ -110,6 +110,8 @@ class ProductController extends BaseAdminController
         $dataSave['product_NameUnit'] = Request::get('product_NameUnit');
         $dataSave['product_NamePackedWay'] = Request::get('product_NamePackedWay');
         $dataSave['product_Description'] = Request::get('product_Description');
+        $dataSave['product_show_site'] = (int)Request::get('product_show_site');
+        $dataSave['product_highlight'] = (int)Request::get('product_highlight');
         $file = $files = null;
         if ( Input::hasFile('product_avatar')) {
             $file = Input::file('product_avatar');

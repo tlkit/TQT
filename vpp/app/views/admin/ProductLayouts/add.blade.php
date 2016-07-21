@@ -97,6 +97,21 @@
                 </div>
                 -->
                 <div class="form-group col-sm-6">
+                    <div class="form-group col-sm-6 no-padding-left">
+                        <label for="product_show_site"><i>Hiển thị trên site</i></label>
+                        <select name="product_show_site" id="product_show_site" class="form-control input-sm">
+                            <option value="0" @if(isset($data['product_show_site']) && $data['product_show_site'] == 0) selected="selected" @endif>Ẩn</option>
+                            <option value="1" @if(isset($data['product_show_site']) && $data['product_show_site'] == 1) selected="selected" @endif>Hiện</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-6 no-padding-right">
+                        <label for="product_highlight"><i>Hiển thị nổi bật</i></label>
+                        <select name="product_highlight" id="product_highlight" class="form-control input-sm">
+                            <option value="0" @if(isset($data['product_highlight']) && $data['product_highlight'] == 0) selected="selected" @endif>Không</option>
+                            <option value="1" @if(isset($data['product_highlight']) && $data['product_highlight'] == 1) selected="selected" @endif>Có</option>
+                        </select>
+                    </div>
+                    <div class="clearfix"></div>
                     <div class="form-group">
                         <label>Ảnh đại diện (Size <= 1mb. Ảnh : png,jpg,jpeg. Tỉ lệ 1:1)</label>
                         <div class="clearfix"></div>
@@ -150,7 +165,7 @@
                 </div>
                 <div class="form-group col-sm-6">
                     <label for="customers_Description"><i>Mô tả</i></label>
-                    <textarea rows="5" class="form-control input-sm" id="product_Description" name="product_Description">@if(isset($data['product_Description'])){{$data['product_Description']}}@endif</textarea>
+                    <textarea rows="8" class="form-control input-sm" id="product_Description" name="product_Description">@if(isset($data['product_Description'])){{$data['product_Description']}}@endif</textarea>
                 </div>
                 <!-- PAGE CONTENT ENDS -->
                 <div class="form-group col-sm-12 text-right">

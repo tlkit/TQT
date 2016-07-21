@@ -1,3 +1,6 @@
+{{ HTML::style('assets/site/css/slick.css') }}
+{{ HTML::script('assets/site/js/slick.min.js') }}
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"/>
 <div id="content">
     @if($banner)
     <div class="slideshow">
@@ -13,16 +16,16 @@
     <div class="box">
         <div class="box-heading"><span class="seeall"><a href="{{URL::route('site.group',array('id' => 0,'name' => 'san-pham'))}}">Xem tất cả</a></span><span class="title" style="margin-left:390px">Danh mục</span></div>
         <div class="box-content">
-            <div class="box-product" align="center">
+            <div class="sys_box_category">
                 @foreach($treeCategory as $group)
-                <div class="box-column3">
-                    <a href="{{URL::route('site.group',array('id' => $group["group_category_id"],'name' => FunctionLib::safe_title($group["group_category_name"])))}}">
-                        <img src="{{Croppa::url(Constant::dir_group_category.$group['group_category_image'], 150, 150)}}" height="150" width="150"><br><br>
+                <div>
+                    <a href="{{URL::route('site.group',array('id' => $group["group_category_id"],'name' => FunctionLib::safe_title($group["group_category_name"])))}}" style="text-align: center">
+                        <img src="{{Croppa::url(Constant::dir_group_category.$group['group_category_image'], 200, 200)}}" height="200" width="200"><br>
                         {{$group["group_category_name"]}}
                     </a>
                 </div>
                 @endforeach
-                <div style="clear:both"></div>
+{{--                <div style="clear:both"></div>--}}
             </div>
         </div>
     </div>
@@ -70,5 +73,18 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#slideshow0').nivoSlider();
+        $('.sys_box_category').slick({
+            dots: false,
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+
+        });
+/*        $('.sys_box_category').slick({
+            infinite: true,
+            slidesToShow: 4,
+            slidesToScroll: 1
+        });*/
     });
 </script>

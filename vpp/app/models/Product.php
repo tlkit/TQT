@@ -15,7 +15,7 @@ class Product extends Eloquent
 
     public $timestamps = false;
 
-    protected $fillable = array('product_Code', 'product_Name', 'product_Category', 'product_CategoryName', 'product_Alias', 'product_OriginID', 'product_NameOrigin', 'product_UnitID', 'product_NameUnit', 'product_PackedWayID', 'product_NamePackedWay', 'product_Price', 'product_Description', 'product_Image', 'product_Thumbnail', 'product_Quantity','product_Quantity_Fake', 'product_MinimumQuantity', 'product_IsAvailable', 'product_CreatorID', 'product_CreatedTime', 'product_ModifiedTime', 'product_Status', 'product_bulk_quantity', 'product_bulk_price','product_Avatar');
+    protected $fillable = array('product_Code', 'product_Name', 'product_Category', 'product_CategoryName', 'product_Alias', 'product_OriginID', 'product_NameOrigin', 'product_UnitID', 'product_NameUnit', 'product_PackedWayID', 'product_NamePackedWay', 'product_Price', 'product_Description', 'product_Image', 'product_Thumbnail', 'product_Quantity','product_Quantity_Fake', 'product_MinimumQuantity', 'product_IsAvailable', 'product_CreatorID', 'product_CreatedTime', 'product_ModifiedTime', 'product_Status', 'product_bulk_quantity', 'product_bulk_price','product_Avatar','product_show_site','product_highlight');
 
     public function importproduct() {
         return $this->hasMany('ImportProduct');
@@ -212,6 +212,7 @@ class Product extends Eloquent
     {
         try {
             $query = Product::where('product_Status', 1);
+            $query->where('product_show_site', 1);
             if ($cid) {
                 $query->whereIn('product_Category', $cid);
             }
@@ -229,6 +230,7 @@ class Product extends Eloquent
     public static function getProductSearch($keyword, $orderBy = '', $type = 'DESC', $offset = 0, $limit = 16, &$total){
         try {
             $query = Product::where('product_Status', 1);
+            $query->where('product_show_site', 1);
             $query->where(function($qu) use ($keyword)
             {
                 $qu->where('product_Name', 'LIKE', '%' . $keyword . '%')
@@ -253,6 +255,7 @@ class Product extends Eloquent
             //$product = Product::find($id);
             $query = Product::where('product_Category',$product->product_Category);
             $query->where('product_Status', 1);
+            $query->where('product_show_site', 1);
             $query->where('product_id','!=', $product->product_id);
             //$query->where('product_NameUnit','LIKE','%'.$product->product_NameUnit.'%');
             return $query->take(3)->get();
@@ -263,11 +266,11 @@ class Product extends Eloquent
 
     public static function getProductHome(){
         try {
-            $category = Categories::lists('categories_Name','categories_id');
-            $id = array_rand($category,3);
-            $query = Product::whereIn('product_Category',$id);
+            $query = Product::where('product_Status', 1);
             $query->where('product_Status', 1);
-            return $query->take(5)->get();
+            $query->where('product_show_site', 1);
+            $query->where('product_highlight', 1);
+            return $query->get();
         } catch (PDOException $e) {
             throw new PDOException();
         }
