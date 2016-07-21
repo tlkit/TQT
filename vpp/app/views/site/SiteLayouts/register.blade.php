@@ -7,7 +7,7 @@
             <!-- <div class="content"> -->
             <table class="form">
                 <tbody><tr>
-                    <td><!-- <span class="required">*</span> --> Tên khách hàng</td>
+                    <td>Tên khách hàng <span class="required">*</span></td>
                     <td>
                         <input type="text" @if(isset($param['customers_FirstName'])) value="{{$param['customers_FirstName']}}" @endif name="customers_FirstName" placeholder="Cá nhân hoặc doanh nghiệp">
                         @if(isset($error['customers_FirstName']))
@@ -16,7 +16,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><!-- <span class="required">*</span> --> Email</td>
+                    <td><!-- <span class="required">*</span> --> Email <span class="required">*</span></td>
                     <td>
                         <input type="text" @if(isset($param['customers_Email'])) value="{{$param['customers_Email']}}" @endif name="customers_Email">
                         @if(isset($error['customers_Email']))
@@ -25,7 +25,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><!-- <span class="required">*</span> --> Số điện thoại</td>
+                    <td><!-- <span class="required">*</span> --> Số điện thoại <span class="required">*</span></td>
                     <td>
                         <input type="text" @if(isset($param['customers_Phone'])) value="{{$param['customers_Phone']}}" @endif name="customers_Phone">
                         @if(isset($error['customers_Phone']))
@@ -38,11 +38,38 @@
                     <td><input type="text" @if(isset($param['customers_Fax'])) value="{{$param['customers_Fax']}}" @endif name="customers_Fax"></td>
                 </tr>
                 <tr>
-                    <td>Địa chỉ</td>
+                    <td>Địa chỉ <span class="required">*</span></td>
                     <td>
                         <input type="text" @if(isset($param['customers_ContactAddress'])) value="{{$param['customers_ContactAddress']}}" @endif name="customers_ContactAddress">
                         @if(isset($error['customers_ContactAddress']))
                             <span class="error">{{$error['customers_ContactAddress']}}</span>
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <td>Xuất HĐGT</td>
+                    <td>
+                        <select name="customers_IsNeededVAT" id="customers_IsNeededVAT">
+                            <option value="0" @if(isset($param['customers_IsNeededVAT']) && $param['customers_IsNeededVAT'] == 0)selected="selected" @endif>Không</option>
+                            <option value="1" @if(isset($param['customers_IsNeededVAT']) && $param['customers_IsNeededVAT'] == 1)selected="selected" @endif>Có</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="mst" @if(isset($param['customers_IsNeededVAT']) && $param['customers_IsNeededVAT'] == 1) @else style="display: none" @endif>
+                    <td>Mã số thuế <span class="required">*</span></td>
+                    <td>
+                        <input type="text" @if(isset($param['customers_TaxCode'])) value="{{$param['customers_TaxCode']}}" @endif name="customers_TaxCode">
+                        @if(isset($error['customers_TaxCode']))
+                            <span class="error">{{$error['customers_TaxCode']}}</span>
+                        @endif
+                    </td>
+                </tr>
+                <tr class="dchd" @if(isset($param['customers_IsNeededVAT']) && $param['customers_IsNeededVAT'] == 1) @else style="display: none" @endif>
+                    <td>Địa chỉ xuất HĐ <span class="required">*</span></td>
+                    <td>
+                        <input type="text" @if(isset($param['customers_BizAddress'])) value="{{$param['customers_BizAddress']}}" @endif name="customers_BizAddress">
+                        @if(isset($error['customers_BizAddress']))
+                            <span class="error">{{$error['customers_BizAddress']}}</span>
                         @endif
                     </td>
                 </tr>
@@ -51,7 +78,7 @@
             <table class="form">
                 <tbody>
                 <tr>
-                    <td><!-- <span class="required">*</span> --> Tên đăng nhập</td>
+                    <td><!-- <span class="required">*</span> --> Tên đăng nhập <span class="required">*</span></td>
                     <td>
                         <input type="text" @if(isset($param['customers_username'])) value="{{$param['customers_username']}}" @endif name="customers_username">
                         @if(isset($error['customers_username']))
@@ -60,7 +87,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><!-- <span class="required">*</span> --> Mật khẩu</td>
+                    <td><!-- <span class="required">*</span> --> Mật khẩu <span class="required">*</span></td>
                     <td>
                         <input type="password" @if(isset($param['customers_password'])) value="{{$param['customers_password']}}" @endif name="customers_password">
                         @if(isset($error['customers_password']))
@@ -69,7 +96,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><!-- <span class="required">*</span> --> Xác nhận mật khẩu</td>
+                    <td><!-- <span class="required">*</span> --> Xác nhận mật khẩu <span class="required">*</span></td>
                     <td>
                         <input type="password" @if(isset($param['customers_password_confirm'])) value="{{$param['customers_password_confirm']}}" @endif value="" name="customers_password_confirm">
                         @if(isset($error['customers_password_confirm']))
@@ -102,3 +129,14 @@
         {{Form::close()}}
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#customers_IsNeededVAT").on('change',function(){
+            if($(this).val() == 1){
+                $(".mst, .dchd").show();
+            }else{
+                $(".mst, .dchd").hide();
+            }
+        });
+    })
+</script>

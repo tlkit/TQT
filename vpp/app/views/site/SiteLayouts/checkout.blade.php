@@ -137,21 +137,26 @@
                             </tbody>
 
                             <tfoot>
-    {{--                        <tr bgcolor="#055993" style="color:#ffffff;">
+                            <tr bgcolor="#055993" style="color:#ffffff;">
                                 <td class="price" colspan="3">Thành tiền</td>
                                 <td class="total" colspan="2">{{number_format($sub_total,0,'.','.')}}</td>
-                            </tr>--}}
+                            </tr>
     {{--                        <tr style="color:#055993;">
                                 <td class="price" colspan="3">Shipping</td>
                                 <td class="total" colspan="2">$10.00</td>
                             </tr>--}}
-    {{--                        <tr style="color:#055993;">
-                                <td class="price" colspan="3">VAT</td>
-                                <td class="total" colspan="2">$0.97</td>
-                            </tr>--}}
+                            <tr style="color:#055993;">
+                                <td  colspan="2" style="text-align: left">
+                                    <input type="checkbox" name="is_vat" id="is_vat" @if($vat == 1) checked @endif> <label for="is_vat">Xuất hóa đơn GTGT</label>
+                                    <input type="hidden" name="customers_IsNeededVAT" id="customers_IsNeededVAT" @if($vat == 1) value="1" @endif>
+                                </td>
+                                <?php $temp = ($vat == 1) ?  ceil($sub_total/10) : 0 ?>
+                                <td class="price lbl_vat" colspan="1">VAT</td>
+                                <td class="total vl_vat" colspan="2" data-value="{{ceil($sub_total/10)}}">{{number_format($temp,0,'.','.')}}</td>
+                            </tr>
                             <tr><td colspan="5"></td></tr>      <tr bgcolor="#055993" style="color:#ffffff; height: 45px;">
                                 <td style="font-weight:bold;font-size:18px;" class="price" colspan="3">Tổng thanh toán</td>
-                                <td style="font-weight:bold;font-size:18px;" class="total" colspan="2">{{number_format($sub_total,0,'.','.')}}</td>
+                                <td style="font-weight:bold;font-size:18px;" class="total vl_total" colspan="2" data-value="{{$sub_total}}" data-vat="{{$sub_total - $temp}}">{{number_format($sub_total - $temp,0,'.','.')}}</td>
                             </tr>
                             </tfoot>
                         </table>
@@ -180,5 +185,27 @@
                 $("#payment-new").show();
             }
         });
+        $('#is_vat').on('change',function() {
+            if(this.checked){
+                var vat = $(".vl_vat").data('value');
+                console.log(vat);
+                var total = $(".vl_total").data('vat');
+                $(".vl_vat").html(vat.format(0, 3, '.'));
+                $(".vl_total").html(total.format(0, 3, '.'));
+                $("#customers_IsNeededVAT").val(1);
+            }else{
+                var total = $(".vl_total").data('value');
+                $(".vl_vat").html(0);
+                $(".vl_total").html(total.format(0, 3, '.'));
+                $("#customers_IsNeededVAT").val(0);
+            }
+
+        });
     })
+    Number.prototype.format = function (n, x, s, c) {
+        var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
+                num = this.toFixed(Math.max(0, ~~n));
+
+        return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
+    };
 </script>

@@ -86,6 +86,9 @@ class BaseSiteController extends BaseController
         $param['customers_Phone'] = htmlspecialchars(trim(Request::get('customers_Phone','')));
         $param['customers_Fax'] = htmlspecialchars(trim(Request::get('customers_Fax','')));
         $param['customers_ContactAddress'] = htmlspecialchars(trim(Request::get('customers_ContactAddress','')));
+        $param['customers_IsNeededVAT'] = (int)Request::get('customers_IsNeededVAT',0);
+        $param['customers_TaxCode'] = htmlspecialchars(trim(Request::get('customers_TaxCode','')));
+        $param['customers_BizAddress'] = htmlspecialchars(trim(Request::get('customers_BizAddress','')));
         $param['customers_username'] = htmlspecialchars(trim(Request::get('customers_username','')));
         $param['customers_password'] = htmlspecialchars(trim(Request::get('customers_password','')));
         $param['customers_password_confirm'] = htmlspecialchars(trim(Request::get('customers_password_confirm','')));
@@ -123,6 +126,14 @@ class BaseSiteController extends BaseController
             $error['customers_password_confirm'] = 'Xác nhận mật khẩu không chính xác';
         }
 
+        if($param['customers_IsNeededVAT'] == 1){
+            if($param['customers_TaxCode'] == ''){
+                $error['customers_TaxCode'] = 'Bạn chưa nhập mã số thuế';
+            }
+            if($param['customers_BizAddress'] == ''){
+                $error['customers_BizAddress'] = 'Bạn chưa nhập địa chỉ xuất hóa đơn';
+            }
+        }
         if($error){
             $this->layout->content = View::make('site.SiteLayouts.register')->with('param',$param)->with('error',$error);
         }else{
@@ -187,6 +198,7 @@ class BaseSiteController extends BaseController
                             'customers_Email' => $user['customers_Email'],
                             'customers_Phone' => $user['customers_Phone'],
                             'customers_ContactAddress' => $user['customers_ContactAddress'],
+                            'customers_IsNeededVAT' => $user['customers_IsNeededVAT'],
                         );
                         Session::put('customer', $data, 60*60*24);
                         if($url == ''){
@@ -221,7 +233,8 @@ class BaseSiteController extends BaseController
     }
 
     public function checkoutCart(){
-        $this->layout->content = View::make('site.SiteLayouts.checkout')->with('payment_address',1);
+        $vat = (isset($this->customer['customers_IsNeededVAT']) && $this->customer['customers_IsNeededVAT'] == 1) ? 1 : 0;
+        $this->layout->content = View::make('site.SiteLayouts.checkout')->with('payment_address',1)->with('vat',$vat);
     }
 
     public function submitCheckoutCart(){
@@ -235,6 +248,7 @@ class BaseSiteController extends BaseController
         $param['customers_phone'] = htmlspecialchars(trim(Request::get('customers_phone', '')));
         $param['customers_address'] = htmlspecialchars(trim(Request::get('customers_address', '')));
         $param['customers_note'] = htmlspecialchars(trim(Request::get('customers_note', '')));
+        $vat = (int)Request::get('customers_IsNeededVAT',1);
         $error = array();
         $dataOrder = $dataOrderItem = array();
         if($this->customer){
@@ -273,7 +287,7 @@ class BaseSiteController extends BaseController
         }
         $dataOrder['customers_note'] = $param['customers_note'];
         if($error){
-            $this->layout->content = View::make('site.SiteLayouts.checkout')->with('error',$error)->with('param',$param)->with('payment_address',$payment_address);
+            $this->layout->content = View::make('site.SiteLayouts.checkout')->with('error',$error)->with('vat',$vat)->with('param',$param)->with('payment_address',$payment_address);
         }else{
             $sub_total = 0;
             foreach($cart as $k => $v){
@@ -289,7 +303,7 @@ class BaseSiteController extends BaseController
             $dataOrder['order_create_time'] = time();
             $dataOrder['order_status'] = 1;
             $dataOrder['order_price_item'] = $sub_total;
-            $dataOrder['order_vat'] = 0;
+            $dataOrder['order_vat'] = ($vat == 1) ? ceil($sub_total/10) : 0;
             $dataOrder['order_price_total'] = $dataOrder['order_vat'] + $dataOrder['order_price_item'];
             Order::add($dataOrder,$dataOrderItem);
             Session::forget('cart');

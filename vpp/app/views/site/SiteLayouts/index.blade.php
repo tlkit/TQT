@@ -75,7 +75,7 @@
                         <ul>
                             @foreach($group['child'] as $k => $child)
                                 <li class="">
-                                    <a href="{{URL::route('site.cate',array('gid' => $group['group_category_id'],'id' => $k,'name' => FunctionLib::safe_title($child)))}}">{{$child}}</a>
+                                    <a href="{{URL::route('site.cate',array('gid' => $group['group_category_id'],'id' => $k,'name' => FunctionLib::safe_title($child)))}}" title="{{$child}}">{{$child}}</a>
                                 </li>
                             @endforeach
                         </ul>

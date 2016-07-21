@@ -610,10 +610,11 @@ label {
 	text-decoration: none;
 }
 #menu > ul > li > a {
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: normal;
-	padding: 15px 20px;
+	padding: 17px 15px;
 	color: #ffffff;
+	text-transform: uppercase;
 	-webkit-transition: color 0.25s ease-out;
 	-moz-transition: color 0.25s ease-out;
 	-ms-transition: color 0.25s ease-out;
@@ -691,6 +692,8 @@ label {
 	font-size: 12px;
 	color: #055893;
 	background: #fff;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	-webkit-transition: all .35s ease;
 	-moz-transition: all .35s ease;
 	-ms-transition: all .35s ease;
@@ -707,6 +710,8 @@ label {
 #menu ul ul li:last-child > a,
 #menu ul ul li.last > a {
 	border-bottom: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .submenuArrow {
 	border: 6px solid transparent;
