@@ -155,4 +155,99 @@ class CartsController extends BaseAdminController{
         $data['mess'] = 'Không tìm thấy đơn hàng';
         return Response::json($data);
     }
+
+    public function ajaxExport(){
+        $data['success'] = 1;
+        $ids = htmlspecialchars(trim(Request::get('ids','')));
+        $order_id = (int)Request::get('order_id',0);
+        $data['link'] = URL::route('admin.mngSite_carts_export',array('ids' => $ids,'order_id' => $order_id));
+        return Response::json($data);
+    }
+
+    public function export(){
+
+        $ids = htmlspecialchars(trim(Request::get('ids','')));
+        $order_id = (int)Request::get('order_id',0);
+        $ids = ($ids !='') ? explode(',',$ids) : array();
+
+        $orders = Order::find($order_id);
+        $item = OrderItem::getByIdsAndOrderId($ids,$order_id);
+        //$export = Export::find($id);
+        //$customer = Customers::find($export->customers_id);
+        //$exportProduct = $export->exportproduct;
+        $aryExport = array();
+        $vat = $orders->order_vat > 0 ? 10 : 0;
+        foreach($item as $product){
+            $p = $product->product;
+            $category_price_hide_discount = $category_price_discount = 0;
+            $product_customer = ProductsCustomers::getByProductAndCustomerId($product->product_id,$orders->customers_id);
+            if(isset($product_customer->product_price_discount) && $product_customer->product_price_discount > 0){
+                $p->product_Price = $product_customer->product_price_discount;
+            }
+            $category_customer = CategoriesCustomers::getByCategoryAndCustomerId($product->product_Category,$orders->customers_id);
+            if(isset($category_customer->category_price_hide_discount) && $category_customer->category_price_hide_discount > 0){
+                $category_price_hide_discount = $category_customer->category_price_hide_discount;
+            }
+            if(isset($category_customer->category_price_discount) && $category_customer->category_price_discount > 0){
+                $category_price_discount = $category_customer->category_price_discount;
+            }
+            //$vat = $customer->customers_IsNeededVAT ? 10 : 0;
+            $import = ImportProduct::getByProductId($product->product_id);
+            $aryStore = array();
+            $price_input = 0;
+            if($import){
+                $x = $y = $i =0;
+                foreach($import as $k => $v){
+                    if($x < $product->product_Quantity){
+                        $y = $x;
+                        $x += $v['import_product_num'];
+                        $aryStore[$i]['num'] = ($x <= $product->product_Quantity) ? $v['import_product_num'] : ($product->product_Quantity - $y);
+                        $aryStore[$i]['price'] = $v['import_product_price'];
+                        $i++;
+                    }
+                }
+                krsort($aryStore);
+                $aryStore = array_values($aryStore);
+                $temp = $product->product_num;
+                foreach($aryStore as $k => $v){
+                    if($temp > 0){
+                        $price_input += ($temp <= $v['num']) ? ($temp*$v['price']) : ($v['num']*$v['price']);
+                        $temp = $temp - $v['num'];
+                    }
+                }
+            }
+            $aryExport[$product->product_id] = array(
+                'product_id' => $p->product_id,
+                'export_product_price' => $p->product_Price,
+                'export_product_num' => $product->product_num,
+                'export_product_price_origin' => $price_input,
+                'export_product_discount' => (int)($p->product_Price * $product->product_num * $category_price_discount),
+                'export_product_discount_customer' => (int)($p->product_Price * $product->export_product_num * $category_price_hide_discount),
+                'product_Name' => $p->product_Name,
+                'product_Code' => $p->product_Code,
+                'product_NameOrigin' => $p->product_NameOrigin,
+                'product_NameUnit' => $p->product_NameUnit,
+            );
+        }
+        Session::put('export', $aryExport);
+        $customers = Customers::getListAll();
+        $this->layout->content = View::make('admin.ExportLayouts.export')
+            ->with('customers',$customers)->with('customers_id',$orders->customers_id);
+        $admin = User::getListAllUser();
+
+        $cus = Customers::find($orders->customers_id);
+        $param['export_customers_name'] = $orders->customers_name;
+        $param['export_customers_code'] = $cus['customers_TaxCode'];
+        $param['export_customers_address'] = $orders->customers_address;
+        $param['export_user_store'] = User::user_id();
+        $param['export_user_cod'] = User::user_id();
+        $param['export_delivery_time'] = date('d-m-Y',time());
+        $param['export_user_customer'] = $cus->customers_ContactName;
+        $param['export_customer_phone'] = $orders->customers_phone;
+        $param['export_customers_note'] = '';
+        $param['export_pay_type'] = ($cus['customers_Type_Pay'] == 1) ? 1 : 0;
+
+        $this->layout->content->customer_info = View::make('admin.ExportLayouts.customer_info')->with('customers',$param)->with('admin',$admin);
+        $this->layout->content->product_info = View::make('admin.ExportLayouts.product_info')->with('export',$aryExport)->with('vat',$vat);
+    }
 }

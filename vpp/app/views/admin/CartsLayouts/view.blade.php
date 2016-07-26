@@ -83,13 +83,21 @@
                                 </td>
                                 <td class="text-center">
                                     @if($item['order_status'] == 1)
-                                        <a href="javascript:void(0);" title="Mới"><span class="glyphicon glyphicon-asterisk"></span></a>
+                                        <a href="javascript:void(0)" class="btn btn-xs btn-warning" data-content="Đơn hàng mới" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                            <i class="ace-icon fa fa-certificate bigger-120"></i>
+                                        </a>
                                     @elseif($item['order_status'] == 2)
-                                        <a href="javascript:void(0);" title="Xác nhận"><span class="glyphicon glyphicon-off"></span></a>
+                                        <a href="javascript:void(0)" class="btn btn-xs btn-info" data-content="Đơn hàng xác nhận" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                            <i class="ace-icon fa fa-check bigger-120"></i>
+                                        </a>
                                     @elseif($item['order_status'] == 3)
-                                        <a href="javascript:void(0);" title="Đã tạo bản kê"><span class="glyphicon glyphicon-ok"></span></a>
+{{--                                        <a href="javascript:void(0)" class="btn btn-xs btn-warning" data-content="Đơn hàng mới" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                            <i class="ace-icon fa fa-certificate bigger-120"></i>
+                                        </a>--}}
                                     @elseif($item['order_status'] == 0)
-                                        <a href="javascript:void(0);" title="Hủy"><span class="glyphicon glyphicon-remove"></span></a>
+                                        <a href="javascript:void(0)" class="btn btn-xs btn-danger" data-content="Đơn hàng hủy" data-placement="bottom" data-trigger="hover" data-rel="popover">
+                                            <i class="ace-icon fa fa-remove bigger-120"></i>
+                                        </a>
                                     @endif
                                 </td>
                                 <td class="text-center">

@@ -59,6 +59,35 @@ var AdminCart = {
           }
     },
 
+    export: function(ids,order_id){
+        bootbox.confirm('Bạn muốn xuất kho cho đơn hàng này',function(rs){
+            if(rs == true){
+                ;
+                $.ajax({
+                    dataType: 'json',
+                    type: 'POST',
+                    url: WEB_ROOT + '/admin/manage_site/carts/export',
+                    data: {
+                        ids : ids,
+                        order_id: order_id
+                    },
+                    beforeSend: function () {
+
+                    },
+                    error: function () {
+                        bootbox.alert('Lỗi hệ thống');
+                    },
+                    success: function (data) {
+                        if(data.success == 1){
+                            window.location.href = data.link;
+                        }
+                    }
+                });
+            }
+        });
+
+    },
+
     findMap: function(){
         $('#sys_map').show();
         var start =$('#sys_start').val();
@@ -198,3 +227,7 @@ var AdminCart = {
     }
 
 }
+
+$(document).ready(function(){
+    $('[data-rel=popover]').popover({container: 'body'});
+})

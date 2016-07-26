@@ -57,11 +57,16 @@
                 <table class="table table-bordered">
                     <thead class="thin-border-bottom">
                     <tr>
+                        <td class="center" width="5%">
+                            <input type="checkbox" class="ace ace-checkbox-2" id="sys_select_all" />
+                            <label class="lbl" for="sys_select_all"></label>
+                        </td>
                         <td class="center" width="5%"><b>STT</b></td>
                         <td class="center" width="15%"><b>Mã hàng</b></td>
                         <td class="left" width="35%"><b>Tên hàng hóa</b></td>
                         <td class="center" width="10%"><b>Đơn giá</b></td>
                         <td class="center" width="5%"><b>SL</b></td>
+                        <td class="center" width="5%"><b>Tồn</b></td>
                         <td class="center" width="10%"><b>Thành tiền</b></td>
                     </tr>
                     </thead>
@@ -69,13 +74,18 @@
                     <?php $sub_total = 0;$discount = 0;?>
                     @foreach($data->orderitem as $key => $value)
                         <tr>
+                            <td class="center">
+                                <input type="checkbox" class="ace ace-checkbox-1 sys_check" name="export[]" value="{{$value['order_item_id']}}" @if($value['product_num'] > $value['product']['product_Quantity']) disabled @endif/>
+                                <label class="lbl"></label>
+                            </td>
                             <td class="center">{{$key+1}}</td>
-                            <td class="center">{{$value['product_Code']}}</td>
+                            <td class="center">{{$value['product_code']}}</td>
                             <td>
                                 <div style="margin-left: 5px">{{$value['product_name']}}</div>
                             </td>
                             <td class="text-right">{{number_format($value['product_price'], 0, ',', '.');}}</td>
                             <td class="center">{{$value['product_num']}}</td>
+                            <td class="center">{{$value['product']['product_Quantity']}}</td>
                             <td class="center">{{number_format($value['product_price']*$value['product_num'], 0, ',', '.');}}</td>
                             <?php $sub_total += $value['product_price']*$value['product_num'];?>
                         </tr>
@@ -116,7 +126,7 @@
         <div class="panel-footer text-right">
             @if($data->order_status == 1)
             <span class="">
-                <a class="btn btn-danger btn-sm" href="javascript:void(0);" onclick="AdminCart.setStatusCart({{$data->order_id}},2);">
+                <a class="btn btn-info btn-sm" href="javascript:void(0);" onclick="AdminCart.setStatusCart({{$data->order_id}},2);">
                     <i class="ace-icon fa fa-plus-circle"></i>
                     Xác nhận đơn hàng
                 </a>
@@ -124,14 +134,14 @@
             @endif
             @if($data->order_status == 2)
                 <span class="">
-                    <a class="btn btn-danger btn-sm" href="javascript:void(0);" onclick="AdminCart.setStatusCart({{$data->order_id}},3);">
+                    <a class="btn btn-success btn-sm sys_btn_export" href="javascript:void(0);" data-id="{{$data->order_id}}">
                         <i class="ace-icon fa fa-plus-circle"></i>
-                        Tạo bản kê
+                        Xuất kho
                     </a>
                 </span>
             @endif
             @if($data->order_status > 0)
-                    <a class="btn btn-xs btn-danger" href="javascript:void(0);" onclick="AdminCart.setStatusCart({{$data->order_id}},-1);">
+                    <a class="btn btn-sm btn-danger" href="javascript:void(0);" onclick="AdminCart.setStatusCart({{$data->order_id}},-1);">
                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                         Hủy đơn hàng
                     </a>
@@ -141,3 +151,35 @@
 
     <!-- /.page-content -->
 </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#sys_select_all").on('change',function(){
+            if(this.checked){
+                $(".sys_check").each(function(){
+                    if($(this).prop('disabled') == false){
+                        $(this).prop('checked',true);
+                    }
+                });
+            }else{
+                $(".sys_check").each(function(){
+                    $(this).prop('checked',false);
+                });
+            }
+        });
+        $(".sys_btn_export").on('click dbclick',function(){
+            var select = [];
+            $('.sys_check').each(function () {
+                if ($(this).prop('checked')) {
+                    select.push(parseInt($(this).val()));
+                }
+            });
+            var ids = select.toString();
+            if(!ids){
+                bootbox.alert('Chưa chọn sản phẩm xuất kho');
+                return false;
+            }
+            var order_id = $(this).data('id');
+            AdminCart.export(ids,order_id)
+        })
+    });
+</script>

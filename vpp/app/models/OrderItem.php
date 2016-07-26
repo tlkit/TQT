@@ -24,4 +24,8 @@ class OrderItem extends Eloquent
     {
         return $this->belongsTo('Product');
     }
+
+    public static function getByIdsAndOrderId($ids,$order_id){
+        return OrderItem::whereIn('order_item_id',$ids)->where('order_id',$order_id)->get();
+    }
 }
