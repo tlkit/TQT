@@ -55,6 +55,7 @@
         <div class="right">
             <div class="price"><!--          -->
                 <!-- <img src="catalog/view/theme/default/image/save.png"><br/> -->
+                <h2>Giá bán :</h2>
                 <span class="price-new">{{number_format($product['product_Price'])}}</span>
                 <br />
             </div>

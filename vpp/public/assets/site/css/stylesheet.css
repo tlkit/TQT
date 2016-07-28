@@ -42,7 +42,7 @@ p {
 }
 a, a:visited, a b {
 	color: #094269;
-	text-decoration: underline;
+	text-decoration: none;
 	cursor: pointer;
 }
 a:hover {
