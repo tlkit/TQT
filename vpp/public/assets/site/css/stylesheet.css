@@ -1241,7 +1241,7 @@ a.button:hover, input.button:hover {
 	margin-left: -155px;
 	margin-top: 80px;
 }
-.box-product .name a {
+.box-product .name a, .sys_box_product .name a {
 	color: #3c3c3c;
 	font-weight: normal;
 	text-decoration: none;
@@ -1251,7 +1251,7 @@ a.button:hover, input.button:hover {
 	font-size: 14px;
 	height: 70px;
 }
-.box-product .price {
+.box-product .price, .sys_box_product .price {
 	display: block;
 	font-weight: bold;
 	color: #3c3c3c;
@@ -1264,7 +1264,7 @@ a.button:hover, input.button:hover {
 	font-weight: normal;
 	text-decoration: line-through;
 }
-.box-product .price-new {
+.box-product .price-new, .sys_box_product .price-new {
 	font-weight: bold;
 	color: #fe7906;
 }
@@ -1272,7 +1272,7 @@ a.button:hover, input.button:hover {
 	display: block;
 	margin-bottom: 4px;
 }
-.box-product .button {
+.box-product .button, .sys_box_product .button {
 	background: url('../image/btn-addcart.png') no-repeat;
 	width: 145px;
 	height: 36px;
@@ -1282,7 +1282,7 @@ a.button:hover, input.button:hover {
 	text-transform: uppercase;
 	padding-left: 40px;
 }
-.box-product .button:hover {
+.box-product .button:hover, .sys_box_product .button:hover{
 	background: url('../image/btn-addcart_r.png') no-repeat;
 	width: 145px;
 	height: 33px;

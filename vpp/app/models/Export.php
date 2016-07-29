@@ -214,4 +214,13 @@ class Export extends Eloquent{
     }
 
     /*end bảng kê*/
+
+    public static function getExportForCustomer($customer_id)
+    {
+        try {
+            return Export::where('customers_id', $customer_id)->where('export_status', '>', 0)->get();
+        } catch (PDOException $e) {
+            throw new PDOException();
+        }
+    }
 }

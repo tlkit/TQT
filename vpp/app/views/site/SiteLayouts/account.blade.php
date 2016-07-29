@@ -13,6 +13,7 @@
         <div class="content">
             <ul>
                 <li><a href="{{URL::route('site.order_history')}}">Lịch sử đơn hàng</a></li>
+                <li><a href="{{URL::route('site.export_history')}}">Lịch sử xuất kho</a></li>
                 <!-- <li><a href="http://www.homenoffice.sg/your-downloads">Downloads</a></li>
                  -->
                 <!-- <li><a href="http://www.homenoffice.sg/returns">View your return requests</a></li> -->

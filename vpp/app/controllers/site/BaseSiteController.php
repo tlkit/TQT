@@ -466,6 +466,31 @@ class BaseSiteController extends BaseController
         $this->layout->content = View::make('site.SiteLayouts.order_detail')->with('order',$order)->with('aryStatus',$aryStatus)->with('item',$item);
     }
 
+    public function exportHistory(){
+        if(!$this->customer){
+            return Redirect::route('site.login');
+        }
+        $aryStatus = array(1 => 'Đang xử lý', 2 => 'Đã cho COD giao hàng', 3 => 'Khách đã nhận hàng');
+        $exports = Export::getExportForCustomer($this->customer['customers_id']);
+        $this->layout->content = View::make('site.SiteLayouts.export_history')->with('exports',$exports)->with('aryStatus',$aryStatus);
+    }
+
+    public function exportDetail($id){
+        if(!$this->customer){
+            return Redirect::route('site.login');
+        }
+        $export = Export::find($id);
+        if(!$export || $export['customers_id'] != $this->customer['customers_id']){
+            return Redirect::route('site.home');
+        }
+        $item = $export->exportproduct;
+        foreach($item as $product){
+            $product->product;
+        }
+        $aryStatus = array(1 => 'Đang xử lý', 2 => 'Đã cho COD giao hàng', 3 => 'Khách đã nhận hàng');
+        $this->layout->content = View::make('site.SiteLayouts.export_detail')->with('export',$export)->with('aryStatus',$aryStatus)->with('item',$item);
+    }
+
     public function page($id,$name){
         $page = Page::find($id);
         $this->layout->content = View::make('site.SiteLayouts.page')->with('page',$page);
