@@ -56,7 +56,7 @@
             <div class="price"><!--          -->
                 <!-- <img src="catalog/view/theme/default/image/save.png"><br/> -->
                 <h2>Giá bán :</h2>
-                <span class="price-new">{{number_format($product['product_Price'])}}</span>
+                <span class="price-new">{{number_format($product['product_Price'])}}Đ</span>
                 <br />
             </div>
             <div class="description">
@@ -89,7 +89,7 @@
           <input type="text" value="1" size="2" name="quantity[{{$product['product_id']}}]" id="qty">
           <br><br>
 
-			<input class="button btn_add_cart" type="button" data-id="{{$product['product_id']}}" id="button-cart" value="Add to Cart">
+			<input class="button btn_add_cart" type="button" data-id="{{$product['product_id']}}" id="button-cart" value="Đặt mua">
         </span></span></div>
             </div>
             <!--        -->
@@ -123,7 +123,7 @@
                     </div>
                     @endif
                     <div class="cart">
-                        <input value="Add to Cart"  class="button btn_add_cart" type="button" data-id="{{$v['product_id']}}">
+                        <input value="Đặt mua"  class="button btn_add_cart" type="button" data-id="{{$v['product_id']}}">
                         <span class="counter2">
                             <input style="background-color: rgb(5, 113, 175);" name="quantity[{{$v['product_id']}}]" type="text" @if(isset($cart[$v['product_id']])) value="{{$cart[$v['product_id']]['product_num']}}" @else value="1" @endif class="sys_quantity">
                         </span>

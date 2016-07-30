@@ -20,8 +20,8 @@
                 @foreach($treeCategory as $group)
                 <div>
                     <a href="{{URL::route('site.group',array('id' => $group["group_category_id"],'name' => FunctionLib::safe_title($group["group_category_name"])))}}" style="text-align: center">
-                        <img src="{{Croppa::url(Constant::dir_group_category.$group['group_category_image'], 200, 200)}}" height="200" width="200"><br>
-                        {{$group["group_category_name"]}}
+                        <img style="margin-left: 25px" src="{{Croppa::url(Constant::dir_group_category.$group['group_category_image'], 200, 200)}}" height="200" width="200"><br>
+                        <div style="margin-left: 25px">{{$group["group_category_name"]}}</div>
                     </a>
                 </div>
                 @endforeach
@@ -38,7 +38,7 @@
                     <div class="">
                         <div class="image" style="padding-left: 25px">
                             <a href="{{URL::route('site.product',array('id' => $v["product_id"],'name' => FunctionLib::safe_title($v["product_Name"])))}}">
-                                <img src="{{Croppa::url(Constant::dir_product.$v['product_Avatar'], 200, 200)}}" alt="{{$v["product_Name"]}}">
+                                <img width="200" height="200" src="{{Croppa::url(Constant::dir_product.$v['product_Avatar'], 200, 200)}}" alt="{{$v["product_Name"]}}">
                             </a>
                             <!--                       <img class="special" src="catalog/view/theme/default/image/save.png">
                                                    -->
@@ -57,7 +57,7 @@
                             @endif
                         </div>
                         <div class="cart" style="margin-left: 15px">
-                            <input value="Add to Cart"  class="button btn_add_cart" type="button" data-id="{{$v['product_id']}}">
+                            <input value="Đặt mua"  class="button btn_add_cart" type="button" data-id="{{$v['product_id']}}" style="padding-left: 48px">
                         <span class="counter" style="margin-left: 0px">
                             <input style="background-color: rgb(5, 113, 175);" name="quantity[{{$v['product_id']}}]" type="text" @if(isset($cart[$v['product_id']])) value="{{$cart[$v['product_id']]['product_num']}}" @else value="1" @endif >
                         </span>

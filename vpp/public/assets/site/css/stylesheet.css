@@ -1280,7 +1280,7 @@ a.button:hover, input.button:hover {
 	font-weight: normal;
 	font-size: 14px;
 	text-transform: uppercase;
-	padding-left: 40px;
+	padding-left: 48px;
 }
 .box-product .button:hover, .sys_box_product .button:hover{
 	background: url('../image/btn-addcart_r.png') no-repeat;
@@ -1633,7 +1633,7 @@ ul.box-filter > li ul {
 	font-weight: normal;
 	font-size: 14px;
 	text-transform: uppercase;
-	padding-left: 35px;
+	padding-left: 48px;
 }
 .product-grid .button:hover {
 	background: url('../image/add-cart.png') 10px 7px no-repeat, url('../image/btn-addcart_r.png') no-repeat;
@@ -1872,7 +1872,7 @@ ul.box-filter > li ul {
 	font-weight: normal;
 	font-size: 14px;
 	text-transform: uppercase;
-	padding-left: 35px;
+	padding-left: 48px;
 }
 .product-info .button:hover {
 	background: url('../image/add-cart.png') 10px 7px no-repeat, url('../image/btn-addcart_r.png') no-repeat;
