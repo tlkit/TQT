@@ -15,6 +15,11 @@
 
 //Trang chu
 //Route::get('/',array('as' => 'site.index','uses' =>'SiteHomeController@index'));
+$isOn = Request::get('on_web','');
+if($isOn == 'sonnt_vpp'){
+    Session::put('on_web', '999999');
+}
+Route::get('offline',     array('as' => 'offline',       'uses' => 'OfflineController@index'));
 
 Route::group(array('prefix' => '', 'before' => ''), function()
 {

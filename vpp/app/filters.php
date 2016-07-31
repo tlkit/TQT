@@ -69,7 +69,12 @@ Route::filter('guest', function()
 {
 	if (Auth::check()) return Redirect::to('/');
 });
-
+Route::filter('', function()
+{
+     if(!Session::has('on_web')){
+         return Redirect::route('offline');
+     }
+});
 /*
 |--------------------------------------------------------------------------
 | CSRF Protection Filter

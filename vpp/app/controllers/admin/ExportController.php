@@ -19,7 +19,6 @@ class ExportController extends BaseAdminController{
     }
 
     public function view(){
-
         if (!in_array($this->permission_view, $this->permission)) {
             return Redirect::route('admin.dashboard');
         }

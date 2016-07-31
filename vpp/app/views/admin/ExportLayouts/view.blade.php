@@ -100,11 +100,7 @@
                         <span class="">
                             <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
                         </span>
-                        @if($param['export_status'] == 1)
-                        <span class="">
-                            <a class="btn btn-danger btn-sm" href="javascript:void(0)" onclick="AdminCart.findAllMap(waypts)">Xem đường đi</a>
-                        </span>
-                        @endif
+
 
                     </div>
                     {{ Form::close() }}

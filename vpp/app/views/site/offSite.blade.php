@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Văn phòng phầm Thiều Sơn | Coming Soon</title>
 {{ HTML::style('assets/site/countdown/assets/css/css.css'); }}
 {{ HTML::style('assets/site/countdown/assets/css/styles.css'); }}
 {{ HTML::style('assets/site/countdown/assets/countdown/jquery.countdown.css'); }}
@@ -7,16 +12,15 @@
 {{HTML::script('assets/site/countdown/assets/countdown/jquery.countdown.js');}}
 {{HTML::script('assets/site/countdown/assets/countdown/countdown.js');}}
 {{HTML::script('assets/site/countdown/assets/js/script.js');}}
-
-
+</head>
+<body>
 <div class="form-group text-center" style="text-align: center">
-    <img src="{{$url_src_icon}}">
     <div style="clear: both; margin-top: 50px"></div>
     <!-- dếm ngược
 
     <div id="countdown"></div>
     <p id="note"></p>-->
-
+    <h4 style="color: red">Văn phòng phẩm Thiều Sơn sẽ mở sau:</h4>
     <div style="text-align: center; float: left; position: relative">
     <script type="application/javascript">
     var myCountdown1 = new Countdown({
@@ -32,7 +36,8 @@
     </script>
     </div>
 </div>
-
+</body>
+</html>
 
 
 
