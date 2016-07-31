@@ -21,7 +21,7 @@ if($isOn == 'sonnt_vpp'){
 }
 Route::get('offline',     array('as' => 'offline',       'uses' => 'OfflineController@index'));
 
-Route::group(array('prefix' => '', 'before' => ''), function()
+Route::group(array('prefix' => '', 'before' => 'on_site'), function()
 {
     Route::get('/',array('as' => 'site.home','uses' =>'BaseSiteController@home'));
     Route::get('g{id}/{name}.html',array('as' => 'site.group','uses' =>'BaseSiteController@group'))->where('id', '[0-9]+');

@@ -69,7 +69,7 @@ Route::filter('guest', function()
 {
 	if (Auth::check()) return Redirect::to('/');
 });
-Route::filter('', function()
+Route::filter('on_site', function()
 {
      if(!Session::has('on_web')){
          return Redirect::route('offline');
