@@ -54,8 +54,8 @@ class ExportController extends BaseAdminController{
             ->with('start', ($page_no - 1) * $limit)
             ->with('paging',$paging)
             ->with('permission_edit', in_array($this->permission_edit, $this->permission) ? 1 : 0)
-            ->with('start', 'Số 64, Phố Yên Bái II, Phường Phố Huế, Quận Hai Bà Trưng, TP Hà Nội')
-            ->with('end', 'Số 64, Phố Yên Bái II, Phường Phố Huế, Quận Hai Bà Trưng, TP Hà Nội')
+            ->with('start', 'Số 35 Phố Nguyễn Văn Trỗi, Phường Phương Liệt, Quận Thanh Xuân, TP Hà Nội')
+            ->with('end', 'Số 35 Phố Nguyễn Văn Trỗi, Phường Phương Liệt, Quận Thanh Xuân, TP Hà Nội')
             ->with('permission_create', in_array($this->permission_create, $this->permission) ? 1 : 0);
     }
 
