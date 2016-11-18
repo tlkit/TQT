@@ -618,6 +618,16 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     width: 1170px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 115px;
+}
+#footer{
+    width: 100%;
+    background-color: #202020;
+}
+#footer .container{
+    width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
 }
 #banner{
     width: 1170px;
@@ -988,9 +998,97 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     padding: 20px 15px 20px 10px;
 }
 .box-news-content{
-    width: 392px;
+    width: 393px;
     margin-left: 15px;
     margin-right: 15px;
+}
+.img-news{
+    width: 393px;
+    height: 180px;
+    overflow: hidden;
+    text-align: center;
+}
+.news-title{
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 16px;
+    color: #3e3e3e;
+}
+.news-auth{
+    width: 100%;
+    height: 22px;
+    line-height: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+    color: #a4a4a4;
+}
+.news-short-desc{
+    width: 100%;
+    height: 44px;
+    line-height: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+.news-link{
+    width: 110px;
+    height: 35px;
+    line-height: 35px;
+    background-color: #108bea;
+    text-align: center;
+    border-radius: 2px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+.news-link a{
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 14px;
+}
+.new-all{
+    text-decoration: none;
+    color: #00aeff;
+    font-size: 14px;
+    margin-right: 15px;
+    text-transform: none;
+}
+.box-brand{
+    width: 100%;
+    padding: 45px 20px 45px 20px;
+}
+.brand-img{
+    width: 110px;
+    height: 90px;
+    text-align: center;
+    margin: 0px 48px ;
+}
+.brand-prev, .brand-next{
+    width: 13px;
+    height: 23px;
+    position: absolute;
+    z-index: 1;
+}
+.brand-prev{
+    top: 30px;
+    left: 5px;
+}
+.brand-next{
+    top: 30px;
+    right: 0px;
+}
+.brand-prev:hover .iPrev2{
+    width: 13px; height: 23px;background-position: -69px -26px;
+}
+.brand-next:hover .iNext2{
+    width: 13px; height: 23px; background-position: -197px 0px;
 }
 .iLogo{
 background: transparent url("../image/logo.png") no-repeat;border: none;vertical-align:middle; font-size: 0;line-height:0;display: inline-block;*display: inline;*zoom: 1;height: 66px;width: 204px;
@@ -1004,4 +1102,7 @@ background: transparent url("../image/logo.png") no-repeat;border: none;vertical
     .iRate{ width: 14px; height: 13px; background-position: -24px -26px;}
     .iRate.checked{ width: 14px; height: 13px; background-position: -92px -0px;}
     .iNext{ width: 6px; height: 10px; background-position: -86px -0px;}
+    .iNext2{ width: 13px; height: 23px; background-position: -99px -27px;}
+    .iNextz{ width: 6px; height: 10px; background-position: -86px -0px;}
     .iPrev{ width: 6px; height: 10px; background-position: -80px -0px;}
+    .iPrev2{ width: 13px; height: 23px; background-position: -210px -0px;}

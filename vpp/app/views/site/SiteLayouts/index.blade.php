@@ -749,15 +749,59 @@
                 <div class="box-right clearfix">
                     <div class="box-right-title">
                         <div class="make-left">Tin tức</div>
+                        <div class="make-right"><a href="" class="new-all">Xem tất cả ></a></div>
                     </div>
                     <div class="box-news">
-                        <div class="box-news-content make-left">1</div>
-                        <div class="box-news-content make-left">1</div>
+                        <div class="box-news-content make-left">
+                            <div class="img-news">
+                                <img src="{{asset('assets/site/image/news-1.png', false)}}" alt="">
+                            </div>
+                            <div class="news-title">Làm việc nhiều không tăng năng suất chỉ khiến bạn 24343 3343</div>
+                            <div class="news-auth">By Admin | 26 tháng 11 năm 2016</div>
+                            <div class="news-short-desc">Một doanh nhân thành công vẫn có thể làm việc với số giờ thông thường mà vẫn tẩn hưởng cuộc sống.</div>
+                            <div class="news-link">
+                                <a href="">Xem thêm <i class="icons iNextz"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-news-content make-left">
+                            <div class="img-news">
+                                <img src="{{asset('assets/site/image/news-1.png', false)}}" alt="">
+                            </div>
+                            <div class="news-title">Làm việc nhiều không tăng năng suất chỉ khiến bạn 24343 3343</div>
+                            <div class="news-auth">By Admin | 26 tháng 11 năm 2016</div>
+                            <div class="news-short-desc">Một doanh nhân thành công vẫn có thể làm việc với số giờ thông thường mà vẫn tẩn hưởng cuộc sống.</div>
+                            <div class="news-link">
+                                <a href="">Xem thêm <i class="icons iNextz"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cr make-right mt-30">
+                <div class="box-right clearfix">
+                    <div class="box-right-title">
+                        <div class="make-left">Tin tức</div>
+                    </div>
+                    <div class="box-brand clearfix">
+                        <div class="slide-brand" style="text-align: center">
+                            <div class="brand-img make-left"><img src="{{asset('assets/site/image/brand-1.png', false)}}" alt=""></div>
+                            <div class="brand-img make-left"><img src="{{asset('assets/site/image/brand-1.png', false)}}" alt=""></div>
+                            <div class="brand-img make-left"><img src="{{asset('assets/site/image/brand-1.png', false)}}" alt=""></div>
+                            <div class="brand-img make-left"><img src="{{asset('assets/site/image/brand-1.png', false)}}" alt=""></div>
+                            <div class="brand-img make-left"><img src="{{asset('assets/site/image/brand-1.png', false)}}" alt=""></div>
+                            <div class="brand-img make-left"><img src="{{asset('assets/site/image/brand-1.png', false)}}" alt=""></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div id="footer">
+        <div class="container clearfix">
+            345454
+        </div>
+    </div>
+
 </div>
 </body>
 </html>
@@ -793,6 +837,12 @@
             slidesToScroll: 3,
             prevArrow : '<div class="product-prev"><i class="icons iPrev"></i></div>',
             nextArrow : '<div class="product-next"><i class="icons iNext"></i></div>'
+        });
+        $(".slide-brand").slick({
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            prevArrow : '<div class="brand-prev"><i class="icons iPrev2"></i></div>',
+            nextArrow : '<div class="brand-next"><i class="icons iNext2"></i></div>'
         });
     })
 </script>
