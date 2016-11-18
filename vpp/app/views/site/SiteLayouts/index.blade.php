@@ -275,7 +275,7 @@
                 </div>
                 <div class="box-left clearfix mt-30">
                     <div class="box-left-title">
-                        Đề xuất
+                        Từ khóa nổi bật
                     </div>
                     <div class="box-tag clearfix">
                         <div class="tag-content make-left"><a href="">fđfd dgdg</a></div>
@@ -306,7 +306,454 @@
                             </div>
                         </div>
                     </div>
-                    <div class="box-product-new"></div>
+                    <div class="box-product-new clearfix">
+                        <div class="product-column make-left">
+                            <div class="wrap-img">
+                                <a href=""><img src="{{asset('assets/site/image/product-3.png', false)}}" alt="" align="middle"></a>
+                            </div>
+                            <div class="product-des">
+                                <div class="product-title"><a href="">Bàn làm việc chất gỗ tốt</a></div>
+                                <div class="rate-deal">
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate"></i>
+                                </div>
+                                <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-column make-left">
+                            <div class="wrap-img">
+                                <a href=""><img src="{{asset('assets/site/image/product-3.png', false)}}" alt="" align="middle"></a>
+                            </div>
+                            <div class="product-des">
+                                <div class="product-title"><a href="">Bàn làm việc chất gỗ tốt</a></div>
+                                <div class="rate-deal">
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate"></i>
+                                </div>
+                                <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-column make-left">
+                            <div class="wrap-img">
+                                <a href=""><img src="{{asset('assets/site/image/product-3.png', false)}}" alt="" align="middle"></a>
+                            </div>
+                            <div class="product-des">
+                                <div class="product-title"><a href="">Bàn làm việc chất gỗ tốt</a></div>
+                                <div class="rate-deal">
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate"></i>
+                                </div>
+                                <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-column make-left">
+                            <div class="wrap-img">
+                                <a href=""><img src="{{asset('assets/site/image/product-3.png', false)}}" alt="" align="middle"></a>
+                            </div>
+                            <div class="product-des">
+                                <div class="product-title"><a href="">Bàn làm việc chất gỗ tốt</a></div>
+                                <div class="rate-deal">
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate"></i>
+                                </div>
+                                <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cr make-right mt-30">
+                <div class="box-right clearfix">
+                    <div class="box-right-title">
+                        <div class="make-left">Sản phẩm bán chạy</div>
+                    </div>
+                    <div class="box-product-hot clearfix">
+                        <div class="slide-hot">
+                            <div class="product-hot make-left">
+                                <div class="hot-image make-left">
+                                    <a href=""><img src="{{asset('assets/site/image/product-4.png', false)}}" alt=""></a>
+                                </div>
+                                <div class="product-hot-des make-left">
+                                    <div class="product-hot-title"><a href="">Máy in giấy Deli387</a></div>
+                                    <div class="rate-deal">
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate"></i>
+                                    </div>
+                                    <div class="price-deal">
+                                <span class="price-dx-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-hot make-left">
+                                <div class="hot-image make-left">
+                                    <a href=""><img src="{{asset('assets/site/image/product-4.png', false)}}" alt=""></a>
+                                </div>
+                                <div class="product-hot-des make-left">
+                                    <div class="product-hot-title"><a href="">Máy in giấy Deli387</a></div>
+                                    <div class="rate-deal">
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate"></i>
+                                    </div>
+                                    <div class="price-deal">
+                                <span class="price-dx-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-hot make-left">
+                                <div class="hot-image make-left">
+                                    <a href=""><img src="{{asset('assets/site/image/product-4.png', false)}}" alt=""></a>
+                                </div>
+                                <div class="product-hot-des make-left">
+                                    <div class="product-hot-title"><a href="">Máy in giấy Deli387</a></div>
+                                    <div class="rate-deal">
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate"></i>
+                                    </div>
+                                    <div class="price-deal">
+                                <span class="price-dx-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-hot make-left">
+                                <div class="hot-image make-left">
+                                    <a href=""><img src="{{asset('assets/site/image/product-4.png', false)}}" alt=""></a>
+                                </div>
+                                <div class="product-hot-des make-left">
+                                    <div class="product-hot-title"><a href="">Máy in giấy Deli387</a></div>
+                                    <div class="rate-deal">
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate"></i>
+                                    </div>
+                                    <div class="price-deal">
+                                <span class="price-dx-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-hot make-left">
+                                <div class="hot-image make-left">
+                                    <a href=""><img src="{{asset('assets/site/image/product-4.png', false)}}" alt=""></a>
+                                </div>
+                                <div class="product-hot-des make-left">
+                                    <div class="product-hot-title"><a href="">Máy in giấy Deli387</a></div>
+                                    <div class="rate-deal">
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate"></i>
+                                    </div>
+                                    <div class="price-deal">
+                                <span class="price-dx-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-hot make-left">
+                                <div class="hot-image make-left">
+                                    <a href=""><img src="{{asset('assets/site/image/product-4.png', false)}}" alt=""></a>
+                                </div>
+                                <div class="product-hot-des make-left">
+                                    <div class="product-hot-title"><a href="">Máy in giấy Deli387</a></div>
+                                    <div class="rate-deal">
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate"></i>
+                                    </div>
+                                    <div class="price-deal">
+                                <span class="price-dx-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-hot make-left">
+                                <div class="hot-image make-left">
+                                    <a href=""><img src="{{asset('assets/site/image/product-4.png', false)}}" alt=""></a>
+                                </div>
+                                <div class="product-hot-des make-left">
+                                    <div class="product-hot-title"><a href="">Máy in giấy Deli387</a></div>
+                                    <div class="rate-deal">
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate"></i>
+                                    </div>
+                                    <div class="price-deal">
+                                <span class="price-dx-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-hot make-left">
+                                <div class="hot-image make-left">
+                                    <a href=""><img src="{{asset('assets/site/image/product-4.png', false)}}" alt=""></a>
+                                </div>
+                                <div class="product-hot-des make-left">
+                                    <div class="product-hot-title"><a href="">Máy in giấy Deli387</a></div>
+                                    <div class="rate-deal">
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate"></i>
+                                    </div>
+                                    <div class="price-deal">
+                                <span class="price-dx-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-hot make-left">
+                                <div class="hot-image make-left">
+                                    <a href=""><img src="{{asset('assets/site/image/product-4.png', false)}}" alt=""></a>
+                                </div>
+                                <div class="product-hot-des make-left">
+                                    <div class="product-hot-title"><a href="">Máy in giấy Deli387</a></div>
+                                    <div class="rate-deal">
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate"></i>
+                                    </div>
+                                    <div class="price-deal">
+                                <span class="price-dx-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cr make-right mt-30">
+                <div class="box-right clearfix">
+                    <div class="box-right-title">
+                        <div class="make-left">Sản phẩm hot</div>
+                    </div>
+                    <div class="box-product-hot clearfix">
+                        <div class="slide-hott">
+                            <div class="product-column make-left">
+                                <div class="wrap-img">
+                                    <a href=""><img src="{{asset('assets/site/image/product-5.png', false)}}" alt="" align="middle"></a>
+                                </div>
+                                <div class="product-des">
+                                    <div class="product-title"><a href="">Bàn làm việc chất gỗ tốt</a></div>
+                                    <div class="rate-deal">
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate"></i>
+                                    </div>
+                                    <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-column make-left">
+                                <div class="wrap-img">
+                                    <a href=""><img src="{{asset('assets/site/image/product-5.png', false)}}" alt="" align="middle"></a>
+                                </div>
+                                <div class="product-des">
+                                    <div class="product-title"><a href="">Bàn làm việc chất gỗ tốt</a></div>
+                                    <div class="rate-deal">
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate"></i>
+                                    </div>
+                                    <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-column make-left">
+                                <div class="wrap-img">
+                                    <a href=""><img src="{{asset('assets/site/image/product-5.png', false)}}" alt="" align="middle"></a>
+                                </div>
+                                <div class="product-des">
+                                    <div class="product-title"><a href="">Bàn làm việc chất gỗ tốt</a></div>
+                                    <div class="rate-deal">
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate"></i>
+                                    </div>
+                                    <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-column make-left">
+                                <div class="wrap-img">
+                                    <a href=""><img src="{{asset('assets/site/image/product-5.png', false)}}" alt="" align="middle"></a>
+                                </div>
+                                <div class="product-des">
+                                    <div class="product-title"><a href="">Bàn làm việc chất gỗ tốt</a></div>
+                                    <div class="rate-deal">
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate"></i>
+                                    </div>
+                                    <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-column make-left">
+                                <div class="wrap-img">
+                                    <a href=""><img src="{{asset('assets/site/image/product-5.png', false)}}" alt="" align="middle"></a>
+                                </div>
+                                <div class="product-des">
+                                    <div class="product-title"><a href="">Bàn làm việc chất gỗ tốt</a></div>
+                                    <div class="rate-deal">
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate"></i>
+                                    </div>
+                                    <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-column make-left">
+                                <div class="wrap-img">
+                                    <a href=""><img src="{{asset('assets/site/image/product-5.png', false)}}" alt="" align="middle"></a>
+                                </div>
+                                <div class="product-des">
+                                    <div class="product-title"><a href="">Bàn làm việc chất gỗ tốt</a></div>
+                                    <div class="rate-deal">
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate checked"></i>
+                                        <i class="icons iRate"></i>
+                                    </div>
+                                    <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cr make-right clearfix mt-30" align="center">
+                <img src="{{asset('assets/site/image/banner-2.png', false)}}" alt="">
+            </div>
+            <div class="cr make-right mt-30">
+                <div class="box-right clearfix">
+                    <div class="box-right-title">
+                        <div class="make-left">Tin tức</div>
+                    </div>
+                    <div class="box-news">
+                        <div class="box-news-content make-left">1</div>
+                        <div class="box-news-content make-left">1</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -331,6 +778,21 @@
             variableWidth:true,
             prevArrow : '<div class="cate-prev"><i class="icons iPrev"></i></div>',
             nextArrow : '<div class="cate-next"><i class="icons iNext"></i></div>'
+        });
+        $(".slide-hot").slick({
+            rows: 2,
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            prevArrow : '<div class="product-prev"><i class="icons iPrev"></i></div>',
+            nextArrow : '<div class="product-next"><i class="icons iNext"></i></div>'
+        });
+        $(".slide-hott").slick({
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            prevArrow : '<div class="product-prev"><i class="icons iPrev"></i></div>',
+            nextArrow : '<div class="product-next"><i class="icons iNext"></i></div>'
         });
     })
 </script>
