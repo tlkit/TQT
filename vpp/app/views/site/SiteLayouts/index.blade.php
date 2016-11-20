@@ -120,7 +120,7 @@
                                     </ul>
                                 </li>
                             </ul>
-                            <img src="{{asset('assets/site/image/img-nav.png', false)}}" alt="" class="img-cate">
+                            {{--<img src="{{asset('assets/site/image/img-nav.png', false)}}" alt="" class="img-cate">--}}
                         </div>
                     </div>
                 </li>
@@ -310,6 +310,12 @@
                         <div class="product-column make-left">
                             <div class="wrap-img">
                                 <a href=""><img src="{{asset('assets/site/image/product-3.png', false)}}" alt="" align="middle"></a>
+                                <div class="hover-cart">
+                                    <i class="icons iCart3"></i>
+                                </div>
+                                <div class="hover-like">
+                                    <i class="icons iHeart"></i>
+                                </div>
                             </div>
                             <div class="product-des">
                                 <div class="product-title"><a href="">Bàn làm việc chất gỗ tốt</a></div>
@@ -333,6 +339,12 @@
                         <div class="product-column make-left">
                             <div class="wrap-img">
                                 <a href=""><img src="{{asset('assets/site/image/product-3.png', false)}}" alt="" align="middle"></a>
+                                <div class="hover-cart">
+                                    <i class="icons iCart3"></i>
+                                </div>
+                                <div class="hover-like">
+                                    <i class="icons iHeart"></i>
+                                </div>
                             </div>
                             <div class="product-des">
                                 <div class="product-title"><a href="">Bàn làm việc chất gỗ tốt</a></div>
@@ -603,6 +615,12 @@
                             <div class="product-column make-left">
                                 <div class="wrap-img">
                                     <a href=""><img src="{{asset('assets/site/image/product-5.png', false)}}" alt="" align="middle"></a>
+                                    <div class="hover-cart">
+                                        <i class="icons iCart3"></i>
+                                    </div>
+                                    <div class="hover-like">
+                                        <i class="icons iHeart"></i>
+                                    </div>
                                 </div>
                                 <div class="product-des">
                                     <div class="product-title"><a href="">Bàn làm việc chất gỗ tốt</a></div>
@@ -798,7 +816,76 @@
     </div>
     <div id="footer">
         <div class="container clearfix">
-            345454
+            <div class="footer-top clearfix">
+                <ul class="rs company-info make-left">
+                    <div class="footer-title">Địa chỉ</div>
+                    <li class="clearfix">
+                        <i class="icons iHome make-left"></i>
+                        <div class="make-left">Số 64, Phố Yên Bái 2, Phường Phố Huế, Quận Hai Bà Trưng, Hà Nội</div>
+                    </li>
+                    <li class="clearfix">
+                        <i class="icons iPhone make-left"></i>
+                        <div class="make-left">(04) 6657 2888 | (04) 6688 0415</div>
+                    </li>
+                    <li class="clearfix">
+                        <i class="icons iMail make-left"></i>
+                        <div class="make-left">vpp@banbuonvpp.vn</div>
+                    </li>
+                </ul>
+                <ul class="rs company-ext make-left">
+                    <div class="footer-title">Chính sách</div>
+                    <li class="clearfix">
+                        <i class="icons iLi make-left"></i>
+                        <div class="make-left">Chính sách thanh toán</div>
+                    </li>
+                    <li class="clearfix">
+                        <i class="icons iLi make-left"></i>
+                        <div class="make-left">Chính sách thanh toán</div>
+                    </li>
+                    <li class="clearfix">
+                        <i class="icons iLi make-left"></i>
+                        <div class="make-left">Chính sách thanh toán</div>
+                    </li>
+                </ul>
+                <ul class="rs company-ext make-left">
+                    <div class="footer-title">Hỗ trợ</div>
+                    <li class="clearfix">
+                        <i class="icons iLi make-left"></i>
+                        <div class="make-left">Chính sách thanh toán</div>
+                    </li>
+                    <li class="clearfix">
+                        <i class="icons iLi make-left"></i>
+                        <div class="make-left">Chính sách thanh toán</div>
+                    </li>
+                    <li class="clearfix">
+                        <i class="icons iLi make-left"></i>
+                        <div class="make-left">Chính sách thanh toán</div>
+                    </li>
+                </ul>
+                <div class="make-right footer-km">
+                    <div class="footer-title">Nhận tin khuyến mại</div>
+                    <div class="km-des clearfix">Đăng ký để nhận tin khuyến mãi và ưu đãi mới nhất từ chúng tôi</div>
+                    <div class="frm-mail clearfix">
+                        <div class="txt-mail make-left">
+                            <input type="text" class="input-email-km">
+                        </div>
+                        <div class="btn-mail-km make-left">
+                            <i class="icons iBay"></i>
+                        </div>
+                    </div>
+                    <div class="social clearfix">
+                        <div class="social-icon make-left"><i class="icons iFacebook"></i></div>
+                        <div class="social-icon make-left"><i class="icons iTwice"></i></div>
+                        <div class="social-icon make-left"><i class="icons iGoogle"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom clearfix">
+                Copyright 2016 © ThieuSon Co., Ltd. All Rights Reserved.
+                <i class="icons iAmerica make-right"></i>
+                <i class="icons iVisa make-right"></i>
+                <i class="icons iPaypal make-right"></i>
+            </div>
         </div>
     </div>
 

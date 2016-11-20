@@ -587,6 +587,7 @@ li.has-sub .nav-content{
     width: 100%;
     overflow: hidden;
     display: inline-block;
+    background: url("../image/img-nav.png") no-repeat right bottom;
 }
 #header ul.parent-cate li.parent-cate-title{
     width: 20%;
@@ -916,10 +917,45 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.box-product-new .product-column:hover .product-title a, .box-product-hot .product-column:hover .product-title a{
+    color: #0072ca ;
+}
 .box-product-new .product-column .wrap-img{
     width: 192px;
     height: 192px;
     text-align: center;
+    position: relative;
+}
+.hover-cart, .hover-like{
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    align-content: center;
+    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    position: absolute;
+    border-radius: 50%;
+    padding-top: 12px;
+    cursor: pointer;
+    display: none;
+}
+.box-product-new .hover-cart{
+    bottom: 20px;
+    left: 40px;
+}
+.box-product-hot .hover-cart{
+    bottom: 30px;
+    left: 70px;
+}
+.box-product-new .hover-like{
+    bottom: 20px;
+    right: 40px;
+}
+.box-product-hot .hover-like{
+    bottom: 30px;
+    right: 70px;
+}
+.box-product-new .product-column:hover .hover-cart, .box-product-hot .product-column:hover .hover-cart, .box-product-new .product-column:hover .hover-like, .box-product-hot .product-column:hover .hover-like{
+    display: block;
 }
 .product-title{
     line-height: 30px;
@@ -936,6 +972,9 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
 .product-hot{
     width: 270px;
     margin-bottom: 20px;
+}
+.product-hot:hover .product-hot-title a{
+    color: #0072ca;
 }
 .hot-image{
     width: 110px;
@@ -992,6 +1031,7 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     width: 260px;
     height: 260px;
     text-align: center;
+    position: relative;
 }
 .box-news{
     width: 100%;
@@ -1090,15 +1130,222 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
 .brand-next:hover .iNext2{
     width: 13px; height: 23px; background-position: -197px 0px;
 }
+.company-info{
+    width: 355px;
+    overflow: hidden;
+}
+.company-ext{
+    width: 281px;
+    overflow: hidden;
+}
+.company-info li{
+    line-height: 22px;
+    padding-bottom: 22px;
+    color: #ababab;
+}
+.company-info li i {
+    margin-top: 5px;
+}
+.company-info li div{
+    width: 240px;
+    margin-left: 10px;
+}
+.footer-title{
+    color: #fff;
+    font-size: 16px;
+    text-transform: uppercase;
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+.footer-top{
+    margin: 65px 0 95px 0;
+    width: 100%;
+}
+.company-ext li{
+    height: 30px;
+    line-height: 30px;
+    color: #ababab;
+}
+.company-ext li i{
+    margin-top: 12px;
+}
+.company-ext li div{
+    width: 240px;
+    margin-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.footer-km{
+    width: 250px;
+}
+.frm-mail{
+    margin-top: 22px;
+    margin-bottom: 20px;
+}
+.txt-mail{
+    width: 200px;
+    height: 46px;
+    background-color: #fff;
+}
+.input-email-km{
+    width: 200px;
+    height: 46px;
+    border: none;
+    padding: 5px;
+    font-size: 14px;
+}
+.btn-mail-km{
+    height: 46px;
+    width: 50px;
+    text-align: center;
+    background-color: #fdd922;
+    padding-top: 13px;
+    cursor: pointer;
+}
+.social-icon{
+    width: 48px;
+    height: 48px;
+    border: 1px solid #fff;
+    padding-top: 13px;
+    text-align: center;
+    margin-right: 15px;
+}
+.footer-bottom{
+    width: 100%;
+    margin-top: 68px;
+    border-top: 2px solid #2c2c2c;
+    height: 46px;
+    line-height: 22px;
+    padding-top: 13px;
+}
+.breadcrumb{
+    width: 100%;
+    height: 51px;
+    line-height: 51px ;
+}
+.breadcrumb a{
+    color: #6a6a6a;
+    text-decoration: none;
+    margin-right: 10px;
+
+}
+.breadcrumb div a{
+    margin-left: 10px;
+}
+.cate-list{
+    width: 100%;
+    margin-bottom: 10px;
+}
+.cate-list li{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-transform: uppercase;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+}
+.cate-list li a{
+    text-decoration: none;
+    color: #737373;
+    font-size: 12px;
+}
+.cate-list li:hover a{
+    color: #0f6cb2;
+}
+.cate-list li i{
+    position: absolute;
+    right: 0;
+    top: 15px;
+}
+.container-list{
+    background: #fff;
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
+}
+.nav-filter{
+    height: 80px;
+    width: 100%;
+    line-height: 80px;
+    font-size: 14px;
+    padding: 0 20px 0 23px;
+}
+.filter-view{
+    margin-right: 23px;
+}
+.frm-sx{
+    margin-left: 18px;
+    position: relative;
+}
+.frm-sx i{
+    position: absolute;
+    top: 36px;
+    right: 5px;
+}
+.frm-sx select {
+    border: 1px solid #d9d9d9;
+    width: 102px;
+    padding: 5px 35px 5px 5px;
+    height: 32px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: #494949;
+    position: relative;
+}
+.pagination ul li{
+    display: inline-block;
+    padding: 5px;
+    height: 28px;
+    margin-bottom: -7px;
+}
+.pagination ul li a{
+    text-decoration: none;
+    color: #494949;
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+.pagination ul li.active a, .pagination ul li:hover a{
+    color: #0f6cb2;
+}
+
+.page-prev-next{
+    width: 28px;
+    height: 28px;
+    background-color: #e0e0e0;
+    position: relative;
+}
+.list-product, .list-product-grid{
+    width: 100%;
+    padding-left: 23px;
+    ba
+}
+.list-product-grid .product-box{
+    width: 260px;
+    margin-right: 25px;
+    height: 445px;
+}
+.product-box .wrap-img{
+    width: 260px;
+    height: 260px;
+    text-align: center;
+    overflow: hidden;
+    float: left;
+}
 .iLogo{
 background: transparent url("../image/logo.png") no-repeat;border: none;vertical-align:middle; font-size: 0;line-height:0;display: inline-block;*display: inline;*zoom: 1;height: 66px;width: 204px;
 }
 .icons{background: transparent url("../image/icon.png") no-repeat;border: none;vertical-align:middle; font-size: 0;line-height:0;display: inline-block;*display: inline;*zoom: 1;}
     .iDown{ width: 13px; height: 7px; background-position: -0px -0px;}
     .iDown2{ width: 13px; height: 7px; background-position: -38px -26px;}
+    .iDown3{ width: 13px; height: 7px; background-position: -157px -31px;}
     .iSearch{ width: 18px; height: 19px; background-position: -13px -0px;}
     .iCart{ width: 27px; height: 26px; background-position: -31px -0px;}
     .iCart2{ width: 19px; height: 19px; background-position: -132px -0px;}
+    .iCart3{ width: 23px; height: 22px; background-position: -151px -0px;}
+    .iHeart{ width: 23px; height: 21px; background-position: -174px -0px;}
     .iRate{ width: 14px; height: 13px; background-position: -24px -26px;}
     .iRate.checked{ width: 14px; height: 13px; background-position: -92px -0px;}
     .iNext{ width: 6px; height: 10px; background-position: -86px -0px;}
@@ -1106,3 +1353,18 @@ background: transparent url("../image/logo.png") no-repeat;border: none;vertical
     .iNextz{ width: 6px; height: 10px; background-position: -86px -0px;}
     .iPrev{ width: 6px; height: 10px; background-position: -80px -0px;}
     .iPrev2{ width: 13px; height: 23px; background-position: -210px -0px;}
+    .iHome{ width: 22px; height: 17px; background-position: -223px -0px;}
+    .iPhone{ width: 20px; height: 20px; background-position: -245px -0px;}
+    .iMail{ width: 20px; height: 16px; background-position: -265px -0px;}
+    .iLi{ width: 7px; height: 7px; background-position: -285px -0px;}
+    .iBay{ width: 21px; height: 20px; background-position: -292px -0px;}
+    .iFacebook{ width: 14px; height: 25px; background-position: -313px -0px;}
+    .iGoogle{ width: 31px; height: 20px; background-position: -351px -0px;}
+    .iTwice{ width: 24px; height: 19px; background-position: -327px -0px;}
+    .iPaypal{ width: 50px; height: 14px; background-position: -382px -0px;}
+    .iAmerica{ width: 30px; height: 17px; background-position: -471px -0px;}
+    .iVisa{ width: 39px; height: 13px; background-position: -432px -0px;}
+    .iRightB{ width: 4px; height: 9px; background-position: -113px -35px;}
+    .iRightC{ width: 6px; height: 10px; background-position: -151px -30px;}
+    .iGrid{ width: 14px; height: 14px; background-position: -119px -30px;}
+    .iList{ width: 16px; height: 12px; background-position: -133px -31px;}
