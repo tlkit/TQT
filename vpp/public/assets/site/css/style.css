@@ -423,7 +423,9 @@ h6{font-size: 0.9231em}
 .mt-20{ margin-top: 20px}
 .mt-30{ margin-top: 30px}
 .mb-20{ margin-bottom: 20px;}
+.mb-30{ margin-bottom: 30px;}
 .ml-20{ margin-left: 20px;}
+.mr-25{ margin-right: 25px;}
 
 .height-15{ height: 15px;width: 100%}
 
@@ -730,6 +732,10 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     line-height: 30px;
     font-size: 16px;
 }
+.box-description .title-deal a{
+    color: #6e6e6e;
+    text-decoration: none;
+}
 .price-deal{
     height: 45px;
     line-height: 45px;
@@ -774,6 +780,18 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     top: 0;
     left: 0;
 
+}
+.btn-like{
+    width: 140px;
+    height: 42px;
+    line-height: 42px;
+    color: #747474;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 25px;
+    position: relative;
+    border: 1px solid #9c9c9c;
+    text-align: center;
 }
 .deal-prev{
     position: absolute;
@@ -1325,8 +1343,23 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
 }
 .list-product-grid .product-box{
     width: 260px;
-    margin-right: 25px;
+    margin-right: 22px;
     height: 445px;
+}
+.list-product-grid .product-box:hover .hover-cart{
+    position: absolute;
+    display: block;
+    bottom: 30px;
+    left: 70px;
+}
+.list-product-grid .product-box:hover .hover-like{
+    position: absolute;
+    display: block;
+    bottom: 30px;
+    right: 70px;
+}
+.list-product-grid .btn-muangay, .list-product-grid .btn-like{
+    display: none;
 }
 .list-product .product-box{
     width: 100%;
@@ -1337,12 +1370,22 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
 .list-product .box-description{
     margin-left: 20px;
 }
+.list-product .title-deal{
+    font-size: 22px;
+    line-height: 40px;
+    height: 40px;
+}
+.list-product .title-deal a{
+    color: #4c4c4c;
+    text-decoration: none;
+}
 .product-box .wrap-img{
     width: 260px;
     height: 260px;
     text-align: center;
     overflow: hidden;
     float: left;
+    position: relative;
 }
 .price-bulk{
     line-height: 22px;
@@ -1359,6 +1402,7 @@ background: transparent url("../image/logo.png") no-repeat;border: none;vertical
     .iCart2{ width: 19px; height: 19px; background-position: -132px -0px;}
     .iCart3{ width: 23px; height: 22px; background-position: -151px -0px;}
     .iHeart{ width: 23px; height: 21px; background-position: -174px -0px;}
+    .iHeart2{ width: 20px; height: 19px; background-position: -174px -27px;}
     .iRate{ width: 14px; height: 13px; background-position: -24px -26px;}
     .iRate.checked{ width: 14px; height: 13px; background-position: -92px -0px;}
     .iNext{ width: 6px; height: 10px; background-position: -86px -0px;}

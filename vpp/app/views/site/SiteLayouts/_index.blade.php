@@ -349,10 +349,16 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="list-product">
+                    <div class="list-product-grid">
                         <div class="product-box make-left">
                             <div class="wrap-img make-left">
                                 <img src="{{asset('assets/site/image/list-1.png', false)}}" alt="">
+                                <div class="hover-cart">
+                                    <i class="icons iCart3"></i>
+                                </div>
+                                <div class="hover-like">
+                                    <i class="icons iHeart"></i>
+                                </div>
                             </div>
                             <div class="box-description make-left">
                                 <div class="title-deal">Máy in giấy Deli387</div>
@@ -377,12 +383,332 @@
                                     <i class="wrap-icon"><i class="icons iCart2"></i></i>
                                     Thêm vào giỏ
                                 </div>
-                                <div class="btn btn-muangay ml-20 mt-20 make-left" id="">
-                                    <i class="wrap-icon"><i class="icons iCart2"></i></i>
-                                    Thêm vào giỏ
+                                <div class="btn btn-like ml-20 mt-20 make-left" id="">
+                                    <i class="icons iHeart2"></i>
+                                    Yêu thích
                                 </div>
                             </div>
                         </div>
+                        <div class="product-box make-left">
+                            <div class="wrap-img make-left">
+                                <a href="">
+                                    <img src="{{asset('assets/site/image/list-1.png', false)}}" alt="">
+                                </a>
+                                <div class="hover-cart">
+                                    <i class="icons iCart3"></i>
+                                </div>
+                                <div class="hover-like">
+                                    <i class="icons iHeart"></i>
+                                </div>
+                            </div>
+                            <div class="box-description make-left">
+                                <div class="title-deal"><a href="">Máy in giấy Deli387</a></div>
+                                <div class="rate-deal">
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate"></i>
+                                </div>
+                                <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                </div>
+                                <div class="btn btn-muangay mt-20 make-left" id="">
+                                    <i class="wrap-icon"><i class="icons iCart2"></i></i>
+                                    Thêm vào giỏ
+                                </div>
+                                <div class="btn btn-like ml-20 mt-20 make-left" id="">
+                                    <i class="icons iHeart2"></i>
+                                    Yêu thích
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-box make-left">
+                            <div class="wrap-img make-left">
+                                <img src="{{asset('assets/site/image/list-1.png', false)}}" alt="">
+                                <div class="hover-cart">
+                                    <i class="icons iCart3"></i>
+                                </div>
+                                <div class="hover-like">
+                                    <i class="icons iHeart"></i>
+                                </div>
+                            </div>
+                            <div class="box-description make-left">
+                                <div class="title-deal">Máy in giấy Deli387</div>
+                                <div class="rate-deal">
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate"></i>
+                                </div>
+                                <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                </div>
+                                <div class="fs-14 fc-grey-3 price-bulk">Số lượng bán buôn : <b>100 hoặc nhiều hơn</b></div>
+                                <div class="fs-14 fc-grey-3 price-bulk">Giá bán buôn : <b>52.000</b><span style="text-decoration: underline;font-size: 12px">đ</span></div>
+                                <div class="btn btn-muangay mt-20 make-left" id="">
+                                    <i class="wrap-icon"><i class="icons iCart2"></i></i>
+                                    Thêm vào giỏ
+                                </div>
+                                <div class="btn btn-like ml-20 mt-20 make-left" id="">
+                                    <i class="icons iHeart2"></i>
+                                    Yêu thích
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-box make-left">
+                            <div class="wrap-img make-left">
+                                <img src="{{asset('assets/site/image/list-1.png', false)}}" alt="">
+                                <div class="hover-cart">
+                                    <i class="icons iCart3"></i>
+                                </div>
+                                <div class="hover-like">
+                                    <i class="icons iHeart"></i>
+                                </div>
+                            </div>
+                            <div class="box-description make-left">
+                                <div class="title-deal">Máy in giấy Deli387</div>
+                                <div class="rate-deal">
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate"></i>
+                                </div>
+                                <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                </div>
+                                <div class="btn btn-muangay mt-20 make-left" id="">
+                                    <i class="wrap-icon"><i class="icons iCart2"></i></i>
+                                    Thêm vào giỏ
+                                </div>
+                                <div class="btn btn-like ml-20 mt-20 make-left" id="">
+                                    <i class="icons iHeart2"></i>
+                                    Yêu thích
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-box make-left">
+                            <div class="wrap-img make-left">
+                                <img src="{{asset('assets/site/image/list-1.png', false)}}" alt="">
+                                <div class="hover-cart">
+                                    <i class="icons iCart3"></i>
+                                </div>
+                                <div class="hover-like">
+                                    <i class="icons iHeart"></i>
+                                </div>
+                            </div>
+                            <div class="box-description make-left">
+                                <div class="title-deal">Máy in giấy Deli387</div>
+                                <div class="rate-deal">
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate"></i>
+                                </div>
+                                <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                </div>
+                                <div class="btn btn-muangay mt-20 make-left" id="">
+                                    <i class="wrap-icon"><i class="icons iCart2"></i></i>
+                                    Thêm vào giỏ
+                                </div>
+                                <div class="btn btn-like ml-20 mt-20 make-left" id="">
+                                    <i class="icons iHeart2"></i>
+                                    Yêu thích
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-box make-left">
+                            <div class="wrap-img make-left">
+                                <img src="{{asset('assets/site/image/list-1.png', false)}}" alt="">
+                                <div class="hover-cart">
+                                    <i class="icons iCart3"></i>
+                                </div>
+                                <div class="hover-like">
+                                    <i class="icons iHeart"></i>
+                                </div>
+                            </div>
+                            <div class="box-description make-left">
+                                <div class="title-deal">Máy in giấy Deli387</div>
+                                <div class="rate-deal">
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate"></i>
+                                </div>
+                                <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                </div>
+                                <div class="btn btn-muangay mt-20 make-left" id="">
+                                    <i class="wrap-icon"><i class="icons iCart2"></i></i>
+                                    Thêm vào giỏ
+                                </div>
+                                <div class="btn btn-like ml-20 mt-20 make-left" id="">
+                                    <i class="icons iHeart2"></i>
+                                    Yêu thích
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-box make-left">
+                            <div class="wrap-img make-left">
+                                <img src="{{asset('assets/site/image/list-1.png', false)}}" alt="">
+                                <div class="hover-cart">
+                                    <i class="icons iCart3"></i>
+                                </div>
+                                <div class="hover-like">
+                                    <i class="icons iHeart"></i>
+                                </div>
+                            </div>
+                            <div class="box-description make-left">
+                                <div class="title-deal">Máy in giấy Deli387</div>
+                                <div class="rate-deal">
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate"></i>
+                                </div>
+                                <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                </div>
+                                <div class="fs-14 fc-grey-3 price-bulk">Số lượng bán buôn : <b>100 hoặc nhiều hơn</b></div>
+                                <div class="fs-14 fc-grey-3 price-bulk">Giá bán buôn : <b>52.000</b><span style="text-decoration: underline;font-size: 12px">đ</span></div>
+                                <div class="btn btn-muangay mt-20 make-left" id="">
+                                    <i class="wrap-icon"><i class="icons iCart2"></i></i>
+                                    Thêm vào giỏ
+                                </div>
+                                <div class="btn btn-like ml-20 mt-20 make-left" id="">
+                                    <i class="icons iHeart2"></i>
+                                    Yêu thích
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-box make-left">
+                            <div class="wrap-img make-left">
+                                <img src="{{asset('assets/site/image/list-1.png', false)}}" alt="">
+                                <div class="hover-cart">
+                                    <i class="icons iCart3"></i>
+                                </div>
+                                <div class="hover-like">
+                                    <i class="icons iHeart"></i>
+                                </div>
+                            </div>
+                            <div class="box-description make-left">
+                                <div class="title-deal">Máy in giấy Deli387</div>
+                                <div class="rate-deal">
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate"></i>
+                                </div>
+                                <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                </div>
+                                <div class="fs-14 fc-grey-3 price-bulk">Số lượng bán buôn : <b>100 hoặc nhiều hơn</b></div>
+                                <div class="fs-14 fc-grey-3 price-bulk">Giá bán buôn : <b>52.000</b><span style="text-decoration: underline;font-size: 12px">đ</span></div>
+                                <div class="btn btn-muangay mt-20 make-left" id="">
+                                    <i class="wrap-icon"><i class="icons iCart2"></i></i>
+                                    Thêm vào giỏ
+                                </div>
+                                <div class="btn btn-like ml-20 mt-20 make-left" id="">
+                                    <i class="icons iHeart2"></i>
+                                    Yêu thích
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-box make-left">
+                            <div class="wrap-img make-left">
+                                <img src="{{asset('assets/site/image/list-1.png', false)}}" alt="">
+                                <div class="hover-cart">
+                                    <i class="icons iCart3"></i>
+                                </div>
+                                <div class="hover-like">
+                                    <i class="icons iHeart"></i>
+                                </div>
+                            </div>
+                            <div class="box-description make-left">
+                                <div class="title-deal">Máy in giấy Deli387</div>
+                                <div class="rate-deal">
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate checked"></i>
+                                    <i class="icons iRate"></i>
+                                </div>
+                                <div class="price-deal">
+                                <span class="price-sale-deal">
+                                    900.000<span>đ</span>
+                                </span>
+                                <span class="price-original-deal pl-20">
+                                    1.900.000<span>đ</span>
+                                </span>
+                                </div>
+                                <div class="fs-14 fc-grey-3 price-bulk">Số lượng bán buôn : <b>100 hoặc nhiều hơn</b></div>
+                                <div class="fs-14 fc-grey-3 price-bulk">Giá bán buôn : <b>52.000</b><span style="text-decoration: underline;font-size: 12px">đ</span></div>
+                                <div class="btn btn-muangay mt-20 make-left" id="">
+                                    <i class="wrap-icon"><i class="icons iCart2"></i></i>
+                                    Thêm vào giỏ
+                                </div>
+                                <div class="btn btn-like ml-20 mt-20 make-left" id="">
+                                    <i class="icons iHeart2"></i>
+                                    Yêu thích
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pagination make-right mt-20 mb-30 mr-25">
+                        <ul class="rs">
+                            <li class="page-prev-next">
+                                <a href=""><i class="icons iPrev"></i></a>
+                            </li>
+                            <li class="active"><a href="">1</a></li>
+                            <li><a href="">2</a></li>
+                            <li><a href="">3</a></li>
+                            <li><a href="">4</a></li>
+                            <li class="page-prev-next">
+                                <a href=""><i class="icons iNext"></i></a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
