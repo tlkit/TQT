@@ -349,12 +349,12 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="list-product-grid">
+                    <div class="list-product">
                         <div class="product-box make-left">
-                            <div class="wrap-img">
+                            <div class="wrap-img make-left">
                                 <img src="{{asset('assets/site/image/list-1.png', false)}}" alt="">
                             </div>
-                            <div class="box-description">
+                            <div class="box-description make-left">
                                 <div class="title-deal">Máy in giấy Deli387</div>
                                 <div class="rate-deal">
                                     <i class="icons iRate checked"></i>
@@ -371,7 +371,13 @@
                                     1.900.000<span>đ</span>
                                 </span>
                                 </div>
-                                <div class="btn btn-muangay mb-20" id="">
+                                <div class="fs-14 fc-grey-3 price-bulk">Số lượng bán buôn : <b>100 hoặc nhiều hơn</b></div>
+                                <div class="fs-14 fc-grey-3 price-bulk">Giá bán buôn : <b>52.000</b><span style="text-decoration: underline;font-size: 12px">đ</span></div>
+                                <div class="btn btn-muangay mt-20 make-left" id="">
+                                    <i class="wrap-icon"><i class="icons iCart2"></i></i>
+                                    Thêm vào giỏ
+                                </div>
+                                <div class="btn btn-muangay ml-20 mt-20 make-left" id="">
                                     <i class="wrap-icon"><i class="icons iCart2"></i></i>
                                     Thêm vào giỏ
                                 </div>
