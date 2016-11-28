@@ -8,7 +8,7 @@
  */
 class BaseSiteController extends BaseController
 {
-    protected $layout = 'site.SiteLayouts.gh_index';
+    protected $layout = 'site.SiteLayouts.login_index';
     protected $treeCategory = array();
     protected $customer = array();
 

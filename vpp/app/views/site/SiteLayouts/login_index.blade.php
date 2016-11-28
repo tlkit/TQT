@@ -215,173 +215,34 @@
                     <i class="icons iRightB"></i><a href="">Chăm sóc mặt</a>
                 </div>
             </div>
-            <div class="full-width box-right box-like clearfix">
-                <table class="table-cart">
-                    <thead>
-                        <tr>
-                            <th width="10%">Xóa</th>
-                            <th width="40%">Sản phẩm</th>
-                            <th width="10%">Số lượng</th>
-                            <th width="20%">Đơn giá(VNĐ)</th>
-                            <th width="20%">Thành tiền(VNĐ)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td align="center">
-                            <a href=""><i class="icons iTrack"></i></a>
-                        </td>
-                        <td align="left">
-                            <div class="wrap-img make-left">
-                                <img src="{{asset('assets/site/image/cart-1.png', false)}}" alt="">
-                            </div>
-                            <div class="box-description make-left ml-10">
-                                <div class="title-deal"><a href="">Máy in giấy Deli387</a></div>
-                                <div class="rate-deal">
-                                    <i class="icons iRate checked"></i>
-                                    <i class="icons iRate checked"></i>
-                                    <i class="icons iRate checked"></i>
-                                    <i class="icons iRate checked"></i>
-                                    <i class="icons iRate"></i>
-                                </div>
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="form-group">
-                                <input type="text" class="txt txt-cart-num">
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="cart-price-unit">900.000<span>đ</span></div>
-                        </td>
-                        <td align="center">
-                            <div class="cart-price-unit">900.000<span>đ</span></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center">
-                            <i class="icons iTrack"></i>
-                        </td>
-                        <td align="left">
-                            <div class="wrap-img make-left">
-                                <img src="{{asset('assets/site/image/cart-1.png', false)}}" alt="">
-                            </div>
-                            <div class="box-description make-left ml-10">
-                                <div class="title-deal">Máy in giấy Deli387</div>
-                                <div class="rate-deal">
-                                    <i class="icons iRate checked"></i>
-                                    <i class="icons iRate checked"></i>
-                                    <i class="icons iRate checked"></i>
-                                    <i class="icons iRate checked"></i>
-                                    <i class="icons iRate"></i>
-                                </div>
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="form-group">
-                                <input type="text" class="txt txt-cart-num">
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="cart-price-unit">900.000<span>đ</span></div>
-                        </td>
-                        <td align="center">
-                            <div class="cart-price-unit">900.000<span>đ</span></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center">
-                            <i class="icons iTrack"></i>
-                        </td>
-                        <td align="left">
-                            <div class="wrap-img make-left">
-                                <img src="{{asset('assets/site/image/cart-1.png', false)}}" alt="">
-                            </div>
-                            <div class="box-description make-left ml-10">
-                                <div class="title-deal">Máy in giấy Deli387</div>
-                                <div class="rate-deal">
-                                    <i class="icons iRate checked"></i>
-                                    <i class="icons iRate checked"></i>
-                                    <i class="icons iRate checked"></i>
-                                    <i class="icons iRate checked"></i>
-                                    <i class="icons iRate"></i>
-                                </div>
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="form-group">
-                                <input type="text" class="txt txt-cart-num">
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="cart-price-unit">900.000<span>đ</span></div>
-                        </td>
-                        <td align="center">
-                            <div class="cart-price-unit">900.000<span>đ</span></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center">
-                            <i class="icons iTrack"></i>
-                        </td>
-                        <td align="left">
-                            <div class="wrap-img make-left">
-                                <img src="{{asset('assets/site/image/cart-1.png', false)}}" alt="">
-                            </div>
-                            <div class="box-description make-left ml-10">
-                                <div class="title-deal">Máy in giấy Deli387</div>
-                                <div class="rate-deal">
-                                    <i class="icons iRate checked"></i>
-                                    <i class="icons iRate checked"></i>
-                                    <i class="icons iRate checked"></i>
-                                    <i class="icons iRate checked"></i>
-                                    <i class="icons iRate"></i>
-                                </div>
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="form-group">
-                                <input type="text" class="txt txt-cart-num">
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="cart-price-unit">900.000<span>đ</span></div>
-                        </td>
-                        <td align="center">
-                            <div class="cart-price-unit">900.000<span>đ</span></div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div class="clearfix"></div>
-                <div class="make-left">
-                    <input type="button" value="Tiếp tục mua săm" class="btn btn-cart">
-                </div>
-                <div class="make-right">
-                    <input type="button" value="Làm mới giỏ hàng" class="btn btn-cart">
-                </div>
-                <div class="clearfix"></div>
-                <div class="height-90"></div>
-                <div class="box-address make-left"></div>
-                <div class="box-payment make-right">
-                    <div class="form-group ml-60 mt-20 clearfix">
-                        <input type="checkbox" name="is_vat" id="is_vat">
-                        <label for="is_vat">Xuất hóa đơn GTGT</label>
+            <div class="full-width box-right box-customer clearfix">
+                <div class="box-login make-left">
+                    <div class="box-login-title">
+                        Đăng nhập
                     </div>
-                    <div class="ml-30 mr-30 mt-20 clearfix">
-                        <div class="make-left cart-price-title cart-tt-label">Thành tiền</div>
-                        <div class="make-right cart-price-price cart-tt-price">11.000.000<span>đ</span></div>
-                    </div>
-                    <div class="ml-30 mr-30 mt-20 clearfix">
-                        <div class="make-left cart-price-title cart-tth-label">Thành tiền</div>
-                        <div class="make-right cart-price-price cart-tt-price">11.000.000<span>đ</span></div>
-                    </div>
-                    <div class="divider-cart"></div>
-                    <div class="form-group make-right mr-30">
-                        <input type="button" value="Thanh toán ngay" class="btn btn-payment">
-                    </div>
+                    <div class="mt-10">Xin chào, vui lòng đăng nhập để sử dụng</div>
                     <div class="clearfix"></div>
-                    <div class="make-right mr-30"><i>Thanh toán với địa chỉ đã có</i></div>
+                    <div class="form-group">
+                        <label for="" class="clearfix">Số điện thoại <sup class="red">*</sup></label>
+                        <input type="text" class="txt width-535">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="clearfix">Số điện thoại <sup class="red">*</sup></label>
+                        <input type="text" class="txt width-535">
+                    </div>
+                    <div class="form-group">
+                        <input type="button" class="btn btn-login" value="Đăng nhập">
+                    </div>
+                </div>
+                <div class="box-login make-right">
+                    <div class="box-login-title">
+                        Đăng ký
+                    </div>
+                    <div class="mt-10">Tạo tài khoản mới cho bạn</div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <input type="button" class="btn btn-register" value="Đăng ký">
+                    </div>
                 </div>
             </div>
         </div>
