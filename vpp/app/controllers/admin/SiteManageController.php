@@ -185,4 +185,9 @@ class SiteManageController extends BaseAdminController
         }
     }
 
+    public function getProductNew(){
+        $group = GroupCategory::lists('group_category_name','group_category_name');
+        $this->layout->content = View::make('admin.SiteManageLayouts.getProductNew')->with('group',$group);
+    }
+
 }
