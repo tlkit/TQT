@@ -266,4 +266,8 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('getProductHotByObject', array('as' => 'admin.getProductHotByObject','uses' => 'SiteManageController@getProductHotByObject'));
     Route::post('addProductHot', array('as' => 'admin.addProductHot','uses' => 'SiteManageController@addProductHot'));
 
+    Route::get('manage_site/tag/view',array('as' => 'admin.mngSite_tag_view','uses' => 'SiteManageController@viewTag'));
+    Route::get('manage_site/tag/add/{id?}',array('as' => 'admin.mngSite_tag_add','uses' => 'SiteManageController@getAddTag'))->where('id', '[0-9]+');
+    Route::post('manage_site/tag/add/{id?}',array('as' => 'admin.mngSite_tag_add','uses' => 'SiteManageController@postAddTag'))->where('id', '[0-9]+');
+
 });

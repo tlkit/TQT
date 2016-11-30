@@ -371,16 +371,61 @@ class SiteManageController extends BaseAdminController
         return Response::json($data);
     }
 
-    public function viewTagProduct(){
-        $pageNo = (int)Request::get('page_no', 1);
-        $limit = 30;
-        $offset = ($pageNo - 1) * $limit;
-        $search = $data = array();
-        $total = 0;
-        $search['product_sort_label'] = Request::get('product_sort_label', '');
-        $search['product_sort_status'] = (int)Request::get('product_sort_status', 0);
-        $dataSearch = Product::searchByCondition($search, $limit, $offset, $total);
-        $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
+    public function viewTag(){
+        $data = ProductSort::all();
+        $this->layout->content = View::make('admin.SiteManageLayouts.viewTag')->with('data',$data);
+    }
+
+    public function getAddTag($id = 0){
+        $param = ProductSort::find($id);
+        if($id > 0 && $param['product_sort_type'] != 3){
+            return Redirect::route('admin.dashboard');
+        }
+        $this->layout->content = View::make('admin.SiteManageLayouts.addTag')->with('id',$id)->with('param',$param);
+    }
+
+    public function postAddTag($id = 0){
+        $param['product_sort_label'] = htmlspecialchars(trim(Request::get('product_sort_label','')));
+        $param['product_sort_product_ids'] = htmlspecialchars(trim(Request::get('product_sort_product_ids','')));
+        $param['product_sort_status'] = (int)Request::get('product_sort_status',0);
+        $error = $file = array();
+        if ( Input::hasFile('product_sort_banner')) {
+            $file = Input::file('product_sort_banner');
+            $extension = $file->getClientOriginalExtension();
+            $size = $file->getSize();
+            if(!in_array($extension,FunctionLib::$array_allow_image) || $size > (2*FunctionLib::$size_image_max)){
+                $error[] = 'Ảnh  không hợp lệ';
+            }
+        }else{
+            if($id == 0){
+                $error[] = 'Chưa nhập file ảnh';
+            }
+        }
+        if($error){
+            $this->layout->content = View::make('admin.SiteManageLayouts.addTag')->with('id',$id)->with('param',$param)->with('error',$error);
+        }else{
+            $dataSave['product_sort_label'] = $param['product_sort_label'];
+            $dataSave['product_sort_product_ids'] = $param['product_sort_product_ids'];
+            $dataSave['product_sort_status'] = $param['product_sort_status'];
+            if ($file) {
+                $name = time() . '-' . $file->getClientOriginalName();
+                $file->move(Constant::dir_banner, $name);
+                $dataSave['product_sort_banner'] = $name;
+            }
+            if($id == 0){
+                $dataSave['product_sort_create_id'] = $this->user['user_id'];
+                $dataSave['product_sort_create_time'] = time();
+            }else{
+                $dataSave['product_sort_update_id'] = $this->user['user_id'];
+                $dataSave['product_sort_update_time'] = time();
+            }
+            $dataSave['product_sort_type'] = 3;
+            if(ProductSort::updData($id,$dataSave)){
+                return Redirect::route('admin.mngSite_tag_view');
+            }else{
+                return Redirect::route('admin.mngSite_tag_add',array('id' => $id));
+            }
+        }
     }
 }
 function sortSpecial($a, $b) {
