@@ -36,7 +36,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="form-group col-sm-6">
-                    <label>Ảnh (Size <= 2mb. Ảnh : png,jpg,jpeg. Kích thước 1024px * 374px)</label>
+                    <label>Ảnh (Size <= 2mb. Ảnh : png,jpg,jpeg. Kích thước 1170px * 367px)</label>
                     <div class="clearfix"></div>
                     <label class="ace-file-input">
                         <input type="file" id="banner_image" name="banner_image" accept="image/*">

@@ -44,7 +44,7 @@ $(document).ready(function(){
         $.ajax({
             dataType: 'json',
             type: 'GET',
-            url: WEB_ROOT + '/admin/getProductNewById',
+            url: WEB_ROOT + '/admin/getProductHotById',
             data: {
                 product_id: product_id
             },
@@ -56,7 +56,6 @@ $(document).ready(function(){
                 if(data.success == 1){
                     $(".new_list").prepend(data.html)
                     $(".remove-box").on('click',function(e){
-                        console.log('111');
                         $(this).parents('.product-column').remove();
                         e.stopPropagation();
                     })
@@ -67,7 +66,6 @@ $(document).ready(function(){
         });
     });
     $(".remove-box").on('click',function(e){
-        console.log('1121');
         $(this).parents('.product-column').remove();
         e.stopPropagation();
     })
@@ -80,10 +78,10 @@ $(document).ready(function(){
         $.ajax({
             dataType: 'json',
             type: 'POST',
-            url: WEB_ROOT + '/admin/addProductNew',
+            url: WEB_ROOT + '/admin/addProductHot',
             data: {
                 ids: ids.toString(),
-                type:1,
+                type:2,
                 object_id:object_id
 
             },
@@ -106,7 +104,7 @@ $(document).ready(function(){
         $.ajax({
             dataType: 'json',
             type: 'GET',
-            url: WEB_ROOT + '/admin/getProductNewByObject',
+            url: WEB_ROOT + '/admin/getProductHotByObject',
             data: {
                 object_id: object_id
             },

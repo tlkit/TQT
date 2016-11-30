@@ -186,8 +186,203 @@ class SiteManageController extends BaseAdminController
     }
 
     public function getProductNew(){
-        $group = GroupCategory::lists('group_category_name','group_category_name');
-        $this->layout->content = View::make('admin.SiteManageLayouts.getProductNew')->with('group',$group);
+        $group = GroupCategory::lists('group_category_name','group_category_id');
+        $productSort = ProductSort::getProductShortByTypeAndObject(1,0);
+        $str_id = isset($productSort->product_sort_product_ids) ? $productSort->product_sort_product_ids : '';
+        $product = array();
+        if($str_id != ''){
+            $ids = explode(',',$str_id);
+            if($ids){
+                $arySort = array_flip(array_values($ids));
+                $product = Product::getProductByIds($ids)->toArray();
+                if(sizeof($product) > 0){
+                    foreach($product as $key => $value){
+                        $value['special_sort'] = $arySort[$value['product_id']];
+                        $product[$key] = $value;
+                    }
+                    usort($product, 'sortSpecial');
+                }
+            }
+        }
+        $this->layout->content = View::make('admin.SiteManageLayouts.getProductNew')->with('group',$group)->with('products',$product);
     }
 
+    public function getProductNewById(){
+        $id = (int)Request::get('product_id', 0);
+        $product = Product::find($id);
+        if (isset($product->product_show_site) && $product->product_show_site == 1) {
+            $data['success'] = 1;
+            $data['html'] = View::make('admin.SiteManageLayouts.box_product_new')->with('product',$product)->render();
+            return Response::json($data);
+        } else {
+            $data['success'] = 0;
+            $data['mess'] = 'Không tìm thấy sản phẩm';
+            return Response::json($data);
+        }
+    }
+
+    public function getProductNewByObject()
+    {
+        $object_id = (int)Request::get('object_id', 0);
+        $productSort = ProductSort::getProductShortByTypeAndObject(1,$object_id);
+        $str_id = isset($productSort->product_sort_product_ids) ? $productSort->product_sort_product_ids : '';
+        $product = array();
+        if($str_id != ''){
+            $ids = explode(',',$str_id);
+            if($ids){
+                $arySort = array_flip(array_values($ids));
+                $product = Product::getProductByIds($ids)->toArray();
+                if(sizeof($product) > 0){
+                    foreach($product as $key => $value){
+                        $value['special_sort'] = $arySort[$value['product_id']];
+                        $product[$key] = $value;
+                    }
+                    usort($product, 'sortSpecial');
+                }
+            }
+        }
+        $data['success'] = 1;
+        $data['html'] = View::make('admin.SiteManageLayouts.list_product_new')->with('products',$product)->render();
+        return Response::json($data);
+    }
+
+    public function addProductNew(){
+        $data['success'] = 0;
+        $ids = htmlspecialchars(trim(Request::get('ids', '')));
+        $type = (int)Request::get('type', 0);
+        $object_id = (int)Request::get('object_id', 0);
+        if ($ids == '') {
+            $data['mess'] = 'Chưa chọn sản phẩm cần sắp xếp';
+            return Response::json($data);
+        }
+        if($type == 0){
+            $data['mess'] = 'Chưa chọn box cần sắp xếp';
+            return Response::json($data);
+        }
+        $ids = str_replace(" ","",$ids);
+        $productSort = ProductSort::getProductShortByTypeAndObject($type, $object_id);
+        $sort_id = isset($productSort->product_sort_id) ? $productSort->product_sort_id : 0;
+        $dataU['product_sort_object_id'] = $object_id;
+        $dataU['product_sort_product_ids'] = $ids;
+        $dataU['product_sort_type'] = $type;
+        if($sort_id == 0){
+            $dataU['product_sort_create_id'] = $this->user['user_id'];
+            $dataU['product_sort_create_time'] = time();
+        }else{
+            $dataU['product_sort_update_id'] = $this->user['user_id'];
+            $dataU['product_sort_update_time'] = time();
+        }
+        ProductSort::updData($sort_id,$dataU);
+        $data['success'] = 1;
+        $data['link'] = URL::route('admin.mngSite_getProductNew');
+        return Response::json($data);
+    }
+
+    public function getProductHot(){
+        $group = GroupCategory::lists('group_category_name','group_category_id');
+        $productSort = ProductSort::getProductShortByTypeAndObject(2,0);
+        $str_id = isset($productSort->product_sort_product_ids) ? $productSort->product_sort_product_ids : '';
+        $product = array();
+        if($str_id != ''){
+            $ids = explode(',',$str_id);
+            if($ids){
+                $arySort = array_flip(array_values($ids));
+                $product = Product::getProductByIds($ids)->toArray();
+                if(sizeof($product) > 0){
+                    foreach($product as $key => $value){
+                        $value['special_sort'] = $arySort[$value['product_id']];
+                        $product[$key] = $value;
+                    }
+                    usort($product, 'sortSpecial');
+                }
+            }
+        }
+        $this->layout->content = View::make('admin.SiteManageLayouts.getProductHot')->with('group',$group)->with('products',$product);
+    }
+
+    public function getProductHotById(){
+        $id = (int)Request::get('product_id', 0);
+        $product = Product::find($id);
+        if (isset($product->product_show_site) && $product->product_show_site == 1) {
+            $data['success'] = 1;
+            $data['html'] = View::make('admin.SiteManageLayouts.box_product_hot')->with('product',$product)->render();
+            return Response::json($data);
+        } else {
+            $data['success'] = 0;
+            $data['mess'] = 'Không tìm thấy sản phẩm';
+            return Response::json($data);
+        }
+    }
+
+    public function getProductHotByObject()
+    {
+        $object_id = (int)Request::get('object_id', 0);
+        $productSort = ProductSort::getProductShortByTypeAndObject(2,$object_id);
+        $str_id = isset($productSort->product_sort_product_ids) ? $productSort->product_sort_product_ids : '';
+        $product = array();
+        if($str_id != ''){
+            $ids = explode(',',$str_id);
+            if($ids){
+                $arySort = array_flip(array_values($ids));
+                $product = Product::getProductByIds($ids)->toArray();
+                if(sizeof($product) > 0){
+                    foreach($product as $key => $value){
+                        $value['special_sort'] = $arySort[$value['product_id']];
+                        $product[$key] = $value;
+                    }
+                    usort($product, 'sortSpecial');
+                }
+            }
+        }
+        $data['success'] = 1;
+        $data['html'] = View::make('admin.SiteManageLayouts.list_product_hot')->with('products',$product)->render();
+        return Response::json($data);
+    }
+
+    public function addProductHot(){
+        $data['success'] = 0;
+        $ids = htmlspecialchars(trim(Request::get('ids', '')));
+        $type = (int)Request::get('type', 0);
+        $object_id = (int)Request::get('object_id', 0);
+        if ($ids == '') {
+            $data['mess'] = 'Chưa chọn sản phẩm cần sắp xếp';
+            return Response::json($data);
+        }
+        if($type == 0){
+            $data['mess'] = 'Chưa chọn box cần sắp xếp';
+            return Response::json($data);
+        }
+        $ids = str_replace(" ","",$ids);
+        $productSort = ProductSort::getProductShortByTypeAndObject($type, $object_id);
+        $sort_id = isset($productSort->product_sort_id) ? $productSort->product_sort_id : 0;
+        $dataU['product_sort_object_id'] = $object_id;
+        $dataU['product_sort_product_ids'] = $ids;
+        $dataU['product_sort_type'] = $type;
+        if($sort_id == 0){
+            $dataU['product_sort_create_id'] = $this->user['user_id'];
+            $dataU['product_sort_create_time'] = time();
+        }else{
+            $dataU['product_sort_update_id'] = $this->user['user_id'];
+            $dataU['product_sort_update_time'] = time();
+        }
+        ProductSort::updData($sort_id,$dataU);
+        $data['success'] = 1;
+        $data['link'] = URL::route('admin.mngSite_getProductHot');
+        return Response::json($data);
+    }
+
+    public function viewTagProduct(){
+        $pageNo = (int)Request::get('page_no', 1);
+        $limit = 30;
+        $offset = ($pageNo - 1) * $limit;
+        $search = $data = array();
+        $total = 0;
+        $search['product_sort_label'] = Request::get('product_sort_label', '');
+        $search['product_sort_status'] = (int)Request::get('product_sort_status', 0);
+        $dataSearch = Product::searchByCondition($search, $limit, $offset, $total);
+        $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
+    }
+}
+function sortSpecial($a, $b) {
+    return $a["special_sort"] - $b["special_sort"];
 }

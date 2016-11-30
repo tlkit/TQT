@@ -96,22 +96,40 @@
                     </select>
                 </div>
                 -->
+                <div class="form-group col-sm-3">
+                    <label for="product_show_site"><i>Hiển thị trên site</i></label>
+                    <select name="product_show_site" id="product_show_site" class="form-control input-sm">
+                        <option value="0" @if(isset($data['product_show_site']) && $data['product_show_site'] == 0) selected="selected" @endif>Ẩn</option>
+                        <option value="1" @if(isset($data['product_show_site']) && $data['product_show_site'] == 1) selected="selected" @endif>Hiện</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="product_highlight"><i>Hiển thị nổi bật</i></label>
+                    <select name="product_highlight" id="product_highlight" class="form-control input-sm">
+                        <option value="0" @if(isset($data['product_highlight']) && $data['product_highlight'] == 0) selected="selected" @endif>Không</option>
+                        <option value="1" @if(isset($data['product_highlight']) && $data['product_highlight'] == 1) selected="selected" @endif>Có</option>
+                    </select>
+                </div>
+                <div class="col-sm-3 sys_time">
+                    <label for="export_create_start">Thời gian chạy khuyến mại từ </label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" id="product_landing_start" name="product_landing_start" class="form-control" @if(isset($data['product_landing_start']) && $data['product_landing_start'] != 0)value="{{date('d-m-Y',$data['product_landing_start'])}}"@endif/>
+                                <span class="input-group-addon">
+                                    <i class="ace-icon fa fa-calendar"></i>
+                                </span>
+                    </div>
+                </div>
+                <div class="col-sm-3 sys_time">
+                    <label for="export_create_end">Đến </label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" id="product_landing_end" name="product_landing_end" class="form-control" @if(isset($data['product_landing_end']) && $data['product_landing_end'] != 0)value="{{date('d-m-Y',$data['product_landing_end'])}}"@endif/>
+                                <span class="input-group-addon">
+                                    <i class="ace-icon fa fa-calendar"></i>
+                                </span>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
                 <div class="form-group col-sm-6">
-                    <div class="form-group col-sm-6 no-padding-left">
-                        <label for="product_show_site"><i>Hiển thị trên site</i></label>
-                        <select name="product_show_site" id="product_show_site" class="form-control input-sm">
-                            <option value="0" @if(isset($data['product_show_site']) && $data['product_show_site'] == 0) selected="selected" @endif>Ẩn</option>
-                            <option value="1" @if(isset($data['product_show_site']) && $data['product_show_site'] == 1) selected="selected" @endif>Hiện</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-sm-6 no-padding-right">
-                        <label for="product_highlight"><i>Hiển thị nổi bật</i></label>
-                        <select name="product_highlight" id="product_highlight" class="form-control input-sm">
-                            <option value="0" @if(isset($data['product_highlight']) && $data['product_highlight'] == 0) selected="selected" @endif>Không</option>
-                            <option value="1" @if(isset($data['product_highlight']) && $data['product_highlight'] == 1) selected="selected" @endif>Có</option>
-                        </select>
-                    </div>
-                    <div class="clearfix"></div>
                     <div class="form-group">
                         <label>Ảnh đại diện (Size <= 1mb. Ảnh : png,jpg,jpeg. Tỉ lệ 1:1)</label>
                         <div class="clearfix"></div>
@@ -184,6 +202,22 @@
         });
     $("#product_bulk_price").on('keyup', function (event) {
         Import.fomatNumber('product_bulk_price');
+    });
+    $( "#product_landing_start" ).datepicker({
+        showOtherMonths: true,
+        selectOtherMonths: false,
+        dateFormat: 'dd-mm-yy',
+//        numberOfMonths: 2,
+        onClose: function(selectedDate) {
+            $("#product_landing_end").datepicker("option", "minDate", selectedDate);
+            $(this).parents('.sys_time').next().children().find('#product_landing_end').focus();
+        }
+    });
+    $( "#product_landing_end" ).datepicker({
+        showOtherMonths: true,
+        selectOtherMonths: false,
+//        numberOfMonths: 2,
+        dateFormat: 'dd-mm-yy'
     });
 </script>
 {{HTML::script('assets/admin/js/import.js');}}

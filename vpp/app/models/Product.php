@@ -267,9 +267,18 @@ class Product extends Eloquent
     public static function getProductHome(){
         try {
             $query = Product::where('product_Status', 1);
-            $query->where('product_Status', 1);
             $query->where('product_show_site', 1);
             $query->where('product_highlight', 1);
+            return $query->get();
+        } catch (PDOException $e) {
+            throw new PDOException();
+        }
+    }
+
+    public static function getProductByIds($ids)
+    {
+        try {
+            $query = Product::whereIn('product_id', $ids);
             return $query->get();
         } catch (PDOException $e) {
             throw new PDOException();

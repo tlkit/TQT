@@ -243,8 +243,6 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('manage_site/group_category/add/{id?}',array('as' => 'admin.mngSite_group_category_add','uses' => 'SiteManageController@getAddGroupCategory'))->where('id', '[0-9]+');
     Route::post('manage_site/group_category/add/{id?}',array('as' => 'admin.mngSite_group_category_add','uses' => 'SiteManageController@postAddGroupCategory'))->where('id', '[0-9]+');
 
-    Route::get('manage_site/getProductNew',array('as' => 'admin.mngSite_getProductNew','uses' => 'SiteManageController@getProductNew'));
-
     Route::get('manage_site/carts/view',array('as' => 'admin.mngSite_carts_view','uses' => 'CartsController@view'));
     Route::post('manage_site/carts/export',array('as' => 'admin.mngSite_carts_export','uses' => 'CartsController@ajaxExport'));
     Route::get('manage_site/carts/export',array('as' => 'admin.mngSite_carts_export','uses' => 'CartsController@export'));
@@ -257,5 +255,15 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('manage_site/page/add/{id?}',array('as' => 'admin.mngSite_page_add','uses' => 'SiteManageController@getAddPage'))->where('id', '[0-9]+');
     Route::post('manage_site/page/add/{id?}',array('as' => 'admin.mngSite_page_add','uses' => 'SiteManageController@postAddPage'))->where('id', '[0-9]+');
     Route::post('export/assignCoD',array('as' => 'admin.export_assignCoD','uses' => 'ExportController@assignCoD'));
+
+    Route::get('manage_site/getProductNew',array('as' => 'admin.mngSite_getProductNew','uses' => 'SiteManageController@getProductNew'));
+    Route::get('getProductNewById', array('as' => 'admin.getProductNewById','uses' => 'SiteManageController@getProductNewById'));
+    Route::get('getProductNewByObject', array('as' => 'admin.getProductNewByObject','uses' => 'SiteManageController@getProductNewByObject'));
+    Route::post('addProductNew', array('as' => 'admin.addProductNew','uses' => 'SiteManageController@addProductNew'));
+
+    Route::get('manage_site/getProductHot',array('as' => 'admin.mngSite_getProductHot','uses' => 'SiteManageController@getProductHot'));
+    Route::get('getProductHotById', array('as' => 'admin.getProductHotById','uses' => 'SiteManageController@getProductHotById'));
+    Route::get('getProductHotByObject', array('as' => 'admin.getProductHotByObject','uses' => 'SiteManageController@getProductHotByObject'));
+    Route::post('addProductHot', array('as' => 'admin.addProductHot','uses' => 'SiteManageController@addProductHot'));
 
 });

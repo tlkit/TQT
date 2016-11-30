@@ -99,7 +99,6 @@ class ProductController extends BaseAdminController
         $dataSave['product_Name'] = Request::get('product_Name');
         $dataSave['product_Category'] = (int)Request::get('product_Category');
         $dataSave['product_CategoryName'] = isset($this->arrCategory[$dataSave['product_Category']])? $this->arrCategory[$dataSave['product_Category']] : '';
-
         $product_Price = Request::get('product_Price');
         $dataSave['product_Price'] =  str_replace('.','',$product_Price);
         $product_bulk_price = Request::get('product_bulk_price','');
@@ -112,6 +111,10 @@ class ProductController extends BaseAdminController
         $dataSave['product_Description'] = Request::get('product_Description');
         $dataSave['product_show_site'] = (int)Request::get('product_show_site');
         $dataSave['product_highlight'] = (int)Request::get('product_highlight');
+        $start = Request::get('product_landing_start','');
+        $dataSave['product_landing_start'] = ($start != '') ? strtotime($start) : 0;
+        $end = Request::get('product_landing_end','');
+        $dataSave['product_landing_end'] = ($end != '') ? strtotime($end) : 0;
         $file = $files = null;
         if ( Input::hasFile('product_avatar')) {
             $file = Input::file('product_avatar');
@@ -235,8 +238,7 @@ class ProductController extends BaseAdminController
         die;*/
     }
 
-    public function getProductByName()
-    {
+    public function getProductByName(){
         $name = Request::get('product_name', '');
         $product = Product::getListByName($name);
         $data['success'] = 1;
