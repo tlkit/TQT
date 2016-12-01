@@ -59,6 +59,8 @@ Route::group(array('prefix' => '', 'before' => ''), function()
     Route::post('thay-doi-mat-khau.html',array('as' => 'site.changePass','uses' =>'BaseSiteController@submitChangePass'));
     Route::get('thay-doi-mat-khau-thanh-cong.html',array('as' => 'site.changePass_success','uses' =>'BaseSiteController@changePassSuccess'));
 
+    Route::get('home/getProductNew',array('as' => 'site.getProductNew','uses' =>'BaseSiteController@getProductNew'));
+
 
 });
 

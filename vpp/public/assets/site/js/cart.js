@@ -25,12 +25,13 @@ var cart = {
                 success: function (res) {
                     cart.conf.ajax_sending == false;
                     if (res.success == 1) {
-                        $("#cart").html(res.html);
-                        $('#cart').fadeIn();
+                        $(".cart-hover-content").html(res.html);
+                        $('.cart-hover').fadeIn();
                         setTimeout(function() {
-                            $('#cart').fadeOut();
+                            $('.cart-hover').fadeOut();
                         }, 2000);
-                        var timer;
+                        $(".number-cart").html(res.num_total);
+                        /*var timer;
                         $(".sys_number_cart").keyup(function(){
                             var _$this = $(this);
                             clearTimeout(timer);  //clear any running timeout on key up
@@ -39,17 +40,17 @@ var cart = {
                                 var product_id = _$this.data('id');
                                 cart.updateNumber(product_id,product_num);
                             }, 500);
-                        });
+                        });*/
                         $(".sys_remove").on('click',function(){
                             var product_id = $(this).data('id');
                             cart.removeProduct(product_id);
                         });
                     } else {
-                        var html = '<div style="" class="warning">Lỗi: ' + res.mess + '!<img class="close" alt="" src="assets/site/image/close.png"></div>'
+/*                        var html = '<div style="" class="warning">Lỗi: ' + res.mess + '!<img class="close" alt="" src="assets/site/image/close.png"></div>'
                         $("#notification").html(html);
                         $(".close").on('click',function(){
                             $("#notification").html('');
-                        });
+                        });*/
                     }
                     $("html, body").animate({scrollTop: 0}, 1000);
                     return false;
@@ -106,7 +107,11 @@ var cart = {
                     cart.conf.ajax_sending == false;
                     if (res.success == 1) {
                         $(".row_"+product_id).remove();
-                        $(".sys_total_order").html((res.price_total).format(0, 3, '.'));
+                        $(".sys_total_order").html((res.price_total).format(0, 3, '.') + '<span>đ</span>');
+                        $(".number-cart").html(res.num_total);
+                        if(res.num_total == 0){
+                            $(".cart-hover-content").html('<div>Không có sản phẩm nào trong giỏ hàng !!!</div>');
+                        }
                     }
                 }
             });
@@ -114,20 +119,16 @@ var cart = {
     },
 }
 $(document).ready(function () {
+/*
     $('.sys_number_cart').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+*/
     $(".btn_add_cart").on('click', function () {
         var product_id = parseInt($(this).data('id'));
-        var product_num = $('input[name=\'quantity['+product_id+']\']').val();
+        var product_num = 1;//$('input[name=\'quantity['+product_id+']\']').val();
         cart.addCart(product_id,product_num);
     });
-    $("#cartLi").mouseover(function(){
-        $("#cart").css("display", "block");
-    });
-    $("#cartLi").mouseout(function(){
-        $("#cart").css("display", "none");
-    });
 
-    var timer;
+/*    var timer;
     $(".sys_number_cart").keyup(function(){
         var _$this = $(this);
         clearTimeout(timer);  //clear any running timeout on key up
@@ -136,12 +137,12 @@ $(document).ready(function () {
             var product_id = _$this.data('id');
             cart.updateNumber(product_id,product_num);
         }, 500);
-    });
-
+    });*/
     $(".sys_remove").on('click',function(){
         var product_id = $(this).data('id');
         cart.removeProduct(product_id);
     });
+
 
 });
 Number.prototype.format = function (n, x, s, c) {

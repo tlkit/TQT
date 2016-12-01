@@ -44,7 +44,8 @@ class AjaxSiteController extends BaseController
         }
         Session::put('cart', $cart);
         $data['success'] = 1;
-        $data['html'] = View::make('site.SiteLayouts.cart')->with('cart',$cart)->render();
+        $data['num_total'] = count($cart);
+        $data['html'] = View::make('site.Web.cart')->with('cart',$cart)->render();
         return Response::json($data);
     }
 
@@ -87,6 +88,7 @@ class AjaxSiteController extends BaseController
                 $total += $v['product_num'] * $v['product_price_buy'];
             }
             $data['price_total'] = $total;
+            $data['num_total'] = count($cart);
         }
         return Response::json($data);
 

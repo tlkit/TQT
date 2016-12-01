@@ -122,4 +122,19 @@ class ExportProduct extends Eloquent{
         return $data;
     }
 
+    public static function getProductBuyHot()
+    {
+        $time = time() - 1400 * 86400;
+        $query = ExportProduct::where('export_product_status', 1);
+        $query->where('export_product_create_time', '>=', $time);
+        $query->orderBy(DB::raw('sum(export_product_num)'), 'DESC');
+        $query->groupBy('product_id');
+        $field_table = array(
+            DB::raw('SUM(export_product_num) as export_product_num'),
+            'product_id',
+        );
+        $data = $query->get($field_table)->take(18);
+        return $data;
+    }
+
 }

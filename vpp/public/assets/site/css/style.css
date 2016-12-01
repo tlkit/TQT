@@ -532,6 +532,9 @@ h6{font-size: 0.9231em}
 #header .mid-searchbox .lbl-search i{
     margin-left: 5px;
 }
+#header .mid-searchbox .lbl-search.open .search-cate{
+    display: block;
+}
 #header .frm-search{
     max-width: 550px;
     width: 100%;
@@ -622,6 +625,7 @@ h6{font-size: 0.9231em}
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.29);
     text-align: left;
     padding-top: 10px;
+    display: none;
 }
 #header .search-cate .search-item{
     height: 35px;
@@ -697,11 +701,17 @@ li.has-sub .nav-content{
     font-weight: bold;
     line-height: 42px;
     padding-top: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 li.parent-cate-title ul li{
     font-size: 12px;
     line-height: 22px;
     font-weight: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 li.parent-cate-title ul li a{
     color: #737373;
@@ -1962,7 +1972,7 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     border: 1px solid #d9d9d9;
 }
 .mid-cart:hover .cart-hover{
-    display: block;
+    display: block !important;
 }
 .cart-item .wrap-img{
     width: 60px;

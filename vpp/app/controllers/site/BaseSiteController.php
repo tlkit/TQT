@@ -8,7 +8,7 @@
  */
 class BaseSiteController extends BaseController
 {
-    protected $layout = 'site.SiteLayouts.dt_index';
+    protected $layout = 'site.Web.index';
     protected $treeCategory = array();
     protected $customer = array();
 
@@ -28,8 +28,84 @@ class BaseSiteController extends BaseController
 
     public function home(){
         $banner = Banner::getBannerRun();
-        $product = Product::getProductHome();
-        $this->layout->content = View::make('site.SiteLayouts.home')->with('banner',$banner)->with('product',$product);
+        $productNew = $productBuy = $productHot = array();
+        /*sản phẩm mới*/
+        $productSort = ProductSort::getProductShortByTypeAndObject(1,0);
+        $str_id = isset($productSort->product_sort_product_ids) ? $productSort->product_sort_product_ids : '';
+        if($str_id != ''){
+            $ids = explode(',',$str_id);
+            if($ids){
+                $arySort = array_flip(array_values($ids));
+                $productNew = Product::getProductByIds($ids)->toArray();
+                if(sizeof($productNew) > 0){
+                    foreach($productNew as $key => $value){
+                        $value['special_sort'] = $arySort[$value['product_id']];
+                        $productNew[$key] = $value;
+                    }
+                    usort($productNew, 'sortSpecial');
+                }
+            }
+        }
+        /*sản phẩm bán chạy*/
+        $export = ExportProduct::getProductBuyHot();
+        $id_buy_hot = array();
+        if($export){
+            foreach($export as $key => $value){
+                $id_buy_hot[] = $value['product_id'];
+            }
+        }
+        if($id_buy_hot){
+            $productBuy = Product::getProductByIds($id_buy_hot);
+        }
+        /*san pham hot*/
+        $productSortHot = ProductSort::getProductShortByTypeAndObject(2,0);
+        $str_id_hot = isset($productSortHot->product_sort_product_ids) ? $productSortHot->product_sort_product_ids : '';
+        if($str_id_hot != ''){
+            $ids_hot = explode(',',$str_id_hot);
+            if($ids_hot){
+                $arySortHot = array_flip(array_values($ids_hot));
+                $productHot = Product::getProductByIds($ids_hot)->toArray();
+                if(sizeof($productHot) > 0){
+                    foreach($productHot as $key => $value){
+                        $value['special_sort'] = $arySortHot[$value['product_id']];
+                        $productHot[$key] = $value;
+                    }
+                    usort($productHot, 'sortSpecial');
+                }
+            }
+        }
+        $productKm = Product::getProductKm();
+        $this->layout->content = View::make('site.Web.home')
+            ->with('banner',$banner)
+            ->with('productNew',$productNew)
+            ->with('productBuy',$productBuy)
+            ->with('productHot',$productHot)
+            ->with('productKm',$productKm);
+    }
+
+    public function getProductNew(){
+        $id = (int)Request::get('id',0);
+        $type = 1;
+        $productSort = ProductSort::getProductShortByTypeAndObject(1,$id);
+        $str_id = isset($productSort->product_sort_product_ids) ? $productSort->product_sort_product_ids : '';
+        $productNew = array();
+        if($str_id != ''){
+            $ids = explode(',',$str_id);
+            if($ids){
+                $arySort = array_flip(array_values($ids));
+                $productNew = Product::getProductByIds($ids)->toArray();
+                if(sizeof($productNew) > 0){
+                    foreach($productNew as $key => $value){
+                        $value['special_sort'] = $arySort[$value['product_id']];
+                        $productNew[$key] = $value;
+                    }
+                    usort($productNew, 'sortSpecial');
+                }
+            }
+        }
+        $data['success'] = 1;
+        $data['html'] = View::make('site.Web.productNew')->with('productNew',$productNew)->render();
+        return Response::json($data);
     }
 
     public function group($id,$name){
@@ -49,7 +125,33 @@ class BaseSiteController extends BaseController
         $total = 0;
         $data = Product::getProductCate($c_ids, $orderBy, $orderType, $offset, $param['limit'], $total);
         $paging = $this->buildPaging(10,$page,$total,$param['limit'],$param);
-        $this->layout->content = View::make('site.SiteLayouts.group')->with('data',$data)->with('id',$id)->with('param',$param)->with('paging',$paging);
+
+        /*san pham hot*/
+        $productHot = array();
+        $productSortHot = ProductSort::getProductShortByTypeAndObject(2,0);
+        $str_id_hot = isset($productSortHot->product_sort_product_ids) ? $productSortHot->product_sort_product_ids : '';
+        if($str_id_hot != ''){
+            $ids_hot = explode(',',$str_id_hot);
+            if($ids_hot){
+                $arySortHot = array_flip(array_values($ids_hot));
+                $productHot = Product::getProductByIds($ids_hot)->toArray();
+                if(sizeof($productHot) > 0){
+                    foreach($productHot as $key => $value){
+                        $value['special_sort'] = $arySortHot[$value['product_id']];
+                        $productHot[$key] = $value;
+                    }
+                    usort($productHot, 'sortSpecial');
+                }
+            }
+        }
+        $productKm = Product::getProductKm();
+        $this->layout->content = View::make('site.Web.group')
+            ->with('data',$data)
+            ->with('id',$id)
+            ->with('param',$param)
+            ->with('paging',$paging)
+            ->with('productHot',$productHot)
+            ->with('productKm',$productKm);
     }
 
     public function cate($gid,$id,$name){
@@ -546,4 +648,8 @@ class BaseSiteController extends BaseController
         return $html;
     }
 
+}
+
+function sortSpecial($a, $b) {
+    return $a["special_sort"] - $b["special_sort"];
 }
