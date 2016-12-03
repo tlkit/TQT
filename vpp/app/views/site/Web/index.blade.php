@@ -17,6 +17,7 @@
     {{ HTML::script('assets/site/js/countdown/jquery.plugin.min.js') }}
     {{ HTML::script('assets/site/js/countdown/jquery.countdown.min.js') }}
     {{ HTML::script('assets/site/js/countdown/jquery.countdown-vi.js') }}
+    {{ HTML::script('assets/js/jquery.cookie.js'); }}
     {{ HTML::script('assets/site/js/cart.js') }}
 
 </head>
@@ -54,9 +55,9 @@
             {{--<div class="make-right pl-30"><a href="" class="fc-grey-1">Yêu thích</a></div>--}}
         </div>
         <div class="header-mid clearfix">
-            <a class="make-left" href=""><i class="iLogo"></i></a>
+            <a class="make-left" href="{{URL::route('site.home')}}"><i class="iLogo"></i></a>
             <div class="mid-cart make-right">
-                <a href="">
+                <a href="{{URL::route('cart.checkout_cart')}}">
                     <i class="icons iCart make-left"></i>
                     <div class="cart-count make-left">
                         <div class="fs-14 fc-blue-1">Giỏ hàng</div>
@@ -93,7 +94,7 @@
                             Tạm tính : <span class="price">{{number_format($sub_total,0,'.','.')}}<span>đ</span></span>
                         </div>
                         <div class="cart-view">
-                            <a href="{{URL::route('cart.view_cart')}}" class="btn-view-cart">Xem giỏ hàng</a>
+                            <a href="{{URL::route('cart.checkout_cart')}}" class="btn-view-cart">Xem giỏ hàng</a>
                         </div>
                         @else
                             <div>Không có sản phẩm nào trong giỏ hàng !!!</div>
@@ -110,9 +111,9 @@
                         <i class="icons iDown"></i>
                     </div>
                     <div class="search-cate">
-                        <div class="search-item active" id="0">Tất cả</div>
+                        <div class="search-item active" data-id="0">Tất cả</div>
                         @foreach($treeCategory as $group)
-                        <div class="search-item" id="{{$group["group_category_id"]}}">{{$group["group_category_name"]}}</div>
+                        <div class="search-item" data-id="{{$group["group_category_id"]}}">{{$group["group_category_name"]}}</div>
                         @endforeach
                     </div>
                 </div>
@@ -120,7 +121,7 @@
                     <label for="sys_keyword">
                         <input id="sys_keyword" name="keyword" placeholder="Nhập từ khóa để tìm kiếm..." autocomplete="off" value="" data-id="0" type="text">
                     </label>
-                    <button class="btn-search" type="button"><i class="icons iSearch"></i></button>
+                    <button class="btn-search sys_btn_search" type="button"><i class="icons iSearch"></i></button>
                 </div>
             </div>
         </div>
@@ -274,21 +275,36 @@
             $("html, body").animate({scrollTop: 0}, 500);
             return false;
         });
-        $('.sys_quantity').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
-        $("#inp_search").on('keypress', function (event) {
+
+        $("#sys_keyword").on('keypress', function (event) {
             if (event.which == 13 || event.keyCode == 13) {
+                var g = 0;
                 var key = $(this).val().trim();
+                $(".search-item").each(function () {
+                    if($(this).hasClass('active')){
+                        g = $(this).data('id');
+                    }
+                });
                 if(key.length < 3){
                     return false;
+                }else{
+                    window.location.href = '/tim-kiem.html?q=' + key + '&g=' + g;
                 }
+
             }
         });
-        $(".button-search").on('click',function(){
-            var key = $("#inp_search").val().trim();
+        $(".sys_btn_search").on('click',function(){
+            var g = 0;
+            var key = $("#sys_keyword").val().trim();
+            $(".search-item").each(function () {
+                if($(this).hasClass('active')){
+                    g = $(this).data('id');
+                }
+            });
             if(key.length < 3){
                 return false;
             }else{
-                $("#frm-search").submit();
+                window.location.href = '/tim-kiem.html?q=' + key + '&g=' + g;
             }
         })
     });

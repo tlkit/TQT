@@ -3,19 +3,22 @@
         <div class="breadcrumb clearfix">
             <a class="make-left" href="{{URL::route('site.home')}}">Trang chủ</a>
             <div class="make-left">
-                <i class="icons iRightB"></i><a href="javascript:void(0)">{{$treeCategory[$id]['group_category_name']}}</a>
+                <i class="icons iRightB"></i><a href="{{URL::route('site.group',array('id' => $gid,'name' => FunctionLib::safe_title($treeCategory[$gid]['group_category_name'])))}}">{{$treeCategory[$gid]['group_category_name']}}</a>
+            </div>
+            <div class="make-left">
+                <i class="icons iRightB"></i><a href="javascript:void(0)">{{$treeCategory[$gid]['child'][$id]}}</a>
             </div>
         </div>
         <div class="cl make-left">
             <div class="box-left clearfix">
                 <div class="box-left-title">
-                    {{$treeCategory[$id]['group_category_name']}}
+                    {{$treeCategory[$gid]['group_category_name']}}
                 </div>
-                @if(isset($treeCategory[$id]['child']) && $treeCategory[$id]['category_status'] == 1)
+                @if(isset($treeCategory[$gid]['child']) && $treeCategory[$gid]['category_status'] == 1)
                     <ul class="rs cate-list">
-                        @foreach($treeCategory[$id]['child'] as $k => $child)
-                            <li class="">
-                                <a href="{{URL::route('site.cate',array('gid' => $id,'id' => $k,'name' => FunctionLib::safe_title($child)))}}">{{$child}}<i class="icons iRightC make-right"></i></a>
+                        @foreach($treeCategory[$gid]['child'] as $k => $child)
+                            <li class="@if($k == $id) active @endif">
+                                <a href="{{URL::route('site.cate',array('gid' => $gid,'id' => $k,'name' => FunctionLib::safe_title($child)))}}">{{$child}}<i class="icons iRightC make-right"></i></a>
                             </li>
                         @endforeach
                     </ul>
@@ -157,7 +160,7 @@
                         </div>
                         <div class="box-description make-left">
                             <div class="title-deal">
-                                <a href="{{Croppa::url(Constant::dir_product.$v['product_Avatar'], 260, 260)}}">{{$v["product_Name"]}}</a>
+                                <a href="{{URL::route('site.product',array('id' => $v["product_id"],'name' => FunctionLib::safe_title($v["product_Name"])))}}">{{$v["product_Name"]}}</a>
                             </div>
                             <?php $rate = rand(3,5);?>
                             <div class="rate-deal">

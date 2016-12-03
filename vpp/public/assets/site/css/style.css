@@ -746,7 +746,11 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     width: 1170px;
     height: 367px;
 }
-#banner .banner-home-prev{
+#banner-event{
+    width: 1170px;
+    height: auto;
+}
+#banner .banner-home-prev, #banner-event .banner-home-prev{
     width: 30px;
     height: 50px;
     background: rgba(0, 0, 0, 0.05) none repeat scroll 0 0;
@@ -759,13 +763,13 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     cursor: pointer;
     z-index: 1;
 }
-#banner .banner-home-prev .icon-banner-home-prev{
-    width: 11px; height: 18px; background-position: -69px 0px;;
+#banner .banner-home-prev .icon-banner-home-prev, #banner-event .banner-home-prev .icon-banner-home-prev{
+    width: 11px; height: 18px; background-position: -69px 0px;
 }
-#banner .banner-home-prev:hover .icon-banner-home-prev{
+#banner .banner-home-prev:hover .icon-banner-home-prev, #banner-event .banner-home-prev:hover .icon-banner-home-prev{
     width: 11px; height: 18px; background-position: -13px -26px;
 }
-#banner .banner-home-next{
+#banner .banner-home-next, #banner-event .banner-home-next{
     width: 30px;
     height: 50px;
     background:rgba(0, 0, 0, 0.05) none repeat scroll 0 0;
@@ -778,13 +782,13 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     cursor: pointer;
     z-index: 1;
 }
-#banner .banner-home-next .icon-banner-home-next{
+#banner .banner-home-next .icon-banner-home-next, #banner-event .banner-home-next .icon-banner-home-next{
     width: 11px; height: 18px; background-position: -0px -26px;
 }
-#banner .banner-home-next:hover .icon-banner-home-next{
+#banner .banner-home-next:hover .icon-banner-home-next , #banner-event .banner-home-next:hover .icon-banner-home-next{
     width: 11px; height: 18px; background-position: -58px 0px;
 }
-#banner .banner-home-prev:hover , #banner .banner-home-next:hover{
+#banner .banner-home-prev:hover , #banner .banner-home-next:hover, #banner-event .banner-home-next:hover, #banner-event .banner-home-prev:hover{
     background-color: #0f6cb2;
 }
 .cl{
@@ -879,6 +883,12 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     margin-top: 10px;
     line-height: 30px;
     font-size: 16px;
+}
+.list-product-grid .box-description .title-deal {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 260px;
 }
 .box-description .title-deal a{
     color: #6e6e6e;
@@ -992,7 +1002,9 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
 .dx-title{
     font-size: 14px;
     line-height: 22px;
+    overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .cart-item-title{
     overflow: hidden;
@@ -1004,7 +1016,9 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     color: #6e6e6e;
     text-decoration: none;
 }
-
+.dx-des{
+    max-width: 148px;
+}
 .dx-title a{
     text-decoration: none;
     color: #6e6e6e;
@@ -1452,6 +1466,9 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
 .cate-list li:hover a{
     color: #0f6cb2;
 }
+.cate-list li.active a{
+    color: #0f6cb2;
+}
 .cate-list li i{
     position: absolute;
     right: 0;
@@ -1502,13 +1519,15 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     height: 28px;
     margin-bottom: -7px;
 }
-.pagination ul li a{
+.pagination ul li {
     text-decoration: none;
     color: #494949;
     font-size: 14px;
+    /*
     margin-bottom: 7px;
+    */
 }
-.pagination ul li.active a, .pagination ul li:hover a{
+.pagination ul li.active, .pagination ul li:hover {
     color: #0f6cb2;
 }
 
@@ -1517,6 +1536,9 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     height: 28px;
     background-color: #e0e0e0;
     position: relative;
+}
+.page-prev-next.active{
+    background-color: #0f6cb2;
 }
 .list-product, .list-product-grid{
     width: 100%;
@@ -1604,6 +1626,7 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     line-height: 50px;
     font-size: 30px;
     color: #424242;
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -1642,11 +1665,10 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     top: 22px;
     right: 10px;
 }
-.product-number select {
+.product-number input {
     margin-left: 10px;
     border: 1px solid #d9d9d9;
     width: 65px;
-    padding: 5px 35px 5px 5px;
     height: 50px;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -2163,13 +2185,14 @@ background: transparent url("../image/logo.png") no-repeat;border: none;vertical
 .icons{background: transparent url("../image/icon.png") no-repeat;border: none;vertical-align:middle; font-size: 0;line-height:0;display: inline-block;*display: inline;*zoom: 1;}
     .iDown{ width: 13px; height: 7px; background-position: -0px -0px;}
     .iDown2{ width: 13px; height: 7px; background-position: -38px -26px;}
+    .iUp{ width: 13px; height: 7px; background-position: -501px -0px;}
     .iDown3{ width: 13px; height: 7px; background-position: -157px -31px;}
     .iSearch{ width: 18px; height: 19px; background-position: -13px -0px;}
     .iCart{ width: 27px; height: 26px; background-position: -31px -0px;}
     .iCart2{ width: 19px; height: 19px; background-position: -132px -0px;}
     .iCart3{ width: 23px; height: 22px; background-position: -151px -0px;}
     .iHeart{ width: 23px; height: 21px; background-position: -174px -0px;}
-    .iHeart2{ width: 20px; height: 19px; background-position: -174px -27px;}
+    .iHeart2{ width: 20px; height: 19px; background-position: -177px -33px;}
     .iRate{ width: 14px; height: 13px; background-position: -24px -26px;}
     .iRate.checked{ width: 14px; height: 13px; background-position: -92px -0px;}
     .iNext{ width: 6px; height: 10px; background-position: -86px -0px;}
@@ -2190,8 +2213,10 @@ background: transparent url("../image/logo.png") no-repeat;border: none;vertical
     .iVisa{ width: 39px; height: 13px; background-position: -432px -0px;}
     .iRightB{ width: 4px; height: 9px; background-position: -113px -35px;}
     .iRightC{ width: 6px; height: 10px; background-position: -151px -30px;}
-    .iGrid{ width: 14px; height: 14px; background-position: -119px -30px;}
+    .iGrid{ width: 14px; height: 14px; background-position: -484px -26px;}
+    .iGrid.active{ width: 14px; height: 14px; background-position: -119px -30px;}
     .iList{ width: 16px; height: 12px; background-position: -133px -31px;}
+    .iList.active{ width: 16px; height: 12px; background-position: -468px -24px;}
     .iRight{ width: 8px; height: 16px; background-position: -223px -25px;}
     .iOn{ width: 16px; height: 16px; background-position: -204px -22px;}
     .iDel{ width: 14px; height: 14px; background-position: -234px -26px;}

@@ -227,7 +227,7 @@ class Product extends Eloquent
         }
     }
 
-    public static function getProductSearch($keyword, $orderBy = '', $type = 'DESC', $offset = 0, $limit = 16, &$total){
+    public static function getProductSearch($keyword, $cate_id, $orderBy = '', $type = 'DESC', $offset = 0, $limit = 16, &$total){
         try {
             $query = Product::where('product_Status', 1);
             $query->where('product_show_site', 1);
@@ -238,6 +238,7 @@ class Product extends Eloquent
                     ->orWhere('product_CategoryName', 'LIKE', '%' . $keyword . '%')
                     ->orWhere('product_Description', 'LIKE', '%' . $keyword . '%');
             });
+            $query->whereIn('product_Category', $cate_id);
             $total = $query->count();
             if ($orderBy != '') {
                 $query->orderBy($orderBy, $type);
@@ -250,15 +251,15 @@ class Product extends Eloquent
         }
     }
 
-    public static function getProductRelate($product){
+    public static function getProductRelate($c_ids,$p_ids){
         try {
             //$product = Product::find($id);
-            $query = Product::where('product_Category',$product->product_Category);
+            $query = Product::whereIn('product_Category',$c_ids);
             $query->where('product_Status', 1);
             $query->where('product_show_site', 1);
-            $query->where('product_id','!=', $product->product_id);
+            $query->whereNotIn('product_id', $p_ids);
             //$query->where('product_NameUnit','LIKE','%'.$product->product_NameUnit.'%');
-            return $query->take(3)->get();
+            return $query->take(8)->get();
         } catch (PDOException $e) {
             throw new PDOException();
         }
@@ -282,6 +283,18 @@ class Product extends Eloquent
             $query->where('product_Status', 1);
             $query->where('product_show_site', 1);
             return $query->get();
+        } catch (PDOException $e) {
+            throw new PDOException();
+        }
+    }
+
+    public static function getListCateByIds($ids)
+    {
+        try {
+            $query = Product::whereIn('product_id', $ids);
+            $query->where('product_Status', 1);
+            $query->where('product_show_site', 1);
+            return $query->lists('product_Category');
         } catch (PDOException $e) {
             throw new PDOException();
         }

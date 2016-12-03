@@ -26,7 +26,7 @@
         Tạm tính : <span class="price sys_total_order">{{number_format($sub_total,0,'.','.')}}<span>đ</span></span>
     </div>
     <div class="cart-view">
-        <a href="{{URL::route('cart.view_cart')}}" class="btn-view-cart">Xem giỏ hàng</a>
+        <a href="{{URL::route('cart.checkout_cart')}}" class="btn-view-cart">Xem giỏ hàng</a>
     </div>
 @else
     <div>Không có sản phẩm nào trong giỏ hàng !!!</div>

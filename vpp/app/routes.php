@@ -27,6 +27,7 @@ Route::group(array('prefix' => '', 'before' => ''), function()
     Route::get('g{id}/{name}.html',array('as' => 'site.group','uses' =>'BaseSiteController@group'))->where('id', '[0-9]+');
     Route::get('g{gid}/c{id}/{name}.html',array('as' => 'site.cate','uses' =>'BaseSiteController@cate'))->where('id', '[0-9]+')->where('gid', '[0-9]+');
     Route::get('p{id}/{name}.html',array('as' => 'site.product','uses' =>'BaseSiteController@product'))->where('id', '[0-9]+');
+    Route::get('t{id}/{name}.html',array('as' => 'site.tag','uses' =>'BaseSiteController@tag'))->where('id', '[0-9]+');
     Route::get('s{id}/{name}.html',array('as' => 'site.page','uses' =>'BaseSiteController@page'))->where('id', '[0-9]+');
     Route::get('tim-kiem.html',array('as' => 'site.search','uses' =>'BaseSiteController@search'))->where('id', '[0-9]+');
 

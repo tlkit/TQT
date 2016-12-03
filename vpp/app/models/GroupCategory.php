@@ -42,9 +42,19 @@ class GroupCategory extends Eloquent
 
     public static function getGroupForSite(){
         try {
-            $data = GroupCategory::where('category_status',1)->get();
+            $data = GroupCategory::where('group_category_status', 1)->where('category_status', 1)->get();
             return $data;
         } catch (PDOException $e) {
+            throw new PDOException();
+        }
+    }
+
+    public static function getGroupByCatId($id){
+        try {
+            return GroupCategory::whereRaw('FIND_IN_SET('.$id.',category_list_id)')->first();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+            var_dump($e->getMessage());die;
             throw new PDOException();
         }
     }

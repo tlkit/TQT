@@ -78,10 +78,20 @@ var cart = {
                 success: function (res) {
                     cart.conf.ajax_sending == false;
                     if (res.success == 1) {
-                        $("#cart_view_number_"+product_id).val(product_num);
+                        var vat = 0
+                        if($("#is_vat").length > 0){
+                            if(document.getElementById('is_vat').checked){
+                                vat = 1;
+                            }
+                        }
+                        //$("#cart_view_number_"+product_id).val(product_num);
                         $("#cart_number_"+product_id).val(product_num);
-                        $(".sys_total_item_"+product_id).html((res.price_item).format(0, 3, '.'));
-                        $(".sys_total_order").html((res.price_total).format(0, 3, '.'));
+                        $("#price_unit_"+product_id).html((res.price).format(0, 3, '.'));
+                        $("#price_item_"+product_id).html((res.price_item).format(0, 3, '.'));
+                        $(".sys_total_item").html((res.price_total).format(0, 3, '.') + '<span>đ</span>');
+                        $(".sys_total_item").data('total', res.price_total);
+                        var temp = (vat == 1) ? Math.ceil(res.price_total/10) : 0
+                        $(".sys_total_order").html((res.price_total + temp).format(0, 3, '.')  + '<span>đ</span>');
                     }
                 }
             });
@@ -107,11 +117,21 @@ var cart = {
                     cart.conf.ajax_sending == false;
                     if (res.success == 1) {
                         $(".row_"+product_id).remove();
-                        $(".sys_total_order").html((res.price_total).format(0, 3, '.') + '<span>đ</span>');
+                        $(".sys_total_item").html((res.price_total).format(0, 3, '.') + '<span>đ</span>');
+                        $(".sys_total_item").data('total', res.price_total);
+                        var vat = 0
+                        if($("#is_vat").length > 0){
+                            if(document.getElementById('is_vat').checked){
+                                vat = 1;
+                            }
+                        }
+                        var temp = (vat == 1) ? Math.ceil(res.price_total/10) : 0
+                        $(".sys_total_order").html((res.price_total + temp).format(0, 3, '.') + '<span>đ</span>');
                         $(".number-cart").html(res.num_total);
                         if(res.num_total == 0){
                             $(".cart-hover-content").html('<div>Không có sản phẩm nào trong giỏ hàng !!!</div>');
                         }
+
                     }
                 }
             });
@@ -124,11 +144,15 @@ $(document).ready(function () {
 */
     $(".btn_add_cart").on('click', function () {
         var product_id = parseInt($(this).data('id'));
-        var product_num = 1;//$('input[name=\'quantity['+product_id+']\']').val();
+        if($('input[name=\'quantity['+product_id+']\']').length > 0){
+            var product_num = $('input[name=\'quantity['+product_id+']\']').val();
+        }else{
+            product_num = 1;
+        }
         cart.addCart(product_id,product_num);
     });
 
-/*    var timer;
+    var timer;
     $(".sys_number_cart").keyup(function(){
         var _$this = $(this);
         clearTimeout(timer);  //clear any running timeout on key up
@@ -137,7 +161,7 @@ $(document).ready(function () {
             var product_id = _$this.data('id');
             cart.updateNumber(product_id,product_num);
         }, 500);
-    });*/
+    });
     $(".sys_remove").on('click',function(){
         var product_id = $(this).data('id');
         cart.removeProduct(product_id);

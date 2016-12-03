@@ -18,7 +18,11 @@ class ProductSort extends Eloquent
     protected $fillable = array('product_sort_object_id', 'product_sort_label', 'product_sort_status', 'product_sort_banner', 'product_sort_product_ids', 'product_sort_type', 'product_sort_create_id', 'product_sort_create_time', 'product_sort_update_id', 'product_sort_update_time');
 
     public static function getProductShortByTypeAndObject($type,$object){
-        return ProductSort::where('product_sort_type',$type)->where('product_sort_object_id',$object)->first();
+        return ProductSort::where('product_sort_status',1)->where('product_sort_type',$type)->where('product_sort_object_id',$object)->first();
+    }
+
+    public static function getListProductShortByTypeAndObject($type,$object){
+        return ProductSort::where('product_sort_status',1)->where('product_sort_type',$type)->where('product_sort_object_id',$object)->get();
     }
 
     public static function updData($id, $dataInput)

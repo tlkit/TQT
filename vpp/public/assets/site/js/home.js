@@ -69,6 +69,16 @@ $(document).ready(function() {
                 }
             }
         });
-
     })
+    $(".sys_xemthem").on('click',function(){
+        $(this).hide();
+        $(".sys_thunho").show();
+        $(".sys_dx_deal").css('height','auto');
+    })
+    $(".sys_thunho").on('click',function(){
+        $(this).hide();
+        $(".sys_xemthem").show();
+        $(".sys_dx_deal").css('height','310px');
+    })
+
 });
