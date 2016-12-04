@@ -30,27 +30,27 @@
                 <a href="javascript:void(0)" class="fc-grey-1">Hi ! {{$customer_login['customers_username']}}</a>
                 <div class="user-login-info">
                     <i class="icon-down2"></i>
-                    <div class="user-login-item active">
+                    <div class="user-login-item">
                         <i class="icons iUsers"></i>
-                        <a href="">Quản lý tài khoản</a>
+                        <a href="{{URL::route('site.changeInfo')}}">Quản lý tài khoản</a>
                     </div>
                     <div class="user-login-item">
                         <i class="icons iLists"></i>
-                        <a href="">Quản lý đơn hàng</a>
+                        <a href="{{URL::route('site.order_history')}}">Quản lý đơn hàng</a>
                     </div>
-                    <div class="user-login-item active">
+                    {{--<div class="user-login-item active">
                         <i class="icons iHearts"></i>
                         <a href="">Danh sách yêu thích</a>
-                    </div>
-                    <div class="user-login-item active">
+                    </div>--}}
+                    <div class="user-login-item">
                         <i class="icons iOut"></i>
                         <a href="{{URL::route('site.logout')}}">Đăng xuất</a>
                     </div>
                 </div>
             </div>
             @else
-                <div class="make-right pl-30"><a href="{{URL::route('site.login')}}" class="fc-grey-1">Đăng ký</a></div>
-                <div class="make-right pl-30"><a href="{{URL::route('site.register')}}" class="fc-grey-1">Đăng nhập</a></div>
+                <div class="make-right pl-30"><a href="{{URL::route('site.register')}}" class="fc-grey-1">Đăng ký</a></div>
+                <div class="make-right pl-30"><a href="{{URL::route('site.login')}}" class="fc-grey-1">Đăng nhập</a></div>
             @endif
             {{--<div class="make-right pl-30"><a href="" class="fc-grey-1">Yêu thích</a></div>--}}
         </div>

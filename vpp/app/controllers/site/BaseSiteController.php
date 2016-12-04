@@ -337,7 +337,7 @@ class BaseSiteController extends BaseController
     }
 
     public function register(){
-        $this->layout->content = View::make('site.SiteLayouts.register');
+        $this->layout->content = View::make('site.Web.login');
     }
 
     public function submitRegister(){
@@ -395,7 +395,7 @@ class BaseSiteController extends BaseController
             }
         }
         if($error){
-            $this->layout->content = View::make('site.SiteLayouts.register')->with('param',$param)->with('error',$error);
+            $this->layout->content = View::make('site.Web.login')->with('param',$param)->with('error',$error);
         }else{
             unset($param['customers_password_confirm']);
             $param['customers_password'] = md5('xxx_'.$param['customers_password']);
@@ -433,7 +433,7 @@ class BaseSiteController extends BaseController
                 return Redirect::to(base64_decode($url));
             }
         } else {
-            $this->layout->content = View::make('site.SiteLayouts.login')->with('url',$url);
+            $this->layout->content = View::make('site.Web.login')->with('url',$url);
         }
     }
 
@@ -476,8 +476,8 @@ class BaseSiteController extends BaseController
         } else {
             $error = 'Chưa nhập thông tin đăng nhập!';
         }
-        $this->layout->content = View::make('site.SiteLayouts.login')
-            ->with('error', $error)->with('url', $url)->with('username', $username);
+        $this->layout->content = View::make('site.Web.login')
+            ->with('error_lg', $error)->with('url', $url)->with('username', $username);
     }
 
     public function logout()
@@ -581,7 +581,7 @@ class BaseSiteController extends BaseController
             return Redirect::route('site.login');
         }
         $customer = Customers::find($this->customer['customers_id']);
-        $this->layout->content = View::make('site.SiteLayouts.changeInfo')->with('customer',$customer);
+        $this->layout->content = View::make('site.Web.changeInfo')->with('customer',$customer);
     }
 
     public function submitChangeInfo(){
@@ -609,7 +609,7 @@ class BaseSiteController extends BaseController
             $error['customers_ContactAddress'] = 'Địa chỉ không được để trống';
         }
         if($error){
-            $this->layout->content = View::make('site.SiteLayouts.changeInfo')->with('customer',$param)->with('error',$error);
+            $this->layout->content = View::make('site.Web.changeInfo')->with('customer',$param)->with('error',$error);
         }else{
             if(Customers::updData($this->customer['customers_id'],$param)){
                 $data = array(
@@ -637,7 +637,7 @@ class BaseSiteController extends BaseController
         if(!$this->customer){
             return Redirect::route('site.login');
         }
-        $this->layout->content = View::make('site.SiteLayouts.changePass');
+        $this->layout->content = View::make('site.Web.changePass');
     }
 
     public function submitChangePass(){
@@ -660,7 +660,7 @@ class BaseSiteController extends BaseController
             $error['customers_password_confirm'] = 'Xác nhận mật khẩu không chính xác';
         }
         if($error){
-            $this->layout->content = View::make('site.SiteLayouts.changePass')->with('error',$error);
+            $this->layout->content = View::make('site.Web.changePass')->with('error',$error);
         }else{
             unset($param['customers_password_old']);
             unset($param['customers_password_confirm']);
