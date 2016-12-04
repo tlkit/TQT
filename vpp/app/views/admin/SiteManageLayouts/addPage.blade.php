@@ -55,7 +55,7 @@
                             {{htmlspecialchars_decode($param['page_content'])}}
                         @endif
                     </div>
-                    <input type="hidden" id="page_content" name="page_content" @if(isset($param['page_content'])) value="" @endif>
+                    <input type="hidden" id="page_content" name="page_content" @if(isset($param['page_content'])) value="{{htmlspecialchars_decode($param['page_content'])}}" @endif>
                 <div class="clearfix space-6"></div>
                 <div class="form-group col-sm-12 text-right">
                     <button  class="btn btn-primary sys_save_page" type="button"><i class="glyphicon glyphicon-floppy-saved"></i> Lưu lại</button>

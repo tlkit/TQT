@@ -62,6 +62,10 @@ Route::group(array('prefix' => '', 'before' => ''), function()
 
     Route::get('home/getProductNew',array('as' => 'site.getProductNew','uses' =>'BaseSiteController@getProductNew'));
 
+    Route::get('news',array('as' => 'site.news','uses' =>'BaseSiteController@news'));
+
+
+
 
 });
 
@@ -272,5 +276,14 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('manage_site/tag/view',array('as' => 'admin.mngSite_tag_view','uses' => 'SiteManageController@viewTag'));
     Route::get('manage_site/tag/add/{id?}',array('as' => 'admin.mngSite_tag_add','uses' => 'SiteManageController@getAddTag'))->where('id', '[0-9]+');
     Route::post('manage_site/tag/add/{id?}',array('as' => 'admin.mngSite_tag_add','uses' => 'SiteManageController@postAddTag'))->where('id', '[0-9]+');
+
+    /*news*/
+    Route::get('news/view',array('as' => 'admin.news_view','uses' => 'NewsController@view'));
+    Route::get('news/add/{id?}',array('as' => 'admin.news_add','uses' => 'NewsController@getAdd'))->where('id', '[0-9]+');
+    Route::post('news/add/{id?}',array('as' => 'admin.news_add','uses' => 'NewsController@postAdd'))->where('id', '[0-9]+');
+
+    Route::get('news/tag/view',array('as' => 'admin.news_tag_view','uses' => 'NewsController@viewTag'));
+    Route::get('news/tag/add/{id?}',array('as' => 'admin.news_tag_add','uses' => 'NewsController@getAddTag'))->where('id', '[0-9]+');
+    Route::post('news/tag/add/{id?}',array('as' => 'admin.news_tag_add','uses' => 'NewsController@postAddTag'))->where('id', '[0-9]+');
 
 });

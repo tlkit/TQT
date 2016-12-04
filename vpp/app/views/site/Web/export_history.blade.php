@@ -18,11 +18,11 @@
                     <li class="">
                         <i class="icons iRightU"></i><a href="{{URL::route('site.changePass')}}">Đổi mật khẩu</a>
                     </li>
-                    <li class="active">
-                        <i class="icons iRightU"></i><a href="javascript:void(0)">Quản lý đơn hàng</a>
-                    </li>
                     <li class="">
-                        <i class="icons iRightU"></i><a href="{{URL::route('site.export_history')}}">Lịch sử xuất kho</a>
+                        <i class="icons iRightU"></i><a href="{{URL::route('site.order_history')}}">Quản lý đơn hàng</a>
+                    </li>
+                    <li class="active">
+                        <i class="icons iRightU"></i><a href="javascript:void(0)">Lịch sử xuất kho</a>
                     </li>
                 </ul>
             </div>
@@ -44,25 +44,25 @@
                         <table class="table table-bordered">
                             <thead>
                             <tr>
-                                <th>Mã đơn hàng</th>
-                                <th>Ngày đặt hàng</th>
+                                <th>Mã xuất kho</th>
+                                <th>Ngày xuất kho</th>
                                 <th>Trạng thái</th>
                                 <th>Tổng tiền</th>
                             </tr>
                             </thead>
-                            @foreach($orders as $order)
+                            @foreach($exports as $export)
                             <tr>
-                                <td align="center"><a href="javascript:void(0)">{{$order['order_id']}}</a></td>
+                                <td align="center"><a href="javascript:void(0)">{{$export['export_code']}}</a></td>
                                 <td>
-                                    {{date('d/m/Y',$order['order_create_time'])}}
+                                    {{date('d/m/Y',$export['export_create_time'])}}
                                     <br>
-                                    {{date('H:i',$order['order_create_time'])}}
+                                    {{date('H:i',$export['export_create_time'])}}
                                 </td>
                                 <td>
-                                    {{$aryStatus[$order['order_status']]}}
+                                    {{$aryStatus[$export['export_status']]}}
                                 </td>
                                 <td align="right">
-                                    {{number_format($order['order_price_total'],0,'.','.')}}
+                                    {{number_format($order['export_total_pay'],0,'.','.')}}
                                 </td>
                             </tr>
                             @endforeach

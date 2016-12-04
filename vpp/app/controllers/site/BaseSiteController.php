@@ -690,7 +690,7 @@ class BaseSiteController extends BaseController
         }
         $aryStatus = array(0 => 'Đã hủy', 1 => 'Đang xử lý', 2 => 'Đã xác nhận, chờ giao', 3 => 'Hoàn thành');
         $orders = Order::getByCustomerId($this->customer['customers_id']);
-        $this->layout->content = View::make('site.SiteLayouts.order_history')->with('orders',$orders)->with('aryStatus',$aryStatus);
+        $this->layout->content = View::make('site.Web.order_history')->with('orders',$orders)->with('aryStatus',$aryStatus);
     }
 
     public function orderDetail($id){
@@ -712,7 +712,7 @@ class BaseSiteController extends BaseController
         }
         $aryStatus = array(1 => 'Đang xử lý', 2 => 'Đã cho COD giao hàng', 3 => 'Khách đã nhận hàng');
         $exports = Export::getExportForCustomer($this->customer['customers_id']);
-        $this->layout->content = View::make('site.SiteLayouts.export_history')->with('exports',$exports)->with('aryStatus',$aryStatus);
+        $this->layout->content = View::make('site.Web.export_history')->with('exports',$exports)->with('aryStatus',$aryStatus);
     }
 
     public function exportDetail($id){
@@ -734,6 +734,12 @@ class BaseSiteController extends BaseController
     public function page($id,$name){
         $page = Page::find($id);
         $this->layout->content = View::make('site.SiteLayouts.page')->with('page',$page);
+    }
+
+    public function news(){
+        $news = News::all();
+        $tag = NewsTag::getAllListTag();
+        $this->layout->content = View::make('site.Web.news')->with('news',$news)->with('tag',$tag);
     }
 
     public function buildCategoryTree(){

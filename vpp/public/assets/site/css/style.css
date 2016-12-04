@@ -1806,7 +1806,7 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
 }
 .box-news-list .wrap-img{
     width: 830px;
-    height: 360px;
+    height: auto;
     text-align: center;
     overflow: hidden;
 }
