@@ -819,6 +819,9 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
 .box-like{
     padding: 15px 20px 55px 25px;
 }
+.box-nocart{
+    padding: 65px 80px 25px 75px
+}
 .box-customer{
     padding: 25px 20px 55px 20px;
 }
@@ -1813,8 +1816,11 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
 .news-item-title{
     height: 30px;
     line-height: 30px;
+}
+.news-item-title a{
     font-size: 21px;
     color: #4d4d4d;
+    text-decoration: none;
 }
 .news-item-des{
     font-size: 15px;
@@ -2200,6 +2206,57 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     margin-bottom: 10px;
 }
 /* end countdown*/
+.wrap-icon{
+    background: url("../image/icon-cart.png") no-repeat top left;
+    width: 174px;
+    height: 147px;
+}
+.wrap-icon-register{
+    background: url("../image/rg_success.png") no-repeat top left;
+    width: 207px;
+    height: 225px;
+}
+.nocart-content{
+    width: 750px;
+    margin-left: 40px;
+}
+.rg-success-content{
+    width: 720px;
+    margin-left: 40px;
+}
+.no-cart-title{
+    font-size: 26px;
+    color: #454545;
+    margin-bottom: 20px;
+}
+.rg-success-title{
+    font-size: 26px;
+    color: #44a000;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+.no-cart-des{
+    font-size: 14px;
+    color: #505050;
+    line-height: 30px;
+}
+.no-cart-des span{
+    color: #008aff;
+}
+.btn-no-cart{
+    padding: 15px 20px;
+    color: #fff;
+    background-color: #cc2222;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 3px;
+}
+.btn-back-home{
+    color: #0f6cb2;
+    font-size: 16px;
+    text-decoration: none;
+}
 .iLogo{
 background: transparent url("../image/logo.png") no-repeat;border: none;vertical-align:middle; font-size: 0;line-height:0;display: inline-block;*display: inline;*zoom: 1;height: 66px;width: 204px;
 }
@@ -2215,7 +2272,7 @@ background: transparent url("../image/logo.png") no-repeat;border: none;vertical
     .iHeart{ width: 23px; height: 21px; background-position: -174px -0px;}
     .iHeart2{ width: 20px; height: 19px; background-position: -177px -33px;}
     .iRate{ width: 14px; height: 13px; background-position: -24px -26px;}
-    .iRate.checked{ width: 14px; height: 13px; background-position: -92px -0px;}
+    .iRate.checked{ width: 14px; height: 13px; background-position: -0px -52px;}
     .iNext{ width: 6px; height: 10px; background-position: -86px -0px;}
     .iNext2{ width: 13px; height: 23px; background-position: -99px -27px;}
     .iNextz{ width: 6px; height: 10px; background-position: -86px -0px;}
@@ -2252,3 +2309,5 @@ background: transparent url("../image/logo.png") no-repeat;border: none;vertical
     .iHearts{ width: 23px; height: 22px; background-position: -396px -28px;}
     .iOut{ width: 22px; height: 23px; background-position: -421px -24px;}
     .iTrack{ width: 16px; height: 18px; background-position: -452px -25px;}
+    .iRightC{ width: 20px; height: 14px; background-position: -21px -52px;}
+    .iHome2{ width: 16px; height: 14px; background-position: -47px -52px;}

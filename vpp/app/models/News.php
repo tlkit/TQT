@@ -77,4 +77,37 @@ class News extends Eloquent
         }
     }
 
+    public static function getNewForHome(){
+        try {
+            $query = News::where('news_id', '>', 0);
+            $query->where('news_start_time','<=', time());
+            $query->where('news_end_time','>=', time());
+            $query->orderBy('news_start_time', 'desc');
+            return $query->take(2)->skip(0)->get();
+        } catch (PDOException $e) {
+            throw new PDOException();
+        }
+    }
+
+    public static function getNewReCom($id,$ids){
+        try {
+            $query = News::where('news_id', '!=', $id);
+            $query->where(function ($qu) use ($ids) {
+                foreach ($ids as $k => $i) {
+                    if ($k == 0) {
+                        $qu->whereRaw('FIND_IN_SET(' . $i . ',news_tag_ids)');
+                    } else {
+                        $qu->orWhereRaw('FIND_IN_SET(' . $i . ',news_tag_ids)');
+                    }
+                }
+            });
+            $query->where('news_start_time', '<=', time());
+            $query->where('news_end_time', '>=', time());
+            $query->orderBy('news_start_time', 'desc');
+            return $query->take(4)->skip(0)->get();
+        } catch (PDOException $e) {
+            throw new PDOException();
+        }
+    }
+
 }

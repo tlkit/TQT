@@ -183,6 +183,18 @@
                 <div class="make-right mr-30"><i>Thanh toán với địa chỉ đã có</i></div>
             </div>
             {{Form::close()}}
+            @else
+                <div class="box-nocart">
+                    <div class="wrap-icon make-left"></div>
+                    <div class="nocart-content make-left">
+                        <div class="no-cart-title">Giỏ hàng của bạn hiện đang trống</div>
+                        <div class="no-cart-des">Hãy nhanh tay mua sắm để sở hữu những sản phẩm chất lượng nhất!</div>
+                        <div class="no-cart-des">Nếu bạn có bất kỳ thắc mắc gì, vui lòng liên hệ với chúng tôi theo địa chỉ email <span>vpp@banbuonvpp.vn</span></div>
+                        <div class="mt-20">
+                            <a class="btn btn-no-cart" href="{{URL::route('site.home')}}">Tiếp tục mua sắm <i class="icons iRightC"></i></a>
+                        </div>
+                    </div>
+                </div>
             @endif
         </div>
     </div>

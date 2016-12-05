@@ -83,6 +83,7 @@ class BaseSiteController extends BaseController
         $productKm = Product::getProductKm();
 
         $productTag = ProductSort::getListProductShortByTypeAndObject(3,0);
+        $news = News::getNewForHome();
         $this->layout->content = View::make('site.Web.home')
             ->with('banner',$banner)
             ->with('productNew',$productNew)
@@ -90,6 +91,7 @@ class BaseSiteController extends BaseController
             ->with('productHot',$productHot)
             ->with('productRelate',$productRelate)
             ->with('productTag',$productTag)
+            ->with('news',$news)
             ->with('productKm',$productKm);
     }
 
@@ -420,7 +422,7 @@ class BaseSiteController extends BaseController
 
     public function registerSuccess(){
         $success = (int)Request::get('success',1);
-        $this->layout->content = View::make('site.SiteLayouts.register_success')->with('success',$success);
+        $this->layout->content = View::make('site.Web.register_success')->with('success',$success);
     }
 
     public function loginInfo()
@@ -573,7 +575,7 @@ class BaseSiteController extends BaseController
     }
 
     public function successOrder(){
-        $this->layout->content = View::make('site.SiteLayouts.order_success');
+        $this->layout->content = View::make('site.Web.order_success');
     }
 
     public function changeInfo(){
@@ -628,9 +630,9 @@ class BaseSiteController extends BaseController
 
     public function changeInfoSuccess(){
         if(!$this->customer){
-            return Rediect::route('site.login');
+            return Redirect::route('site.login');
         }
-        $this->layout->content = View::make('site.SiteLayouts.changeInfo_success');
+        $this->layout->content = View::make('site.Web.changeInfo_success');
     }
 
     public function changePass(){
@@ -674,7 +676,7 @@ class BaseSiteController extends BaseController
         if(!$this->customer){
             return Redirect::route('site.login');
         }
-        $this->layout->content = View::make('site.SiteLayouts.changePass_success');
+        $this->layout->content = View::make('site.Web.changePass_success');
     }
 
     public function account(){
@@ -740,6 +742,17 @@ class BaseSiteController extends BaseController
         $news = News::all();
         $tag = NewsTag::getAllListTag();
         $this->layout->content = View::make('site.Web.news')->with('news',$news)->with('tag',$tag);
+    }
+
+    public function detailNews($id,$name){
+        $new = News::find($id);
+        $re = array();
+        if($new){
+            $ids = ($new['news_tag_ids'] != '') ? explode(',',$new['news_tag_ids']) : array();
+            $re = News::getNewReCom($id,$ids);
+        }
+        $tag = NewsTag::getAllListTag();
+        $this->layout->content = View::make('site.Web.news_detail')->with('new',$new)->with('re',$re)->with('tag',$tag);
     }
 
     public function buildCategoryTree(){

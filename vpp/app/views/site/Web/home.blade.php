@@ -238,42 +238,35 @@
         <div class="cr make-right clearfix mt-30" align="center">
             <img src="{{asset('assets/site/image/banner-2.png', false)}}" alt="">
         </div>
+        @if($news)
         <div class="cr make-right mt-30">
             <div class="box-right clearfix">
                 <div class="box-right-title">
                     <div class="make-left">Tin tức</div>
-                    <div class="make-right"><a href="" class="new-all">Xem tất cả ></a></div>
+                    <div class="make-right"><a href="{{URL::route('site.news')}}" class="new-all">Xem tất cả ></a></div>
                 </div>
+                @foreach($news as $new)
                 <div class="box-news">
                     <div class="box-news-content make-left">
                         <div class="img-news">
-                            <a href=""><img src="{{asset('assets/site/image/news-1.png', false)}}" alt=""></a>
+                            <a href="{{URL::route('site.news_detail',array('id' => $new['news_id'],'name'=>FunctionLib::safe_title($new['news_title'])))}}"><img src="{{Croppa::url(Constant::dir_news.$new['news_image'], 393)}}" alt=""></a>
                         </div>
-                        <div class="news-title"><a href="">Làm việc nhiều không tăng năng suất chỉ khiến bạn 24343 3343</a></div>
-                        <div class="news-auth">By Admin | 26 tháng 11 năm 2016</div>
-                        <div class="news-short-desc">Một doanh nhân thành công vẫn có thể làm việc với số giờ thông thường mà vẫn tẩn hưởng cuộc sống.</div>
+                        <div class="news-title"><a href="{{URL::route('site.news_detail',array('id' => $new['news_id'],'name'=>FunctionLib::safe_title($new['news_title'])))}}">{{$new['news_title']}}</a></div>
+                        <div class="news-auth">By {{$new['news_created_name']}} | {{date('d',$new['news_created_time'])}} tháng {{date('m',$new['news_created_time'])}} năm {{date('Y',$new['news_created_time'])}}</div>
+                        <div class="news-short-desc">{{$new['news_short_content']}}</div>
                         <div class="news-link">
-                            <a href="">Xem thêm <i class="icons iNextz"></i></a>
-                        </div>
-                    </div>
-                    <div class="box-news-content make-left">
-                        <div class="img-news">
-                            <img src="{{asset('assets/site/image/news-1.png', false)}}" alt="">
-                        </div>
-                        <div class="news-title">Làm việc nhiều không tăng năng suất chỉ khiến bạn 24343 3343</div>
-                        <div class="news-auth">By Admin | 26 tháng 11 năm 2016</div>
-                        <div class="news-short-desc">Một doanh nhân thành công vẫn có thể làm việc với số giờ thông thường mà vẫn tẩn hưởng cuộc sống.</div>
-                        <div class="news-link">
-                            <a href="">Xem thêm <i class="icons iNextz"></i></a>
+                            <a href="{{URL::route('site.news_detail',array('id' => $new['news_id'],'name'=>FunctionLib::safe_title($new['news_title'])))}}">Xem thêm <i class="icons iNextz"></i></a>
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
+        @endif
         <div class="cr make-right mt-30">
             <div class="box-right clearfix">
                 <div class="box-right-title">
-                    <div class="make-left">Tin tức</div>
+                    <div class="make-left">Thương hiệu</div>
                 </div>
                 <div class="box-brand clearfix">
                     <div class="slide-brand" style="text-align: center">

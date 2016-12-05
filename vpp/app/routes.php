@@ -63,6 +63,7 @@ Route::group(array('prefix' => '', 'before' => ''), function()
     Route::get('home/getProductNew',array('as' => 'site.getProductNew','uses' =>'BaseSiteController@getProductNew'));
 
     Route::get('news',array('as' => 'site.news','uses' =>'BaseSiteController@news'));
+    Route::get('n{id}/{name}',array('as' => 'site.news_detail','uses' =>'BaseSiteController@detailNews'));
 
 
 
