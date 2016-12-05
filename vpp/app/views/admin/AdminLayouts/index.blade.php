@@ -209,7 +209,7 @@
                         <b class="arrow"></b>
                     </li>
                     <li class="@if(Route::currentRouteName() == 'admin.mngSite_getProductNew')active @endif">
-                        <a href="{{URL::route('admin.mngSite_group_category_view')}}">
+                        <a href="{{URL::route('admin.mngSite_getProductNew')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Set sản phẩm mới
                         </a>
@@ -217,7 +217,7 @@
                         <b class="arrow"></b>
                     </li>
                     <li class="@if(Route::currentRouteName() == 'admin.mngSite_getProductHot')active @endif">
-                        <a href="{{URL::route('admin.mngSite_group_category_view')}}">
+                        <a href="{{URL::route('admin.mngSite_getProductHot')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Set sản phẩm hot
                         </a>
@@ -225,7 +225,7 @@
                         <b class="arrow"></b>
                     </li>
                     <li class="@if(Route::currentRouteName() == 'admin.mngSite_tag_view')active @endif">
-                        <a href="{{URL::route('admin.mngSite_group_category_view')}}">
+                        <a href="{{URL::route('admin.mngSite_tag_view')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Từ khóa nổi bật
                         </a>
@@ -258,7 +258,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="@if(Route::currentRouteName() == 'admin.admin.news_view')active @endif">
+            <li class="@if(Route::currentRouteName() == 'admin.news_view' || Route::currentRouteName() == 'admin.news_tag_view')active @endif">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-newspaper-o"></i>
                     <span class="menu-text"> Quản trị tin tức</span>
@@ -267,7 +267,7 @@
                 </a>
                 <b class="arrow"></b>
                 <ul class="submenu  nav-show ">
-                    <li class="@if(Route::currentRouteName() == 'admin.news_view' || Route::currentRouteName() == 'admin.news_tag_view')active @endif">
+                    <li class="@if(Route::currentRouteName() == 'admin.news_view')active @endif">
                         <a href="{{URL::route('admin.news_view')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Bài viết
