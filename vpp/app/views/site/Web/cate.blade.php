@@ -112,6 +112,9 @@
                     </div>
                 </div>
             @endif
+            <div class="mt-30">
+                <div class="fb-page" data-href="https://www.facebook.com/vppthieuson" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/vppthieuson" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/vppthieuson">Văn phòng phẩm Thiều Sơn</a></blockquote></div>
+            </div>
         </div>
         <div class="cr make-right bg">
             <div class="container-list clearfix">

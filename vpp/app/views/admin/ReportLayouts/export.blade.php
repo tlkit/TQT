@@ -61,6 +61,9 @@
                     </div>
                     {{ Form::close() }}
                 </div>
+                <div class="text-right">
+                    {{$paging}}
+                </div>
                 @if(sizeof($data) > 0)
                     <table class="table table-bordered">
                         <thead class="thin-border-bottom">
@@ -88,6 +91,9 @@
                         @endforeach
                         </tbody>
                     </table>
+                    <div class="text-right">
+                        {{$paging}}
+                    </div>
                 @else
                     <div class="alert">
                         Không có dữ liệu

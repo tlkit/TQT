@@ -411,6 +411,7 @@ h6{font-size: 0.9231em}
     clear: both;
 }
 .fs-14{  font-size: 14px;  }
+.fs-16{  font-size: 16px;  }
 .fs-24{  font-size: 24px;  }
 
 .red{  color: red;  }
@@ -610,10 +611,11 @@ h6{font-size: 0.9231em}
 #header .menu-nav li.menu-nav-title:hover, #header .menu-nav li.menu-nav-title:active{
     background-color: #085b9a;
 }
-#header .menu-nav li.menu-nav-title a.nav-title{
+#header .menu-nav a.nav-title li.menu-nav-title, #header .menu-nav li.menu-nav-title {
     color: #fff;
     text-transform: uppercase;
     text-decoration: none;
+    cursor: pointer;
 }
 #header .search-cate{
     position: absolute;
@@ -704,6 +706,7 @@ li.has-sub .nav-content{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    text-transform: none;
 }
 li.parent-cate-title ul li{
     font-size: 12px;
@@ -1911,7 +1914,13 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     margin-top: 10px;
     margin-bottom: 10px;
 }
-.form-group input.txt:focus, .form-group input.txt.active, .form-group select:focus, .form-group select.active{
+.form-group textarea.txt{
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    color: #343434;
+    padding: 5px;
+}
+.form-group input.txt:focus, .form-group input.txt.active, .form-group select:focus, .form-group select.active, .form-group textarea.txt:focus, .form-group textarea.txt.active{
     border: 1px solid #22aadf;
     box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.15);
 }
@@ -2279,8 +2288,11 @@ background: transparent url("../image/logo.png") no-repeat;border: none;vertical
     .iPrev{ width: 6px; height: 10px; background-position: -80px -0px;}
     .iPrev2{ width: 13px; height: 23px; background-position: -210px -0px;}
     .iHome{ width: 22px; height: 17px; background-position: -223px -0px;}
+    .iHome3{ width: 22px; height: 17px; background-position: -64px -50px;}
     .iPhone{ width: 20px; height: 20px; background-position: -245px -0px;}
+    .iPhone2{ width: 20px; height: 20px; background-position: -89px -50px;}
     .iMail{ width: 20px; height: 16px; background-position: -265px -0px;}
+    .iMail2{ width: 20px; height: 16px; background-position: -109px -52px;}
     .iLi{ width: 7px; height: 7px; background-position: -285px -0px;}
     .iBay{ width: 21px; height: 20px; background-position: -292px -0px;}
     .iFacebook{ width: 14px; height: 25px; background-position: -313px -0px;}

@@ -41,23 +41,33 @@
                         <option value="1" @if(isset($param['page_status']) && $param['page_status'] == 1) selected @endif>Hiện</option>
                     </select>
                 </div>
+
                 <div class="clearfix"></div>
                 <div class="form-group col-sm-6">
+                    <label for="page_status"><i>Loại page</i></label>
+                    <select name="page_type" id="page_type" class="form-control input-sm">
+                        <option value="1" @if(isset($param['page_type']) && $param['page_type'] == 1) selected @endif>Chính sách</option>
+                        <option value="2" @if(isset($param['page_type']) && $param['page_type'] == 2) selected @endif>Hỗ trợ</option>
+                    </select>
+                </div>
+                {{--<div class="form-group col-sm-6">
                     <label for="page_is_head"><i>Hiển thị trên menu</i></label>
                     <select name="page_is_head" id="page_is_head" class="form-control input-sm">
                         <option value="0" @if(isset($param['page_is_head']) && $param['page_is_head'] == 0) selected @endif>Không</option>
                         <option value="1" @if(isset($param['page_is_head']) && $param['page_is_head'] == 1) selected @endif>Có</option>
                     </select>
-                </div>
+                </div>--}}
                 <div class="clearfix"></div>
-                    <div class="wysiwyg-editor" id="editor1" style="height: 550px;max-height: 550px;width: 1024px">
+                <div class="col-sm-12">
+                    <div class="wysiwyg-editor" id="editor1">
                         @if(isset($param['page_content']))
                             {{htmlspecialchars_decode($param['page_content'])}}
                         @endif
                     </div>
                     <input type="hidden" id="page_content" name="page_content" @if(isset($param['page_content'])) value="{{htmlspecialchars_decode($param['page_content'])}}" @endif>
+                </div>
                 <div class="clearfix space-6"></div>
-                <div class="form-group col-sm-12 text-right">
+                <div class="form-group col-sm-12 text-right" style="margin-top: 30px">
                     <button  class="btn btn-primary sys_save_page" type="button"><i class="glyphicon glyphicon-floppy-saved"></i> Lưu lại</button>
                 </div>
                 {{ Form::close() }}

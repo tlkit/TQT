@@ -735,7 +735,7 @@ class BaseSiteController extends BaseController
 
     public function page($id,$name){
         $page = Page::find($id);
-        $this->layout->content = View::make('site.SiteLayouts.page')->with('page',$page);
+        $this->layout->content = View::make('site.Web.page')->with('page',$page);
     }
 
     public function news(){
@@ -753,6 +753,15 @@ class BaseSiteController extends BaseController
         }
         $tag = NewsTag::getAllListTag();
         $this->layout->content = View::make('site.Web.news_detail')->with('new',$new)->with('re',$re)->with('tag',$tag);
+    }
+
+    public function companyInfo(){
+        $tag = NewsTag::getAllListTag();
+        $this->layout->content = View::make('site.Web.companyInfo')->with('tag',$tag);
+    }
+
+    public function contact(){
+        $this->layout->content = View::make('site.Web.contact');
     }
 
     public function buildCategoryTree(){

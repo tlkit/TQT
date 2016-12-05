@@ -100,6 +100,9 @@
                 </div>
             </div>
             @endif
+            <div class="mt-30">
+                <div class="fb-page" data-href="https://www.facebook.com/vppthieuson" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/vppthieuson" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/vppthieuson">Văn phòng phẩm Thiều Sơn</a></blockquote></div>
+            </div>
         </div>
         <div class="cr make-right mt-20">
             <div class="box-right clearfix">
@@ -263,23 +266,6 @@
             </div>
         </div>
         @endif
-        <div class="cr make-right mt-30">
-            <div class="box-right clearfix">
-                <div class="box-right-title">
-                    <div class="make-left">Thương hiệu</div>
-                </div>
-                <div class="box-brand clearfix">
-                    <div class="slide-brand" style="text-align: center">
-                        <div class="brand-img make-left"><img src="{{asset('assets/site/image/brand-1.png', false)}}" alt=""></div>
-                        <div class="brand-img make-left"><img src="{{asset('assets/site/image/brand-1.png', false)}}" alt=""></div>
-                        <div class="brand-img make-left"><img src="{{asset('assets/site/image/brand-1.png', false)}}" alt=""></div>
-                        <div class="brand-img make-left"><img src="{{asset('assets/site/image/brand-1.png', false)}}" alt=""></div>
-                        <div class="brand-img make-left"><img src="{{asset('assets/site/image/brand-1.png', false)}}" alt=""></div>
-                        <div class="brand-img make-left"><img src="{{asset('assets/site/image/brand-1.png', false)}}" alt=""></div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 {{ HTML::script('assets/site/js/home.js') }}

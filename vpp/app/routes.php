@@ -63,10 +63,9 @@ Route::group(array('prefix' => '', 'before' => ''), function()
     Route::get('home/getProductNew',array('as' => 'site.getProductNew','uses' =>'BaseSiteController@getProductNew'));
 
     Route::get('news',array('as' => 'site.news','uses' =>'BaseSiteController@news'));
-    Route::get('n{id}/{name}',array('as' => 'site.news_detail','uses' =>'BaseSiteController@detailNews'));
-
-
-
+    Route::get('n{id}/{name}.html',array('as' => 'site.news_detail','uses' =>'BaseSiteController@detailNews'));
+    Route::get('gioi-thieu.html',array('as' => 'site.companyInfo','uses' =>'BaseSiteController@companyInfo'));
+    Route::get('lien-he.html',array('as' => 'site.contact','uses' =>'BaseSiteController@contact'));
 
 });
 

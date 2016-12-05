@@ -172,7 +172,7 @@ class SiteManageController extends BaseAdminController
         $param['page_content'] = htmlspecialchars(Request::get('page_content',''));
         $param['page_name'] = htmlspecialchars(trim(Request::get('page_name','')));
         $param['page_status'] = (int)Request::get('page_status',0);
-        $param['page_is_head'] = (int)Request::get('page_is_head',0);
+        $param['page_type'] = (int)Request::get('page_type',0);
         $error = array();
         if($error){
             $this->layout->content = View::make('admin.SiteManageLayouts.addBanner')->with('id',$id)->with('param',$param)->with('error',$error);

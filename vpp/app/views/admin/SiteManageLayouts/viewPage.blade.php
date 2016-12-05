@@ -24,8 +24,9 @@
                         <tr class="">
                             <th class="center" width="5%">STT</th>
                             <th class="center" width="25%">Tiêu đề</th>
-                            <th class="center" width="35%">Link</th>
-                            <th class="center" width="20%">Trạng thái</th>
+                            <th class="center" width="25%">Link</th>
+                            <th class="center" width="15%">Loại page</th>
+                            <th class="center" width="15%">Trạng thái</th>
                             <th class="center" width="15%">Thao tác</th>
                         </tr>
                         </thead>
@@ -39,6 +40,13 @@
                                 </td>
                                 <td class="center">
                                     <a href="{{URL::route('site.page',array('id' => $item['page_id'],'name' => FunctionLib::safe_title($item['page_name'])))}}" target="_blank">{{URL::route('site.page',array('id' => $item['page_id'],'name' => FunctionLib::safe_title($item['page_name'])))}}</a>
+                                </td>
+                                <td class="center">
+                                    @if($item['page_type'] == 1)
+                                        Chính sách
+                                    @elseif($item['page_type'] == 2)
+                                        Hỗ trợ
+                                    @endif
                                 </td>
                                 <td class="center">
                                     @if($item['page_status'] == 1)

@@ -21,35 +21,43 @@ class ExportProduct extends Eloquent{
         return $this->belongsTo('Product', 'product_id');
     }
 
-    public static function reportExport($param){
+    public static function reportExport($param, $limit = 50, $offset = 0, &$total){
 
-        $tbl_product = with(new Product())->getTable();
-        $tbl_export_product = with(new ExportProduct())->getTable();
-        $query = ExportProduct::where('export_product_status',1);
-        $query->join($tbl_product,$tbl_export_product.'.product_id', '=', $tbl_product . '.product_id');
-        if ($param['customers_id'] > 0) {
-            $query->where($tbl_export_product . '.customers_id', $param['customers_id']);
+        try{
+            $tbl_product = with(new Product())->getTable();
+            $tbl_export_product = with(new ExportProduct())->getTable();
+            $query = ExportProduct::where('export_product_status',1);
+            $query->join($tbl_product,$tbl_export_product.'.product_id', '=', $tbl_product . '.product_id');
+            if ($param['customers_id'] > 0) {
+                $query->where($tbl_export_product . '.customers_id', $param['customers_id']);
+            }
+            if ($param['product_id'] > 0) {
+                $query->where($tbl_export_product . '.product_id', $param['product_id']);
+            }
+            if ($param['export_product_create_start'] > 0) {
+                $query->where($tbl_export_product . '.export_product_create_time', '>=', $param['export_product_create_start']);
+            }
+            if ($param['export_product_create_end'] > 0) {
+                $query->where($tbl_export_product . '.export_product_create_time', '<', $param['export_product_create_end']);
+            }
+            $field_table = array(
+                $tbl_export_product.'.export_product_create_time',
+                $tbl_export_product.'.export_product_num',
+                $tbl_export_product.'.export_product_price',
+                $tbl_export_product.'.customers_id',
+                $tbl_product.'.product_Code',
+                $tbl_product.'.product_Name',
+            );
+            $total = $query->count();
+            $query->orderBy($tbl_export_product . '.export_product_id', 'DESC');
+            $data = $query->take($limit)->skip($offset)->get($field_table);
+            return $data;
+        } catch (PDOException $e) {
+            //FunctionLib::debug($e->getMessage());
+            throw new PDOException();
+            return false;
         }
-        if ($param['product_id'] > 0) {
-            $query->where($tbl_export_product . '.product_id', $param['product_id']);
-        }
-        if ($param['export_product_create_start'] > 0) {
-            $query->where($tbl_export_product . '.export_product_create_time', '>=', $param['export_product_create_start']);
-        }
-        if ($param['export_product_create_end'] > 0) {
-            $query->where($tbl_export_product . '.export_product_create_time', '<', $param['export_product_create_end']);
-        }
-        $query->orderBy($tbl_export_product . '.export_product_id', 'DESC');
-        $field_table = array(
-            $tbl_export_product.'.export_product_create_time',
-            $tbl_export_product.'.export_product_num',
-            $tbl_export_product.'.export_product_price',
-            $tbl_export_product.'.customers_id',
-            $tbl_product.'.product_Code',
-            $tbl_product.'.product_Name',
-        );
-        $data = $query->get($field_table);
-        return $data;
+
     }
     public static function reportSaleList($export_ids){
         $tbl_product = with(new Product())->getTable();

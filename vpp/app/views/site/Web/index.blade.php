@@ -127,9 +127,9 @@
         </div>
         <div class="header-nav clearfix">
             <ul class="menu-nav rs">
-                <li class="menu-nav-title"><a class="nav-title" href="{{URL::route('site.home')}}">Trang chủ</a></li>
-                <li class="menu-nav-title has-sub">
-                    <a href="javascript:void(0)" class="nav-title">Sản phẩm</a>
+                <a class="nav-title" href="{{URL::route('site.home')}}"><li class="menu-nav-title">Trang chủ</li></a>
+                <li class="nav-title menu-nav-title has-sub">
+                    Sản phẩm
                     <i class="icon-down"></i>
                     <div class="sub-menu clearfix">
                         <div class="height-15 make-left">
@@ -160,11 +160,11 @@
                         </div>
                     </div>
                 </li>
-                <li class="menu-nav-title"><a class="nav-title" href="">Giới thiệu</a></li>
-                <li class="menu-nav-title"><a class="nav-title" href="">Tin tức</a></li>
-                <li class="menu-nav-title"><a class="nav-title" href="">Liên hệ</a></li>
+                <a class="nav-title" href="{{URL::route('site.companyInfo')}}"><li class="menu-nav-title">Giới thiệu</li></a>
+                <a class="nav-title" href="{{URL::route('site.news')}}"><li class="menu-nav-title">Tin tức</li></a>
+                <a class="nav-title" href="{{URL::route('site.contact')}}"><li class="menu-nav-title">Liên hệ</li></a>
             </ul>
-            <a href="" class="nav-download"><img src="{{asset('assets/site/image/btn-download.png', false)}}" alt="" class="img-cate"></a>
+            {{--<a href="" class="nav-download"><img src="{{asset('assets/site/image/btn-download.png', false)}}" alt="" class="img-cate"></a>--}}
         </div>
     </div>
     {{$content}}
@@ -244,6 +244,14 @@
     </div>
     <a style="display: none;" href="#" id="toTop"><span id="toTopHover"></span>To Top</a>
 </div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=777931142319139";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 <script type="text/javascript">
     $(document).ready(function() {
         $(".lbl-search").on('click', function (e) {

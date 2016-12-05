@@ -60,37 +60,8 @@
                     </div>
                 </div>
             @endif
-            <div class="box-left clearfix mt-30">
-                <div class="box-left-title">
-                    Từ khóa nổi bật
-                </div>
-                <div class="news-history clearfix">
-                    <div class="news-history-label clearfix">
-                        <span class="active">Tuần này</span>|<span>Tuần trước</span>
-                    </div>
-                    <div class="news-history-content clearfix">
-                        <div class="wrap-img">
-                            <a href=""><img src="{{asset('assets/site/image/tt-1.png', false)}}" alt=""></a>
-                        </div>
-                        <div class="news-history-title"><a href="">Simple Blog Post</a></div>
-                        <div class="news-history-info">
-                            <span><i class="icons iSCm"></i> 0 Bình luận</span>
-                            <span><i class="icons iSCa"></i> 25/11/2016</span>
-                        </div>
-                        <div class="news-history-des">Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
-                    </div>
-                    <div class="news-history-content clearfix">
-                        <div class="wrap-img">
-                            <a href=""><img src="{{asset('assets/site/image/tt-1.png', false)}}" alt=""></a>
-                        </div>
-                        <div class="news-history-title"><a href="">Simple Blog Post</a></div>
-                        <div class="news-history-info">
-                            <span><i class="icons iSCm"></i> 0 Bình luận</span>
-                            <span><i class="icons iSCa"></i> 25/11/2016</span>
-                        </div>
-                        <div class="news-history-des">Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
-                    </div>
-                </div>
+            <div class="mt-30">
+                <div class="fb-page" data-href="https://www.facebook.com/vppthieuson" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/vppthieuson" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/vppthieuson">Văn phòng phẩm Thiều Sơn</a></blockquote></div>
             </div>
         </div>
     </div>

@@ -14,7 +14,7 @@ class Page extends Eloquent
 
     protected $primaryKey = 'page_id';
 
-    protected $fillable = array('page_name','page_content','page_status','page_is_head');
+    protected $fillable = array('page_name', 'page_content', 'page_status', 'page_type', 'page_is_head');
 
     public static function add($id,$dataInput)
     {
