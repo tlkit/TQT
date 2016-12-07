@@ -19,6 +19,7 @@
     {{ HTML::script('assets/site/js/countdown/jquery.countdown-vi.js') }}
     {{ HTML::script('assets/js/jquery.cookie.js'); }}
     {{ HTML::script('assets/site/js/cart.js') }}
+    {{ HTML::script('assets/site/js/head.js') }}
 
 </head>
 <body>
@@ -150,7 +151,7 @@
                                         @endif
                                     </ul>
                                 </li>
-                                @if($i%4 == 0)
+                                @if($i%5 == 0)
                                     <div class="clearfix"></div>
                                 @endif
                                 <?php $i++?>
@@ -188,33 +189,35 @@
                 </ul>
                 <ul class="rs company-ext make-left">
                     <div class="footer-title">Chính sách</div>
-                    <li class="clearfix">
-                        <i class="icons iLi make-left"></i>
-                        <div class="make-left">Chính sách thanh toán</div>
-                    </li>
-                    <li class="clearfix">
-                        <i class="icons iLi make-left"></i>
-                        <div class="make-left">Chính sách thanh toán</div>
-                    </li>
-                    <li class="clearfix">
-                        <i class="icons iLi make-left"></i>
-                        <div class="make-left">Chính sách thanh toán</div>
-                    </li>
+                    @if($page_menu)
+                        @foreach($page_menu as $me)
+                            @if($me['page_status'] == 1 && $me['page_type'] == 1)
+                                <a href="{{URL::route('site.page',array('id' => $me['page_id'],'name' => FunctionLib::safe_title($me['page_name'])))}}">
+                                    <li class="clearfix">
+                                        <i class="icons iLi make-left"></i>
+
+                                        <div class="make-left">{{$me['page_name']}}</div>
+                                    </li>
+                                </a>
+                            @endif
+                        @endforeach
+                    @endif
                 </ul>
                 <ul class="rs company-ext make-left">
                     <div class="footer-title">Hỗ trợ</div>
-                    <li class="clearfix">
-                        <i class="icons iLi make-left"></i>
-                        <div class="make-left">Chính sách thanh toán</div>
-                    </li>
-                    <li class="clearfix">
-                        <i class="icons iLi make-left"></i>
-                        <div class="make-left">Chính sách thanh toán</div>
-                    </li>
-                    <li class="clearfix">
-                        <i class="icons iLi make-left"></i>
-                        <div class="make-left">Chính sách thanh toán</div>
-                    </li>
+                    @if($page_menu)
+                        @foreach($page_menu as $me)
+                            @if($me['page_status'] == 1 && $me['page_type'] == 2)
+                                <a href="{{URL::route('site.page',array('id' => $me['page_id'],'name' => FunctionLib::safe_title($me['page_name'])))}}">
+                                    <li class="clearfix">
+                                        <i class="icons iLi make-left"></i>
+
+                                        <div class="make-left">{{$me['page_name']}}</div>
+                                    </li>
+                                </a>
+                            @endif
+                        @endforeach
+                    @endif
                 </ul>
                 <div class="make-right footer-km">
                     <div class="footer-title">Nhận tin khuyến mại</div>
@@ -242,7 +245,7 @@
             </div>
         </div>
     </div>
-    <a style="display: none;" href="#" id="toTop"><span id="toTopHover"></span>To Top</a>
+    <a style="display: none;" href="#" id="toTop"><i class="icons iTop"></i></a>
 </div>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {

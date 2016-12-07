@@ -79,6 +79,12 @@ class Product extends Eloquent
             if (isset($dataSearch['product_Name']) && $dataSearch['product_Name'] != '') {
                 $query->where('product_Name', 'LIKE', '%' . $dataSearch['product_Name'] . '%');
             }
+            if (isset($dataSearch['product_id']) && sizeof($dataSearch['product_id']) > 0) {
+                $query->whereIn('product_id', $dataSearch['product_id']);
+            }
+            if (isset($dataSearch['product_Code']) && sizeof($dataSearch['product_Code']) > 0) {
+                $query->whereIn('product_Code', $dataSearch['product_Code']);
+            }
             if (isset($dataSearch['product_Category']) && $dataSearch['product_Category'] != 0) {
                 $query->where('product_Category', '=', $dataSearch['product_Category']);
             }

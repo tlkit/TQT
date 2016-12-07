@@ -16,11 +16,19 @@
                 <div class="panel panel-info">
                     {{ Form::open(array('method' => 'GET', 'role'=>'form')) }}
                     <div class="panel-body">
-                        <div class="form-group col-lg-3">
+                        <div class="form-group col-sm-3">
                             <label for="providers_Name"><i>Tên sản phẩm</i></label>
                             <input type="text" class="form-control input-sm" id="product_Name" name="product_Name"  placeholder="Tên sản phẩm" @if(isset($search['product_Name']) && $search['product_Name'] != '')value="{{$search['product_Name']}}"@endif>
                         </div>
-                        <div class="form-group col-lg-3">
+                        <div class="form-group col-sm-3">
+                            <label for="providers_Name"><i>ID sản phẩm</i></label>
+                            <input type="text" class="form-control input-sm" id="product_id" name="product_id"  placeholder="id sản phẩm" @if(isset($search['product_id']) && $search['product_id'] != '')value="{{$search['product_id']}}"@endif>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="providers_Name"><i>Mã sản phẩm</i></label>
+                            <input type="text" class="form-control input-sm" id="product_Code" name="product_Code"  placeholder="mã sản phẩm" @if(isset($search['product_Code']) && $search['product_Code'] != '')value="{{$search['product_Code']}}"@endif>
+                        </div>
+                        <div class="form-group col-sm-3">
                             <label for="providers_Phone"><i>Danh mục sản phẩm</i></label>
                             <select name="product_Category" id="product_Category" class="form-control input-sm">
                                 <option value="0">--- Chọn danh mục ---</option>
@@ -53,6 +61,7 @@
                         <thead class="thin-border-bottom">
                         <tr class="">
                             <th width="5%" class="text-center">STT</th>
+                            <th width="5%" class="text-center">ID</th>
                             <th width="40%">Tên sản phẩm</th>
                             <th width="30%">Thuộc danh mục</th>
                             <th width="5%" class="text-center">SL</th>
@@ -64,7 +73,8 @@
                         @foreach ($data as $key => $item)
                             <tr>
                                 <td class="text-center">{{ $stt + $key+1 }}</td>
-                                <td>{{ $item['product_Name'] }}</td>
+                                <td>{{ $item['product_id'] }}</td>
+                                <td>[{{ $item['product_Code'] }}]{{ $item['product_Name'] }}</td>
                                 <td>@if(isset($arrCategory[$item['product_Category']])) {{$arrCategory[$item['product_Category']]}}@else --- @endif</td>
                                 <td class="text-center">{{ $item['product_Quantity'] }}</td>
                                 <td class="text-right">{{number_format($item['product_Price'],0,'.','.')}} đ</td>

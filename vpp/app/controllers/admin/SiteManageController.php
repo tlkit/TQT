@@ -397,9 +397,9 @@ class SiteManageController extends BaseAdminController
                 $error[] = 'Ảnh  không hợp lệ';
             }
         }else{
-            if($id == 0){
+/*            if($id == 0){
                 $error[] = 'Chưa nhập file ảnh';
-            }
+            }*/
         }
         if($error){
             $this->layout->content = View::make('admin.SiteManageLayouts.addTag')->with('id',$id)->with('param',$param)->with('error',$error);

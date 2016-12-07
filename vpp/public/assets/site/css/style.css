@@ -492,6 +492,15 @@ h6{font-size: 0.9231em}
     border-bottom: 2px solid #0f6cb2;
     background-color: #fff;
 }
+#header.fixtop{
+    height: 52px;
+    position: fixed;
+    top: 0px;
+    z-index: 5;
+}
+#header.fixtop .header-top, #header.fixtop .header-mid{
+    display: none;
+}
 .header-top{
     height: 43px;
     margin: 0 auto;
@@ -644,6 +653,17 @@ h6{font-size: 0.9231em}
 #header .search-cate .search-item.active{
     background-color: #108bea;
     color: #fff;
+}
+#toTop{
+    padding: 15px;
+    background-color: #cdcdcd;
+    position: fixed;
+    right: 20px;
+    top: 300px;
+    border-radius: 3px;
+}
+#toTop:hover, #toTop.active{
+    background-color: #108bea;
 }
 li.has-sub .sub-menu{
     width: 1170px;
@@ -855,6 +875,9 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     line-height: 50px;
     text-transform: uppercase;
     border-bottom: 1px solid #d9d9d9;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .box-right .box-right-title{
     font-size: 16px;
@@ -2323,3 +2346,4 @@ background: transparent url("../image/logo.png") no-repeat;border: none;vertical
     .iTrack{ width: 16px; height: 18px; background-position: -452px -25px;}
     .iRightC{ width: 20px; height: 14px; background-position: -21px -52px;}
     .iHome2{ width: 16px; height: 14px; background-position: -47px -52px;}
+    .iTop{ width: 19px; height: 12px; background-position: -133px -52px;}

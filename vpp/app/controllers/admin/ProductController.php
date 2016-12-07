@@ -53,9 +53,14 @@ class ProductController extends BaseAdminController
         $search = $data = array();
         $total = 0;
         $search['product_Name'] = Request::get('product_Name', '');
+        $search['product_id'] = Request::get('product_id', '');
+        $search['product_Code'] = Request::get('product_Code', '');
         $search['product_Category'] = Request::get('product_Category', 0);
+        $param = $search;
+        $param['product_id'] = ($param['product_id'] != '') ? explode(',',$param['product_id']) : array();
+        $param['product_Code'] = ($param['product_Code'] != '') ? explode(',',$param['product_Code']) : array();
 
-        $dataSearch = Product::searchByCondition($search, $limit, $offset, $total);
+        $dataSearch = Product::searchByCondition($param, $limit, $offset, $total);
         $paging = $total > 0 ? Pagging::getNewPager(3, $pageNo, $total, $limit, $search) : '';
 
         //echo '<pre>';  print_r($dataSearch); echo '</pre>'; die;

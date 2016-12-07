@@ -248,8 +248,8 @@
                     <div class="make-left">Tin tức</div>
                     <div class="make-right"><a href="{{URL::route('site.news')}}" class="new-all">Xem tất cả ></a></div>
                 </div>
-                @foreach($news as $new)
                 <div class="box-news">
+                @foreach($news as $new)
                     <div class="box-news-content make-left">
                         <div class="img-news">
                             <a href="{{URL::route('site.news_detail',array('id' => $new['news_id'],'name'=>FunctionLib::safe_title($new['news_title'])))}}"><img src="{{Croppa::url(Constant::dir_news.$new['news_image'], 393)}}" alt=""></a>
@@ -261,8 +261,8 @@
                             <a href="{{URL::route('site.news_detail',array('id' => $new['news_id'],'name'=>FunctionLib::safe_title($new['news_title'])))}}">Xem thêm <i class="icons iNextz"></i></a>
                         </div>
                     </div>
-                </div>
                 @endforeach
+                </div>
             </div>
         </div>
         @endif

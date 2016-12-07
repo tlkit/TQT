@@ -12,8 +12,8 @@ $(document).ready(function() {
     });
     $(".slide-cate").slick({
         infinite: true,
-        slidesToShow: 4,
-        slidesToScroll: 4,
+        slidesToShow: 3,
+        slidesToScroll: 1,
         variableWidth:true,
         prevArrow : '<div class="cate-prev"><i class="icons iPrev"></i></div>',
         nextArrow : '<div class="cate-next"><i class="icons iNext"></i></div>'
