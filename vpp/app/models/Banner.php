@@ -14,7 +14,7 @@ class Banner extends Eloquent
 
     protected $primaryKey = 'banner_id';
 
-    protected $fillable = array('banner_name','banner_image','banner_url','banner_start_time','banner_end_time');
+    protected $fillable = array('banner_name','banner_image','banner_url','banner_type','banner_start_time','banner_end_time');
 
     public static function add($id,$dataInput)
     {

@@ -30,6 +30,7 @@ Route::group(array('prefix' => '', 'before' => ''), function()
     Route::get('t{id}/{name}.html',array('as' => 'site.tag','uses' =>'BaseSiteController@tag'))->where('id', '[0-9]+');
     Route::get('s{id}/{name}.html',array('as' => 'site.page','uses' =>'BaseSiteController@page'))->where('id', '[0-9]+');
     Route::get('tim-kiem.html',array('as' => 'site.search','uses' =>'BaseSiteController@search'))->where('id', '[0-9]+');
+    Route::get('download',array('as' => 'site.download','uses' =>'BaseSiteController@download'));
 
 
     Route::get('dang-ky.html',array('as' => 'site.register','uses' =>'BaseSiteController@register'));
@@ -245,6 +246,9 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function()
     Route::get('manage_site/banner/view',array('as' => 'admin.mngSite_banner_view','uses' => 'SiteManageController@viewBanner'));
     Route::get('manage_site/banner/add/{id?}',array('as' => 'admin.mngSite_banner_add','uses' => 'SiteManageController@getAddBanner'))->where('id', '[0-9]+');
     Route::post('manage_site/banner/add/{id?}',array('as' => 'admin.mngSite_banner_add','uses' => 'SiteManageController@postAddBanner'))->where('id', '[0-9]+');
+
+    Route::get('manage_site/price_list',array('as' => 'admin.mngSite_price_list','uses' => 'SiteManageController@addPriceList'));
+    Route::post('manage_site/price_list',array('as' => 'admin.mngSite_price_list','uses' => 'SiteManageController@postAddPriceList'));
 
     Route::get('manage_site/group_category/view',array('as' => 'admin.mngSite_group_category_view','uses' => 'SiteManageController@viewGroupCategory'));
     Route::get('manage_site/group_category/add/{id?}',array('as' => 'admin.mngSite_group_category_add','uses' => 'SiteManageController@getAddGroupCategory'))->where('id', '[0-9]+');

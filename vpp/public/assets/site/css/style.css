@@ -659,7 +659,7 @@ h6{font-size: 0.9231em}
     background-color: #cdcdcd;
     position: fixed;
     right: 20px;
-    top: 300px;
+    bottom: 100px;
     border-radius: 3px;
 }
 #toTop:hover, #toTop.active{
@@ -680,10 +680,21 @@ li.has-sub .icon-down{
     display: none;
     width: 20px;
     height: 10px;
+    -webkit-transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    -ms-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    transition-delay: 0s;
+}
+li.has-sub:hover{
+    transition: .50s all;
+    transition-delay: 5s;
 }
 li.has-sub:hover .sub-menu{
     display: block;
     z-index: 3;
+    transition: .50s all;
+    transition-delay: 5s;
 }
 .user-login-info .icon-down2{
     background: transparent url("../image/down2.png") no-repeat scroll 0 0;
@@ -715,7 +726,7 @@ li.has-sub .nav-content{
     width: 100%;
     overflow: hidden;
     display: inline-block;
-    background: url("../image/img-nav.png") no-repeat right bottom;
+    background: url("../image/img-nav2.png") no-repeat right 80px bottom;
 }
 #header ul.parent-cate li.parent-cate-title{
     width: 20%;
@@ -775,14 +786,15 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
 }
 #banner .banner-home-prev, #banner-event .banner-home-prev{
     width: 30px;
-    height: 50px;
-    background: rgba(0, 0, 0, 0.05) none repeat scroll 0 0;
+    height: 30px;
+    background: rgba(15, 108, 178, 0.3) none repeat scroll 0 0;
     top: 158px;
     left: 16px;
     position: absolute;
-    border-radius: 2px;
+    border-radius: 50%;
     text-align: center;
-    padding-top: 16px;
+    line-height: 30px;
+    /*padding-top: 16px;*/
     cursor: pointer;
     z-index: 1;
 }
@@ -794,14 +806,14 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
 }
 #banner .banner-home-next, #banner-event .banner-home-next{
     width: 30px;
-    height: 50px;
-    background:rgba(0, 0, 0, 0.05) none repeat scroll 0 0;
+    height: 30px;
+    background:rgba(15, 108, 178, 0.3) none repeat scroll 0 0;
     top: 158px;
     right: 16px;
     position: absolute;
-    border-radius: 2px;
+    border-radius: 50%;
     text-align: center;
-    padding-top: 16px;
+    line-height: 30px;
     cursor: pointer;
     z-index: 1;
 }
@@ -1046,7 +1058,7 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     text-decoration: none;
 }
 .dx-des{
-    max-width: 148px;
+    max-width: 144px;
 }
 .dx-title a{
     text-decoration: none;
@@ -1242,6 +1254,30 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     z-index: 1;
     text-align: center;
 }
+.product-prev-1{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: rgba(15, 108, 178, 0.3) none repeat scroll 0 0;
+    border-radius: 50%;
+    line-height: 30px;
+    z-index: 1;
+    text-align: center;
+    top: 100px;
+    left: 0;
+}
+.product-next-1{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: rgba(15, 108, 178, 0.3) none repeat scroll 0 0;
+    border-radius: 50%;
+    line-height: 30px;
+    z-index: 1;
+    text-align: center;
+    top: 100px;
+    right: 0;
+}
 .product-next{
     position: absolute;
     right: 5px;
@@ -1252,7 +1288,7 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     z-index: 1;
     text-align: center;
 }
-.product-prev:hover, .product-next:hover{
+.product-prev:hover, .product-next:hover, .product-prev-1:hover, .product-next-1:hover{
     background-color: #0f6cb2;
 }
 .box-product-hot .product-column{
@@ -1541,6 +1577,7 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     appearance: none;
     color: #494949;
     position: relative;
+    line-height: 23px;
 }
 .pagination ul li{
     display: inline-block;
@@ -2238,7 +2275,7 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     margin-bottom: 10px;
 }
 /* end countdown*/
-.wrap-icon{
+.wrap-icons{
     background: url("../image/icon-cart.png") no-repeat top left;
     width: 174px;
     height: 147px;
@@ -2289,8 +2326,120 @@ li.parent-cate-title ul li a:hover , li.parent-cate-title ul li a:active{
     font-size: 16px;
     text-decoration: none;
 }
+.slide-deal-km .slick-dots{
+    list-style: none;
+    margin-top: 0px !important;
+    padding-left: 0px !important;
+    text-align: center;
+}
+.slide-deal-km .slick-dots li{
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border: 1px  solid #d9d9d9;
+    border-radius: 50%;
+    margin: 0px 3px;
+}
+.slide-deal-km .slick-dots li.slick-active{
+    border: none;
+    background: #108bea;
+}
+.slide-deal-km .slick-dots li button{
+    display: none;
+}
 .iLogo{
 background: transparent url("../image/logo.png") no-repeat;border: none;vertical-align:middle; font-size: 0;line-height:0;display: inline-block;*display: inline;*zoom: 1;height: 66px;width: 204px;
+}
+.icon{border: none;vertical-align:middle; font-size: 0;line-height:0;display: inline-block;*display: inline;*zoom: 1;}
+.iCall {background: url("../image/call.png") no-repeat;width: 23px;height: 23px;margin-right: 8px;vertical-align: -2px;}
+.iEmail {background: url("../image/email.png") no-repeat;width: 22px;height: 17px;margin-right: -1px;/* margin-left: 0px; */}
+
+.fix-wrap {
+    width: 100%;
+    left: 0;
+    right: 0;
+    position: fixed;
+    bottom: 0;
+    background: rgba(54,54,54,.85);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    height: 78px;
+    z-index: 4;
+}
+.fix-wrap > .container{
+    position: relative;
+    width: 1170px;
+    margin: 0 auto;
+}
+.fix__title {
+    font-size: 16px;
+    color: #fff;
+    display: inline-block;
+    text-transform: uppercase;
+    padding: 11px 0 8px 33px;
+}
+.fix-wrap .baogia {
+    position: absolute;
+    left: 0;
+    top: 14px;
+}
+.fix-wrap .message {
+    position: absolute;
+    width: 62px;
+    height: 62px;
+    background: url("../image/mes.png")  no-repeat center center;
+    display: block;
+    top: 9px;
+    right: -12px;
+    line-height: 62px;
+}
+.fix-wrap .message__count {
+    background: #ff0000;
+    width: 17px;
+    height: 17px;
+    line-height: 17px;
+    text-align: center;
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    color: #fff;
+    font-size: 12px;
+}
+.fix-wrap .message__txt {
+    position: absolute;
+    width: 222px;
+    left: -184px;
+    top: 3px;
+    color: #fff;
+    font-size: 16px;
+}
+.fix__contact {
+    line-height: 27px;
+    position: relative;
+}
+.fix__phone, .fix__email {
+    display: inline-block;
+    position: absolute;
+}
+.fix__phone {
+    left: 195px;
+    top: 2px;
+}
+.fix__email {
+    right: 201px;
+    color: #fff;
+    font-size: 16px;
+    top: -1px;
+}
+.fix__phone__txt, .fix__email__txt {
+    color: #00aeff;
+    font-size: 26px;
+    font-weight: bold;
+}
+.fix__email__txt {
+    padding-left: 12px;
 }
 .icons{background: transparent url("../image/icon.png") no-repeat;border: none;vertical-align:middle; font-size: 0;line-height:0;display: inline-block;*display: inline;*zoom: 1;}
     .iDown{ width: 13px; height: 7px; background-position: -0px -0px;}
@@ -2307,9 +2456,11 @@ background: transparent url("../image/logo.png") no-repeat;border: none;vertical
     .iRate.checked{ width: 14px; height: 13px; background-position: -0px -52px;}
     .iNext{ width: 6px; height: 10px; background-position: -86px -0px;}
     .iNext2{ width: 13px; height: 23px; background-position: -99px -27px;}
+    .iNext3{ width: 8px; height: 14px; background-position: -163px -50px;}
     .iNextz{ width: 6px; height: 10px; background-position: -86px -0px;}
     .iPrev{ width: 6px; height: 10px; background-position: -80px -0px;}
     .iPrev2{ width: 13px; height: 23px; background-position: -210px -0px;}
+    .iPrev3{ width: 8px; height: 14px; background-position: -154px -50px;}
     .iHome{ width: 22px; height: 17px; background-position: -223px -0px;}
     .iHome3{ width: 22px; height: 17px; background-position: -64px -50px;}
     .iPhone{ width: 20px; height: 20px; background-position: -245px -0px;}

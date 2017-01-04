@@ -7,7 +7,7 @@
     <!-- base href="http://www.homenoffice.sg/" -->
     <meta name="description" content="Thiều Sơn Company chuyên bán buôn bán lẻ các sản phẩm văn phòng phẩm">
     <meta name="keywords" content="Thiều Sơn, văn phòng phẩm, bán buôn">
-    <link href="http://www.homenoffice.sg/image/data/cart.png" rel="icon">
+    <link rel="icon" type="image/png" href="{{asset('assets/site/image/favicon.png')}}" />
     <link href="{{URL::current()}}" rel="canonical">
 
     {{ HTML::style('assets/site/css/slick.css') }}
@@ -20,6 +20,18 @@
     {{ HTML::script('assets/js/jquery.cookie.js'); }}
     {{ HTML::script('assets/site/js/cart.js') }}
     {{ HTML::script('assets/site/js/head.js') }}
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-89058527-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
 
 </head>
 <body>
@@ -165,7 +177,7 @@
                 <a class="nav-title" href="{{URL::route('site.news')}}"><li class="menu-nav-title">Tin tức</li></a>
                 <a class="nav-title" href="{{URL::route('site.contact')}}"><li class="menu-nav-title">Liên hệ</li></a>
             </ul>
-            {{--<a href="" class="nav-download"><img src="{{asset('assets/site/image/btn-download.png', false)}}" alt="" class="img-cate"></a>--}}
+            <a href="{{URL::route('site.download')}}" class="nav-download"><img src="{{asset('assets/site/image/btn-download.png', false)}}" alt="" class="img-cate"></a>
         </div>
     </div>
     {{$content}}
@@ -245,7 +257,21 @@
             </div>
         </div>
     </div>
-    <a style="display: none;" href="#" id="toTop"><i class="icons iTop"></i></a>
+    <div class="fix-wrap">
+        <div class="container">
+            <a href="{{URL::route('site.download')}}" class="baogia"><img src="{{asset('assets/site/image/download.png')}}" alt="báo giá"></a>
+            <div class="fix__title">Quý khách gọi hàng hoặc liên hệ dịch vụ vui lòng liên lạc</div>
+            <div class="fix__contact">
+                <div class="fix__phone"><i class="icon iCall"></i><span class="fix__phone__txt">04 6657 2888 / 04 6686 0415</span></div>
+                <div class="fix__email">Hoặc email: <i class="icon iEmail"></i><span class="fix__email__txt">vpp@banbuonvpp.vn</span></div>
+            </div>
+{{--            <a href="#" class="message">
+                <span class="message__txt">Hỗ trợ trực tuyến:</span>
+                <span class="message__count">1</span>
+            </a>--}}
+        </div>
+    </div>
+    <a style="display: none;" href="javascript:void(0)" id="toTop"><i class="icons iTop"></i></a>
 </div>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -318,6 +344,17 @@
                 window.location.href = '/tim-kiem.html?q=' + key + '&g=' + g;
             }
         })
+        <!--Start of Tawk.to Script-->
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/585cad32ddb8373fd2b23b5c/default';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+        <!--End of Tawk.to Script-->
     });
 </script>
 </body>

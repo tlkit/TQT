@@ -3,12 +3,18 @@
  */
 $(document).ready(function() {
     $("#banner").slick({
-        prevArrow : '<div class="banner-home-prev"><i class="icons icon-banner-home-prev"></i></div>',
-        nextArrow : '<div class="banner-home-next"><i class="icons icon-banner-home-next"></i></div>'
+        autoplay: true,
+        autoplaySpeed: 5000,
+        prevArrow : '<div class="banner-home-prev"><i class="icons iPrev3"></i></div>',
+        nextArrow : '<div class="banner-home-next"><i class="icons iNext3"></i></div>'
     });
     $(".slide-deal-km").slick({
-        prevArrow : '<div class="deal-prev"><i class="icons iPrev"></i></div>',
-        nextArrow : '<div class="deal-next"><i class="icons iNext"></i></div>'
+        autoplay: true,
+        autoplaySpeed: 5000,
+        dots: true,
+        arrows : false,
+        /*prevArrow : '<div class="deal-prev"><i class="icons iPrev"></i></div>',
+        nextArrow : '<div class="deal-next"><i class="icons iNext"></i></div>'*/
     });
     $(".slide-cate").slick({
         infinite: true,
@@ -23,15 +29,15 @@ $(document).ready(function() {
         infinite: true,
         slidesToShow: 3,
         slidesToScroll: 3,
-        prevArrow : '<div class="product-prev"><i class="icons iPrev"></i></div>',
-        nextArrow : '<div class="product-next"><i class="icons iNext"></i></div>'
+        prevArrow : '<div class="product-prev-1"><i class="icons iPrev3"></i></div>',
+        nextArrow : '<div class="product-next-1"><i class="icons iNext3"></i></div>'
     });
     $(".slide-hott").slick({
         infinite: true,
         slidesToShow: 3,
         slidesToScroll: 3,
-        prevArrow : '<div class="product-prev"><i class="icons iPrev"></i></div>',
-        nextArrow : '<div class="product-next"><i class="icons iNext"></i></div>'
+        prevArrow : '<div class="product-prev-1"><i class="icons iPrev3"></i></div>',
+        nextArrow : '<div class="product-next-1"><i class="icons iNext3"></i></div>'
     });
     $(".slide-brand").slick({
         slidesToShow: 4,

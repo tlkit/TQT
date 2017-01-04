@@ -163,7 +163,7 @@
             </div>
             <div class="box-payment make-right">
                 <div class="form-group ml-60 mt-20 clearfix">
-                    <input type="checkbox" name="is_vat" id="is_vat" @if($vat == 1) checked @endif>
+                    <input type="checkbox" name="is_vat" id="is_vat" @if($vat == 1) checked @endif value="1">
                     <label for="is_vat">Xuất hóa đơn GTGT</label>
                 </div>
                 <?php $temp = ($vat == 1) ?  ceil($sub_total/10) : 0 ?>
@@ -185,7 +185,7 @@
             {{Form::close()}}
             @else
                 <div class="box-nocart">
-                    <div class="wrap-icon make-left"></div>
+                    <div class="wrap-icons make-left"></div>
                     <div class="nocart-content make-left">
                         <div class="no-cart-title">Giỏ hàng của bạn hiện đang trống</div>
                         <div class="no-cart-des">Hãy nhanh tay mua sắm để sở hữu những sản phẩm chất lượng nhất!</div>

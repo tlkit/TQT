@@ -12,6 +12,7 @@ class Constant
     const dir_news = 'uploads/news/';
     const dir_group_category = 'uploads/groupcategory/';
     const dir_product = 'uploads/product/';
+    const dir_price = 'uploads/price/';
 
     public static $sort = array(
         'new' => array(

@@ -23,10 +23,11 @@
                         <thead class="thin-border-bottom">
                         <tr class="">
                             <th class="center" width="5%">STT</th>
-                            <th class="center" width="30%">Banner</th>
+                            <th class="center" width="25%">Banner</th>
+                            <th class="center" width="10%">Loại</th>
                             <th class="center" width="30%">Ảnh</th>
                             <th class="center" width="20%">Thời gian chạy</th>
-                            <th class="center" width="15%">Thao tác</th>
+                            <th class="center" width="10%">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -37,6 +38,13 @@
                                     [{{$item['banner_id']}}] {{$item['banner_name']}}
                                     <br>
                                     <i style="font-size: 11px">{{$item['banner_url']}}</i>
+                                </td>
+                                <td class="center">
+                                    @if($item['banner_type'] == 1)
+                                        Banner to
+                                    @else
+                                        Banner nhỏ
+                                    @endif
                                 </td>
                                 <td class="center">
                                     <img src="{{Croppa::url(Constant::dir_banner.$item['banner_image'], 300, 120)}}" alt="{{$item['banner_name']}}">

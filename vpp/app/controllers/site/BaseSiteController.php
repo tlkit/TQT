@@ -510,7 +510,7 @@ class BaseSiteController extends BaseController
         $param['customers_phone'] = htmlspecialchars(trim(Request::get('customers_phone', '')));
         $param['customers_address'] = htmlspecialchars(trim(Request::get('customers_address', '')));
         $param['customers_note'] = htmlspecialchars(trim(Request::get('customers_note', '')));
-        $vat = (int)Request::get('customers_IsNeededVAT',1);
+        $vat = (int)Request::get('is_vat',1);
         $error = array();
         $dataOrder = $dataOrderItem = array();
         if($this->customer){
@@ -762,6 +762,29 @@ class BaseSiteController extends BaseController
 
     public function contact(){
         $this->layout->content = View::make('site.Web.contact');
+    }
+
+    public function download()
+    {
+        //PDF file is stored under project/public/download/info.pdf
+
+        if (!File::exists(public_path(Constant::dir_price))) {
+            return Redirect::back();
+        }
+        $files = File::allFiles(public_path(Constant::dir_price));
+        $file = isset($files[0]) ? $files[0] : array();
+        if ($file) {
+            $file = pathinfo($file);
+            $name = $file['basename'];
+            $headers = array(
+                'Content-Type: application/octet-stream',
+            );
+            $path = public_path(Constant::dir_price) . '/' . $file['basename'];
+            return Response::download($path, $name, $headers);
+        } else {
+            return Redirect::back();
+        }
+
     }
 
     public function buildCategoryTree(){

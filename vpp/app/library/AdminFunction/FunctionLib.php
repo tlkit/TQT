@@ -14,6 +14,14 @@ class FunctionLib {
         'jpeg'
     );
 
+    public static $array_allow_file = array(
+        'xls',
+        'xlsx',
+        'doc',
+        'docx',
+        'pdf'
+    );
+
     public static $size_image_max = 1048576;
 
     public  static function numberToWord($s, $lang = 'vi') {

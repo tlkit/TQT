@@ -30,6 +30,7 @@ class SiteManageController extends BaseAdminController
     public function postAddBanner($id = 0){
         $param['banner_name'] = htmlspecialchars(trim(Request::get('banner_name','')));
         $param['banner_url'] = htmlspecialchars(trim(Request::get('banner_url','')));
+        $param['banner_type'] = (int)Request::get('banner_type',1);
         $param['banner_start_time'] = htmlspecialchars(trim(Request::get('banner_start_time','')));
         $param['banner_end_time'] = htmlspecialchars(trim(Request::get('banner_end_time','')));
         $error = $file = array();
@@ -50,6 +51,7 @@ class SiteManageController extends BaseAdminController
         }else{
             $dataSave['banner_name'] = $param['banner_name'];
             $dataSave['banner_url'] = $param['banner_url'];
+            $dataSave['banner_type'] = $param['banner_type'];
             $dataSave['banner_start_time'] = ($param['banner_start_time'] != '') ? strtotime($param['banner_start_time']) : 0;
             $dataSave['banner_end_time'] = ($param['banner_end_time'] != '') ? strtotime($param['banner_end_time']) : 0;
             if ($file) {
@@ -65,6 +67,33 @@ class SiteManageController extends BaseAdminController
         }
     }
 
+    public function addPriceList(){
+        $this->layout->content = View::make('admin.SiteManageLayouts.addPriceList');
+    }
+
+    public function postAddPriceList(){
+        $error = $file = array();
+        if ( Input::hasFile('price_list')) {
+            $file = Input::file('price_list');
+            $extension = $file->getClientOriginalExtension();
+            $size = $file->getSize();
+            if(!in_array($extension,FunctionLib::$array_allow_file)){
+                $error[] = 'File không hợp lệ';
+            }
+        }else{
+            $error[] = 'Chưa nhập file';
+        }
+        if($error){
+            $this->layout->content = View::make('admin.SiteManageLayouts.addPriceList')->with('error',$error);
+        }else{
+            File::deleteDirectory(public_path(Constant::dir_price));
+            if ($file) {
+                $name = 'bang-bao-gia-vpp.'.$extension;
+                $file->move(Constant::dir_price, $name);
+            }
+            echo 'done';die;
+        }
+    }
     public function viewGroupCategory(){
         $data = GroupCategory::all();
         $category = Categories::lists('categories_Name','categories_id');

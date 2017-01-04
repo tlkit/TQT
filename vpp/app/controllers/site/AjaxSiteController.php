@@ -63,7 +63,7 @@ class AjaxSiteController extends BaseController
             }
             Session::put('cart', $cart);
             $data['success'] = 1;
-            $data['price'] = $cart[$product_id]['product_price_buy'];
+            $data['price'] = (int)$cart[$product_id]['product_price_buy'];
             $data['price_item'] = $cart[$product_id]['product_num'] * $cart[$product_id]['product_price_buy'];
             $total = 0;
             foreach($cart as $k => $v){

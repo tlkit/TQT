@@ -244,7 +244,9 @@ class Product extends Eloquent
                     ->orWhere('product_CategoryName', 'LIKE', '%' . $keyword . '%')
                     ->orWhere('product_Description', 'LIKE', '%' . $keyword . '%');
             });
-            $query->whereIn('product_Category', $cate_id);
+            if(sizeof($cate_id) > 0){
+                $query->whereIn('product_Category', $cate_id);
+            }
             $total = $query->count();
             if ($orderBy != '') {
                 $query->orderBy($orderBy, $type);

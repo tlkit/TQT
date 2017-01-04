@@ -11,7 +11,7 @@
         </div>
         <div class="cl make-left">
             @if($productHot)
-                <div class="box-left clearfix mt-30">
+                <div class="box-left clearfix">
                     <div class="box-left-title">
                         Sản phẩm hot
                     </div>
@@ -109,6 +109,7 @@
                 </div>
             </div>
         </div>
+        @if($product['product_Description'] != '')
         <div class="cr make-right mt-30">
             <div class="box-right clearfix">
                 <div class="tab-pane make-left">
@@ -132,6 +133,7 @@
                 </div>
             </div>
         </div>
+        @endif
         @if($productRelate)
         <div class="cr make-right mt-30">
             <div class="box-right clearfix">
@@ -210,8 +212,8 @@
             infinite: true,
             slidesToShow: 4,
             slidesToScroll: 4,
-            prevArrow : '<div class="product-prev"><i class="icons iPrev"></i></div>',
-            nextArrow : '<div class="product-next"><i class="icons iNext"></i></div>'
+            prevArrow : '<div class="product-prev-1"><i class="icons iPrev3"></i></div>',
+            nextArrow : '<div class="product-next-1"><i class="icons iNext3"></i></div>'
         });
         $(".slide-hot").slick({
             //rows:3,

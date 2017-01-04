@@ -3,9 +3,11 @@
         @if($banner)
             <div id="banner" class="mt-20 make-left clearfix">
                 @foreach($banner as $ban)
-                    <a href="{{$ban['banner_url']}}">
-                        <img src="{{Croppa::url(Constant::dir_banner.$ban['banner_image'], 1170, 367)}}" alt="{{$ban['banner_name']}}">
-                    </a>
+                    @if($ban['banner_type'] == 1)
+                        <a href="{{$ban['banner_url']}}">
+                            <img src="{{Croppa::url(Constant::dir_banner.$ban['banner_image'], 1170, 367)}}" alt="{{$ban['banner_name']}}">
+                        </a>
+                    @endif
                 @endforeach
             </div>
         @endif
@@ -238,9 +240,17 @@
             </div>
         </div>
         @endif
-        <div class="cr make-right clearfix mt-30" align="center">
-            <img src="{{asset('assets/site/image/banner-2.png', false)}}" alt="">
-        </div>
+        @if($banner)
+            @foreach($banner as $ban)
+                @if($ban['banner_type'] == 2)
+                    <div class="cr make-right clearfix mt-30" align="center">
+                        <a href="{{$ban['banner_url']}}">
+                            <img src="{{Croppa::url(Constant::dir_banner.$ban['banner_image'], 870)}}" alt="{{$ban['banner_name']}}">
+                        </a>
+                    </div>
+                @endif
+            @endforeach
+        @endif
         @if($news)
         <div class="cr make-right mt-30">
             <div class="box-right clearfix">

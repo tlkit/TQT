@@ -36,6 +36,14 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="form-group col-sm-6">
+                    <label for="banner_type"><i>Loại banner</i></label>
+                    <select name="banner_type" id="banner_type" class="form-control input-sm">
+                        <option value="1" @if(isset($param['banner_type']) && $param['banner_type'] == 1) selected @endif>Banner to</option>
+                        <option value="2" @if(isset($param['banner_type']) && $param['banner_type'] == 2) selected @endif>Banner nhỏ</option>
+                    </select>
+                </div>
+                <div class="clearfix"></div>
+                <div class="form-group col-sm-6">
                     <label>Ảnh (Size <= 2mb. Ảnh : png,jpg,jpeg. Kích thước 1170px * 367px)</label>
                     <div class="clearfix"></div>
                     <label class="ace-file-input">

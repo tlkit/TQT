@@ -100,7 +100,16 @@
                             <b class="red">{{number_format($sub_total, 0, '.', '.');}}</b>
                         </td>
                     </tr>
-
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <b>GTGT</b>
+                        </td>
+                        <td colspan="5" class="text-right">
+                            <b class="red">{{number_format($data['order_vat'],0,'.','.')}}</b>
+                        </td>
+                    </tr>
                     <tr>
                         <td></td>
                         <td></td>
@@ -108,7 +117,7 @@
                             <b>Tổng tiền thanh toán</b>
                         </td>
                         <td colspan="5" class="text-right">
-                            <?php $total = $sub_total ;?>
+                            <?php $total = $sub_total + $data['order_vat'] ;?>
                             <b class="red">{{number_format($total, 0, '.', '.');}}</b>
                         </td>
                     </tr>
